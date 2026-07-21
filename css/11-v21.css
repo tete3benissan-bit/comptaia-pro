@@ -1,0 +1,57 @@
+/* v21: global search bar + invoice import styles - extracted from ComptaIA_Pro_original.html lines 10319-10376 */
+/* ═══ 1. BARRE DE RECHERCHE GLOBALE ═══ */
+#gs-wrap{position:relative;flex:1;max-width:380px;min-width:140px}
+#gs-input{width:100%;padding:8px 12px 8px 32px;border:2px solid var(--border-strong);border-radius:var(--radius);font-size:12.5px;background:var(--bg)}
+#gs-wrap::before{content:'🔍';position:absolute;left:9px;top:50%;transform:translateY(-50%);font-size:13px;opacity:.7;pointer-events:none;z-index:1}
+#gs-drop{position:absolute;top:calc(100% + 6px);left:0;right:0;min-width:min(430px,92vw);background:var(--surface);border:2px solid var(--main);border-radius:var(--radius);box-shadow:var(--shadow-lg);max-height:min(440px,62vh);overflow-y:auto;z-index:1200;display:none;padding:6px}
+#gs-drop.ouvert{display:block}
+.gs-sect{font-size:9.5px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--text-faint);padding:8px 10px 4px}
+.gs-item{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:var(--radius);cursor:pointer;font-size:12.5px}
+.gs-item:hover,.gs-item.gs-sel{background:var(--green-light)}
+.gs-item .gs-ic{width:20px;text-align:center;flex-shrink:0}
+.gs-item .gs-sub{margin-left:auto;font-size:10.5px;color:var(--text-faint);white-space:nowrap;padding-left:8px}
+.gs-num{font-family:'Archivo',sans-serif;font-weight:700;color:var(--green-dark);background:var(--green-light);padding:1px 6px;border-radius:var(--radius);font-size:11px}
+.gs-vide{padding:14px;text-align:center;color:var(--text-faint);font-style:italic;font-size:12px}
+.gs-ligne-surl{outline:2px solid var(--amber)!important;outline-offset:-2px;background:rgba(240,177,48,.12)!important}
+body.fj-sa .gs-item:hover,body.fj-sa .gs-item.gs-sel{background:var(--blue-light)}
+
+/* ═══ 3. CODE COULEUR SA → MENU DE GAUCHE BLEU ═══ */
+body.fj-sa .sidebar{background:#0C1B33}
+body.fj-sa .logo-name span{color:#6db3f5}
+body.fj-sa .ex-badge{background:var(--blue);border-color:rgba(255,255,255,.25)}
+body.fj-sa #spec-nav .spec-entete{color:#8fc2f7;border-bottom-color:rgba(140,190,245,.22)}
+body.fj-sa #spec-nav .nav-item.actif-v19{background:rgba(84,150,220,.22);color:#d7e9ff;box-shadow:inset 3px 0 0 var(--blue)}
+body.fj-sa .nav-badge{background:var(--blue)}
+body.fj-sa .hub-carte:hover{border-color:rgba(120,180,240,.6)}
+body.fj-sa .hub-logo span,body.fj-sa .hub-nb{color:#7db8f0}
+body.fj-sa #hub{background:#0C1B33}
+
+/* ═══ 5. RETIRER LE BOUTON ASSISTANT IA DE LA BARRE DU HAUT ═══ */
+.topbar-right button[onclick*="ouvrirIA"]{display:none!important}
+
+/* ═══ 6. IMPORT DE FACTURE (PDF / PHOTO / CAMÉRA) ═══ */
+#fimp-card{border:2px dashed var(--green);background:var(--green-light)}
+body.fj-sa #fimp-card{border-color:var(--blue)}
+.fimp-titre{font-size:13px;font-weight:700;margin-bottom:3px}
+.fimp-sous{font-size:11px;color:var(--text-muted);margin-bottom:10px}
+.fimp-btns{display:flex;gap:8px;flex-wrap:wrap}
+.fimp-btn{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;min-width:110px;padding:12px 8px;border:2px solid var(--border-strong);border-radius:var(--radius);background:var(--surface);cursor:pointer;font-family:'Archivo',sans-serif;font-size:11.5px;font-weight:700;color:var(--text);transition:all .15s}
+.fimp-btn:hover{border-color:var(--green);background:var(--green-light);transform:translateY(-1px)}
+body.fj-sa .fimp-btn:hover{border-color:var(--blue);background:var(--blue-light)}
+.fimp-btn .fimp-ic{font-size:21px}
+.fimp-btn small{font-weight:400;font-size:9.5px;color:var(--text-muted)}
+#fimp-status{margin-top:10px;font-size:12px;display:none}
+#fimp-resume{margin-top:10px;display:none;background:var(--surface);border:2px solid var(--border);border-radius:var(--radius);padding:10px 12px;font-size:12px}
+
+/* ═══ 4. MOBILE RENFORCÉ ═══ */
+@media (max-width:900px){
+  /* Recherche : pleine largeur sur sa propre ligne */
+  #gs-wrap{order:2;flex:1 1 100%;max-width:none}
+  #gs-input{font-size:16px;padding:10px 12px 10px 34px}
+  #gs-drop{position:fixed;left:8px;right:8px;top:auto;min-width:0}
+  /* Lisibilité tableaux */
+  .table-wrap td,.table-wrap th,.tw-auto td,.tw-auto th{white-space:nowrap;padding:9px 8px;font-size:12px}
+  .card-title{font-size:13.5px}
+  select,input[type=date]{min-height:40px}
+  .fimp-btn{min-width:calc(50% - 4px)}
+}

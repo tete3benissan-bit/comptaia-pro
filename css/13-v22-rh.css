@@ -1,0 +1,24 @@
+/* v22: HR module styles - extracted from ComptaIA_Pro_original.html lines 10972-10996 */
+/* ── RH : composants ── */
+.rh-photo{width:34px;height:34px;object-fit:cover;border-radius:50%;background:var(--border);display:inline-block;vertical-align:middle;font-size:16px;text-align:center;line-height:34px}
+.rh-photo-lg{width:74px;height:74px;border-radius:50%;object-fit:cover;background:var(--border);font-size:32px;text-align:center;line-height:74px}
+.tagr{display:inline-block;padding:2px 8px;font-size:10px;font-weight:700;border-radius:var(--radius);white-space:nowrap}
+.tagr-ok{background:var(--green-light);color:var(--green-dark)}
+.tagr-warn{background:var(--amber-light);color:var(--amber)}
+.tagr-bad{background:var(--red-light);color:var(--red)}
+.tagr-info{background:var(--blue-light);color:var(--blue)}
+.tagr-neutre{background:var(--bg);color:var(--text-muted);border:2px solid var(--border)}
+.pt-btn{padding:6px 10px;border:2px solid var(--border-strong);background:var(--surface);cursor:pointer;font-family:inherit;font-size:11px;font-weight:700;border-radius:var(--radius)}
+.pt-btn.actif-p{background:var(--green);border-color:var(--green);color:#fff}
+.pt-btn.actif-r{background:var(--amber);border-color:var(--amber);color:#fff}
+.pt-btn.actif-a{background:var(--red);border-color:var(--red);color:#fff}
+.rh-bar{height:10px;background:var(--bg);border:2px solid var(--border);border-radius:var(--radius);overflow:hidden;flex:1}
+.rh-bar>div{height:100%;background:var(--accent,var(--green))}
+.rh-ligne{display:flex;align-items:center;gap:10px;font-size:11.5px;margin-bottom:6px}
+.rh-ligne .rh-lbl{width:130px;color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rh-doc-item{display:flex;align-items:center;gap:8px;padding:6px 8px;border:2px solid var(--border);border-radius:var(--radius);margin-bottom:5px;font-size:11.5px;background:var(--bg)}
+#rh-signpad{border:1.5px dashed var(--border-strong);border-radius:var(--radius);background:#fff;touch-action:none;cursor:crosshair}
+.rh-mini-table td,.rh-mini-table th{padding:6px 8px;font-size:11.5px;border-bottom:2px solid var(--border)}
+.rh-action{background:none;border:none;cursor:pointer;font-size:14px;padding:2px 5px}
+.rh-vide{text-align:center;color:var(--text-faint);padding:26px;font-style:italic;font-size:12px}
+@media (max-width:700px){.rh-ligne .rh-lbl{width:96px}}

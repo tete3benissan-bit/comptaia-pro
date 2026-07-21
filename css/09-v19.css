@@ -1,0 +1,78 @@
+/* v19: specialization hub + bottom taskbar styles - extracted from ComptaIA_Pro_original.html lines 9772-9851 */
+/* Restyled: neubrutalist theme, matching css/01-core.css. */
+:root{--tb-h:48px}
+
+/* ── Réserver la place de la barre des tâches ── */
+body{padding-bottom:var(--tb-h);padding-bottom:calc(var(--tb-h) + env(safe-area-inset-bottom))}
+
+/* ── Masquer l'ancien menu (conservé caché pour les compteurs) ── */
+#sidebar-nav{display:none!important}
+
+/* ═══════════ BARRE DES TÂCHES ═══════════ */
+#taskbar{position:fixed;left:0;right:0;bottom:0;height:var(--tb-h);height:calc(var(--tb-h) + env(safe-area-inset-bottom));box-sizing:border-box;z-index:900;display:flex;align-items:stretch;gap:4px;padding:5px 8px;padding:5px 8px calc(5px + env(safe-area-inset-bottom));background:var(--sidebar-bg);border-top:2px solid var(--main);box-shadow:0 -3px 0 var(--main)}
+.tb-btn{display:flex;align-items:center;gap:7px;padding:0 13px;border:2px solid transparent;border-radius:var(--radius);background:transparent;color:#d9d6d3;font-family:'Archivo',sans-serif;font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap;transition:background .12s,border-color .12s}
+.tb-btn:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.25)}
+.tb-btn.tb-actif{background:rgba(var(--accent-rgb),.32);border-color:var(--accent);box-shadow:inset 0 -2px 0 var(--accent)}
+.tb-ic{font-size:16px;line-height:1}
+#tb-start{background:var(--accent);color:#fff;border-color:var(--main)}
+#tb-start:hover{filter:brightness(1.1)}
+.tb-sep{width:2px;background:rgba(255,255,255,.18);margin:4px 3px}
+.tb-spacer{flex:1}
+#tb-spec{display:none}
+.tb-tray{display:flex;align-items:center;gap:2px}
+.tb-tray .tb-btn{padding:0 10px}
+#tb-clock{font-size:12px;font-weight:700;color:#bfe6d6;padding:0 10px;display:flex;align-items:center;letter-spacing:.5px}
+.tb-badge{min-width:16px;height:16px;padding:0 4px;border-radius:var(--radius);background:var(--red);color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;line-height:1;border:1.5px solid var(--main)}
+
+/* ═══════════ MENUS CONTEXTUELS (au-dessus de la barre) ═══════════ */
+.tb-menu{position:fixed;bottom:calc(var(--tb-h) + 10px);bottom:calc(var(--tb-h) + 10px + env(safe-area-inset-bottom));min-width:250px;max-width:92vw;max-height:min(430px,calc(100vh - var(--tb-h) - 30px));overflow-y:auto;background:var(--surface);border:2px solid var(--main);border-radius:var(--radius);box-shadow:var(--shadow-lg);padding:8px;z-index:950;display:none;animation:tbmenu .18s ease}
+@keyframes tbmenu{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.tb-menu.ouvert{display:block}
+.tb-menu-titre{font-size:10.5px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--text-muted);padding:6px 10px 8px}
+.tb-menu-item{display:flex;align-items:center;gap:10px;width:100%;padding:10px 12px;border:none;border-radius:var(--radius);background:transparent;color:var(--text);font-family:'Archivo',sans-serif;font-size:13px;font-weight:700;cursor:pointer;text-align:left;transition:background .1s}
+.tb-menu-item:hover{background:var(--green-light)}
+.tb-menu-item .tb-ic{width:20px;text-align:center}
+
+/* ═══════════ ÉCRAN D'ACCUEIL — SPÉCIALISATIONS ═══════════ */
+#hub{position:fixed;left:0;right:0;top:0;bottom:var(--tb-h);bottom:calc(var(--tb-h) + env(safe-area-inset-bottom));z-index:800;display:none;overflow-y:auto;background:var(--sidebar-bg);-webkit-overflow-scrolling:touch}
+#hub.visible{display:block}
+.hub-int{max-width:980px;margin:0 auto;padding:clamp(24px,6vh,64px) 22px 40px;display:flex;flex-direction:column;min-height:100%}
+.hub-logo{font-family:'Fraunces',serif;font-size:34px;font-weight:800;color:#fff;letter-spacing:-.5px}
+.hub-logo span{color:var(--accent)}
+.hub-societe{color:#bfe6d6;font-size:13.5px;font-weight:700;margin-top:4px}
+.hub-titre{color:#fff;font-size:clamp(18px,3vw,24px);font-weight:800;margin:clamp(20px,5vh,46px) 0 6px;font-family:'Fraunces',serif}
+.hub-sous{color:#9fd3bd;font-size:13px;margin-bottom:22px}
+.hub-cartes{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}
+.hub-carte{position:relative;display:flex;flex-direction:column;gap:10px;padding:24px 20px 20px;background:var(--surface);border:2px solid var(--main);border-radius:var(--radius);cursor:pointer;text-align:left;font-family:'Archivo',sans-serif;color:var(--text);transition:transform .12s,box-shadow .12s;box-shadow:var(--shadow-md);overflow:hidden}
+.hub-carte:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--main)}
+.hub-carte:active{transform:translate(1px,1px);box-shadow:2px 2px 0 var(--main)}
+.hub-ic{width:54px;height:54px;border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:28px;background:var(--accent-light);border:2px solid var(--main)}
+.hub-nom{font-size:17px;font-weight:800;letter-spacing:.4px}
+.hub-desc{font-size:12px;color:var(--text-muted);line-height:1.5;min-height:36px}
+.hub-nb{font-size:11px;font-weight:800;color:var(--green)}
+.hub-fleche{position:absolute;right:16px;top:22px;font-size:18px;color:var(--accent);opacity:0;transform:translateX(-6px);transition:all .18s}
+.hub-carte:hover .hub-fleche{opacity:1;transform:translateX(0)}
+.hub-note{margin-top:auto;padding-top:30px;color:#8fc4ae;font-size:12px;display:flex;align-items:center;gap:8px}
+
+/* ═══════════ MENU LATÉRAL PAR SPÉCIALISATION ═══════════ */
+#spec-nav .spec-entete{display:flex;align-items:center;gap:10px;padding:13px 18px 11px;font-size:13px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--accent);border-bottom:2px solid rgba(255,255,255,.14);margin-bottom:4px}
+#spec-nav .spec-entete .tb-ic{font-size:18px}
+#spec-nav .nav-retour{color:rgba(184,184,184,.8);font-size:12px;font-weight:700}
+#spec-nav .nav-item.actif-v19{background:rgba(var(--accent-rgb),.28);color:#fff;font-weight:700;box-shadow:inset 3px 0 0 var(--accent)}
+
+/* ═══════════ AJUSTEMENTS MOBILE ═══════════ */
+@media (max-width:900px){
+  .sidebar{top:0;bottom:var(--tb-h);bottom:calc(var(--tb-h) + env(safe-area-inset-bottom));height:auto}
+  #nav-backdrop{bottom:var(--tb-h);bottom:calc(var(--tb-h) + env(safe-area-inset-bottom))}
+}
+@media (max-width:700px){
+  .hub-cartes{grid-template-columns:1fr}
+  .hub-desc{min-height:0}
+  .tb-menu{left:8px!important;right:8px;min-width:0}
+}
+@media (max-width:480px){
+  .tb-lbl{display:none}
+  .tb-btn{padding:0 11px}
+  #tb-start .tb-lbl{display:inline}
+  #tb-clock{display:none}
+}

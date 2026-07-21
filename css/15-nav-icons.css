@@ -1,0 +1,9 @@
+/* Sizing for the inline-SVG nav icon set (js/19-nav-icons.js), which replaced
+   the emoji previously used throughout the sidebar/taskbar/hub. Most contexts
+   already had a font-size rule for their old emoji (.tb-ic, .hub-ic,
+   .spec-entete .tb-ic) so a simple 1em sizing picks those up automatically;
+   the couple of bare/untagged contexts get an explicit size below. */
+.uiv-icon{width:1em;height:1em;display:inline-block;vertical-align:-0.15em;flex-shrink:0}
+.nav-item>span:first-child .uiv-icon,
+.acc-header>span:first-child .uiv-icon{width:14px;height:14px;vertical-align:-2px}
+.tb-menu-titre .uiv-icon{width:12px;height:12px;vertical-align:-1px;margin-right:2px}

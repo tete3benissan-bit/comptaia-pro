@@ -1,0 +1,41 @@
+/* Uiverse.io-inspired components, adapted to ComptaIA Pro's token system.
+   Each block below is reworked from its original Tailwind/generic-class
+   Uiverse snippet into plain CSS using the app's own CSS variables, so it
+   stays consistent with the rest of the theme instead of introducing a
+   one-off palette. */
+
+@keyframes uiv-spin{to{transform:rotate(360deg)}}
+
+/* Reusable ambient loading indicator (Assistant IA, PDF export, OCR...) */
+.spinner-orb{
+  display:inline-block;width:16px;height:16px;border-radius:50%;flex-shrink:0;
+  border:2px solid var(--main);border-top-color:var(--accent);
+  animation:uiv-spin 0.7s linear infinite;
+  vertical-align:middle;
+}
+.spinner-orb.lg{width:38px;height:38px}
+
+/* ─── Login / first-run setup card, styled after andrew-demchenk0's flip-card
+   component (border + hard shadow), simplified to a static card: real user
+   accounts are admin-managed, so there is no public "sign up" side to flip
+   to anymore. Fields reuse the app's own .fg/label/input/.btn styles. ─── */
+.uiv-auth-card{width:340px;max-width:92vw;margin:0 auto;padding:26px 24px;background:var(--surface);border:2px solid var(--main);border-radius:var(--radius);box-shadow:var(--shadow-lg);display:flex;flex-direction:column;gap:14px;box-sizing:border-box;text-align:left}
+.uiv-auth-title{font-size:22px;font-weight:800;text-align:center;color:var(--text);letter-spacing:-.3px}
+.uiv-auth-title span{color:var(--accent)}
+.uiv-auth-card .btn{align-self:center;min-width:170px;margin-top:4px}
+.uiv-demo-note{padding:10px;background:var(--bg);border:2px solid var(--main);border-radius:var(--radius);font-size:10.5px;color:var(--text-muted);line-height:1.7}
+
+/* ─── SARL/SA topbar selector textures, by csemszepp (isometric tiles) and
+   kencode7 (gradient wash) — retinted to the app's existing green=SARL /
+   blue=SA color coding, with the flat neubrutalist border+shadow added. ─── */
+#fj-topbar .fj-btn.fj-sarl{
+  background:
+    repeating-conic-gradient(from 30deg,#0000 0 120deg,var(--green-dark) 0 180deg) 9px 5.2px,
+    repeating-conic-gradient(from 30deg,var(--green) 0 60deg,var(--green-mid) 0 120deg,var(--green-dark) 0 180deg);
+  background-size:18px 10.4px;
+  color:#fff;
+}
+#fj-topbar .fj-btn.fj-sa{
+  background:linear-gradient(135deg,var(--blue),var(--purple));
+  color:#fff;
+}

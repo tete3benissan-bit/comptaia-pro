@@ -1,0 +1,7 @@
+/* v12: journal tabs / pagination button styles - extracted from ComptaIA_Pro_original.html lines 4393-4400 */
+.jtab{padding:5px 14px;font-size:11.5px;font-weight:600;border:none;border-radius:var(--radius);cursor:pointer;background:transparent;color:var(--text-muted);font-family:'Archivo',sans-serif;transition:all .15s}
+.jtab.active{background:var(--green);color:#fff}
+.page-btn{padding:4px 10px;font-size:11px;border:2px solid var(--border-strong);border-radius:var(--radius);cursor:pointer;background:var(--surface);color:var(--text);font-family:'Archivo',sans-serif}
+.page-btn.active{background:var(--green);color:#fff;border-color:var(--green)}
+.rappr-matched{background:#eaf1ec}
+.rappr-unmatched{background:#f5efe2}

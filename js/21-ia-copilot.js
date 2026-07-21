@@ -1,0 +1,317 @@
+// ═══ CHAT IA — COPILOTE INTELLIGENT (Phase 1) ═══
+// Moteur central d'analyse : interroge en temps réel les vraies données de
+// l'app (écritures EC/REGL, stock STOCKS, RH) pour construire un contexte
+// FACTUEL, puis (si une clé API est configurée) demande à Claude de le
+// rédiger en langage naturel. Sans clé, une réponse structurée basée sur
+// les mêmes données réelles est affichée à la place — jamais de chiffres
+// inventés dans un cas comme dans l'autre.
+//
+// Couvre en Phase 1 : analyse comptable (§1), détection d'écarts (§2),
+// analyse commerciale (§6), quelques ratios financiers (§7), analyse stock
+// (§8), diagnostic global (§10). Les simulations prévisionnelles chiffrées
+// avec graphiques (§3, §4, §5, §12) et la génération de rapports (§11) ne
+// sont pas encore couvertes — c'est un chantier séparé, plus lourd.
+
+var IA_COPILOT_HIST = [];
+
+/* ── 1. Moteur d'analyse : lit les vraies données, ne calcule rien qui ne soit pas dans EC/REGL/STOCKS/RH ── */
+
+function iaRole(){ return (window.CURRENT_USER && CURRENT_USER.role) || 'lecture'; }
+
+function iaAnalyserBilan(){
+  var actif={}, passif={};
+  var aList=['571','521','4111','4452','4453','4454','4455','3111','6011'];
+  var pList=['7011','7061','401','4431','110','119','1301','1302','12'];
+  (window.EC||[]).concat(window.REGL||[]).forEach(function(e){
+    if(aList.indexOf(e.cptD)>-1)actif[e.cptD]=(actif[e.cptD]||0)+e.debit;
+    if(aList.indexOf(e.cptC)>-1)actif[e.cptC]=(actif[e.cptC]||0)-e.credit;
+    if(pList.indexOf(e.cptC)>-1)passif[e.cptC]=(passif[e.cptC]||0)+e.credit;
+    if(pList.indexOf(e.cptD)>-1)passif[e.cptD]=(passif[e.cptD]||0)-e.debit;
+  });
+  var tA=0,tP=0;
+  Object.keys(actif).forEach(function(k){tA+=Math.abs(actif[k]);});
+  Object.keys(passif).forEach(function(k){tP+=Math.abs(passif[k]);});
+  return {actif:actif,passif:passif,totalActif:tA,totalPassif:tP,ecart:tA-tP,equilibre:Math.abs(tA-tP)<1};
+}
+
+function iaAnalyserCompte(numeroCompte){
+  var tous=(window.EC||[]).concat(window.REGL||[]);
+  var mvts=tous.filter(function(e){return e.cptD===numeroCompte||e.cptC===numeroCompte;});
+  var totalDebit=0,totalCredit=0;
+  mvts.forEach(function(e){ if(e.cptD===numeroCompte)totalDebit+=e.debit||0; if(e.cptC===numeroCompte)totalCredit+=e.credit||0; });
+  return {
+    compte:numeroCompte, nom:(window.NOMS&&NOMS[numeroCompte])||'compte non répertorié',
+    nbMouvements:mvts.length,
+    mouvements:mvts.slice(-15).map(function(e){return {date:e.date,desc:e.desc,cli:e.cli||'',num:e.num,debit:e.cptD===numeroCompte?e.debit:0,credit:e.cptC===numeroCompte?e.credit:0,statut:e.stat};}),
+    totalDebit:totalDebit, totalCredit:totalCredit, solde:totalDebit-totalCredit
+  };
+}
+
+function iaMeilleursClients(){
+  var parClient={};
+  var aujourdhui=new Date().toISOString().slice(0,10);
+  (window.EC||[]).concat(window.REGL||[]).forEach(function(e){
+    if(!e.cli||e.isTVA||e.isAvance)return;
+    if(!(e.type==='vente'||e.type==='service'))return;
+    if(!parClient[e.cli])parClient[e.cli]={ca:0,factures:0,retards:0};
+    parClient[e.cli].ca += (e.ttc||e.credit||0);
+    parClient[e.cli].factures++;
+    if(e.stat==='attente' && e.echeance && e.echeance<aujourdhui) parClient[e.cli].retards++;
+  });
+  var liste=Object.keys(parClient).map(function(c){return Object.assign({client:c},parClient[c]);});
+  liste.sort(function(a,b){return b.ca-a.ca;});
+  return liste;
+}
+
+function iaAnalyseStock(){
+  var STOCKS_=window.STOCKS||{};
+  var noms=Object.keys(STOCKS_);
+  var aujourdhui=new Date();
+  return noms.map(function(nom){
+    var s=STOCKS_[nom];
+    var mvts=s.mvts||[];
+    var totalSorties=mvts.reduce(function(a,m){return a+(m.sortie||0);},0);
+    var derniereSortie=null;
+    for(var i=mvts.length-1;i>=0;i--){ if(mvts[i].sortie>0){derniereSortie=mvts[i].date;break;} }
+    var joursDepuisVente=derniereSortie?Math.round((aujourdhui-new Date(derniereSortie))/86400000):null;
+    return {
+      nom:nom, qteActuelle:s.qteActuelle||0, seuil:s.seuilAlerte||0, unite:s.unite||'',
+      cmup:s.cmup||0, valeurImmobilisee:Math.round((s.qteActuelle||0)*(s.cmup||0)),
+      totalVendu:totalSorties, joursDepuisDerniereVente:joursDepuisVente,
+      enAlerte:s.seuilAlerte>0 && s.qteActuelle<=s.seuilAlerte
+    };
+  });
+}
+
+function iaResultatCourant(){
+  var tPr=0,tCh=0;
+  (window.EC||[]).concat(window.REGL||[]).forEach(function(e){
+    if(e.cptC&&e.cptC[0]==='7'&&!e.isTVA)tPr+=e.credit||0;
+    if(e.cptD&&e.cptD[0]==='6'&&!e.isTVA)tCh+=e.debit||0;
+  });
+  return {produits:tPr,charges:tCh,resultat:tPr-tCh};
+}
+
+function iaEffectifRH(){
+  if(!window.RH||!RH.emp)return null;
+  var actifs=RH.emp.filter(function(e){return e.statut!=='parti';});
+  return {
+    effectifTotal:RH.emp.length, effectifActif:actifs.length,
+    masseSalariale: iaRole()==='admin' ? actifs.reduce(function(s,e){return s+(e.salaire||0);},0) : null
+  };
+}
+
+/* ── 2. Construction du contexte factuel envoyé à l'IA (ou affiché tel quel sans clé) ── */
+
+function iaConstruireContexte(question){
+  var q=(question||'').toLowerCase();
+  var lignes=[];
+  var res=iaResultatCourant();
+  var bilan=iaAnalyserBilan();
+  lignes.push('Exercice : '+(window.EXERCICE?EXERCICE.annee:'—'));
+  lignes.push('Produits (classe 7) : '+fmt(res.produits)+' FCFA | Charges (classe 6) : '+fmt(res.charges)+' FCFA | Résultat : '+fmt(res.resultat)+' FCFA ('+(res.resultat>=0?'bénéfice':'déficit')+')');
+  lignes.push('Bilan — Total Actif : '+fmt(bilan.totalActif)+' FCFA | Total Passif : '+fmt(bilan.totalPassif)+' FCFA | '+(bilan.equilibre?'Équilibré':'Écart de '+fmt(Math.abs(bilan.ecart))+' FCFA'));
+  if(window.SOLDES) lignes.push('Trésorerie — Caisse : '+fmt(SOLDES.caisse)+' FCFA | Banque : '+fmt(SOLDES.banque)+' FCFA');
+  if(window._IS_CALCULE) lignes.push('Impôt sur les sociétés (IS) calculé : '+fmt(_IS_CALCULE.isTotal)+' FCFA (27% du bénéfice imposable net de '+fmt(_IS_CALCULE.benImposableNet)+' FCFA)');
+  if(window.IMMOS && IMMOS.length){
+    var vnc=IMMOS.reduce(function(a,i){return a+(i.vnc||0);},0);
+    lignes.push('Immobilisations : '+IMMOS.length+' bien(s), valeur nette comptable totale : '+fmt(vnc)+' FCFA');
+  }
+  if(window.EC){
+    var att=EC.filter(function(e){return e.stat==='attente'&&!e.isTVA&&!e.isAvance;});
+    if(att.length) lignes.push('Factures en attente de règlement : '+att.length+' pour un total de '+fmt(att.reduce(function(a,e){return a+(e.ttc||0);},0))+' FCFA');
+  }
+
+  var clients=iaMeilleursClients();
+  if(clients.length){
+    lignes.push('Top clients par CA : '+clients.slice(0,5).map(function(c){return c.client+' ('+fmt(c.ca)+' FCFA, '+c.factures+' facture(s)'+(c.retards?', '+c.retards+' en retard':'')+')';}).join(' — '));
+    var enRetard=clients.filter(function(c){return c.retards>0;});
+    if(enRetard.length) lignes.push('Clients avec factures en retard : '+enRetard.map(function(c){return c.client+' ('+c.retards+')';}).join(', '));
+  } else {
+    lignes.push('Aucune donnée de vente client enregistrée pour le moment.');
+  }
+
+  var stock=iaAnalyseStock();
+  if(stock.length){
+    var alertes=stock.filter(function(s){return s.enAlerte;});
+    var valeurTotale=stock.reduce(function(a,s){return a+s.valeurImmobilisee;},0);
+    lignes.push('Stock — '+stock.length+' produit(s), valeur totale immobilisée : '+fmt(valeurTotale)+' FCFA'+(alertes.length?'. En alerte : '+alertes.map(function(s){return s.nom+' ('+s.qteActuelle+' '+s.unite+')';}).join(', '):''));
+    var dormants=stock.filter(function(s){return s.joursDepuisDerniereVente===null||s.joursDepuisDerniereVente>60;});
+    if(dormants.length) lignes.push('Produits sans vente depuis 60+ jours (stock dormant) : '+dormants.map(function(s){return s.nom;}).join(', '));
+  }
+
+  var rh=iaEffectifRH();
+  if(rh){
+    lignes.push('RH — Effectif actif : '+rh.effectifActif+' / '+rh.effectifTotal+' employé(s) au total'+(rh.masseSalariale!=null?' | Masse salariale mensuelle : '+fmt(rh.masseSalariale)+' FCFA':' (masse salariale non visible pour ce rôle)'));
+  }
+
+  // Détection d'un numéro de compte mentionné dans la question -> analyse ciblée
+  var mCompte=q.match(/\b(\d{3,6})\b/);
+  if(mCompte){
+    var det=iaAnalyserCompte(mCompte[1]);
+    if(det.nbMouvements>0){
+      lignes.push('--- Analyse détaillée du compte '+det.compte+' ('+det.nom+') ---');
+      lignes.push('Total débit : '+fmt(det.totalDebit)+' FCFA | Total crédit : '+fmt(det.totalCredit)+' FCFA | Solde : '+fmt(det.solde)+' FCFA');
+      det.mouvements.forEach(function(m){
+        lignes.push('  • '+m.date+' — '+(m.desc||'')+(m.cli?' ('+m.cli+')':'')+' — Débit '+fmt(m.debit)+' / Crédit '+fmt(m.credit)+(m.statut?' — '+m.statut:''));
+      });
+    }
+  }
+
+  return lignes.join('\n');
+}
+
+/* ── 3. Clé API (localStorage, admin uniquement pour la définir) ── */
+
+function iaGetKey(){ try{return localStorage.getItem('comptaia_anthropic_key')||'';}catch(e){return '';} }
+function iaSetKey(k){ try{localStorage.setItem('comptaia_anthropic_key',k);}catch(e){} }
+function iaEffacerKey(){ try{localStorage.removeItem('comptaia_anthropic_key');}catch(e){} renderChatIA(); }
+
+async function iaSauvegarderCle(){
+  var v=(document.getElementById('ia-key-input').value||'').trim();
+  if(!v){alert('Collez une clé API valide (elle commence par "sk-ant-").');return;}
+  iaSetKey(v);
+  renderChatIA();
+}
+
+/* ── 4. Appel du modèle (si clé dispo) + repli structuré (si pas de clé) ── */
+
+async function iaAppelerClaude(question, contexte){
+  var apiKey=iaGetKey();
+  var systemPrompt=
+    "Tu es le copilote IA de ComptaIA Pro, un expert-comptable et conseiller financier expérimenté qui assiste une PME togolaise (normes SYSCOHADA). "+
+    "Réponds UNIQUEMENT à partir des données réelles listées ci-dessous — n'invente JAMAIS un chiffre qui n'y figure pas. "+
+    "Si une information demandée n'est pas dans ces données, dis-le clairement plutôt que d'inventer une réponse. "+
+    "Rédige comme un conseiller humain expérimenté qui parle à son client : explique le contexte, les calculs, les conséquences, et propose des recommandations concrètes. "+
+    "Réponds toujours en français, de façon claire et structurée, jamais par des phrases robotiques ou génériques.\n\n"+
+    "DONNÉES RÉELLES DE L'ENTREPRISE (à la date d'aujourd'hui) :\n"+contexte;
+  // Pushed only on success — the API requires strict user/assistant
+  // alternation, so a failed call must not leave a dangling unanswered
+  // "user" turn that would break the next request.
+  var pending=IA_COPILOT_HIST.concat([{role:'user',content:question}]);
+  var r=await fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',
+    headers:{
+      'Content-Type':'application/json',
+      'x-api-key':apiKey,
+      'anthropic-version':'2023-06-01',
+      'anthropic-dangerous-direct-browser-access':'true'
+    },
+    body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1500,system:systemPrompt,messages:pending})
+  });
+  if(!r.ok){
+    var errTxt='';
+    try{ errTxt=(await r.json()).error.message; }catch(e){}
+    throw new Error(errTxt || ('Erreur HTTP '+r.status));
+  }
+  var d=await r.json();
+  var texte=(d.content && d.content[0] && d.content[0].text) || 'Réponse vide.';
+  IA_COPILOT_HIST.push({role:'user',content:question});
+  IA_COPILOT_HIST.push({role:'assistant',content:texte});
+  return texte;
+}
+
+function iaReponseSansCle(question, contexte){
+  return "Aucune clé API n'est configurée, donc je ne peux pas encore rédiger une explication en langage naturel — voici en revanche les données réelles pertinentes, calculées à l'instant à partir de votre comptabilité :\n\n"+contexte+
+    "\n\n(Configurez une clé API Anthropic dans ce panneau pour obtenir des explications rédigées comme un conseiller, avec recommandations.)";
+}
+
+/* ── 5. Interface : rendu du panneau, envoi des messages ── */
+
+var IA_SUGGESTIONS=[
+  "Pourquoi le bilan est-il déséquilibré ?",
+  "Quelles factures sont en retard de paiement ?",
+  "Qui est notre meilleur client ?",
+  "Quel produit ne se vend plus ?",
+  "Comment va mon entreprise ?",
+  "Analyse ma trésorerie et ma santé financière"
+];
+
+function renderChatIA(){
+  var wrap=document.getElementById('ia-copilot-body');
+  if(!wrap)return;
+  var estAdmin=iaRole()==='admin';
+  var cle=iaGetKey();
+
+  if(!cle){
+    if(!estAdmin){
+      wrap.innerHTML='<div class="ia-key-card"><h3>💬 Chat IA</h3><p>Le Chat IA n\'est pas encore configuré. Demandez à votre administrateur d\'ajouter une clé API Anthropic depuis ce panneau.</p></div>';
+      return;
+    }
+    wrap.innerHTML=
+      '<div class="ia-key-card"><h3>💬 Configurer le Chat IA</h3>'+
+      '<p>Le copilote a besoin d\'une clé API Anthropic pour rédiger ses réponses en langage naturel. Créez-en une sur console.anthropic.com, puis collez-la ici. Elle reste stockée uniquement dans ce navigateur (localStorage) et n\'est jamais envoyée ailleurs qu\'à l\'API Anthropic.</p>'+
+      '<div class="fg"><label>Clé API Anthropic</label><input type="password" id="ia-key-input" placeholder="sk-ant-..."/></div>'+
+      '<button class="btn btn-primary" onclick="iaSauvegarderCle()">Enregistrer la clé</button>'+
+      '</div>';
+    return;
+  }
+
+  wrap.innerHTML=
+    '<div class="ia-chat-wrap">'+
+      '<div class="ia-chat-head"><div class="ia-chat-head-title"><span class="ia-status-dot"></span> Copilote IA — connecté</div>'+
+        (estAdmin?'<button class="btn btn-sm" onclick="iaEffacerKey()">Retirer la clé API</button>':'')+
+      '</div>'+
+      '<div class="ia-suggestions">'+IA_SUGGESTIONS.map(function(s){return '<span class="ia-chip" onclick="iaPoserSuggestion('+JSON.stringify(s).replace(/"/g,'&quot;')+')">'+s+'</span>';}).join('')+'</div>'+
+      '<div class="ia-conv" id="ia-conv"></div>'+
+      '<div class="ia-input-row">'+
+        '<input type="text" id="ia-copilot-input" placeholder="Posez une question sur votre entreprise..." onkeydown="if(event.key===\'Enter\')iaEnvoyerMessage()"/>'+
+        '<button class="btn btn-primary" onclick="iaEnvoyerMessage()">Envoyer</button>'+
+      '</div>'+
+    '</div>';
+  renderIAConv();
+}
+
+var IA_MESSAGES=[]; // {role:'user'|'bot', texte, meta}
+
+function renderIAConv(){
+  var conv=document.getElementById('ia-conv');
+  if(!conv)return;
+  if(!IA_MESSAGES.length){
+    conv.innerHTML='<div style="text-align:center;color:var(--text-faint);font-style:italic;margin:auto">Posez une question sur vos comptes, vos ventes, votre stock ou la santé générale de l\'entreprise.</div>';
+    return;
+  }
+  conv.innerHTML=IA_MESSAGES.map(function(m){
+    return '<div class="ia-msg ia-msg-'+(m.role==='user'?'user':'bot')+'">'+esc(m.texte)+(m.meta?'<div class="ia-msg-meta">'+m.meta+'</div>':'')+'</div>';
+  }).join('');
+  conv.scrollTop=conv.scrollHeight;
+}
+
+function iaPoserSuggestion(q){
+  document.getElementById('ia-copilot-input').value=q;
+  iaEnvoyerMessage();
+}
+
+async function iaEnvoyerMessage(){
+  var input=document.getElementById('ia-copilot-input');
+  var question=(input.value||'').trim();
+  if(!question)return;
+  input.value='';
+  IA_MESSAGES.push({role:'user',texte:question});
+  renderIAConv();
+  IA_MESSAGES.push({role:'bot',texte:'Analyse en cours...',loading:true});
+  renderIAConv();
+
+  var contexte=iaConstruireContexte(question);
+  var cle=iaGetKey();
+  try{
+    var reponse = cle ? await iaAppelerClaude(question, contexte) : iaReponseSansCle(question, contexte);
+    IA_MESSAGES[IA_MESSAGES.length-1]={role:'bot',texte:reponse,meta:cle?'Claude · basé sur vos données réelles':'Sans IA · données réelles'};
+  }catch(err){
+    IA_MESSAGES[IA_MESSAGES.length-1]={role:'bot',texte:'⚠ Erreur lors de l\'appel à l\'API : '+err.message+'\n\nVoici tout de même les données réelles disponibles :\n\n'+contexte,meta:'Erreur API'};
+  }
+  renderIAConv();
+}
+
+/* ── 6. Intégration navigation : bouton taskbar "Chat IA" + pane ── */
+
+(function(){
+  var _goIACopilot=window.go;
+  window.go=function(id,el){
+    if(typeof _goIACopilot==='function')_goIACopilot(id,el);
+    if(id==='chat-ia'){
+      var pt=document.getElementById('page-title'); if(pt)pt.textContent='Chat IA — Copilote intelligent';
+      renderChatIA();
+    }
+  };
+})();

@@ -1,0 +1,13 @@
+/* v18: stock management styles - extracted from ComptaIA_Pro_original.html lines 8879-8892 */
+.stock-kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+.stock-kpi{background:var(--surface);border:2px solid var(--border);border-radius:var(--radius);padding:12px 14px;text-align:center}
+.stock-kpi-label{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);margin-bottom:4px}
+.stock-kpi-val{font-size:20px;font-weight:700;font-family:'Archivo',sans-serif}
+.stock-kpi-sub{font-size:10px;color:var(--text-faint);margin-top:2px}
+.stock-bar-wrap{height:6px;background:var(--bg);border-radius:var(--radius);overflow:hidden;border:2px solid var(--border);margin:4px 0}
+.stock-bar{height:100%;border-radius:var(--radius);transition:width .4s}
+.mvt-entree{color:var(--green);font-weight:600}
+.mvt-sortie{color:var(--red);font-weight:600}
+.alerte-critique{background:var(--red-light);border-left:3px solid var(--red)}
+.alerte-faible{background:var(--amber-light);border-left:3px solid var(--amber)}
+.alerte-ok{background:var(--green-light);border-left:3px solid var(--green)}
