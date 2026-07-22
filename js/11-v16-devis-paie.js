@@ -1,6 +1,6 @@
 // v16: devis multi-lignes rewrite + full payroll (paie) module with Togo IR/CNSS - extracted from ComptaIA_Pro_original.html lines 7245-8144
 // ═══════════════════════════════════════════════════════════
-// ComptaIA v16 — DEVIS MULTI-LIGNES + PAIE RH COMPLET
+// GEST Africa v16 — DEVIS MULTI-LIGNES + PAIE RH COMPLET
 // ═══════════════════════════════════════════════════════════
 
 // ── DATA STORES v16 ────────────────────────────────────────
@@ -891,9 +891,9 @@ function imprimerBulletin(){
 
 // ── INIT v16 ───────────────────────────────────────────────
 (function(){
-  document.title='ComptaIA v16 — OHADA Togo';
+  document.title='GEST Africa v16 — OHADA Togo';
   var footer=document.getElementById('sidebar-footer');
-  if(footer)footer.textContent='ComptaIA v16 — OHADA Togo';
+  if(footer)footer.textContent='GEST Africa v16 — OHADA Togo';
   // Sync EMPLOYES global for dashboard IA count
   if(typeof window !== 'undefined') window.EMPLOYES = EMPLOYES_RH;
 })();

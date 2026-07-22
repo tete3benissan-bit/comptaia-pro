@@ -14,9 +14,10 @@
 
 var UM_SEARCH = '';
 
+// Rôles, libellés et couleurs de badge sont centralisés dans js/22-permissions.js
 function umUsers(){ return getUsers(); }
-function umIsAdmin(){ return !!(window.CURRENT_USER && CURRENT_USER.role === 'admin'); }
-function umLabelRole(r){ return r==='admin'?'Administrateur':r==='comptable'?'Comptable':'Utilisateur (lecture)'; }
+function umIsAdmin(){ return permEstAdmin(); }
+function umLabelRole(r){ return permLabelRole(r); }
 function umNbAdminsActifs(users){ return users.filter(function(x){return x.role==='admin'&&x.active!==false;}).length; }
 
 function renderUtilisateurs(){
@@ -29,6 +30,8 @@ function renderUtilisateurs(){
     return;
   }
   if(formCard) formCard.style.display = '';
+  var roleSelect=document.getElementById('um-role');
+  if(roleSelect && !roleSelect.options.length) roleSelect.innerHTML=permOptionsRoles('exploitant');
   var users = umUsers();
   var q = UM_SEARCH.trim().toLowerCase();
   if(q) users = users.filter(function(u){ return (u.nom||'').toLowerCase().indexOf(q)>=0 || (u.username||'').toLowerCase().indexOf(q)>=0; });
@@ -40,7 +43,7 @@ function renderUtilisateurs(){
     h += '<tr id="um-row-'+esc(u.username)+'">'
       + '<td>'+esc(u.nom||'—')+'</td>'
       + '<td>'+esc(u.username)+'</td>'
-      + '<td><span class="badge '+(u.role==='admin'?'bg-purple':u.role==='comptable'?'bg-blue':'bg-amber')+'">'+umLabelRole(u.role)+'</span></td>'
+      + '<td><span class="badge '+permBadgeClass(u.role)+'">'+umLabelRole(u.role)+'</span></td>'
       + '<td><span class="badge '+(actif?'bg-green':'bg-red')+'">'+(actif?'Actif':'Désactivé')+'</span></td>'
       + '<td style="white-space:nowrap">'
       +   '<button class="btn btn-sm" onclick="umEditerLigne(\''+u.username+'\')">Modifier</button> '
@@ -82,11 +85,7 @@ function umEditerLigne(username){
   if(!u||!row)return;
   row.innerHTML = '<td colspan="5"><div style="display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end;padding:6px 0">'
     + '<div class="fg" style="min-width:160px"><label>Nom complet</label><input type="text" id="um-edit-nom" value="'+esc(u.nom||'')+'"/></div>'
-    + '<div class="fg" style="min-width:150px"><label>Rôle</label><select id="um-edit-role">'
-    +   '<option value="admin"'+(u.role==='admin'?' selected':'')+'>Administrateur</option>'
-    +   '<option value="comptable"'+(u.role==='comptable'?' selected':'')+'>Comptable</option>'
-    +   '<option value="lecture"'+(u.role==='lecture'?' selected':'')+'>Utilisateur (lecture)</option>'
-    + '</select></div>'
+    + '<div class="fg" style="min-width:150px"><label>Rôle</label><select id="um-edit-role">'+permOptionsRoles(u.role)+'</select></div>'
     + '<button class="btn btn-sm btn-primary" onclick="umEnregistrerEdition(\''+username+'\')">Enregistrer</button>'
     + '<button class="btn btn-sm" onclick="renderUtilisateurs()">Annuler</button>'
     + '</div></td>';

@@ -1,6 +1,6 @@
 // Mobile drawer menu + touch/table-scroll JS - extracted from ComptaIA_Pro_original.html lines 9677-9765
 // ═══════════════════════════════════════════════════════════════
-// ComptaIA — JS OPTIMISATION MOBILE
+// GEST Africa — JS OPTIMISATION MOBILE
 // ═══════════════════════════════════════════════════════════════
 (function(){
   'use strict';

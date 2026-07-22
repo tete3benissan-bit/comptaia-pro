@@ -285,7 +285,7 @@ function recalcIRVM() {
     <!-- Export -->
     <div style="display:flex;gap:8px;margin-top:14px;justify-content:flex-end">
       <button class="btn btn-sm" onclick="exporterPlanPDF()">📄 Exporter en PDF</button>
-      <button class="btn btn-sm btn-primary" onclick="integrerDansBudget()">📥 Intégrer dans le budget ComptaIA</button>
+      <button class="btn btn-sm btn-primary" onclick="integrerDansBudget()">📥 Intégrer dans le budget GEST Africa</button>
     </div>
   </div>`;
   content.appendChild(pane);
@@ -679,7 +679,7 @@ function integrerDansBudget() {
   });
   if(typeof renderBudget === 'function') renderBudget();
   if(typeof sauvegarderAuto === 'function') sauvegarderAuto();
-  alert('✓ ' + cnt + ' postes budgétaires intégrés dans le module Budget de ComptaIA.');
+  alert('✓ ' + cnt + ' postes budgétaires intégrés dans le module Budget de GEST Africa.');
 }
 
 function exporterPlanPDF() {
@@ -693,7 +693,7 @@ function exporterPlanPDF() {
   // Header
   doc.setFillColor(13,31,26);doc.rect(0,0,W,28,'F');
   doc.setTextColor(255,255,255);doc.setFontSize(16);doc.setFont('helvetica','bold');
-  doc.text('ComptaIA — Plan d\'affaires IA',M,12);
+  doc.text('GEST Africa — Plan d\'affaires IA',M,12);
   doc.setFontSize(9);doc.setFont('helvetica','normal');
   doc.text(((document.querySelector('.logo-sub')||{}).textContent||'Mon Entreprise') + ' | ' + ((PREV_PLAN_DATA && PREV_PLAN_DATA.kpis ? PREV_PLAN_DATA.kpis.budget_total : 'Budget N/A')), M, 20);
   doc.text('Généré le ' + new Date().toLocaleDateString('fr-FR'), W-M, 25, {align:'right'});
@@ -745,13 +745,13 @@ function exporterPlanPDF() {
     doc.text(doc.splitTextToSize(PREV_PLAN_DATA.conseil_expert,W-2*M),M,y);
   }
 
-  doc.save('Plan_Affaires_ComptaIA_' + new Date().toISOString().split('T')[0] + '.pdf');
+  doc.save('Plan_Affaires_GestAfrica_' + new Date().toISOString().split('T')[0] + '.pdf');
 }
 
 // Patch go() for new panes
 // _go11 neutralized — unified go() v12 handles all navigation
 
 // Final version badge
-document.title = 'ComptaIA v12 — OHADA Togo';
-document.querySelector('.sidebar-footer').textContent = 'ComptaIA v12 — OHADA Togo';
+document.title = 'GEST Africa v12 — OHADA Togo';
+document.querySelector('.sidebar-footer').textContent = 'GEST Africa v12 — OHADA Togo';
 applyFormeJuridique();

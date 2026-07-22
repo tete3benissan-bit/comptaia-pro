@@ -1,6 +1,6 @@
 // v17: official TFT (SYSCOHADA), liasse fiscale DGI, notes annexes - extracted from ComptaIA_Pro_original.html lines 8262-8867
 // ═══════════════════════════════════════════════════════════════
-// ComptaIA v17 — TFT OFFICIEL + LIASSE FISCALE + ANNEXES
+// GEST Africa v17 — TFT OFFICIEL + LIASSE FISCALE + ANNEXES
 // ═══════════════════════════════════════════════════════════════
 
 // ── DONNÉES PERSISTANTES ANNEXES ───────────────────────────────
@@ -600,6 +600,6 @@ function exporterAnnexesPDF(){
 
 // ── INIT v17 ────────────────────────────────────────────────
 (function(){
-  document.title='ComptaIA v17 — OHADA Togo';
-  var f=document.getElementById('sidebar-footer');if(f)f.textContent='ComptaIA v17 — OHADA Togo';
+  document.title='GEST Africa v17 — OHADA Togo';
+  var f=document.getElementById('sidebar-footer');if(f)f.textContent='GEST Africa v17 — OHADA Togo';
 })();

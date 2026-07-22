@@ -75,7 +75,7 @@ function chargerLocalStorage(){
 
 function exporterJSON(){
   var blob=new Blob([JSON.stringify({EC,REGL,NOTIFS,VIREMENTS,TIERS,STOCKS,GL_EXTRA,SOLDES,EXERCICE,EXERCICES_ARCHIVES,LETTRAGE,NOMS},null,2)],{type:'application/json'});
-  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='ComptaIA_'+EXERCICE.annee+'_'+new Date().toISOString().split('T')[0]+'.json';a.click();
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='GestAfrica_'+EXERCICE.annee+'_'+new Date().toISOString().split('T')[0]+'.json';a.click();
   ajouterNotif('save','Sauvegarde exportée','Fichier JSON téléchargé : '+a.download);
 }
 function importerJSON(){nb('import-file').click();}

@@ -1,6 +1,6 @@
 // v19: Admin/Comptable/Fiscalite/RH specialization hub + taskbar navigation - extracted from ComptaIA_Pro_original.html lines 9852-10188
 // ═══════════════════════════════════════════════════════════════
-// ComptaIA v19 — LOGIQUE SPÉCIALISATIONS + BARRE DES TÂCHES
+// GEST Africa v19 — LOGIQUE SPÉCIALISATIONS + BARRE DES TÂCHES
 // ═══════════════════════════════════════════════════════════════
 (function(){
 'use strict';
@@ -23,7 +23,7 @@ var ITEMS_IA=[
   {id:'benchmarks',ic:ico('dashboard'),lb:'Benchmarks'}
 ];
 var SPECS={
-  admin:{ic:ico('home'),nom:'Administrateur',desc:'Pilotage global : ventes, clients, stock, production et entreprise.',
+  exploitant:{ic:ico('home'),nom:'Exploitant',desc:'Opérations quotidiennes : ventes, clients, stock, production et entreprise.',
     items:[
       {id:'dashboard',ic:ico('dashboard'),lb:'Tableau de bord'},
       {grp:'ventes',ic:ico('cart'),lb:'Ventes',items:[
@@ -43,8 +43,7 @@ var SPECS={
         {id:'stock-rapport',ic:ico('dashboard'),lb:'Rapport de stock'}
       ]},
       {id:'production',ic:ico('factory'),lb:'Production'},
-      {id:'profil',ic:ico('building'),lb:'Entreprise'},
-      {id:'utilisateurs',ic:ico('shield'),lb:'Gestion des utilisateurs',adminOnly:true}
+      {id:'profil',ic:ico('building'),lb:'Entreprise'}
     ]},
   compta:{ic:ico('book'),nom:'Comptable',desc:'Journal, grand livre, balance, bilan, résultat et travaux de clôture.',
     items:[
@@ -89,12 +88,15 @@ var SPECS={
   treso:{ic:ico('wallet'),nom:'Trésorier',desc:'Soldes, banques et suivi.',items:ITEMS_TRESO},
   ia:{ic:ico('bot'),nom:'IA',desc:'Outils intelligents.',items:ITEMS_IA}
 };
-var ORDRE_HUB=['admin','compta','fisc','rh'];
+var ORDRE_HUB=['exploitant','compta','fisc','rh'];
 var SPEC_ACTUELLE=null;
 
-/* Panneau → spécialisation propriétaire (priorité aux espaces dédiés) */
+/* Panneau → spécialisation propriétaire (priorité aux espaces dédiés). Liste
+   complète et non filtrée par rôle — c'est construireHub() qui filtre les
+   cartes visibles ; cette table doit rester complète pour que le contrôle
+   d'accès (js/22-permissions.js) sache toujours à quel hub appartient un id. */
 var PANE2SPEC={};
-['compta','fisc','rh','treso','ia','admin'].forEach(function(k){
+['compta','fisc','rh','treso','ia','exploitant'].forEach(function(k){
   (SPECS[k].items||[]).forEach(function(it){
     if(it.grp){it.items.forEach(function(s){if(s.id&&!(s.id in PANE2SPEC))PANE2SPEC[s.id]=k;});}
     else if(it.id&&!(it.id in PANE2SPEC))PANE2SPEC[it.id]=k;
@@ -160,7 +162,7 @@ window.go=function(id,el){
   cacherHub();
   if(SPEC_ACTUELLE===null||(!(PANE2SPEC[id]===SPEC_ACTUELLE)&&!navContient(id))){
     if(PANE2SPEC[id])construireNav(PANE2SPEC[id]);
-    else if(SPEC_ACTUELLE===null)construireNav('admin');
+    else if(SPEC_ACTUELLE===null)construireNav(window.permPremierHubAutorise?permPremierHubAutorise():'exploitant');
   }
   if(typeof _go==='function')_go(id,el);
   surligner(id);
@@ -178,7 +180,7 @@ function construireHub(){
   hub.id='hub';
   var cartes=ORDRE_HUB.map(function(k){
     var s=SPECS[k];
-    return '<button class="hub-carte" onclick="choisirSpec(\''+k+'\')">'+
+    return '<button class="hub-carte" data-hub="'+k+'" onclick="choisirSpec(\''+k+'\')">'+
       '<span class="hub-fleche">'+ico('chevronRight')+'</span>'+
       '<div class="hub-ic">'+s.ic+'</div>'+
       '<div class="hub-nom">'+s.nom.toUpperCase()+'</div>'+
@@ -187,7 +189,7 @@ function construireHub(){
     '</button>';
   }).join('');
   hub.innerHTML='<div class="hub-int">'+
-    '<div><div class="hub-logo">Compta<span>IA</span></div><div class="hub-societe" id="hub-societe">Mon Entreprise SARL — <span id="hub-ex">Ex. 2026</span></div></div>'+
+    '<div><div class="hub-logo">GEST<span> Africa</span></div><div class="hub-societe" id="hub-societe">Mon Entreprise SARL — <span id="hub-ex">Ex. 2026</span></div></div>'+
     '<div class="hub-titre">Choisissez votre espace de travail</div>'+
     '<div class="hub-sous">Chaque spécialisation regroupe ses modules dans le menu latéral.</div>'+
     '<div class="hub-cartes">'+cartes+'</div>'+
@@ -231,6 +233,7 @@ function construireTaskbar(){
     '<button class="tb-btn" id="tb-ia" onclick="basculerMenuTB(event,\'menu-tb-ia\')"><span class="tb-ic">'+ico('bot')+'</span><span class="tb-lbl">IA</span></button>'+
     '<button class="tb-btn" id="tb-treso" onclick="basculerMenuTB(event,\'menu-tb-treso\')"><span class="tb-ic">'+ico('wallet')+'</span><span class="tb-lbl">Trésorerie</span></button>'+
     '<button class="tb-btn" id="tb-chat-ia" onclick="go(\'chat-ia\',this)" title="Chat IA — Copilote intelligent"><span class="tb-ic">'+ico('chat')+'</span><span class="tb-lbl">Chat IA</span></button>'+
+    '<button class="tb-btn" id="tb-utilisateurs" onclick="go(\'utilisateurs\',this)" title="Gestion des utilisateurs" style="display:none"><span class="tb-ic">'+ico('shield')+'</span><span class="tb-lbl">Utilisateurs</span></button>'+
     '<div class="tb-spacer"></div>'+
     '<div class="tb-tray">'+
       '<button class="tb-btn" onclick="go(\'notifs\')" title="Alertes"><span class="tb-ic">'+ico('bell')+'</span><span class="tb-badge" data-mirror="nb-notifs" style="display:none">0</span></button>'+
@@ -310,7 +313,7 @@ setInterval(majBadges,1500);
 function marqueV19(){
   try{
     document.title=document.title.replace(/v1[0-9]/,'v19');
-    if(document.title.indexOf('v19')===-1)document.title='ComptaIA v19 — OHADA Togo';
+    if(document.title.indexOf('v19')===-1)document.title='GEST Africa v19 — OHADA Togo';
     var f=document.getElementById('sidebar-footer');
     if(f)f.textContent=f.textContent.replace(/v1[0-9]/,'v19');
   }catch(e){}
@@ -336,4 +339,8 @@ window.onAuthSuccess=function(){
   SPEC_ACTUELLE=null;
   window.montrerHub();
 };
+
+// Exposé pour js/22-permissions.js (contrôle d'accès par rôle)
+window.PANE2SPEC=PANE2SPEC;
+window.SPECS=SPECS;
 })();

@@ -1,6 +1,6 @@
 // v15: accordion sidebar groups - extracted from ComptaIA_Pro_original.html lines 7091-7172
 // ══════════════════════════════════════════════
-// ComptaIA v15 — ACCORDÉON SIDEBAR
+// GEST Africa v15 — ACCORDÉON SIDEBAR
 // ══════════════════════════════════════════════
 
 // Groupes et quel page → quel groupe
@@ -69,8 +69,8 @@ function closeGrp(grp) {
 // Mettre à jour footer et titre
 (function(){
   var f = document.getElementById('sidebar-footer');
-  if(f) f.textContent = 'ComptaIA v15 — OHADA Togo';
-  document.title = 'ComptaIA v15 — OHADA Togo';
+  if(f) f.textContent = 'GEST Africa v15 — OHADA Togo';
+  document.title = 'GEST Africa v15 — OHADA Togo';
   // Supprimer les doublons de lettrage qui peuvent exister dans le DOM
   var lettrageItems = document.querySelectorAll('#body-compta .nav-item');
   var seen = {};

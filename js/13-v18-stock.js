@@ -1,6 +1,6 @@
 // v18: full stock management (entrees/sorties/alertes/rapport, CMUP/FIFO) - extracted from ComptaIA_Pro_original.html lines 8894-9584
 // ═══════════════════════════════════════════════════════════════
-// ComptaIA v18 — GESTION DE STOCK COMPLÈTE
+// GEST Africa v18 — GESTION DE STOCK COMPLÈTE
 // ═══════════════════════════════════════════════════════════════
 
 // ── DONNÉES STOCK ENRICHIES ────────────────────────────────────
@@ -668,15 +668,15 @@ function exporterStockCSV(){
     var sorties=s.mvts.reduce(function(a,m){return a+(m.sortie||0);},0);
     csv+=nom+';'+s.unite+';'+(s.methode||'cmup').toUpperCase()+';'+(s.qteInit||0)+';'+entrees+';'+sorties+';'+s.qteActuelle+';'+(s.cmup||0)+';'+Math.round(s.qteActuelle*(s.cmup||0))+';'+(s.seuilAlerte||0)+'\n';
   });
-  var a=document.createElement('a');a.href='data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent(csv);a.download='Stock_ComptaIA_'+new Date().toISOString().split('T')[0]+'.csv';a.click();
+  var a=document.createElement('a');a.href='data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent(csv);a.download='Stock_GestAfrica_'+new Date().toISOString().split('T')[0]+'.csv';a.click();
 }
 
 // ── INIT v18 ────────────────────────────────────────────────
 (function(){
-  document.title='ComptaIA v18 — OHADA Togo';
-  var f=document.getElementById('sidebar-footer');if(f)f.textContent='ComptaIA v18 — OHADA Togo';
+  document.title='GEST Africa v18 — OHADA Togo';
+  var f=document.getElementById('sidebar-footer');if(f)f.textContent='GEST Africa v18 — OHADA Togo';
   // Update all old footer references
-  ['ComptaIA v12 — OHADA Togo','ComptaIA v15 — OHADA Togo','ComptaIA v16 — OHADA Togo','ComptaIA v17 — OHADA Togo'].forEach(function(old){
+  ['GEST Africa v12 — OHADA Togo','GEST Africa v15 — OHADA Togo','GEST Africa v16 — OHADA Togo','GEST Africa v17 — OHADA Togo'].forEach(function(old){
     var scripts=document.querySelectorAll('script');
     // Footer is already patched by id - just ensure current is set
   });

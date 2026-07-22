@@ -1,6 +1,6 @@
 // v14: emprunts, mobile money, compta analytique, piste audit, simulateur fiscal, multi-lignes facture, production, caisse/PDV - extracted from ComptaIA_Pro_original.html lines 6392-7063
 // ══════════════════════════════════════════════════════════
-// ComptaIA v14 — JAVASCRIPT COMPLET
+// GEST Africa v14 — JAVASCRIPT COMPLET
 // ══════════════════════════════════════════════════════════
 
 // ── DATA STORES v14 ────────────────────────────────────────
@@ -62,7 +62,7 @@ function filtrerAudit(){renderAudit();}
 function exporterAuditCSV(){
   var csv='Date/Heure;Type;N° Écriture;Description;Avant;Après;Utilisateur\n';
   AUDIT_LOG.forEach(function(r){csv+='"'+r.ts+'";"'+r.type+'";"'+r.num+'";"'+r.desc+'";"'+r.avant+'";"'+r.apres+'";"'+r.user+'"\n';});
-  var a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);a.download='Audit_ComptaIA_'+new Date().toISOString().split('T')[0]+'.csv';a.click();
+  var a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);a.download='Audit_GestAfrica_'+new Date().toISOString().split('T')[0]+'.csv';a.click();
 }
 
 // Intercept EC modifications for audit
@@ -633,8 +633,8 @@ function clotureZCaisse(){
 // ── INIT v14 ───────────────────────────────────────────────
 (function(){
   var footer=document.getElementById('sidebar-footer');
-  if(footer)footer.textContent='ComptaIA v14 — OHADA Togo';
-  document.title='ComptaIA v14 — OHADA Togo';
+  if(footer)footer.textContent='GEST Africa v14 — OHADA Togo';
+  document.title='GEST Africa v14 — OHADA Togo';
   // Init multi-lignes
   if(typeof setSecteur==='function')setSecteur('commerce');
   else{ajouterLigneML();ajouterLigneML();}

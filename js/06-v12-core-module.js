@@ -1,6 +1,6 @@
 // v12: auth, journal tabs+pagination, TVA declaration, rapprochement bancaire, dashboard chart, facture PDF, alerts, unified go() - extracted from ComptaIA_Pro_original.html lines 4402-4963
 // ═══════════════════════════════════════════════════════
-// ComptaIA v12 — Module principal
+// GEST Africa v12 — Module principal
 // ═══════════════════════════════════════════════════════
 
 // ── Authentification ──────────────────────────────────
@@ -90,11 +90,12 @@ function onAuthSuccess() {
   var logoSub=document.querySelector('.logo-sub');
   if(logoSub)logoSub.textContent=company;
   var footer=document.getElementById('sidebar-footer');
-  if(footer)footer.textContent='ComptaIA v12 — '+company;
+  if(footer)footer.textContent='GEST Africa v12 — '+company;
   var tu=document.getElementById('topbar-user');
-  var roleLabels={admin:'Admin',comptable:'Comptable',lecture:'Lecture'};
   var displayName=CURRENT_USER.nom||CURRENT_USER.username;
-  if(tu)tu.innerHTML='👤 <strong>'+displayName+'</strong> <span style="font-size:10px;padding:1px 6px;border-radius:var(--radius);font-weight:700;background:'+(CURRENT_USER.role==='admin'?'var(--green-light)':CURRENT_USER.role==='comptable'?'var(--blue-light)':'var(--amber-light)')+';color:'+(CURRENT_USER.role==='admin'?'var(--green-dark)':CURRENT_USER.role==='comptable'?'var(--blue)':'var(--amber)')+'">'+roleLabels[CURRENT_USER.role]+'</span>';
+  var roleLbl=(window.permLabelRole?permLabelRole(CURRENT_USER.role):CURRENT_USER.role);
+  var roleCls=(window.permBadgeClass?permBadgeClass(CURRENT_USER.role):'bg-amber');
+  if(tu)tu.innerHTML='👤 <strong>'+displayName+'</strong> <span class="badge '+roleCls+'">'+roleLbl+'</span>';
   var btnLogout=document.getElementById('btn-logout');
   if(btnLogout)btnLogout.style.display='inline-block';
   // Load data
@@ -102,7 +103,7 @@ function onAuthSuccess() {
   try{syncTiersList();syncProduitSelect();}catch(e){}
   try{renderAll();}catch(e){}
   try{verifierRetards();}catch(e){}
-  document.title='ComptaIA v12 — '+company;
+  document.title='GEST Africa v12 — '+company;
   setTimeout(function(){try{verifierAlertes();}catch(e){}},1500);
 }
 
@@ -276,7 +277,7 @@ function exporterTVAPDF(){
     var W=210,M=14,y=20;
     doc.setFillColor(13,31,26);doc.rect(0,0,W,30,'F');
     doc.setTextColor(255,255,255);doc.setFontSize(16);doc.setFont('helvetica','bold');
-    doc.text('Déclaration TVA — ComptaIA v12',M,14);
+    doc.text('Déclaration TVA — GEST Africa v12',M,14);
     doc.setFontSize(9);doc.setFont('helvetica','normal');
     doc.text('Exercice '+EXERCICE.annee+' | '+(document.querySelector('.logo-sub')||{textContent:''}).textContent,M,22);
     doc.setTextColor(0,0,0);y=42;
@@ -440,7 +441,7 @@ function genererFacturePDF(idx){
     var W=210,M=14;
     doc.setFillColor(13,31,26);doc.rect(0,0,W,38,'F');
     doc.setTextColor(255,255,255);doc.setFontSize(22);doc.setFont('helvetica','bold');
-    doc.text('ComptaIA',M,15);
+    doc.text('GEST Africa',M,15);
     var company=(document.querySelector('.logo-sub')||{textContent:'Mon Entreprise SARL'}).textContent;
     doc.setFontSize(8);doc.setFont('helvetica','normal');doc.setTextColor(168,201,191);
     doc.text(company,M,21);doc.text('OHADA — Togo',M,27);
@@ -480,7 +481,7 @@ function genererFacturePDF(idx){
     doc.setFontSize(7.5);doc.setFont('helvetica','italic');doc.setTextColor(107,114,128);
     doc.text('Mode de paiement : '+(e.pay==='espece'?'Espèces':e.pay==='banque'?'Virement bancaire':'À crédit'),M+3,y+5);
     doc.text('TVA : '+(e.tvaTaux>0?'Assujetti — Compte '+e.tvaCpt:'Exonéré'),M+3,y+10);
-    doc.text('Document généré par ComptaIA v12 — OHADA | '+new Date().toLocaleString('fr-FR'),W/2,y+16,{align:'center'});
+    doc.text('Document généré par GEST Africa v12 — OHADA | '+new Date().toLocaleString('fr-FR'),W/2,y+16,{align:'center'});
     doc.save('Facture_'+e.num+'_'+new Date().toISOString().split('T')[0]+'.pdf');
   }catch(e2){alert('Erreur PDF: '+e2.message);}
 }
@@ -532,8 +533,8 @@ function verifierAlertes(){
 
 // ── Init v12 ─────────────────────────────────────────
 window.addEventListener('load',function(){
-  document.title='ComptaIA v12 — OHADA Togo';
-  var footer=document.getElementById('sidebar-footer');if(footer)footer.textContent='ComptaIA v12 — OHADA Togo';
+  document.title='GEST Africa v12 — OHADA Togo';
+  var footer=document.getElementById('sidebar-footer');if(footer)footer.textContent='GEST Africa v12 — OHADA Togo';
   // Show auth overlay
   var overlay=document.getElementById('auth-overlay');
   if(overlay)overlay.style.display='flex';

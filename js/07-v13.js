@@ -1,6 +1,6 @@
 // v13: profil entreprise, devis, bons de commande/livraison, recurrentes, inventaire, provisions, multi-devises, TFT, calendrier fiscal - extracted from ComptaIA_Pro_original.html lines 5333-6136
 // ════════════════════════════════════════════════════════
-// ComptaIA v13 — JAVASCRIPT COMPLET
+// GEST Africa v13 — JAVASCRIPT COMPLET
 // ════════════════════════════════════════════════════════
 
 // ─── DATA STORES ───────────────────────────────────────
@@ -647,8 +647,8 @@ function exporterTFTPDF(){
   doc.setFontSize(10);doc.setFont('helvetica','bold');doc.text('Tableau des Flux de Trésorerie',M,y);y+=8;
   doc.setFontSize(8.5);doc.setFont('helvetica','normal');
   doc.text('Document conforme SYSCOHADA révisé 2017.',M,y);y+=10;
-  doc.setFont('helvetica','bold');doc.text('Cet état est généré automatiquement depuis les écritures ComptaIA.',M,y);
-  doc.save('TFT_ComptaIA_'+(typeof EXERCICE!=='undefined'?EXERCICE.annee:new Date().getFullYear())+'.pdf');
+  doc.setFont('helvetica','bold');doc.text('Cet état est généré automatiquement depuis les écritures GEST Africa.',M,y);
+  doc.save('TFT_GestAfrica_'+(typeof EXERCICE!=='undefined'?EXERCICE.annee:new Date().getFullYear())+'.pdf');
 }
 
 // ─── CALENDRIER FISCAL TOGO ────────────────────────────
@@ -767,8 +767,8 @@ function renderCalendrier(){
 (function(){
   // Update footer
   var footer=document.getElementById('sidebar-footer');
-  if(footer)footer.textContent='ComptaIA v13 — OHADA Togo';
-  document.title='ComptaIA v13 — OHADA Togo';
+  if(footer)footer.textContent='GEST Africa v13 — OHADA Togo';
+  document.title='GEST Africa v13 — OHADA Togo';
   // Load profil into sidebar name
   if(PROFIL_DATA.nom){
     var sub=document.querySelector('.logo-sub');

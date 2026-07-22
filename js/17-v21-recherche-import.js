@@ -1,6 +1,6 @@
 // v21: global search (tabs/accounts/entries/dates), account autocomplete, PDF/photo invoice import+OCR - extracted from ComptaIA_Pro_original.html lines 10377-10940
 // ═══════════════════════════════════════════════════════════════
-// ComptaIA v21 — LOGIQUE
+// GEST Africa v21 — LOGIQUE
 // ═══════════════════════════════════════════════════════════════
 (function(){
 'use strict';
@@ -518,7 +518,7 @@ function retirerBoutonIATopbar(){
 function marqueV21(){
   try{
     document.title=document.title.replace(/v[12][0-9]/,'v21');
-    if(document.title.indexOf('v21')===-1)document.title='ComptaIA v21 — OHADA Togo';
+    if(document.title.indexOf('v21')===-1)document.title='GEST Africa v21 — OHADA Togo';
     var f=$id('sidebar-footer');
     if(f)f.textContent=f.textContent.replace(/v[12][0-9]/,'v21');
   }catch(e){}

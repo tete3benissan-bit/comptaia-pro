@@ -413,6 +413,6 @@ function renderBenchmarks(){
 // ─────────────────────────────────────
 // FINAL — Mise à jour footer et titre
 // ─────────────────────────────────────
-document.title='ComptaIA v12 — OHADA Togo';
-document.querySelector('.sidebar-footer').textContent='ComptaIA v12 — OHADA Togo';
+document.title='GEST Africa v12 — OHADA Togo';
+document.querySelector('.sidebar-footer').textContent='GEST Africa v12 — OHADA Togo';
 document.querySelector('.logo-sub').textContent='Mon Entreprise SARL';

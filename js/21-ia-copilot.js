@@ -161,51 +161,85 @@ function iaConstruireContexte(question){
   return lignes.join('\n');
 }
 
-/* ── 3. Clé API (localStorage, admin uniquement pour la définir) ── */
+/* ── 3. Fournisseur + clé API (localStorage, admin uniquement pour les définir) ── */
+// Deux fournisseurs supportés : Groq (palier gratuit, format compatible
+// OpenAI) et Anthropic Claude (payant, format Messages API). Le choix et la
+// clé sont propres à ce navigateur, jamais envoyés ailleurs qu'au fournisseur choisi.
 
-function iaGetKey(){ try{return localStorage.getItem('comptaia_anthropic_key')||'';}catch(e){return '';} }
-function iaSetKey(k){ try{localStorage.setItem('comptaia_anthropic_key',k);}catch(e){} }
-function iaEffacerKey(){ try{localStorage.removeItem('comptaia_anthropic_key');}catch(e){} renderChatIA(); }
+var IA_PROVIDERS={
+  groq:{label:'Groq (gratuit)',model:'llama-3.3-70b-versatile',placeholder:'gsk_...',aide:'Créez une clé gratuite sur console.groq.com (inscription par e-mail, aucune carte bancaire).'},
+  anthropic:{label:'Anthropic Claude (payant)',model:'claude-sonnet-4-20250514',placeholder:'sk-ant-...',aide:'Créez une clé sur console.anthropic.com (nécessite un moyen de paiement).'}
+};
+
+function iaGetProvider(){ try{return localStorage.getItem('comptaia_ia_provider')||'groq';}catch(e){return 'groq';} }
+function iaSetProvider(p){ try{localStorage.setItem('comptaia_ia_provider',p);}catch(e){} }
+function iaGetKey(){ try{return localStorage.getItem('comptaia_ia_key')||'';}catch(e){return '';} }
+function iaSetKey(k){ try{localStorage.setItem('comptaia_ia_key',k);}catch(e){} }
+function iaEffacerKey(){ try{localStorage.removeItem('comptaia_ia_key');}catch(e){} renderChatIA(); }
+
+function iaChoisirProvider(p){ iaSetProvider(p); renderChatIA(); }
 
 async function iaSauvegarderCle(){
   var v=(document.getElementById('ia-key-input').value||'').trim();
-  if(!v){alert('Collez une clé API valide (elle commence par "sk-ant-").');return;}
+  if(!v){alert('Collez une clé API valide.');return;}
   iaSetKey(v);
   renderChatIA();
 }
 
 /* ── 4. Appel du modèle (si clé dispo) + repli structuré (si pas de clé) ── */
 
-async function iaAppelerClaude(question, contexte){
-  var apiKey=iaGetKey();
-  var systemPrompt=
-    "Tu es le copilote IA de ComptaIA Pro, un expert-comptable et conseiller financier expérimenté qui assiste une PME togolaise (normes SYSCOHADA). "+
+function iaSystemPrompt(contexte){
+  return "Tu es le copilote IA de GEST Africa, un expert-comptable et conseiller financier expérimenté qui assiste une PME togolaise (normes SYSCOHADA). "+
     "Réponds UNIQUEMENT à partir des données réelles listées ci-dessous — n'invente JAMAIS un chiffre qui n'y figure pas. "+
     "Si une information demandée n'est pas dans ces données, dis-le clairement plutôt que d'inventer une réponse. "+
     "Rédige comme un conseiller humain expérimenté qui parle à son client : explique le contexte, les calculs, les conséquences, et propose des recommandations concrètes. "+
     "Réponds toujours en français, de façon claire et structurée, jamais par des phrases robotiques ou génériques.\n\n"+
     "DONNÉES RÉELLES DE L'ENTREPRISE (à la date d'aujourd'hui) :\n"+contexte;
-  // Pushed only on success — the API requires strict user/assistant
+}
+
+async function iaAppelerIA(question, contexte){
+  var provider=iaGetProvider();
+  var apiKey=iaGetKey();
+  var systemPrompt=iaSystemPrompt(contexte);
+  // Pushed to history only on success — both APIs require strict user/assistant
   // alternation, so a failed call must not leave a dangling unanswered
   // "user" turn that would break the next request.
   var pending=IA_COPILOT_HIST.concat([{role:'user',content:question}]);
-  var r=await fetch('https://api.anthropic.com/v1/messages',{
-    method:'POST',
-    headers:{
-      'Content-Type':'application/json',
-      'x-api-key':apiKey,
-      'anthropic-version':'2023-06-01',
-      'anthropic-dangerous-direct-browser-access':'true'
-    },
-    body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1500,system:systemPrompt,messages:pending})
-  });
-  if(!r.ok){
-    var errTxt='';
-    try{ errTxt=(await r.json()).error.message; }catch(e){}
-    throw new Error(errTxt || ('Erreur HTTP '+r.status));
+  var texte;
+
+  if(provider==='groq'){
+    var r=await fetch('https://api.groq.com/openai/v1/chat/completions',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+apiKey},
+      body:JSON.stringify({model:IA_PROVIDERS.groq.model,max_tokens:1500,messages:[{role:'system',content:systemPrompt}].concat(pending)})
+    });
+    if(!r.ok){
+      var errTxtG='';
+      try{ errTxtG=(await r.json()).error.message; }catch(e){}
+      throw new Error(errTxtG || ('Erreur HTTP '+r.status));
+    }
+    var dG=await r.json();
+    texte=(dG.choices && dG.choices[0] && dG.choices[0].message && dG.choices[0].message.content) || 'Réponse vide.';
+  } else {
+    var r2=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'x-api-key':apiKey,
+        'anthropic-version':'2023-06-01',
+        'anthropic-dangerous-direct-browser-access':'true'
+      },
+      body:JSON.stringify({model:IA_PROVIDERS.anthropic.model,max_tokens:1500,system:systemPrompt,messages:pending})
+    });
+    if(!r2.ok){
+      var errTxtA='';
+      try{ errTxtA=(await r2.json()).error.message; }catch(e){}
+      throw new Error(errTxtA || ('Erreur HTTP '+r2.status));
+    }
+    var dA=await r2.json();
+    texte=(dA.content && dA.content[0] && dA.content[0].text) || 'Réponse vide.';
   }
-  var d=await r.json();
-  var texte=(d.content && d.content[0] && d.content[0].text) || 'Réponse vide.';
+
   IA_COPILOT_HIST.push({role:'user',content:question});
   IA_COPILOT_HIST.push({role:'assistant',content:texte});
   return texte;
@@ -213,7 +247,7 @@ async function iaAppelerClaude(question, contexte){
 
 function iaReponseSansCle(question, contexte){
   return "Aucune clé API n'est configurée, donc je ne peux pas encore rédiger une explication en langage naturel — voici en revanche les données réelles pertinentes, calculées à l'instant à partir de votre comptabilité :\n\n"+contexte+
-    "\n\n(Configurez une clé API Anthropic dans ce panneau pour obtenir des explications rédigées comme un conseiller, avec recommandations.)";
+    "\n\n(Configurez une clé API — Groq gratuit ou Anthropic Claude — dans ce panneau pour obtenir des explications rédigées comme un conseiller, avec recommandations.)";
 }
 
 /* ── 5. Interface : rendu du panneau, envoi des messages ── */
@@ -232,16 +266,24 @@ function renderChatIA(){
   if(!wrap)return;
   var estAdmin=iaRole()==='admin';
   var cle=iaGetKey();
+  var provider=iaGetProvider();
+  var def=IA_PROVIDERS[provider];
 
   if(!cle){
     if(!estAdmin){
-      wrap.innerHTML='<div class="ia-key-card"><h3>💬 Chat IA</h3><p>Le Chat IA n\'est pas encore configuré. Demandez à votre administrateur d\'ajouter une clé API Anthropic depuis ce panneau.</p></div>';
+      wrap.innerHTML='<div class="ia-key-card"><h3>💬 Chat IA</h3><p>Le Chat IA n\'est pas encore configuré. Demandez à votre administrateur d\'ajouter une clé API depuis ce panneau.</p></div>';
       return;
     }
     wrap.innerHTML=
       '<div class="ia-key-card"><h3>💬 Configurer le Chat IA</h3>'+
-      '<p>Le copilote a besoin d\'une clé API Anthropic pour rédiger ses réponses en langage naturel. Créez-en une sur console.anthropic.com, puis collez-la ici. Elle reste stockée uniquement dans ce navigateur (localStorage) et n\'est jamais envoyée ailleurs qu\'à l\'API Anthropic.</p>'+
-      '<div class="fg"><label>Clé API Anthropic</label><input type="password" id="ia-key-input" placeholder="sk-ant-..."/></div>'+
+      '<p>Le copilote a besoin d\'une clé API pour rédiger ses réponses en langage naturel. Choisissez un fournisseur, créez-y une clé, puis collez-la ici. Elle reste stockée uniquement dans ce navigateur (localStorage) et n\'est jamais envoyée ailleurs qu\'au fournisseur choisi.</p>'+
+      '<div class="fg"><label>Fournisseur</label><div style="display:flex;gap:8px;margin-top:2px">'+
+        Object.keys(IA_PROVIDERS).map(function(p){
+          return '<button type="button" class="btn btn-sm'+(p===provider?' btn-primary':'')+'" onclick="iaChoisirProvider(\''+p+'\')">'+IA_PROVIDERS[p].label+'</button>';
+        }).join('')+
+      '</div></div>'+
+      '<p style="font-size:11px">'+def.aide+'</p>'+
+      '<div class="fg"><label>Clé API '+def.label+'</label><input type="password" id="ia-key-input" placeholder="'+def.placeholder+'"/></div>'+
       '<button class="btn btn-primary" onclick="iaSauvegarderCle()">Enregistrer la clé</button>'+
       '</div>';
     return;
@@ -249,7 +291,7 @@ function renderChatIA(){
 
   wrap.innerHTML=
     '<div class="ia-chat-wrap">'+
-      '<div class="ia-chat-head"><div class="ia-chat-head-title"><span class="ia-status-dot"></span> Copilote IA — connecté</div>'+
+      '<div class="ia-chat-head"><div class="ia-chat-head-title"><span class="ia-status-dot"></span> Copilote IA — connecté ('+def.label+')</div>'+
         (estAdmin?'<button class="btn btn-sm" onclick="iaEffacerKey()">Retirer la clé API</button>':'')+
       '</div>'+
       '<div class="ia-suggestions">'+IA_SUGGESTIONS.map(function(s){return '<span class="ia-chip" onclick="iaPoserSuggestion('+JSON.stringify(s).replace(/"/g,'&quot;')+')">'+s+'</span>';}).join('')+'</div>'+
@@ -295,8 +337,8 @@ async function iaEnvoyerMessage(){
   var contexte=iaConstruireContexte(question);
   var cle=iaGetKey();
   try{
-    var reponse = cle ? await iaAppelerClaude(question, contexte) : iaReponseSansCle(question, contexte);
-    IA_MESSAGES[IA_MESSAGES.length-1]={role:'bot',texte:reponse,meta:cle?'Claude · basé sur vos données réelles':'Sans IA · données réelles'};
+    var reponse = cle ? await iaAppelerIA(question, contexte) : iaReponseSansCle(question, contexte);
+    IA_MESSAGES[IA_MESSAGES.length-1]={role:'bot',texte:reponse,meta:cle?(IA_PROVIDERS[iaGetProvider()].label+' · basé sur vos données réelles'):'Sans IA · données réelles'};
   }catch(err){
     IA_MESSAGES[IA_MESSAGES.length-1]={role:'bot',texte:'⚠ Erreur lors de l\'appel à l\'API : '+err.message+'\n\nVoici tout de même les données réelles disponibles :\n\n'+contexte,meta:'Erreur API'};
   }

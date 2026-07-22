@@ -1,6 +1,6 @@
 // v20: notification filtering + SA/SARL status + color theme - extracted from ComptaIA_Pro_original.html lines 10215-10306
 // ═══════════════════════════════════════════════════════════════
-// ComptaIA v20 — LOGIQUE
+// GEST Africa v20 — LOGIQUE
 // ═══════════════════════════════════════════════════════════════
 (function(){
 'use strict';
@@ -68,7 +68,7 @@ if(typeof window.setFormeJuridique==='function'){
 function marqueV20(){
   try{
     document.title=document.title.replace(/v[12][0-9]/,'v20');
-    if(document.title.indexOf('v20')===-1)document.title='ComptaIA v20 — OHADA Togo';
+    if(document.title.indexOf('v20')===-1)document.title='GEST Africa v20 — OHADA Togo';
     var f=document.getElementById('sidebar-footer');
     if(f)f.textContent=f.textContent.replace(/v[12][0-9]/,'v20');
   }catch(e){}

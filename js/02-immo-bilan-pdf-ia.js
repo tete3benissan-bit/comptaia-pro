@@ -185,7 +185,7 @@ function genPDF(type){
   var doc=new jsPDF_({orientation:'portrait',unit:'mm',format:'a4'});
   var W=210,M=14,y=20,LH=5.5,ent=(document.querySelector('.logo-sub')||{}).textContent||'Mon Entreprise',an=EXERCICE.annee;
 
-  function hdr(titre){doc.setFillColor(13,31,26);doc.rect(0,0,W,22,'F');doc.setTextColor(255,255,255);doc.setFontSize(14);doc.setFont('helvetica','bold');doc.text('ComptaIA',M,9);doc.setFontSize(9);doc.setFont('helvetica','normal');doc.setTextColor(168,201,191);doc.text(ent,M,15);doc.setFontSize(13);doc.setFont('helvetica','bold');doc.setTextColor(255,255,255);doc.text(titre,W-M,9,{align:'right'});doc.setFontSize(8);doc.setFont('helvetica','normal');doc.setTextColor(168,201,191);doc.text('Exercice '+an+' — '+new Date().toLocaleDateString('fr-FR'),W-M,15,{align:'right'});doc.setTextColor(0,0,0);y=30;}
+  function hdr(titre){doc.setFillColor(13,31,26);doc.rect(0,0,W,22,'F');doc.setTextColor(255,255,255);doc.setFontSize(14);doc.setFont('helvetica','bold');doc.text('GEST Africa',M,9);doc.setFontSize(9);doc.setFont('helvetica','normal');doc.setTextColor(168,201,191);doc.text(ent,M,15);doc.setFontSize(13);doc.setFont('helvetica','bold');doc.setTextColor(255,255,255);doc.text(titre,W-M,9,{align:'right'});doc.setFontSize(8);doc.setFont('helvetica','normal');doc.setTextColor(168,201,191);doc.text('Exercice '+an+' — '+new Date().toLocaleDateString('fr-FR'),W-M,15,{align:'right'});doc.setTextColor(0,0,0);y=30;}
   function chkY(h){if(y+h>275){doc.addPage();hdr(doc.internal.title);}}
   function sec(t){chkY(8);doc.setFontSize(8.5);doc.setFont('helvetica','bold');doc.setFillColor(224,247,224);doc.rect(M,y,W-2*M,6,'F');doc.setTextColor(8,80,65);doc.text(t,M+2,y+4.2);doc.setTextColor(0,0,0);doc.setFont('helvetica','normal');y+=7;}
   function totRow(label,v,bg){chkY(7);doc.setFillColor(bg[0],bg[1],bg[2]);doc.rect(M,y,W-2*M,6,'F');doc.setFont('helvetica','bold');doc.setFontSize(8);doc.text(label,M+2,y+4.2);doc.text(Math.round(v).toLocaleString('fr-FR')+' FCFA',W-M,y+4.2,{align:'right'});doc.setFont('helvetica','normal');y+=7;}
@@ -275,7 +275,7 @@ function ouvrirIA(){
 // immo navigation handled by unified go() v12
 
 // Update footer & badge
-document.querySelector('.sidebar-footer').textContent='ComptaIA v12 — OHADA Togo';
+document.querySelector('.sidebar-footer').textContent='GEST Africa v12 — OHADA Togo';
 setTimeout(function(){
   try{var raw=localStorage.getItem('comptaia_data');if(raw){var obj=JSON.parse(raw);if(obj.IMMOS)IMMOS=obj.IMMOS;if(obj.IMMOS&&obj.IMMOS.length)renderImmo();}}catch(e){}
   try{renderBilan();}catch(e){}

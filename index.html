@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
 <meta name="theme-color" content="var(--sidebar-bg)"/>
 <meta name="mobile-web-app-capable" content="yes"/>
-<title>ComptaIA v12 — OHADA Togo</title>
+<title>GEST Africa v12 — OHADA Togo</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet"/>
@@ -16,7 +16,7 @@
 <!-- SIDEBAR v18 — GROUPES ACCORDÉON + SCROLLBAR -->
 <div class="sidebar">
   <div class="logo">
-    <div class="logo-name">Compta<span>IA</span></div>
+    <div class="logo-name">GEST<span> Africa</span></div>
     <div class="logo-sub">Mon Entreprise SARL</div>
     <span class="ex-badge" id="ex-badge">Ex. 2026</span>
   </div>
@@ -157,7 +157,7 @@
   </div>
 
   </div><!-- /sidebar-nav -->
-  <div class="sidebar-footer" id="sidebar-footer">ComptaIA v18 — OHADA Togo</div>
+  <div class="sidebar-footer" id="sidebar-footer">GEST Africa v18 — OHADA Togo</div>
 </div>
 
 <!-- MAIN -->
@@ -966,7 +966,7 @@
 <script src="js/04-v10-functions.js"></script>
 
 <!-- ═══════════════════════════════════════════════════════ -->
-<!-- ComptaIA v11 — FORME JURIDIQUE + PRÉVISION IA VOCALE   -->
+<!-- GEST Africa v11 — FORME JURIDIQUE + PRÉVISION IA VOCALE   -->
 <!-- ═══════════════════════════════════════════════════════ -->
 
 <link rel="stylesheet" href="css/03-v11.css"/>
@@ -975,7 +975,7 @@
 
 
 <!-- ═══════════════════════════════════════════════════════ -->
-<!-- ComptaIA v12 — NOUVELLES FONCTIONNALITÉS               -->
+<!-- GEST Africa v12 — NOUVELLES FONCTIONNALITÉS               -->
 <!-- ═══════════════════════════════════════════════════════ -->
 
 <!-- AUTH OVERLAY -->
@@ -984,14 +984,14 @@
     <div id="auth-err" class="alert alert-err" style="max-width:340px;margin-left:auto;margin-right:auto"></div>
     <div id="auth-ok" class="alert alert-ok" style="max-width:340px;margin-left:auto;margin-right:auto"></div>
     <div id="auth-login-card" class="uiv-auth-card" style="display:none">
-      <div class="uiv-auth-title">Compta<span>IA</span></div>
-      <div class="fg"><label>Identifiant</label><input type="text" id="auth-user" placeholder="admin"/></div>
+      <div class="uiv-auth-title">GEST<span> Africa</span></div>
+      <div class="fg"><label>E-mail ou identifiant</label><input type="text" id="auth-user" placeholder="admin"/></div>
       <div class="fg"><label>Mot de passe</label><input type="password" id="auth-pass" placeholder="••••••••" onkeydown="if(event.key==='Enter')authLogin()"/></div>
       <button class="btn btn-primary" onclick="authLogin()">🔐 Se connecter</button>
       <div class="uiv-demo-note">Compte oublié ou désactivé ? Contactez votre administrateur — la création de comptes se fait uniquement depuis "Gestion des utilisateurs".</div>
     </div>
     <div id="auth-setup-card" class="uiv-auth-card" style="display:none">
-      <div class="uiv-auth-title">Compta<span>IA</span></div>
+      <div class="uiv-auth-title">GEST<span> Africa</span></div>
       <div style="font-size:11px;color:var(--text-muted);margin-top:-8px">Premier lancement — créez le compte administrateur</div>
       <div class="fg"><label>Nom complet</label><input type="text" id="setup-nom" placeholder="Ex. Awa Mensah"/></div>
       <div class="fg"><label>Identifiant</label><input type="text" id="setup-user" placeholder="admin"/></div>
@@ -1005,6 +1005,15 @@
 <div class="pane" id="pane-chat-ia">
   <div style="font-size:15px;font-weight:600;margin-bottom:14px">💬 Chat IA — Copilote intelligent</div>
   <div id="ia-copilot-body"></div>
+</div>
+
+<!-- PANE ACCÈS REFUSÉ -->
+<div class="pane" id="pane-acces-refuse">
+  <div style="max-width:480px;margin:60px auto 0;text-align:center">
+    <div style="font-size:40px;margin-bottom:10px">🚫</div>
+    <div class="alert alert-err" style="display:block;font-size:13px;font-weight:700">Vous n'êtes pas autorisé à accéder à ce module.</div>
+    <div style="font-size:12px;color:var(--text-muted);margin-top:10px">Accès refusé. Contactez votre administrateur si vous pensez que c'est une erreur.</div>
+  </div>
 </div>
 
 <!-- PANE TVA DÉCLARATION -->
@@ -1070,7 +1079,7 @@
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
     <div class="card"><div class="card-header"><span class="card-title">📄 Relevé bancaire</span><span id="rappr-releve-total" style="font-size:10px;color:var(--text-faint)">—</span></div>
     <div id="rappr-releve-list" style="max-height:350px;overflow-y:auto"><div style="text-align:center;color:var(--text-faint);padding:28px;font-style:italic">Importez un fichier CSV<br><small>Format : date,libellé,débit,crédit</small></div></div></div>
-    <div class="card"><div class="card-header"><span class="card-title">📒 Écritures banque (ComptaIA)</span><span id="rappr-compta-total" style="font-size:10px;color:var(--text-faint)">—</span></div>
+    <div class="card"><div class="card-header"><span class="card-title">📒 Écritures banque (GEST Africa)</span><span id="rappr-compta-total" style="font-size:10px;color:var(--text-faint)">—</span></div>
     <div id="rappr-compta-list" style="max-height:350px;overflow-y:auto"><div style="text-align:center;color:var(--text-faint);padding:28px;font-style:italic">Vos écritures banque apparaîtront ici</div></div></div>
   </div>
 </div>
@@ -1080,7 +1089,7 @@
 <script src="js/06-v12-core-module.js"></script>
 
 <!-- ═══════════════════════════════════════════════════════════════ -->
-<!-- ComptaIA v13 — CYCLE COMMERCIAL + COMPTA AVANCÉE + CALENDRIER -->
+<!-- GEST Africa v13 — CYCLE COMMERCIAL + COMPTA AVANCÉE + CALENDRIER -->
 <!-- ═══════════════════════════════════════════════════════════════ -->
 
 <!-- PANE PROFIL ENTREPRISE -->
@@ -1143,11 +1152,7 @@
         <div class="fg"><label>Identifiant</label><input type="text" id="um-user" placeholder="ex. amensah"/></div>
         <div class="fg"><label>Mot de passe</label><input type="password" id="um-pass" placeholder="Min. 6 caractères"/></div>
         <div class="fg"><label>Rôle</label>
-          <select id="um-role">
-            <option value="comptable">Comptable</option>
-            <option value="lecture">Utilisateur (lecture seule)</option>
-            <option value="admin">Administrateur</option>
-          </select>
+          <select id="um-role"></select>
         </div>
       </div>
       <div style="margin-top:10px"><button class="btn btn-primary" onclick="umAjouter()">+ Ajouter l'utilisateur</button></div>
@@ -1480,13 +1485,13 @@
 <script src="js/07-v13.js"></script>
 
 <!-- ═══════════════════════════════════════════════════════════════════ -->
-<!-- ComptaIA v14 — EMPRUNTS · MOBILE MONEY · ANALYTIQUE · AUDIT · MULTI-LIGNES · PROD · SIMULATEUR IS -->
+<!-- GEST Africa v14 — EMPRUNTS · MOBILE MONEY · ANALYTIQUE · AUDIT · MULTI-LIGNES · PROD · SIMULATEUR IS -->
 <!-- ═══════════════════════════════════════════════════════════════════ -->
 
 <!-- PANE EMPRUNTS BANCAIRES -->
 <div class="pane" id="pane-emprunts">
   <div style="font-size:15px;font-weight:600;margin-bottom:4px">🏦 Emprunts bancaires</div>
-  <div style="font-size:11px;color:var(--text-muted);margin-bottom:14px">Saisissez vos emprunts, ComptaIA génère le tableau d'amortissement et les écritures mensuelles (D.16x / C.521 capital + D.671 / C.521 intérêts).</div>
+  <div style="font-size:11px;color:var(--text-muted);margin-bottom:14px">Saisissez vos emprunts, GEST Africa génère le tableau d'amortissement et les écritures mensuelles (D.16x / C.521 capital + D.671 / C.521 intérêts).</div>
   <div class="card" style="margin-bottom:12px">
     <div class="card-header"><span class="card-title">Nouveau prêt bancaire</span></div>
     <div class="card-body">
@@ -1927,7 +1932,7 @@
 
 <script src="js/13-v18-stock.js"></script>
 <!-- ═══════════════════════════════════════════════════════════════ -->
-<!-- ComptaIA — OPTIMISATION MOBILE / ANDROID                        -->
+<!-- GEST Africa — OPTIMISATION MOBILE / ANDROID                        -->
 <!-- Menu en tiroir, topbar adaptative, grilles empilées, tableaux   -->
 <!-- défilants, cibles tactiles agrandies, modales plein écran.      -->
 <!-- ═══════════════════════════════════════════════════════════════ -->
@@ -1935,7 +1940,7 @@
 <script src="js/14-mobile.js"></script>
 
 <!-- ═══════════════════════════════════════════════════════════════ -->
-<!-- ComptaIA v19 — INTERFACE PAR SPÉCIALISATIONS                    -->
+<!-- GEST Africa v19 — INTERFACE PAR SPÉCIALISATIONS                    -->
 <!-- Écran d'accueil : ADMINISTRATEUR / COMPTABLE / FISCALITÉ        -->
 <!-- Barre des tâches (bas) : Accueil, IA, Trésorerie, Alertes, ⏰   -->
 <!-- ═══════════════════════════════════════════════════════════════ -->
@@ -1944,7 +1949,7 @@
 <script src="js/15-v19-specializations.js"></script>
 
 <!-- ═══════════════════════════════════════════════════════════════ -->
-<!-- ComptaIA v20 — NOTIFICATIONS FILTRÉES + STATUT SA/SARL EN HAUT  -->
+<!-- GEST Africa v20 — NOTIFICATIONS FILTRÉES + STATUT SA/SARL EN HAUT  -->
 <!-- • Alertes : uniquement reçus, factures, règlements, virements,  -->
 <!--   retards, alertes stock/trésorerie (plus de bruit système)     -->
 <!-- • Sélecteur SARL/SA dans la barre du haut, code couleur :       -->
@@ -1954,7 +1959,7 @@
 <script src="js/16-v20-notifications-sa-sarl.js"></script>
 
 <!-- ═══════════════════════════════════════════════════════════════ -->
-<!-- ComptaIA v21 — RECHERCHE GLOBALE + COMPTES AUTO + IMPORT FACTURE -->
+<!-- GEST Africa v21 — RECHERCHE GLOBALE + COMPTES AUTO + IMPORT FACTURE -->
 <!-- 1. Barre de recherche globale (onglets, comptes, écritures,      -->
 <!--    dates « 28 janvier », combinés « stock du 3 février »)        -->
 <!-- 2. Autocomplétion des numéros de comptes (libellé ou numéro)     -->
@@ -1970,7 +1975,7 @@
 
 <link rel="stylesheet" href="css/12-pro-theme.css"/>
 <!-- ═══════════════════════════════════════════════════════════════ -->
-<!-- ComptaIA Pro v22 — MODULE RESSOURCES HUMAINES COMPLET           -->
+<!-- GEST Africa v22 — MODULE RESSOURCES HUMAINES COMPLET           -->
 <!-- Nouvelle spécialisation RH (détachée de l'Administrateur) :     -->
 <!-- Tableau de bord, Employés, Contrats, Présence, Congés, Paie,    -->
 <!-- Performance, Formation, Recrutement, Santé, Discipline, Docs    -->
@@ -1980,6 +1985,7 @@
 <script src="js/20-user-management.js"></script>
 <link rel="stylesheet" href="css/16-ia-copilot.css"/>
 <script src="js/21-ia-copilot.js"></script>
+<script src="js/22-permissions.js"></script>
 <link rel="stylesheet" href="css/14-uiverse.css"/>
 <link rel="stylesheet" href="css/15-nav-icons.css"/>
 

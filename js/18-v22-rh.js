@@ -1,6 +1,6 @@
 // v22: full HR module (employees, contracts, presence, conges, perf, formation, recrutement, sante, discipline, docs) - extracted from ComptaIA_Pro_original.html lines 10997-11755
 // ═══════════════════════════════════════════════════════════════
-// ComptaIA Pro v22 — RESSOURCES HUMAINES
+// GEST Africa v22 — RESSOURCES HUMAINES
 // ═══════════════════════════════════════════════════════════════
 (function(){
 'use strict';
@@ -729,10 +729,10 @@ window.rhRenderTout=function(){
 };
 function marqueV22(){
   try{
-    document.title=document.title.replace(/ComptaIA( Pro)? v[12][0-9]/,'ComptaIA Pro v22');
-    if(document.title.indexOf('v22')===-1)document.title='ComptaIA Pro v22 — OHADA Togo';
+    document.title=document.title.replace(/GEST Africa( Pro)? v[12][0-9]/,'GEST Africa v22');
+    if(document.title.indexOf('v22')===-1)document.title='GEST Africa v22 — OHADA Togo';
     var f=q('sidebar-footer');
-    if(f)f.textContent=f.textContent.replace(/ComptaIA( Pro)? v[12][0-9]/,'ComptaIA Pro v22');
+    if(f)f.textContent=f.textContent.replace(/GEST Africa( Pro)? v[12][0-9]/,'GEST Africa v22');
   }catch(e){}
 }
 /* Init */
