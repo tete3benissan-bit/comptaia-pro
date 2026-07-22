@@ -181,7 +181,7 @@ function iaConstruireContexte(question){
 var IA_PROVIDERS={
   groq:{label:'Groq (gratuit)',model:'llama-3.3-70b-versatile',placeholder:'gsk_...',aide:'Créez une clé gratuite sur console.groq.com (inscription par e-mail, aucune carte bancaire).'},
   gemini:{label:'Google Gemini (gratuit)',model:'gemini-3.5-flash',placeholder:'AIza...',aide:'Créez une clé gratuite sur aistudio.google.com/apikey (connexion avec un compte Google, aucune carte bancaire).'},
-  github:{label:'GitHub Models (gratuit)',model:'gpt-5',placeholder:'github_pat_...',aide:'Créez un token gratuit sur github.com/settings/personal-access-tokens/new avec la permission "Models: Read-only" (aucune carte bancaire).'},
+  github:{label:'GitHub Models (gratuit)',model:'openai/gpt-5',placeholder:'github_pat_...',aide:'Créez un token gratuit sur github.com/settings/personal-access-tokens/new avec la permission "Models: Read-only" (aucune carte bancaire).'},
   anthropic:{label:'Anthropic Claude (payant)',model:'claude-sonnet-4-20250514',placeholder:'sk-ant-...',aide:'Créez une clé sur console.anthropic.com (nécessite un moyen de paiement).'}
 };
 
@@ -258,6 +258,7 @@ async function iaAppelerIA(question, contexte){
     // GitHub Models expose aussi un format "compatible OpenAI", même
     // structure que Groq — seuls l'URL et le modèle changent. Le token est
     // un Personal Access Token GitHub avec la permission "Models: Read-only".
+    console.log('[Chat IA] Modèle envoyé à GitHub Models :', IA_PROVIDERS.github.model);
     var rGH=await fetch('https://models.inference.ai.azure.com/chat/completions',{
       method:'POST',
       headers:{'Content-Type':'application/json','Authorization':'Bearer '+apiKey},
