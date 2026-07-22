@@ -14,6 +14,13 @@
 
 var IA_COPILOT_HIST = [];
 
+// Voir js/20-user-management.js pour le pourquoi : esc() n'est pas fiable
+// en tant que dépendance cross-fichier, donc redéfinie localement ici aussi.
+if(typeof window.esc!=='function'){
+  window.esc=function(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');};
+}
+var esc=window.esc;
+
 /* ── 1. Moteur d'analyse : lit les vraies données, ne calcule rien qui ne soit pas dans EC/REGL/STOCKS/RH ── */
 
 function iaRole(){ return (window.CURRENT_USER && CURRENT_USER.role) || 'lecture'; }

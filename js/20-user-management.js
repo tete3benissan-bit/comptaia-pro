@@ -2,7 +2,7 @@
 // démonstration codés en dur par de vrais comptes employés créés/gérés par
 // l'administrateur : ajout, modification, réinitialisation de mot de passe,
 // activation/désactivation, suppression, recherche.
-// Réutilise getUsers()/saveUsers()/hashPass()/esc() de js/06 et js/17.
+// Réutilise getUsers()/saveUsers()/hashPass() de js/06.
 //
 // NOTE (limite honnête) : cette application est un site statique sans
 // backend — les comptes vivent dans le localStorage du navigateur. Le
@@ -13,6 +13,15 @@
 // client", pas quelque chose qu'un algorithme de hachage peut résoudre seul.
 
 var UM_SEARCH = '';
+
+// Définie localement plutôt que réutilisée depuis un autre fichier : cette
+// même fonction existe dans js/17-v21-recherche-import.js mais y était
+// piégée dans une IIFE (jamais vraiment globale), ce qui cassait la
+// création d'utilisateur. Redéfinir ici évite toute dépendance fragile.
+if(typeof window.esc!=='function'){
+  window.esc=function(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');};
+}
+var esc=window.esc;
 
 // Rôles, libellés et couleurs de badge sont centralisés dans js/22-permissions.js
 function umUsers(){ return getUsers(); }
