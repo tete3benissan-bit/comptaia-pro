@@ -24,8 +24,16 @@ function permLabelRole(r){ return (ROLES[r] && ROLES[r].label) || r || '—'; }
 function permBadgeClass(r){ return 'bg-'+((ROLES[r] && ROLES[r].badge) || 'amber'); }
 function permListeRoles(){ return Object.keys(ROLES); }
 function permOptionsRoles(roleSelectionne){
-  return permListeRoles().map(function(r){
-    return '<option value="'+r+'"'+(r===roleSelectionne?' selected':'')+'>'+permLabelRole(r)+'</option>';
+  // Si le rôle actuel du compte n'existe plus dans ROLES (ex : ancien compte
+  // "lecture" d'avant ce système à 6 rôles), NE PAS laisser le navigateur
+  // sélectionner silencieusement la première option ("admin") — ça a causé
+  // une élévation de privilèges accidentelle (enregistrer sans toucher au
+  // menu déroulant promouvait le compte en administrateur). On ajoute plutôt
+  // une option factice sélectionnée par défaut qui force un choix explicite.
+  var connu = permListeRoles().indexOf(roleSelectionne) > -1;
+  var html = connu ? '' : '<option value="" selected disabled>— Rôle inconnu, choisissez-en un —</option>';
+  return html + permListeRoles().map(function(r){
+    return '<option value="'+r+'"'+(connu && r===roleSelectionne?' selected':'')+'>'+permLabelRole(r)+'</option>';
   }).join('');
 }
 

@@ -161,8 +161,13 @@ var _go=window.go;
 window.go=function(id,el){
   cacherHub();
   if(SPEC_ACTUELLE===null||(!(PANE2SPEC[id]===SPEC_ACTUELLE)&&!navContient(id))){
+    // Ne reconstruire la barre latérale que pour un id qui appartient
+    // réellement à un hub (PANE2SPEC[id] défini). Pour un panneau "hors
+    // hub" (chat-ia, utilisateurs, notifs...), forcer un hub par défaut ici
+    // désynchronisait la barre latérale (elle affichait un autre module)
+    // du panneau réellement visible — on laisse simplement la barre
+    // latérale telle quelle dans ce cas plutôt que d'afficher autre chose.
     if(PANE2SPEC[id])construireNav(PANE2SPEC[id]);
-    else if(SPEC_ACTUELLE===null)construireNav(window.permPremierHubAutorise?permPremierHubAutorise():'exploitant');
   }
   if(typeof _go==='function')_go(id,el);
   surligner(id);
@@ -210,6 +215,15 @@ function cacherHub(){
   var st=document.getElementById('tb-start');if(st)st.classList.remove('tb-actif');
 }
 window.choisirSpec=function(k){
+  // Vérifier la permission AVANT de construire la nav — construireNav()
+  // remplit la barre latérale avec les vrais noms de modules, donc le faire
+  // avant le contrôle d'accès de go() les révélerait même si go() bloque
+  // ensuite le panneau principal (fuite d'information, notamment via un
+  // appel direct depuis la console qui contourne les cartes masquées).
+  if(window.permPeutAccederHub && !permPeutAccederHub(k)){
+    if(window.permAfficherAccesRefuse) permAfficherAccesRefuse();
+    return;
+  }
   construireNav(k);
   var premier=SPECS[k].items[0];
   var id=premier.grp?premier.items[0].id:premier.id;

@@ -257,7 +257,7 @@ function construireRecherche(){
   });
 }
 function gsFermer(){var d=$id('gs-drop');if(d)d.classList.remove('ouvert');}
-function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');}
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
 function gsLancer(){
   var inp=$id('gs-input'),drop=$id('gs-drop');
   var brut=(inp.value||'').trim();

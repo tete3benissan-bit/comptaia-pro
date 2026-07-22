@@ -40,7 +40,7 @@ function renderUtilisateurs(){
   }
   if(formCard) formCard.style.display = '';
   var roleSelect=document.getElementById('um-role');
-  if(roleSelect && !roleSelect.options.length) roleSelect.innerHTML=permOptionsRoles('exploitant');
+  if(roleSelect && !roleSelect.options.length) roleSelect.innerHTML=permOptionsRoles('');
   var users = umUsers();
   var q = UM_SEARCH.trim().toLowerCase();
   if(q) users = users.filter(function(u){ return (u.nom||'').toLowerCase().indexOf(q)>=0 || (u.username||'').toLowerCase().indexOf(q)>=0; });
@@ -115,6 +115,7 @@ function umEnregistrerEdition(username){
   var nom=(document.getElementById('um-edit-nom').value||'').trim();
   var role=document.getElementById('um-edit-role').value;
   if(!nom){alert('Le nom complet est requis.');return;}
+  if(!role){alert('Choisissez un rôle avant d\'enregistrer.');return;}
   if(users[idx].role==='admin'&&role!=='admin'&&umNbAdminsActifs(users)<=1){
     alert("Impossible : c'est le dernier compte administrateur actif.");return;
   }

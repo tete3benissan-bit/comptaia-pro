@@ -36,12 +36,25 @@ function migrerAnciensComptesDemo() {
   }
 }
 
+// Migration : le système à 3 rôles (admin/comptable/lecture) a été remplacé
+// par 6 rôles (voir js/22-permissions.js) qui n'incluent plus "lecture". Un
+// vrai compte créé sous l'ancien système (donc avec un "nom", pas wipe par
+// migrerAnciensComptesDemo) resterait sinon bloqué hors de tous les modules.
+// On le fait passer sur "comptable", l'équivalent le plus proche.
+function migrerAncienRoleLecture() {
+  var users = getUsers();
+  var change = false;
+  users.forEach(function(u){ if(u.role==='lecture'){ u.role='comptable'; change=true; } });
+  if (change) saveUsers(users);
+}
+
 // No more hardcoded demo accounts. On first launch (zero users), the auth
 // screen shows a one-time "create the administrator account" form instead
 // of the login form; every other account is created afterwards by that
 // admin from the "Gestion des utilisateurs" panel (js/20-user-management.js).
 function authBootstrap() {
   migrerAnciensComptesDemo();
+  migrerAncienRoleLecture();
   var users = getUsers();
   var loginCard = document.getElementById('auth-login-card');
   var setupCard = document.getElementById('auth-setup-card');

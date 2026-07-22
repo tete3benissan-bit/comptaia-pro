@@ -185,7 +185,31 @@ var IA_PROVIDERS={
   anthropic:{label:'Anthropic Claude (payant)',model:'claude-sonnet-4-20250514',placeholder:'sk-ant-...',aide:'Créez une clé sur console.anthropic.com (nécessite un moyen de paiement).'}
 };
 
-function iaGetProvider(){ try{return localStorage.getItem('comptaia_ia_provider')||'groq';}catch(e){return 'groq';} }
+// Migration : la clé était stockée sous 'comptaia_anthropic_key' avant le
+// support multi-fournisseurs. Si elle existe encore et que la nouvelle clé
+// 'comptaia_ia_key' est vide, on la reprend (le fournisseur était forcément
+// Anthropic à l'époque) au lieu de la laisser orpheline silencieusement.
+function iaMigrerAncienneCle(){
+  try{
+    var ancienne=localStorage.getItem('comptaia_anthropic_key');
+    if(ancienne && !localStorage.getItem('comptaia_ia_key')){
+      localStorage.setItem('comptaia_ia_key',ancienne);
+      localStorage.setItem('comptaia_ia_provider','anthropic');
+      localStorage.removeItem('comptaia_anthropic_key');
+    }
+  }catch(e){}
+}
+iaMigrerAncienneCle();
+
+function iaGetProvider(){
+  var p;
+  try{ p=localStorage.getItem('comptaia_ia_provider')||'groq'; }catch(e){ p='groq'; }
+  // Filet de sécurité : si la valeur stockée ne correspond à aucun
+  // fournisseur connu (bidouille via devtools, ou un ancien fournisseur
+  // retiré dans une future version), retomber sur 'groq' plutôt que de
+  // faire planter renderChatIA() en déréférençant IA_PROVIDERS[p]===undefined.
+  return IA_PROVIDERS[p] ? p : 'groq';
+}
 function iaSetProvider(p){ try{localStorage.setItem('comptaia_ia_provider',p);}catch(e){} }
 function iaGetKey(){ try{return localStorage.getItem('comptaia_ia_key')||'';}catch(e){return '';} }
 function iaSetKey(k){ try{localStorage.setItem('comptaia_ia_key',k);}catch(e){} }
