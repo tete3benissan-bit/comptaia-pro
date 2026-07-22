@@ -59,23 +59,31 @@ function renderUtilisateurs(){
 function umRechercher(v){ UM_SEARCH = v; renderUtilisateurs(); }
 
 async function umAjouter(){
-  if(!umIsAdmin())return;
-  var nom=(document.getElementById('um-nom').value||'').trim();
-  var u=(document.getElementById('um-user').value||'').trim();
-  var p=document.getElementById('um-pass').value;
-  var role=document.getElementById('um-role').value;
-  if(!nom||!u||!p){alert('Nom complet, identifiant et mot de passe requis.');return;}
-  if(p.length<6){alert('Mot de passe trop court (min. 6 caractères).');return;}
-  var users=getUsers();
-  if(users.find(function(x){return x.username.toLowerCase()===u.toLowerCase();})){alert('Cet identifiant est déjà utilisé.');return;}
-  var ph=await hashPass(p);
-  users.push({nom:nom,username:u,passHash:ph,role:role,active:true});
-  saveUsers(users);
-  document.getElementById('um-nom').value='';
-  document.getElementById('um-user').value='';
-  document.getElementById('um-pass').value='';
-  try{ajouterNotif('save','Utilisateur créé : '+nom,'@'+u+' — '+umLabelRole(role));}catch(e){}
-  renderUtilisateurs();
+  try{
+    if(!umIsAdmin()){alert("Action refusée : vous n'êtes pas connecté en tant qu'administrateur.");return;}
+    var nom=(document.getElementById('um-nom').value||'').trim();
+    var u=(document.getElementById('um-user').value||'').trim();
+    var p=document.getElementById('um-pass').value;
+    var roleEl=document.getElementById('um-role');
+    var role=roleEl?roleEl.value:'';
+    if(!nom||!u||!p){alert('Nom complet, identifiant et mot de passe requis.');return;}
+    if(p.length<6){alert('Mot de passe trop court (min. 6 caractères).');return;}
+    if(!role){alert("Aucun rôle sélectionné — rechargez la page et réessayez.");return;}
+    var users=getUsers();
+    if(users.find(function(x){return x.username.toLowerCase()===u.toLowerCase();})){alert('Cet identifiant est déjà utilisé.');return;}
+    var ph=await hashPass(p);
+    users.push({nom:nom,username:u,passHash:ph,role:role,active:true});
+    saveUsers(users);
+    var verif=getUsers();
+    if(!verif.find(function(x){return x.username===u;})){alert("L'enregistrement a échoué (le navigateur bloque peut-être le stockage local). Essayez de désactiver la navigation privée ou les extensions de blocage.");return;}
+    document.getElementById('um-nom').value='';
+    document.getElementById('um-user').value='';
+    document.getElementById('um-pass').value='';
+    try{ajouterNotif('save','Utilisateur créé : '+nom,'@'+u+' — '+umLabelRole(role));}catch(e){}
+    renderUtilisateurs();
+  }catch(err){
+    alert("Erreur lors de la création de l'utilisateur : "+(err&&err.message?err.message:err));
+  }
 }
 
 function umEditerLigne(username){
