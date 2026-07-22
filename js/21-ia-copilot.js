@@ -179,7 +179,7 @@ function iaConstruireContexte(question){
 
 var IA_PROVIDERS={
   groq:{label:'Groq (gratuit)',model:'llama-3.3-70b-versatile',placeholder:'gsk_...',aide:'Créez une clé gratuite sur console.groq.com (inscription par e-mail, aucune carte bancaire).'},
-  gemini:{label:'Google Gemini (gratuit)',model:'gemini-2.5-flash',placeholder:'AIza...',aide:'Créez une clé gratuite sur aistudio.google.com/apikey (connexion avec un compte Google, aucune carte bancaire).'},
+  gemini:{label:'Google Gemini (gratuit)',model:'gemini-3.5-flash',placeholder:'AIza...',aide:'Créez une clé gratuite sur aistudio.google.com/apikey (connexion avec un compte Google, aucune carte bancaire).'},
   anthropic:{label:'Anthropic Claude (payant)',model:'claude-sonnet-4-20250514',placeholder:'sk-ant-...',aide:'Créez une clé sur console.anthropic.com (nécessite un moyen de paiement).'}
 };
 
@@ -328,19 +328,18 @@ var IA_SUGGESTIONS=[
 function renderChatIA(){
   var wrap=document.getElementById('ia-copilot-body');
   if(!wrap)return;
-  var estAdmin=iaRole()==='admin';
   var cle=iaGetKey();
   var provider=iaGetProvider();
   var def=IA_PROVIDERS[provider];
 
+  // La clé vit uniquement dans le localStorage DE CE NAVIGATEUR — elle
+  // n'est ni partagée ni synchronisée entre utilisateurs. Chaque personne
+  // (quel que soit son rôle) doit donc pouvoir configurer SA PROPRE clé sur
+  // SON PROPRE navigateur ; ça ne dépend pas d'un administrateur.
   if(!cle){
-    if(!estAdmin){
-      wrap.innerHTML='<div class="ia-key-card"><h3>💬 Chat IA</h3><p>Le Chat IA n\'est pas encore configuré. Demandez à votre administrateur d\'ajouter une clé API depuis ce panneau.</p></div>';
-      return;
-    }
     wrap.innerHTML=
       '<div class="ia-key-card"><h3>💬 Configurer le Chat IA</h3>'+
-      '<p>Le copilote a besoin d\'une clé API pour rédiger ses réponses en langage naturel. Choisissez un fournisseur, créez-y une clé, puis collez-la ici. Elle reste stockée uniquement dans ce navigateur (localStorage) et n\'est jamais envoyée ailleurs qu\'au fournisseur choisi.</p>'+
+      '<p>Le copilote a besoin d\'une clé API pour rédiger ses réponses en langage naturel. Choisissez un fournisseur, créez-y une clé, puis collez-la ici. Elle reste stockée uniquement dans ce navigateur (localStorage) et n\'est jamais envoyée ailleurs qu\'au fournisseur choisi — chaque personne doit utiliser sa propre clé, pas celle de quelqu\'un d\'autre.</p>'+
       '<div class="fg"><label>Fournisseur</label><div style="display:flex;gap:8px;margin-top:2px">'+
         Object.keys(IA_PROVIDERS).map(function(p){
           return '<button type="button" class="btn btn-sm'+(p===provider?' btn-primary':'')+'" onclick="iaChoisirProvider(\''+p+'\')">'+IA_PROVIDERS[p].label+'</button>';
@@ -361,7 +360,7 @@ function renderChatIA(){
   wrap.innerHTML=
     '<div class="ia-chat-wrap">'+
       '<div class="ia-chat-head"><div class="ia-chat-head-title"><span class="ia-status-dot"></span> Copilote IA — connecté ('+def.label+')</div>'+
-        (estAdmin?'<button class="btn btn-sm" onclick="iaEffacerKey()">Retirer la clé API</button>':'')+
+        '<button class="btn btn-sm" onclick="iaEffacerKey()">Retirer ma clé API</button>'+
       '</div>'+
       '<div class="ia-suggestions">'+IA_SUGGESTIONS.map(function(s){return '<span class="ia-chip" onclick="iaPoserSuggestion('+JSON.stringify(s).replace(/"/g,'&quot;')+')">'+s+'</span>';}).join('')+'</div>'+
       '<div class="ia-conv" id="ia-conv"></div>'+
