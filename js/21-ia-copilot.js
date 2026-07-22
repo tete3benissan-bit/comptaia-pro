@@ -169,12 +169,17 @@ function iaConstruireContexte(question){
 }
 
 /* ── 3. Fournisseur + clé API (localStorage, admin uniquement pour les définir) ── */
-// Deux fournisseurs supportés : Groq (palier gratuit, format compatible
-// OpenAI) et Anthropic Claude (payant, format Messages API). Le choix et la
-// clé sont propres à ce navigateur, jamais envoyés ailleurs qu'au fournisseur choisi.
+// Trois fournisseurs supportés : Groq (palier gratuit, format compatible
+// OpenAI), Google Gemini (palier gratuit) et Anthropic Claude (payant,
+// format Messages API). Le choix et la clé sont propres À CE NAVIGATEUR
+// (localStorage) — jamais écrits dans le code, jamais commités sur GitHub,
+// et jamais envoyés ailleurs qu'au fournisseur choisi. Chaque personne qui
+// teste l'app avec son propre navigateur doit donc entrer SA PROPRE clé une
+// fois ; elle n'est pas partagée avec les autres testeurs.
 
 var IA_PROVIDERS={
   groq:{label:'Groq (gratuit)',model:'llama-3.3-70b-versatile',placeholder:'gsk_...',aide:'Créez une clé gratuite sur console.groq.com (inscription par e-mail, aucune carte bancaire).'},
+  gemini:{label:'Google Gemini (gratuit)',model:'gemini-2.5-flash',placeholder:'AIza...',aide:'Créez une clé gratuite sur aistudio.google.com/apikey (connexion avec un compte Google, aucune carte bancaire).'},
   anthropic:{label:'Anthropic Claude (payant)',model:'claude-sonnet-4-20250514',placeholder:'sk-ant-...',aide:'Créez une clé sur console.anthropic.com (nécessite un moyen de paiement).'}
 };
 
@@ -193,6 +198,17 @@ async function iaSauvegarderCle(){
   renderChatIA();
 }
 
+// Bascule le champ clé entre masqué (type="password") et visible (type="text"),
+// pour que l'utilisateur puisse vérifier ce qu'il a collé avant d'enregistrer.
+function iaBasculerAffichageCle(){
+  var input=document.getElementById('ia-key-input');
+  var bouton=document.getElementById('ia-key-toggle');
+  if(!input)return;
+  var masque=input.type==='password';
+  input.type=masque?'text':'password';
+  if(bouton)bouton.textContent=masque?'🙈':'👁️';
+}
+
 /* ── 4. Appel du modèle (si clé dispo) + repli structuré (si pas de clé) ── */
 
 function iaSystemPrompt(contexte){
@@ -204,30 +220,58 @@ function iaSystemPrompt(contexte){
     "DONNÉES RÉELLES DE L'ENTREPRISE (à la date d'aujourd'hui) :\n"+contexte;
 }
 
+// Construit une Error qui porte le code HTTP (err.status), pour que
+// iaMessageErreur() puisse ensuite traduire ça en message compréhensible
+// (clé invalide, quota dépassé, etc.) au lieu d'afficher l'erreur brute.
+async function iaErreurHTTP(response){
+  var msg='';
+  try{ msg=(await response.json()).error.message; }catch(e){}
+  var err=new Error(msg || ('Erreur HTTP '+response.status));
+  err.status=response.status;
+  return err;
+}
+
 async function iaAppelerIA(question, contexte){
   var provider=iaGetProvider();
   var apiKey=iaGetKey();
   var systemPrompt=iaSystemPrompt(contexte);
-  // Pushed to history only on success — both APIs require strict user/assistant
-  // alternation, so a failed call must not leave a dangling unanswered
-  // "user" turn that would break the next request.
+  // Poussé dans l'historique seulement en cas de succès — les 3 API exigent
+  // une alternance stricte user/assistant, donc un appel raté ne doit pas
+  // laisser un tour "user" sans réponse qui casserait la requête suivante.
   var pending=IA_COPILOT_HIST.concat([{role:'user',content:question}]);
   var texte;
 
   if(provider==='groq'){
+    // Format "compatible OpenAI" : un tableau messages avec role/content.
     var r=await fetch('https://api.groq.com/openai/v1/chat/completions',{
       method:'POST',
       headers:{'Content-Type':'application/json','Authorization':'Bearer '+apiKey},
       body:JSON.stringify({model:IA_PROVIDERS.groq.model,max_tokens:1500,messages:[{role:'system',content:systemPrompt}].concat(pending)})
     });
-    if(!r.ok){
-      var errTxtG='';
-      try{ errTxtG=(await r.json()).error.message; }catch(e){}
-      throw new Error(errTxtG || ('Erreur HTTP '+r.status));
-    }
+    if(!r.ok) throw await iaErreurHTTP(r);
     var dG=await r.json();
     texte=(dG.choices && dG.choices[0] && dG.choices[0].message && dG.choices[0].message.content) || 'Réponse vide.';
+
+  } else if(provider==='gemini'){
+    // Format Gemini : la clé va dans l'URL (?key=...), pas dans un en-tête.
+    // Les tours de conversation s'appellent "contents", et le rôle de l'IA
+    // s'appelle "model" (pas "assistant" comme chez les autres fournisseurs).
+    var contents=pending.map(function(m){
+      return {role:(m.role==='assistant'?'model':'user'),parts:[{text:m.content}]};
+    });
+    var urlGemini='https://generativelanguage.googleapis.com/v1beta/models/'+IA_PROVIDERS.gemini.model+':generateContent?key='+encodeURIComponent(apiKey);
+    var r3=await fetch(urlGemini,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({contents:contents,systemInstruction:{parts:[{text:systemPrompt}]},generationConfig:{maxOutputTokens:1500}})
+    });
+    if(!r3.ok) throw await iaErreurHTTP(r3);
+    var d3=await r3.json();
+    var cand=d3.candidates && d3.candidates[0];
+    texte=(cand && cand.content && cand.content.parts && cand.content.parts[0] && cand.content.parts[0].text) || 'Réponse vide.';
+
   } else {
+    // Anthropic : le "system prompt" est un champ à part, pas un message.
     var r2=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
       headers:{
@@ -238,11 +282,7 @@ async function iaAppelerIA(question, contexte){
       },
       body:JSON.stringify({model:IA_PROVIDERS.anthropic.model,max_tokens:1500,system:systemPrompt,messages:pending})
     });
-    if(!r2.ok){
-      var errTxtA='';
-      try{ errTxtA=(await r2.json()).error.message; }catch(e){}
-      throw new Error(errTxtA || ('Erreur HTTP '+r2.status));
-    }
+    if(!r2.ok) throw await iaErreurHTTP(r2);
     var dA=await r2.json();
     texte=(dA.content && dA.content[0] && dA.content[0].text) || 'Réponse vide.';
   }
@@ -250,6 +290,23 @@ async function iaAppelerIA(question, contexte){
   IA_COPILOT_HIST.push({role:'user',content:question});
   IA_COPILOT_HIST.push({role:'assistant',content:texte});
   return texte;
+}
+
+// Traduit une erreur technique (code HTTP, ou aucune réponse du tout) en
+// message compréhensible pour quelqu'un qui ne code pas.
+function iaMessageErreur(err, provider){
+  var def=IA_PROVIDERS[provider]||{label:'le fournisseur IA'};
+  if(err && (err.status===401 || err.status===403)){
+    return '❌ Clé API refusée par '+def.label+'. Vérifiez qu\'elle est bien copiée en entier (sans espace avant/après) et qu\'elle est toujours active.';
+  }
+  if(err && err.status===429){
+    return '⏳ Quota dépassé pour '+def.label+'. Attendez quelques minutes, ou vérifiez les limites de votre palier gratuit.';
+  }
+  if(err && err.status){
+    return '⚠ '+def.label+' a renvoyé une erreur (code '+err.status+'). '+(err.message||'');
+  }
+  // Pas de code HTTP du tout = la requête n'a jamais atteint le serveur.
+  return '🌐 Impossible de contacter '+def.label+'. Vérifiez votre connexion internet et réessayez.';
 }
 
 function iaReponseSansCle(question, contexte){
@@ -290,7 +347,12 @@ function renderChatIA(){
         }).join('')+
       '</div></div>'+
       '<p style="font-size:11px">'+def.aide+'</p>'+
-      '<div class="fg"><label>Clé API '+def.label+'</label><input type="password" id="ia-key-input" placeholder="'+def.placeholder+'"/></div>'+
+      '<div class="fg"><label>Clé API '+def.label+'</label>'+
+        '<div style="display:flex;gap:6px">'+
+          '<input type="password" id="ia-key-input" placeholder="'+def.placeholder+'" style="flex:1"/>'+
+          '<button type="button" class="btn btn-sm" onclick="iaBasculerAffichageCle()" id="ia-key-toggle" title="Afficher/masquer la clé">👁️</button>'+
+        '</div>'+
+      '</div>'+
       '<button class="btn btn-primary" onclick="iaSauvegarderCle()">Enregistrer la clé</button>'+
       '</div>';
     return;
@@ -347,7 +409,8 @@ async function iaEnvoyerMessage(){
     var reponse = cle ? await iaAppelerIA(question, contexte) : iaReponseSansCle(question, contexte);
     IA_MESSAGES[IA_MESSAGES.length-1]={role:'bot',texte:reponse,meta:cle?(IA_PROVIDERS[iaGetProvider()].label+' · basé sur vos données réelles'):'Sans IA · données réelles'};
   }catch(err){
-    IA_MESSAGES[IA_MESSAGES.length-1]={role:'bot',texte:'⚠ Erreur lors de l\'appel à l\'API : '+err.message+'\n\nVoici tout de même les données réelles disponibles :\n\n'+contexte,meta:'Erreur API'};
+    var messageClair=iaMessageErreur(err,iaGetProvider());
+    IA_MESSAGES[IA_MESSAGES.length-1]={role:'bot',texte:messageClair+'\n\nVoici tout de même les données réelles disponibles :\n\n'+contexte,meta:'Erreur API'};
   }
   renderIAConv();
 }
