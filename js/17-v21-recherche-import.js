@@ -560,4 +560,9 @@ window.onAuthSuccess=function(){
 
 /* Exposé pour tests */
 window.__v21={parseDateFR:parseDateFR,chercherModules:chercherModules,chercherComptes:chercherComptes,sansAccents:sansAccents};
+
+// esc() est une fonction utilitaire générique réutilisée hors de ce fichier
+// (js/20-user-management.js, js/21-ia-copilot.js) — elle doit être globale,
+// pas piégée dans cette IIFE.
+window.esc=esc;
 })();
