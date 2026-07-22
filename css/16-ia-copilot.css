@@ -1,5 +1,9 @@
 /* Chat IA — Copilote intelligent. Neubrutalist styling matching css/01-core.css. */
-#pane-chat-ia{display:flex;flex-direction:column;height:min(74vh,720px);min-height:420px}
+/* IMPORTANT : scopé à ".active" — un #id seul aurait une spécificité plus
+   forte que la règle ".pane{display:none}" et resterait affiché en
+   permanence par-dessus les autres panneaux, même après avoir navigué
+   ailleurs (c'était le bug : Chat IA restait visible pour toujours). */
+#pane-chat-ia.active{display:flex;flex-direction:column;height:min(74vh,720px);min-height:420px}
 #ia-copilot-body{flex:1;display:flex;flex-direction:column;min-height:0}
 
 .ia-key-card{max-width:480px;margin:20px auto;padding:22px;background:var(--surface);border:2px solid var(--main);border-radius:var(--radius);box-shadow:var(--shadow-md)}
