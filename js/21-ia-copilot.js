@@ -168,10 +168,11 @@ function iaConstruireContexte(question){
   return lignes.join('\n');
 }
 
-/* ── 3. Fournisseur + clé API (localStorage, admin uniquement pour les définir) ── */
-// Trois fournisseurs supportés : Groq (palier gratuit, format compatible
-// OpenAI), Google Gemini (palier gratuit) et Anthropic Claude (payant,
-// format Messages API). Le choix et la clé sont propres À CE NAVIGATEUR
+/* ── 3. Fournisseur + clé API (localStorage, propre à chaque navigateur) ── */
+// Quatre fournisseurs supportés : Groq (palier gratuit, format compatible
+// OpenAI), Google Gemini (palier gratuit), GitHub Models (palier gratuit,
+// aussi format compatible OpenAI) et Anthropic Claude (payant, format
+// Messages API). Le choix et la clé sont propres À CE NAVIGATEUR
 // (localStorage) — jamais écrits dans le code, jamais commités sur GitHub,
 // et jamais envoyés ailleurs qu'au fournisseur choisi. Chaque personne qui
 // teste l'app avec son propre navigateur doit donc entrer SA PROPRE clé une
@@ -180,6 +181,7 @@ function iaConstruireContexte(question){
 var IA_PROVIDERS={
   groq:{label:'Groq (gratuit)',model:'llama-3.3-70b-versatile',placeholder:'gsk_...',aide:'Créez une clé gratuite sur console.groq.com (inscription par e-mail, aucune carte bancaire).'},
   gemini:{label:'Google Gemini (gratuit)',model:'gemini-3.5-flash',placeholder:'AIza...',aide:'Créez une clé gratuite sur aistudio.google.com/apikey (connexion avec un compte Google, aucune carte bancaire).'},
+  github:{label:'GitHub Models (gratuit)',model:'gpt-5',placeholder:'github_pat_...',aide:'Créez un token gratuit sur github.com/settings/personal-access-tokens/new avec la permission "Models: Read-only" (aucune carte bancaire).'},
   anthropic:{label:'Anthropic Claude (payant)',model:'claude-sonnet-4-20250514',placeholder:'sk-ant-...',aide:'Créez une clé sur console.anthropic.com (nécessite un moyen de paiement).'}
 };
 
@@ -235,7 +237,7 @@ async function iaAppelerIA(question, contexte){
   var provider=iaGetProvider();
   var apiKey=iaGetKey();
   var systemPrompt=iaSystemPrompt(contexte);
-  // Poussé dans l'historique seulement en cas de succès — les 3 API exigent
+  // Poussé dans l'historique seulement en cas de succès — les 4 API exigent
   // une alternance stricte user/assistant, donc un appel raté ne doit pas
   // laisser un tour "user" sans réponse qui casserait la requête suivante.
   var pending=IA_COPILOT_HIST.concat([{role:'user',content:question}]);
@@ -251,6 +253,19 @@ async function iaAppelerIA(question, contexte){
     if(!r.ok) throw await iaErreurHTTP(r);
     var dG=await r.json();
     texte=(dG.choices && dG.choices[0] && dG.choices[0].message && dG.choices[0].message.content) || 'Réponse vide.';
+
+  } else if(provider==='github'){
+    // GitHub Models expose aussi un format "compatible OpenAI", même
+    // structure que Groq — seuls l'URL et le modèle changent. Le token est
+    // un Personal Access Token GitHub avec la permission "Models: Read-only".
+    var rGH=await fetch('https://models.inference.ai.azure.com/chat/completions',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+apiKey},
+      body:JSON.stringify({model:IA_PROVIDERS.github.model,max_tokens:1500,messages:[{role:'system',content:systemPrompt}].concat(pending)})
+    });
+    if(!rGH.ok) throw await iaErreurHTTP(rGH);
+    var dGH=await rGH.json();
+    texte=(dGH.choices && dGH.choices[0] && dGH.choices[0].message && dGH.choices[0].message.content) || 'Réponse vide.';
 
   } else if(provider==='gemini'){
     // Format Gemini : la clé va dans l'URL (?key=...), pas dans un en-tête.
@@ -297,6 +312,9 @@ async function iaAppelerIA(question, contexte){
 function iaMessageErreur(err, provider){
   var def=IA_PROVIDERS[provider]||{label:'le fournisseur IA'};
   if(err && (err.status===401 || err.status===403)){
+    if(provider==='github'){
+      return '❌ GitHub Models a refusé le token (non autorisé). Vérifiez qu\'il est bien copié en entier, qu\'il n\'a pas expiré, et surtout qu\'il a bien la permission "Models: Read-only" activée lors de sa création.';
+    }
     return '❌ Clé API refusée par '+def.label+'. Vérifiez qu\'elle est bien copiée en entier (sans espace avant/après) et qu\'elle est toujours active.';
   }
   if(err && err.status===429){
@@ -311,7 +329,7 @@ function iaMessageErreur(err, provider){
 
 function iaReponseSansCle(question, contexte){
   return "Aucune clé API n'est configurée, donc je ne peux pas encore rédiger une explication en langage naturel — voici en revanche les données réelles pertinentes, calculées à l'instant à partir de votre comptabilité :\n\n"+contexte+
-    "\n\n(Configurez une clé API — Groq gratuit ou Anthropic Claude — dans ce panneau pour obtenir des explications rédigées comme un conseiller, avec recommandations.)";
+    "\n\n(Configurez une clé API — Groq, Gemini, GitHub Models (gratuits) ou Anthropic Claude — dans ce panneau pour obtenir des explications rédigées comme un conseiller, avec recommandations.)";
 }
 
 /* ── 5. Interface : rendu du panneau, envoi des messages ── */
