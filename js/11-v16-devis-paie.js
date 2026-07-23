@@ -27,7 +27,7 @@ function saveV16(){
       if(pane) pane.classList.add('active');
       if(el) el.classList.add('active');
       var pt = document.getElementById('page-title');
-      if(pt) pt.textContent = '👷 Gestion de la paie';
+      if(pt) pt.textContent = 'Gestion de la paie';
       renderPaieStats();
       renderListeEmployes();
       return;
@@ -264,14 +264,14 @@ window.renderDevis = function(){
       +'<td style="padding:8px 10px;font-size:11px;color:var(--text-muted)">'+fmtD(dv.validite)+'</td>'
       +'<td style="padding:8px 10px">'+badge(dv.statut,(sc[dv.statut]||'bg-blue'))+'</td>'
       +'<td style="padding:8px 10px"><div style="display:flex;gap:3px;flex-wrap:wrap">'
-        +'<button class="btn btn-sm" style="font-size:9px;padding:2px 6px" onclick="changerStatutDevis('+idx+')" title="Changer statut">✏</button>'
-        +'<button class="btn btn-sm" style="font-size:9px;padding:2px 6px" onclick="ouvrirFormulaireDevis('+idx+')" title="Modifier">📝</button>'
-        +'<button class="btn btn-sm" style="font-size:9px;padding:2px 6px;background:var(--blue);color:#fff;border-color:var(--blue)" onclick="imprimerDevis('+idx+')" title="PDF">🖨</button>'
+        +'<button class="btn btn-sm" style="font-size:9px;padding:2px 6px" onclick="changerStatutDevis('+idx+')" title="Changer statut">'+ico('pencil')+'</button>'
+        +'<button class="btn btn-sm" style="font-size:9px;padding:2px 6px" onclick="ouvrirFormulaireDevis('+idx+')" title="Modifier">'+ico('pencil')+'</button>'
+        +'<button class="btn btn-sm" style="font-size:9px;padding:2px 6px;background:var(--blue);color:#fff;border-color:var(--blue)" onclick="imprimerDevis('+idx+')" title="PDF">'+ico('printer')+'</button>'
         +(dv.statut==='accepte'
           ? '<button class="btn btn-sm" style="font-size:9px;padding:2px 6px;background:var(--green);color:#fff;border-color:var(--green)" onclick="convertirDevisEnFacture('+idx+')" title="→ Facture">→ Fact.</button>'
             +'<button class="btn btn-sm" style="font-size:9px;padding:2px 6px;background:var(--amber);color:#fff;border-color:var(--amber)" onclick="convertirDevisEnBC('+idx+')" title="→ BC">→ BC</button>'
           : '')
-        +'<button class="btn btn-sm" style="font-size:9px;padding:2px 6px;color:var(--red);border-color:var(--red-border)" onclick="supprimerDevis('+idx+')">✕</button>'
+        +'<button class="btn btn-sm" style="font-size:9px;padding:2px 6px;color:var(--red);border-color:var(--red-border)" onclick="supprimerDevis('+idx+')">'+ico('close')+'</button>'
       +'</div></td>'
     +'</tr>';
   });
@@ -318,7 +318,7 @@ window.convertirDevisEnFacture = function(i){
   // Naviguer vers la facture
   go('facture', document.querySelector('[onclick*="\'facture\'"]'));
   if(typeof ajouterNotif==='function') ajouterNotif('info','Devis '+dv.num+' → Facture','Formulaire pré-rempli avec les '+lignes.length+' article(s) du devis');
-  setTimeout(function(){ alert('✓ Les données du devis '+dv.num+' ont été chargées dans le formulaire de facture.\n\nVérifiez les montants, choisissez le mode de paiement puis validez.'); },200);
+  setTimeout(function(){ alert('Les données du devis '+dv.num+' ont été chargées dans le formulaire de facture.\n\nVérifiez les montants, choisissez le mode de paiement puis validez.'); },200);
 };
 
 // PDF devis amélioré
@@ -629,10 +629,10 @@ function renderPaieStats(){
     totalBrut+=b.brutTotal; totalNet+=b.netPayer; totalCNSSPat+=b.cnss_pat; totalIR+=b.irMensuel;
   });
   el.innerHTML=[
-    ['👷 Effectif',EMPLOYES_RH.length+' employé(s)','blue'],
-    ['💰 Masse salariale brute',totalBrut.toLocaleString('fr-FR')+' FCFA/mois','amber'],
-    ['✅ Net à payer total',totalNet.toLocaleString('fr-FR')+' FCFA/mois','green'],
-    ['🏛️ Charges sociales totales',(totalCNSSPat+totalIR).toLocaleString('fr-FR')+' FCFA/mois','red']
+    [ico('users')+' Effectif',EMPLOYES_RH.length+' employé(s)','blue'],
+    [ico('coin')+' Masse salariale brute',totalBrut.toLocaleString('fr-FR')+' FCFA/mois','amber'],
+    [ico('checkCircle')+' Net à payer total',totalNet.toLocaleString('fr-FR')+' FCFA/mois','green'],
+    [ico('landmark')+' Charges sociales totales',(totalCNSSPat+totalIR).toLocaleString('fr-FR')+' FCFA/mois','red']
   ].map(function(k){
     return '<div style="background:var(--surface);border:2px solid var(--border);border-radius:var(--radius);padding:12px;text-align:center">'
       +'<div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;margin-bottom:4px">'+k[0]+'</div>'
@@ -676,9 +676,9 @@ function renderListeEmployes(){
       +'<td style="padding:8px 10px;text-align:right;font-family:\'Archivo\',sans-serif;font-weight:700;color:var(--green-dark)">'+b.netPayer.toLocaleString('fr-FR')+'</td>'
       +'<td style="padding:8px 10px;text-align:right;font-family:\'Archivo\',sans-serif;color:var(--text-muted)">'+b.chargeEmployeur.toLocaleString('fr-FR')+'</td>'
       +'<td style="padding:8px 10px"><div style="display:flex;gap:3px;flex-wrap:wrap">'
-        +'<button class="btn btn-sm" style="font-size:9px;padding:2px 6px;background:var(--blue);color:#fff;border-color:var(--blue)" onclick="voirBulletin('+i+')">📄 Bulletin</button>'
-        +'<button class="btn btn-sm" style="font-size:9px;padding:2px 6px" onclick="ouvrirFormulaireEmploye('+i+')">✏</button>'
-        +'<button class="btn btn-sm" style="font-size:9px;padding:2px 6px;color:var(--red);border-color:var(--red-border)" onclick="supprimerEmploye('+i+')">✕</button>'
+        +'<button class="btn btn-sm" style="font-size:9px;padding:2px 6px;background:var(--blue);color:#fff;border-color:var(--blue)" onclick="voirBulletin('+i+')">'+ico('file')+' Bulletin</button>'
+        +'<button class="btn btn-sm" style="font-size:9px;padding:2px 6px" onclick="ouvrirFormulaireEmploye('+i+')">'+ico('pencil')+'</button>'
+        +'<button class="btn btn-sm" style="font-size:9px;padding:2px 6px;color:var(--red);border-color:var(--red-border)" onclick="supprimerEmploye('+i+')">'+ico('close')+'</button>'
       +'</div></td>'
     +'</tr>';
   });
@@ -804,7 +804,7 @@ function comptabiliserBulletin(){
   if(typeof renderJournal==='function')renderJournal();
   if(typeof calcImpot==='function')calcImpot();
   if(typeof ajouterNotif==='function')ajouterNotif('info','Bulletin comptabilisé — '+e.nom,'Net '+b.netPayer.toLocaleString('fr-FR')+' FCFA | CNSS '+b.cnss_pat.toLocaleString('fr-FR')+' FCFA | IR '+b.irMensuel.toLocaleString('fr-FR')+' FCFA → journal + IS recalculé');
-  alert('✓ Bulletin de paie comptabilisé !\n5 écritures créées dans le journal :\n• Rémunération brute (D.6411)\n• CNSS salarié 4% (C.4311)\n• CNSS patronal 17,5% (D.6413)\n• IR retenu (C.4421)\n• Net versé (D.422/C.521)\n\nL\'IS a été recalculé automatiquement.');
+  alert('Bulletin de paie comptabilisé !\n5 écritures créées dans le journal :\n• Rémunération brute (D.6411)\n• CNSS salarié 4% (C.4311)\n• CNSS patronal 17,5% (D.6413)\n• IR retenu (C.4421)\n• Net versé (D.422/C.521)\n\nL\'IS a été recalculé automatiquement.');
 }
 
 function genererTouteBulletins(){
@@ -817,7 +817,7 @@ function genererTouteBulletins(){
   });
   _bulletinCourant=null;_empCourantIdx=null;
   renderPaieStats();renderListeEmployes();
-  alert('✓ Bulletins de paie de tous les employés générés et comptabilisés !');
+  alert('Bulletins de paie de tous les employés générés et comptabilisés !');
 }
 
 function imprimerBulletin(){

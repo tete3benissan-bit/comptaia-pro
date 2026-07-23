@@ -10,7 +10,7 @@
   --purple:#9b6fd9;--purple-light:#f1e9fb;--purple-border:transparent;
   --teal:#33a89c;--teal-light:#e2f6f4;
   --bg:#e8ecf1;--surface:#e8ecf1;--sidebar-bg:#232a36;
-  --sidebar-text:#8b96a8;--text:#3d4451;--text-muted:#767e8c;--text-faint:#9aa1ac;
+  --sidebar-text:#8b96a8;--text:#3d4451;--text-muted:#5b6270;--text-faint:#7d8492;
   --border:transparent;--border-strong:transparent;--border-soft:#dbe1e8;
   --radius:16px;--radius-lg:22px;
   --shadow-light:#ffffff;--shadow-dark:rgba(163,177,198,.55);
@@ -80,9 +80,9 @@ body{font-family:'Archivo',sans-serif;background:var(--bg);color:var(--text);dis
 @keyframes fi{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
 
 /* ── CARDS ── */
-.card{background:var(--surface);border-radius:var(--radius-lg);margin-bottom:14px;box-shadow:var(--shadow-md)}
-.card-header{padding:14px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
-.card-title{font-size:12.5px;font-weight:800}
+.card{background:var(--surface);border-radius:var(--radius-lg);margin-bottom:14px;box-shadow:var(--shadow-md);transition:box-shadow .2s}
+.card-header{padding:14px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;border-bottom:1px solid var(--border-soft)}
+.card-title{font-size:12.5px;font-weight:800;letter-spacing:.01em}
 .card-body{padding:20px}
 
 /* ── KPI ── */
@@ -102,7 +102,7 @@ body{font-family:'Archivo',sans-serif;background:var(--bg);color:var(--text);dis
 .table-wrap{overflow-x:auto}
 table{width:100%;border-collapse:collapse;font-size:11.5px}
 th{text-align:left;padding:9px 12px;font-size:10px;font-weight:800;color:var(--text-muted);background:transparent;border-bottom:1px solid var(--border-soft);text-transform:uppercase;letter-spacing:.05em;white-space:nowrap}
-td{padding:10px 12px;border-bottom:1px solid var(--border-soft);color:var(--text);vertical-align:middle}
+td{padding:10px 12px;border-bottom:1px solid var(--border-soft);color:var(--text);vertical-align:middle;transition:background .12s}
 tr:last-child td{border-bottom:none}
 tr:hover td{background:rgba(163,177,198,.08)}
 .tot-row td{font-weight:800;background:var(--green-light);border-top:1px solid var(--border-soft);border-bottom:none;color:var(--green-dark)}
@@ -209,7 +209,7 @@ textarea{resize:vertical;min-height:52px}
    z-index négatif : le contenu réel (nav, cartes, formulaire...) passe
    toujours devant sans qu'il soit nécessaire de lui ajouter un z-index. */
 .sidebar::before,#hub::before,#auth-overlay::before{
-  content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.05;
+  content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.03;
   background:
     repeating-conic-gradient(from 30deg,#0000 0 120deg,#3c3c3c 0 180deg) 40px 23.1px,
     repeating-conic-gradient(from 30deg,#1d1d1d 0 60deg,#4e4f51 0 120deg,#3c3c3c 0 180deg);
@@ -217,5 +217,5 @@ textarea{resize:vertical;min-height:52px}
 }
 body.fj-sa .sidebar::before,body.fj-sa #hub::before,body.fj-sa #auth-overlay::before{
   background:repeating-linear-gradient(135deg,#232526 0px,#232526 60px,#23252699 70px,#414345 130px);
-  opacity:.07;
+  opacity:.04;
 }

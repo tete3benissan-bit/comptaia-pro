@@ -120,64 +120,64 @@ function construireDate(j,mo,a,reste){
 }
 /* Index des onglets + synonymes */
 var GS_MODULES=[
-  {id:'dashboard',ic:'📊',lb:'Tableau de bord',mots:['dashboard','accueil admin','tableau','bord','pilotage']},
-  {id:'facture',ic:'📄',lb:'Factures',mots:['facture','factures','facturation','vente','achat','avoir','doit']},
-  {id:'devis',ic:'📋',lb:'Devis',mots:['devis','proforma']},
-  {id:'bc',ic:'🛒',lb:'Bons de commande',mots:['bon de commande','commande','bc']},
-  {id:'bl',ic:'🚚',lb:'Bons de livraison',mots:['bon de livraison','livraison','bl']},
-  {id:'recurrentes',ic:'🔄',lb:'Factures récurrentes',mots:['recurrente','abonnement','recurrentes']},
-  {id:'caisse',ic:'🧾',lb:'Caisse / PDV',mots:['caisse','pdv','point de vente','ticket','especes','espèces']},
-  {id:'tiers',ic:'👥',lb:'Clients / Fournisseurs',mots:['client','clients','fournisseur','fournisseurs','tiers','annuaire']},
-  {id:'stock',ic:'📦',lb:'Stock — vue d\'ensemble',mots:['stock','stocks','inventaire stock','magasin','produits']},
-  {id:'stock-entrees',ic:'⬇️',lb:'Entrées de stock',mots:['entree','entrees','entree stock','entrées']},
-  {id:'stock-sorties',ic:'⬆️',lb:'Sorties de stock',mots:['sortie','sorties','sortie stock']},
-  {id:'stock-rapport',ic:'📊',lb:'Rapport de stock',mots:['rapport stock','valorisation']},
-  {id:'production',ic:'🏭',lb:'Production',mots:['production','fabrication']},
-  {id:'paie',ic:'💰',lb:'Paie & bulletins',mots:['paie','salaire','salaires','bulletin','bulletins','cnss']},
-  {id:'profil',ic:'🏢',lb:'Entreprise',mots:['entreprise','societe','société','profil','parametres','paramètres']},
-  {id:'journal',ic:'📒',lb:'Journal comptable',mots:['journal','ecriture','ecritures','écriture','saisie']},
-  {id:'grandlivre',ic:'📚',lb:'Grand livre',mots:['grand livre','grandlivre','gl','livre','comptes']},
-  {id:'lettrage',ic:'🔗',lb:'Lettrage',mots:['lettrage','lettrer','rapprocher factures']},
-  {id:'balance',ic:'🔢',lb:'Balance',mots:['balance','balance generale']},
-  {id:'bilan',ic:'⚖️',lb:'Bilan',mots:['bilan','actif','passif']},
-  {id:'resultats',ic:'📈',lb:'Compte de résultat',mots:['resultat','compte de resultat','résultat','pertes','profits']},
-  {id:'tft',ic:'💧',lb:'Flux de trésorerie',mots:['flux','tft','cash flow','tableau des flux']},
-  {id:'immo',ic:'🏗️',lb:'Immobilisations',mots:['immobilisation','immobilisations','immo','amortissement','amortissements']},
-  {id:'inventaire',ic:'🔢',lb:'Inventaire physique',mots:['inventaire','comptage']},
-  {id:'provisions',ic:'⚠️',lb:'Provisions',mots:['provision','provisions','depreciation']},
-  {id:'analytique',ic:'📊',lb:'Comptabilité analytique',mots:['analytique','centres de cout','couts']},
-  {id:'annexes',ic:'📝',lb:'Notes annexes',mots:['annexe','annexes','notes']},
-  {id:'audit',ic:'🔍',lb:'Piste d\'audit',mots:['audit','piste','historique','traçabilite']},
-  {id:'tva',ic:'🧾',lb:'TVA',mots:['tva','taxe','declaration tva']},
-  {id:'exercice',ic:'📅',lb:'Exercice fiscal',mots:['exercice','cloture','clôture','ouverture']},
-  {id:'exercice',ic:'🏛️',lb:'Impôt sur les Sociétés (IS)',mots:['is','impot','impôt','impot societes'],scroll:'is-auto-kpis'},
-  {id:'liasse',ic:'📑',lb:'Liasse fiscale',mots:['liasse','dgi','liasse fiscale']},
-  {id:'simulateur',ic:'🧮',lb:'Simulateur fiscal',mots:['simulateur','simulation']},
-  {id:'calendrier',ic:'🗓️',lb:'Calendrier fiscal',mots:['calendrier','echeances','échéances fiscales']},
-  {id:'solde',ic:'💰',lb:'Solde Caisse / Banque',mots:['solde','soldes','tresorerie','trésorerie']},
-  {id:'rapprochement',ic:'🏦',lb:'Rapprochement bancaire',mots:['banque','rapprochement','releve','relevé','bancaire']},
-  {id:'multidevises',ic:'💱',lb:'Multi-devises',mots:['devise','devises','change','euro','dollar']},
-  {id:'emprunts',ic:'🏛️',lb:'Emprunts',mots:['emprunt','emprunts','pret','prêt','credit bancaire']},
-  {id:'suivi',ic:'📈',lb:'Suivi de trésorerie',mots:['suivi','previsionnel tresorerie']},
-  {fn:'ouvrirIA',ic:'💬',lb:'Assistant IA',mots:['assistant','ia','chat','aide']},
-  {id:'ocr',ic:'📷',lb:'OCR — scan de facture',mots:['ocr','scan','scanner','photo facture']},
-  {id:'analyse',ic:'🔎',lb:'Analyse comptable IA',mots:['analyse','diagnostic']},
-  {id:'prevision',ic:'📈',lb:'Prévisions IA',mots:['prevision','previsions','prévision','forecast']},
-  {id:'scoring',ic:'⭐',lb:'Score financier',mots:['score','scoring','note financiere']},
-  {id:'fraude',ic:'🚨',lb:'Détection d\'anomalies',mots:['anomalie','anomalies','fraude','erreurs']},
-  {id:'benchmarks',ic:'📊',lb:'Benchmarks secteur',mots:['benchmark','benchmarks','secteur','comparaison']},
-  {id:'rh-dash',ic:'📊',lb:'Tableau de bord RH',mots:['rh','ressources humaines','tableau rh','masse salariale']},
-  {id:'rh-employes',ic:'👥',lb:'Employés (RH)',mots:['employe','employes','employé','employés','personnel','salarie','salariés','effectif']},
-  {id:'rh-contrats',ic:'📃',lb:'Contrats (RH)',mots:['contrat','contrats','cdi','cdd','stage','prestataire']},
-  {id:'rh-presence',ic:'🕒',lb:'Présence & pointage',mots:['pointage','presence','présence','retard','retards','heures supplementaires']},
-  {id:'rh-conges',ic:'🌴',lb:'Congés',mots:['conge','conges','congé','congés','absence','absences','vacances']},
-  {id:'rh-perf',ic:'🎯',lb:'Performance (RH)',mots:['evaluation','évaluation','objectifs','promotion','performance']},
-  {id:'rh-formation',ic:'🎓',lb:'Formation (RH)',mots:['formation','formations','certification','certifications']},
-  {id:'rh-recrut',ic:'📢',lb:'Recrutement',mots:['recrutement','offre emploi','candidat','candidature','candidatures','entretien','embauche']},
-  {id:'rh-sante',ic:'🏥',lb:'Santé & sécurité',mots:['sante','santé','securite','sécurité','accident','visite medicale','epi']},
-  {id:'rh-discipline',ic:'⚖️',lb:'Discipline (RH)',mots:['discipline','avertissement','sanction','sanctions']},
-  {id:'rh-docs',ic:'📄',lb:'Documents RH',mots:['attestation','certificat de travail','document rh','lettre','signature']},
-  {id:'notifs',ic:'🔔',lb:'Alertes',mots:['alerte','alertes','notification','notifications']}
+  {id:'dashboard',ic:ico('dashboard'),lb:'Tableau de bord',mots:['dashboard','accueil admin','tableau','bord','pilotage']},
+  {id:'facture',ic:ico('file'),lb:'Factures',mots:['facture','factures','facturation','vente','achat','avoir','doit']},
+  {id:'devis',ic:ico('clipboard'),lb:'Devis',mots:['devis','proforma']},
+  {id:'bc',ic:ico('cart'),lb:'Bons de commande',mots:['bon de commande','commande','bc']},
+  {id:'bl',ic:ico('truck'),lb:'Bons de livraison',mots:['bon de livraison','livraison','bl']},
+  {id:'recurrentes',ic:ico('refresh'),lb:'Factures récurrentes',mots:['recurrente','abonnement','recurrentes']},
+  {id:'caisse',ic:ico('receipt'),lb:'Caisse / PDV',mots:['caisse','pdv','point de vente','ticket','especes','espèces']},
+  {id:'tiers',ic:ico('users'),lb:'Clients / Fournisseurs',mots:['client','clients','fournisseur','fournisseurs','tiers','annuaire']},
+  {id:'stock',ic:ico('package'),lb:'Stock — vue d\'ensemble',mots:['stock','stocks','inventaire stock','magasin','produits']},
+  {id:'stock-entrees',ic:ico('arrowDown'),lb:'Entrées de stock',mots:['entree','entrees','entree stock','entrées']},
+  {id:'stock-sorties',ic:ico('arrowUp'),lb:'Sorties de stock',mots:['sortie','sorties','sortie stock']},
+  {id:'stock-rapport',ic:ico('dashboard'),lb:'Rapport de stock',mots:['rapport stock','valorisation']},
+  {id:'production',ic:ico('factory'),lb:'Production',mots:['production','fabrication']},
+  {id:'paie',ic:ico('coin'),lb:'Paie & bulletins',mots:['paie','salaire','salaires','bulletin','bulletins','cnss']},
+  {id:'profil',ic:ico('building'),lb:'Entreprise',mots:['entreprise','societe','société','profil','parametres','paramètres']},
+  {id:'journal',ic:ico('book'),lb:'Journal comptable',mots:['journal','ecriture','ecritures','écriture','saisie']},
+  {id:'grandlivre',ic:ico('bookOpen'),lb:'Grand livre',mots:['grand livre','grandlivre','gl','livre','comptes']},
+  {id:'lettrage',ic:ico('link'),lb:'Lettrage',mots:['lettrage','lettrer','rapprocher factures']},
+  {id:'balance',ic:ico('calc'),lb:'Balance',mots:['balance','balance generale']},
+  {id:'bilan',ic:ico('scale'),lb:'Bilan',mots:['bilan','actif','passif']},
+  {id:'resultats',ic:ico('trendUp'),lb:'Compte de résultat',mots:['resultat','compte de resultat','résultat','pertes','profits']},
+  {id:'tft',ic:ico('droplet'),lb:'Flux de trésorerie',mots:['flux','tft','cash flow','tableau des flux']},
+  {id:'immo',ic:ico('factory'),lb:'Immobilisations',mots:['immobilisation','immobilisations','immo','amortissement','amortissements']},
+  {id:'inventaire',ic:ico('calc'),lb:'Inventaire physique',mots:['inventaire','comptage']},
+  {id:'provisions',ic:ico('alertTriangle'),lb:'Provisions',mots:['provision','provisions','depreciation']},
+  {id:'analytique',ic:ico('dashboard'),lb:'Comptabilité analytique',mots:['analytique','centres de cout','couts']},
+  {id:'annexes',ic:ico('pencil'),lb:'Notes annexes',mots:['annexe','annexes','notes']},
+  {id:'audit',ic:ico('search'),lb:'Piste d\'audit',mots:['audit','piste','historique','traçabilite']},
+  {id:'tva',ic:ico('receipt'),lb:'TVA',mots:['tva','taxe','declaration tva']},
+  {id:'exercice',ic:ico('calendar'),lb:'Exercice fiscal',mots:['exercice','cloture','clôture','ouverture']},
+  {id:'exercice',ic:ico('landmark'),lb:'Impôt sur les Sociétés (IS)',mots:['is','impot','impôt','impot societes'],scroll:'is-auto-kpis'},
+  {id:'liasse',ic:ico('clipboard'),lb:'Liasse fiscale',mots:['liasse','dgi','liasse fiscale']},
+  {id:'simulateur',ic:ico('calc'),lb:'Simulateur fiscal',mots:['simulateur','simulation']},
+  {id:'calendrier',ic:ico('calendar'),lb:'Calendrier fiscal',mots:['calendrier','echeances','échéances fiscales']},
+  {id:'solde',ic:ico('coin'),lb:'Solde Caisse / Banque',mots:['solde','soldes','tresorerie','trésorerie']},
+  {id:'rapprochement',ic:ico('landmark'),lb:'Rapprochement bancaire',mots:['banque','rapprochement','releve','relevé','bancaire']},
+  {id:'multidevises',ic:ico('coin'),lb:'Multi-devises',mots:['devise','devises','change','euro','dollar']},
+  {id:'emprunts',ic:ico('landmark'),lb:'Emprunts',mots:['emprunt','emprunts','pret','prêt','credit bancaire']},
+  {id:'suivi',ic:ico('trendUp'),lb:'Suivi de trésorerie',mots:['suivi','previsionnel tresorerie']},
+  {fn:'ouvrirIA',ic:ico('chat'),lb:'Assistant IA',mots:['assistant','ia','chat','aide']},
+  {id:'ocr',ic:ico('camera'),lb:'OCR — scan de facture',mots:['ocr','scan','scanner','photo facture']},
+  {id:'analyse',ic:ico('search'),lb:'Analyse comptable IA',mots:['analyse','diagnostic']},
+  {id:'prevision',ic:ico('trendUp'),lb:'Prévisions IA',mots:['prevision','previsions','prévision','forecast']},
+  {id:'scoring',ic:ico('star'),lb:'Score financier',mots:['score','scoring','note financiere']},
+  {id:'fraude',ic:ico('alertOctagon'),lb:'Détection d\'anomalies',mots:['anomalie','anomalies','fraude','erreurs']},
+  {id:'benchmarks',ic:ico('dashboard'),lb:'Benchmarks secteur',mots:['benchmark','benchmarks','secteur','comparaison']},
+  {id:'rh-dash',ic:ico('dashboard'),lb:'Tableau de bord RH',mots:['rh','ressources humaines','tableau rh','masse salariale']},
+  {id:'rh-employes',ic:ico('users'),lb:'Employés (RH)',mots:['employe','employes','employé','employés','personnel','salarie','salariés','effectif']},
+  {id:'rh-contrats',ic:ico('file'),lb:'Contrats (RH)',mots:['contrat','contrats','cdi','cdd','stage','prestataire']},
+  {id:'rh-presence',ic:ico('clock'),lb:'Présence & pointage',mots:['pointage','presence','présence','retard','retards','heures supplementaires']},
+  {id:'rh-conges',ic:ico('palm'),lb:'Congés',mots:['conge','conges','congé','congés','absence','absences','vacances']},
+  {id:'rh-perf',ic:ico('target'),lb:'Performance (RH)',mots:['evaluation','évaluation','objectifs','promotion','performance']},
+  {id:'rh-formation',ic:ico('cap'),lb:'Formation (RH)',mots:['formation','formations','certification','certifications']},
+  {id:'rh-recrut',ic:ico('megaphone'),lb:'Recrutement',mots:['recrutement','offre emploi','candidat','candidature','candidatures','entretien','embauche']},
+  {id:'rh-sante',ic:ico('health'),lb:'Santé & sécurité',mots:['sante','santé','securite','sécurité','accident','visite medicale','epi']},
+  {id:'rh-discipline',ic:ico('scale'),lb:'Discipline (RH)',mots:['discipline','avertissement','sanction','sanctions']},
+  {id:'rh-docs',ic:ico('file'),lb:'Documents RH',mots:['attestation','certificat de travail','document rh','lettre','signature']},
+  {id:'notifs',ic:ico('bell'),lb:'Alertes',mots:['alerte','alertes','notification','notifications']}
 ];
 function chercherModules(q){
   if(!q)return [];
@@ -270,32 +270,32 @@ function gsLancer(){
   var stk=chercherStocks(q);
   var h='';
   if(date&&!q){
-    h+='<div class="gs-sect">📅 Date détectée — '+date.fr+'</div>';
-    h+='<div class="gs-item" data-act="journal-date"><span class="gs-ic">📒</span>Journal du '+date.fr+'<span class="gs-sub">'+ecr.length+' écriture(s)</span></div>';
+    h+='<div class="gs-sect">'+ico('calendar')+' Date détectée — '+date.fr+'</div>';
+    h+='<div class="gs-item" data-act="journal-date"><span class="gs-ic">'+ico('book')+'</span>Journal du '+date.fr+'<span class="gs-sub">'+ecr.length+' écriture(s)</span></div>';
   }
   if(mods.length){
-    h+='<div class="gs-sect">📁 Onglets</div>';
+    h+='<div class="gs-sect">'+ico('folder')+' Onglets</div>';
     mods.forEach(function(m,i){
       var sub=date?('au '+date.fr):'';
       h+='<div class="gs-item" data-act="module" data-i="'+i+'"><span class="gs-ic">'+m.ic+'</span>'+esc(m.lb)+(sub?'<span class="gs-sub">'+sub+'</span>':'')+'</div>';
     });
   }
   if(cpts.length){
-    h+='<div class="gs-sect">🔢 Comptes comptables</div>';
+    h+='<div class="gs-sect">'+ico('calc')+' Comptes comptables</div>';
     cpts.forEach(function(c,i){
       h+='<div class="gs-item" data-act="compte" data-i="'+i+'"><span class="gs-ic"><span class="gs-num">'+c.num+'</span></span>'+esc(c.nom)+'<span class="gs-sub">'+(dernierChampCompte?'insérer ↵':'grand livre')+'</span></div>';
     });
   }
   if(ecr.length&&(q||date)){
-    h+='<div class="gs-sect">🧾 Écritures'+(date?' du '+date.fr:'')+'</div>';
+    h+='<div class="gs-sect">'+ico('receipt')+' Écritures'+(date?' du '+date.fr:'')+'</div>';
     ecr.forEach(function(e,i){
-      h+='<div class="gs-item" data-act="ecriture" data-i="'+i+'"><span class="gs-ic">📄</span>'+esc(e.num||'—')+' · '+esc(e.cli||'')+'<span class="gs-sub">'+esc(e.dateF||'')+' · '+Math.round(e.ttc||e.debit||0).toLocaleString('fr-FR')+' F</span></div>';
+      h+='<div class="gs-item" data-act="ecriture" data-i="'+i+'"><span class="gs-ic">'+ico('file')+'</span>'+esc(e.num||'—')+' · '+esc(e.cli||'')+'<span class="gs-sub">'+esc(e.dateF||'')+' · '+Math.round(e.ttc||e.debit||0).toLocaleString('fr-FR')+' F</span></div>';
     });
   }
   if(stk.length){
-    h+='<div class="gs-sect">📦 Articles en stock</div>';
+    h+='<div class="gs-sect">'+ico('package')+' Articles en stock</div>';
     stk.forEach(function(n,i){
-      h+='<div class="gs-item" data-act="stock" data-i="'+i+'"><span class="gs-ic">📦</span>'+esc(n)+'</div>';
+      h+='<div class="gs-item" data-act="stock" data-i="'+i+'"><span class="gs-ic">'+ico('package')+'</span>'+esc(n)+'</div>';
     });
   }
   if(!h)h='<div class="gs-vide">Aucun résultat pour « '+esc(brut)+' »</div>';
@@ -393,13 +393,13 @@ function construireImportFacture(){
   var c=document.createElement('div');
   c.className='card';c.id='fimp-card';c.style.marginBottom='14px';
   c.innerHTML='<div class="card-body">'+
-    '<div class="fimp-titre">🧾 Nouvelle facture — choisissez votre méthode</div>'+
+    '<div class="fimp-titre">'+ico('receipt')+' Nouvelle facture — choisissez votre méthode</div>'+
     '<div class="fimp-sous">Saisie manuelle, ou import automatique : l\'IA lit le document, remplit le formulaire et prépare les écritures. Vous vérifiez, puis validez.</div>'+
     '<div class="fimp-btns">'+
-      '<button type="button" class="fimp-btn" onclick="fimpManuel()"><span class="fimp-ic">✍️</span>Saisie manuelle<small>formulaire ci-dessous</small></button>'+
-      '<button type="button" class="fimp-btn" onclick="$fimp(\'fimp-pdf\')"><span class="fimp-ic">📄</span>Import PDF<small>facture numérique</small></button>'+
-      '<button type="button" class="fimp-btn" onclick="$fimp(\'fimp-photo\')"><span class="fimp-ic">🖼️</span>Import photo<small>depuis la galerie</small></button>'+
-      '<button type="button" class="fimp-btn" onclick="$fimp(\'fimp-cam\')"><span class="fimp-ic">📷</span>Prendre une photo<small>appareil photo</small></button>'+
+      '<button type="button" class="fimp-btn" onclick="fimpManuel()"><span class="fimp-ic">'+ico('pencil')+'</span>Saisie manuelle<small>formulaire ci-dessous</small></button>'+
+      '<button type="button" class="fimp-btn" onclick="$fimp(\'fimp-pdf\')"><span class="fimp-ic">'+ico('file')+'</span>Import PDF<small>facture numérique</small></button>'+
+      '<button type="button" class="fimp-btn" onclick="$fimp(\'fimp-photo\')"><span class="fimp-ic">'+ico('camera')+'</span>Import photo<small>depuis la galerie</small></button>'+
+      '<button type="button" class="fimp-btn" onclick="$fimp(\'fimp-cam\')"><span class="fimp-ic">'+ico('camera')+'</span>Prendre une photo<small>appareil photo</small></button>'+
     '</div>'+
     '<input type="file" id="fimp-pdf" accept="application/pdf" style="display:none" onchange="fimpFichier(event)"/>'+
     '<input type="file" id="fimp-photo" accept="image/*" style="display:none" onchange="fimpFichier(event)"/>'+
@@ -417,11 +417,11 @@ window.fimpManuel=function(){
 window.fimpFichier=function(ev){
   var f=ev.target.files&&ev.target.files[0];
   if(!f)return;
-  if(f.size>9*1024*1024){fimpStatus('⚠ Fichier trop lourd (max 9 Mo). Réduisez la taille ou prenez une photo moins grande.','var(--red)');return;}
-  fimpStatus('⏳ Lecture du document…','var(--amber)');
+  if(f.size>9*1024*1024){fimpStatus(ico('alertTriangle')+' Fichier trop lourd (max 9 Mo). Réduisez la taille ou prenez une photo moins grande.','var(--red)');return;}
+  fimpStatus(ico('clock')+' Lecture du document…','var(--amber)');
   var r=new FileReader();
   r.onload=function(e){fimpAnalyser(e.target.result,f.type);};
-  r.onerror=function(){fimpStatus('⚠ Impossible de lire le fichier.','var(--red)');};
+  r.onerror=function(){fimpStatus(ico('alertTriangle')+' Impossible de lire le fichier.','var(--red)');};
   r.readAsDataURL(f);
 };
 function fimpStatus(msg,coul){
@@ -429,7 +429,7 @@ function fimpStatus(msg,coul){
   if(s){s.style.display='block';s.innerHTML='<span style="color:'+(coul||'var(--text)')+';font-weight:600">'+msg+'</span>';}
 }
 async function fimpAnalyser(dataUrl,mime){
-  fimpStatus('🤖 Analyse IA du document — extraction des données comptables…','var(--amber)');
+  fimpStatus(ico('bot')+' Analyse IA du document — extraction des données comptables…','var(--amber)');
   var b64=dataUrl.split(',')[1];
   var estPDF=(mime||'').indexOf('pdf')>-1;
   var bloc=estPDF
@@ -453,7 +453,7 @@ async function fimpAnalyser(dataUrl,mime){
     FIMP_DATA=parsed;
     fimpRemplir(parsed);
   }catch(err){
-    fimpStatus('⚠ Analyse impossible — vérifiez la connexion internet ou la netteté du document, puis réessayez.','var(--red)');
+    fimpStatus(ico('alertTriangle')+' Analyse impossible — vérifiez la connexion internet ou la netteté du document, puis réessayez.','var(--red)');
   }
 }
 function fimpRemplir(d){
@@ -496,13 +496,13 @@ function fimpRemplir(d){
   if(res){
     res.style.display='block';
     res.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">'+
-      '<strong>✓ Document analysé : '+esc(d.tiers||'—')+' · '+esc(d.numero_facture||'—')+'</strong>'+
+      '<strong>'+ico('checkCircle')+' Document analysé : '+esc(d.tiers||'—')+' · '+esc(d.numero_facture||'—')+'</strong>'+
       '<span style="font-size:10px;padding:2px 8px;border-radius:var(--radius);background:var(--bg);color:'+cc+';font-weight:700">Confiance : '+conf+'</span></div>'+
       '<div style="color:var(--text-muted)">HT '+fmtSafe(d.montant_ht)+' · TVA '+fmtSafe(d.montant_tva)+' ('+(d.taux_tva||0)+'%) · TTC <strong>'+fmtSafe(d.montant_ttc)+'</strong> FCFA'+
       ((d.lignes||[]).length?' · '+d.lignes.length+' ligne(s) produit':'')+'</div>'+
-      '<div style="margin-top:6px;color:var(--green-dark);font-weight:600">👇 Vérifiez le formulaire ci-dessous, corrigez si besoin, puis cliquez sur <u>Valider</u> : les écritures (journal, grand livre, TVA, stock, comptes) seront générées automatiquement.</div>';
+      '<div style="margin-top:6px;color:var(--green-dark);font-weight:600">'+ico('arrowDown')+' Vérifiez le formulaire ci-dessous, corrigez si besoin, puis cliquez sur <u>Valider</u> : les écritures (journal, grand livre, TVA, stock, comptes) seront générées automatiquement.</div>';
   }
-  fimpStatus('✓ Extraction terminée — vérification avant validation.','var(--green)');
+  fimpStatus(ico('checkCircle')+' Extraction terminée — vérification avant validation.','var(--green)');
   var f=$id('f-num');if(f)f.scrollIntoView({behavior:'smooth',block:'center'});
 }
 function fmtSafe(n){return Math.round(parseFloat(n)||0).toLocaleString('fr-FR');}

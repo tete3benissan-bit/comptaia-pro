@@ -31,12 +31,12 @@ function renderDashboard(){
 
   var kpis=[
     {label:'Chiffre d\'affaires',val:fmt(tPr)+' FCFA',sub:EC.filter(function(e){return!e.isTVA&&!e.isAvance&&(e.type==='vente'||e.type==='service')}).length+' factures',cls:'green'},
-    {label:'Résultat net',val:fmt(Math.abs(resNet))+' FCFA',sub:resNet>=0?'Bénéfice':'Déficit ⚠',cls:resNet>=0?'green':'red'},
-    {label:'Marge nette',val:margeP+'%',sub:margeP>10?'Bonne marge ✓':margeP>0?'Marge à améliorer':'En perte',cls:margeP>10?'green':margeP>0?'amber':'red'},
+    {label:'Résultat net',val:fmt(Math.abs(resNet))+' FCFA',sub:resNet>=0?'Bénéfice':'Déficit '+ico('alertTriangle'),cls:resNet>=0?'green':'red'},
+    {label:'Marge nette',val:margeP+'%',sub:margeP>10?'Bonne marge '+ico('check'):margeP>0?'Marge à améliorer':'En perte',cls:margeP>10?'green':margeP>0?'amber':'red'},
     {label:'Trésorerie totale',val:fmt(treso)+' FCFA',sub:'Caisse + Banque',cls:treso>0?'blue':'red'},
     {label:'Créances clients',val:fmt(attMt)+' FCFA',sub:att.length+' facture(s) impayée(s)',cls:att.length===0?'green':'amber'},
     {label:'IS estimé',val:fmt(isTotal)+' FCFA',sub:'27% bénéfice imposable',cls:isTotal>0?'amber':'green'},
-    {label:'Factures en retard',val:''+retard,sub:retard>0?'Retard de paiement ⚠':'Aucun retard ✓',cls:retard>0?'red':'green'},
+    {label:'Factures en retard',val:''+retard,sub:retard>0?'Retard de paiement '+ico('alertTriangle'):'Aucun retard '+ico('check'),cls:retard>0?'red':'green'},
     {label:'Immobilisations',val:IMMOS.length+' bien(s)',sub:'VNC : '+fmt(IMMOS.reduce(function(a,i){return a+(i.vnc||i.valeur-i.amortCumul||i.valeur);},0))+' FCFA',cls:'blue'},
   ];
 
@@ -75,14 +75,14 @@ function renderDashboard(){
 
   // Alertes intelligentes
   var alertes=[];
-  if(retard>0)alertes.push({type:'danger',icon:'⏰',msg:'<strong>'+retard+' facture(s) en retard</strong> — Relancez vos clients pour améliorer votre trésorerie.'});
-  if(treso<0)alertes.push({type:'danger',icon:'🔴',msg:'<strong>Trésorerie négative</strong> — Situation critique : '+fmt(treso)+' FCFA. Cherchez un financement d\'urgence ou recouvrez les créances.'});
-  if(treso>0&&treso<attMt)alertes.push({type:'warn',icon:'⚠️',msg:'Vos créances ('+fmt(attMt)+' FCFA) dépassent votre trésorerie ('+fmt(treso)+' FCFA). Risque de défaut de paiement.'});
-  if(margeP>0&&margeP<5)alertes.push({type:'warn',icon:'📉',msg:'Marge nette très faible ('+margeP+'%). Analysez vos charges pour identifier des économies possibles.'});
-  if(IMMOS.length>0){var vnc=IMMOS.reduce(function(a,i){return a+(i.vnc||0);},0);if(vnc/Math.max(tPr,1)<0.1)alertes.push({type:'info',icon:'💡',msg:'Vos immobilisations ont une faible VNC. Pensez à renouveler votre parc matériel pour maintenir la capacité productive.'});}
-  if(!is&&tPr>0)alertes.push({type:'warn',icon:'🏛️',msg:'L\'IS n\'a pas encore été calculé pour cet exercice. Allez dans Exercice & IS pour éviter les surprises fiscales.'});
+  if(retard>0)alertes.push({type:'danger',icon:ico('clock'),msg:'<strong>'+retard+' facture(s) en retard</strong> — Relancez vos clients pour améliorer votre trésorerie.'});
+  if(treso<0)alertes.push({type:'danger',icon:'<span style="color:var(--red)">'+ico('dot')+'</span>',msg:'<strong>Trésorerie négative</strong> — Situation critique : '+fmt(treso)+' FCFA. Cherchez un financement d\'urgence ou recouvrez les créances.'});
+  if(treso>0&&treso<attMt)alertes.push({type:'warn',icon:ico('alertTriangle'),msg:'Vos créances ('+fmt(attMt)+' FCFA) dépassent votre trésorerie ('+fmt(treso)+' FCFA). Risque de défaut de paiement.'});
+  if(margeP>0&&margeP<5)alertes.push({type:'warn',icon:ico('trendDown'),msg:'Marge nette très faible ('+margeP+'%). Analysez vos charges pour identifier des économies possibles.'});
+  if(IMMOS.length>0){var vnc=IMMOS.reduce(function(a,i){return a+(i.vnc||0);},0);if(vnc/Math.max(tPr,1)<0.1)alertes.push({type:'info',icon:ico('lightbulb'),msg:'Vos immobilisations ont une faible VNC. Pensez à renouveler votre parc matériel pour maintenir la capacité productive.'});}
+  if(!is&&tPr>0)alertes.push({type:'warn',icon:ico('landmark'),msg:'L\'IS n\'a pas encore été calculé pour cet exercice. Allez dans Exercice & IS pour éviter les surprises fiscales.'});
   var aHtml=alertes.length?alertes.map(function(a){return`<div style="display:flex;align-items:flex-start;gap:10px;padding:9px 12px;border-radius:var(--radius);margin-bottom:6px;background:${a.type==='danger'?'var(--red-light)':a.type==='warn'?'var(--amber-light)':'var(--blue-light)'};border:1px solid ${a.type==='danger'?'var(--red-border)':a.type==='warn'?'var(--amber-border)':'var(--blue-border)'}"><span style="font-size:16px">${a.icon}</span><span style="font-size:11.5px;color:var(--text)">${a.msg}</span></div>`;}).join(''):
-    '<div style="color:var(--text-faint);font-style:italic;font-size:12px;padding:8px 0">✓ Aucun point d\'attention critique détecté — vos comptes semblent en ordre.</div>';
+    '<div style="color:var(--text-faint);font-style:italic;font-size:12px;padding:8px 0">'+ico('check')+' Aucun point d\'attention critique détecté — vos comptes semblent en ordre.</div>';
   document.getElementById('dash-alertes-body').innerHTML=aHtml;
 }
 
@@ -90,7 +90,7 @@ async function refreshDashboard(){
   var btn=document.querySelector('#pane-dashboard button');if(btn)btn.disabled=true;
   renderDashboard();
   var recoel=document.getElementById('dash-reco');
-  recoel.innerHTML='<div class="ai-reco-title">✦ Recommandations prioritaires de l\'IA</div><div style="display:flex;gap:6px;padding:8px 0"><div style="width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse .8s ease-in-out infinite"></div><div style="width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse .8s ease-in-out infinite;animation-delay:.16s"></div><div style="width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse .8s ease-in-out infinite;animation-delay:.32s"></div><div style="font-size:11.5px;color:rgba(168,164,159,.8);margin-left:8px">Analyse en cours...</div></div>';
+  recoel.innerHTML='<div class="ai-reco-title">'+ico('sparkle')+' Recommandations prioritaires de l\'IA</div><div style="display:flex;gap:6px;padding:8px 0"><div style="width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse .8s ease-in-out infinite"></div><div style="width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse .8s ease-in-out infinite;animation-delay:.16s"></div><div style="width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse .8s ease-in-out infinite;animation-delay:.32s"></div><div style="font-size:11.5px;color:rgba(168,164,159,.8);margin-left:8px">Analyse en cours...</div></div>';
   var tPr=0,tCh=0;EC.concat(REGL).forEach(function(e){if(e.cptC&&e.cptC[0]==='7'&&!e.isTVA)tPr+=e.credit;if(e.cptD&&e.cptD[0]==='6'&&!e.isTVA)tCh+=e.debit;});
   var att=EC.filter(function(e){return e.stat==='attente'&&!e.isTVA&&!e.isAvance});
   var sc=typeof getSoldeCalcule==='function'?getSoldeCalcule():{caisse:0,banque:0};
@@ -103,8 +103,8 @@ async function refreshDashboard(){
     var parsed=JSON.parse(clean);
     var recos=parsed.recommandations||[];
     var colors={'HAUTE':'#E24B4A','MOYENNE':'#BA7517','FAIBLE':'var(--accent)'};
-    recoel.innerHTML='<div class="ai-reco-title">✦ Recommandations IA — '+new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})+'</div>'+recos.map(function(r,i){return`<div class="ai-reco-item"><div class="ai-prio" style="background:${colors[r.priorite]||'#888'};color:#fff">${i+1}</div><div><div style="font-size:12px;font-weight:600;color:#fff;margin-bottom:2px">${r.titre}</div><div style="font-size:11px;color:rgba(255,255,255,.7);line-height:1.5">${r.description}</div></div></div>`;}).join('');
-  }catch(err){recoel.innerHTML='<div class="ai-reco-title">✦ Recommandations prioritaires</div><div style="color:rgba(168,164,159,.6);font-size:11.5px">Connectez-vous à internet pour obtenir des recommandations IA personnalisées.</div>';}
+    recoel.innerHTML='<div class="ai-reco-title">'+ico('sparkle')+' Recommandations IA — '+new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})+'</div>'+recos.map(function(r,i){return`<div class="ai-reco-item"><div class="ai-prio" style="background:${colors[r.priorite]||'#888'};color:#fff">${i+1}</div><div><div style="font-size:12px;font-weight:600;color:#fff;margin-bottom:2px">${r.titre}</div><div style="font-size:11px;color:rgba(255,255,255,.7);line-height:1.5">${r.description}</div></div></div>`;}).join('');
+  }catch(err){recoel.innerHTML='<div class="ai-reco-title">'+ico('sparkle')+' Recommandations prioritaires</div><div style="color:rgba(168,164,159,.6);font-size:11.5px">Connectez-vous à internet pour obtenir des recommandations IA personnalisées.</div>';}
   if(btn)btn.disabled=false;
 }
 
@@ -129,12 +129,12 @@ function calculerScore(){
 
   // Calcul des scores par critère (0-100)
   var criteres=[
-    {label:'Rentabilité',desc:'Marge nette / CA',val:margeP,note:margeP>=20?100:margeP>=10?80:margeP>=5?60:margeP>=0?40:10,ref:'>20% = Excellent',ico:'📈'},
-    {label:'Liquidité',desc:'Trésorerie / Créances',val:liquiditeP+'%',note:liquiditeP>=150?100:liquiditeP>=100?80:liquiditeP>=50?60:liquiditeP>=0?40:20,ref:'>150% = Excellent',ico:'💧'},
-    {label:'Recouvrement',desc:'Délai moyen paiement',val:rotCreance+'j',note:rotCreance<=30?100:rotCreance<=60?75:rotCreance<=90?50:rotCreance<=120?30:10,ref:'<30j = Excellent',ico:'⏱️'},
-    {label:'Ponctualité',desc:'Factures en retard',val:retardNb+' retard(s)',note:retardNb===0?100:retardNb<=1?70:retardNb<=3?40:10,ref:'0 retard = Excellent',ico:'📅'},
-    {label:'IS & Fiscalité',desc:'IS calculé / provisionné',val:isTotal>0?'Oui':'Non',note:isTotal>0?90:30,ref:'IS provisionné = Bon',ico:'🏛️'},
-    {label:'Immobilisations',desc:'Biens durables présents',val:IMMOS.length+' bien(s)',note:IMMOS.length>=3?100:IMMOS.length>=1?70:40,ref:'≥3 biens = Excellent',ico:'🏗️'},
+    {label:'Rentabilité',desc:'Marge nette / CA',val:margeP,note:margeP>=20?100:margeP>=10?80:margeP>=5?60:margeP>=0?40:10,ref:'>20% = Excellent',ico:ico('trendUp')},
+    {label:'Liquidité',desc:'Trésorerie / Créances',val:liquiditeP+'%',note:liquiditeP>=150?100:liquiditeP>=100?80:liquiditeP>=50?60:liquiditeP>=0?40:20,ref:'>150% = Excellent',ico:ico('droplet')},
+    {label:'Recouvrement',desc:'Délai moyen paiement',val:rotCreance+'j',note:rotCreance<=30?100:rotCreance<=60?75:rotCreance<=90?50:rotCreance<=120?30:10,ref:'<30j = Excellent',ico:ico('clock')},
+    {label:'Ponctualité',desc:'Factures en retard',val:retardNb+' retard(s)',note:retardNb===0?100:retardNb<=1?70:retardNb<=3?40:10,ref:'0 retard = Excellent',ico:ico('calendar')},
+    {label:'IS & Fiscalité',desc:'IS calculé / provisionné',val:isTotal>0?'Oui':'Non',note:isTotal>0?90:30,ref:'IS provisionné = Bon',ico:ico('landmark')},
+    {label:'Immobilisations',desc:'Biens durables présents',val:IMMOS.length+' bien(s)',note:IMMOS.length>=3?100:IMMOS.length>=1?70:40,ref:'≥3 biens = Excellent',ico:ico('factory')},
   ];
 
   var scoreMoyen=Math.round(criteres.reduce(function(a,c){return a+c.note;},0)/criteres.length);
@@ -169,7 +169,7 @@ function calculerScore(){
       <div style="width:50px;height:50px;border-radius:50%;background:${color};display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;font-weight:700">${scoreMoyen}</div>
       <div><div style="font-size:14px;font-weight:700;color:${color}">${label}</div><div style="font-size:11px;color:var(--text-muted)">Score global calculé sur ${criteres.length} critères OHADA</div></div>
     </div>
-    ${conseils?'<div style="font-size:12px;line-height:1.8;margin-bottom:10px"><strong>Axes d\'amélioration :</strong><br>'+conseils+'</div>':'<div style="color:var(--green-dark);font-size:12px;font-weight:500">✓ Tous les critères sont satisfaisants — bonne santé financière.</div>'}
+    ${conseils?'<div style="font-size:12px;line-height:1.8;margin-bottom:10px"><strong>Axes d\'amélioration :</strong><br>'+conseils+'</div>':'<div style="color:var(--green-dark);font-size:12px;font-weight:500">'+ico('check')+' Tous les critères sont satisfaisants — bonne santé financière.</div>'}
     <div style="font-size:10px;color:var(--text-faint);border-top:2px solid var(--border);padding-top:8px;margin-top:8px">Score calculé le ${new Date().toLocaleDateString('fr-FR')} à ${new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})} | Exercice ${EXERCICE.annee}</div>`;
 }
 
@@ -186,7 +186,7 @@ function ocr_process(file){
   var reader=new FileReader();
   reader.onload=function(e){
     preview.src=e.target.result;preview.style.display='block';
-    status.innerHTML='<span style="color:var(--amber)">🤖 Analyse IA en cours — extraction des données...</span>';
+    status.innerHTML='<span style="color:var(--amber)">'+ico('bot')+' Analyse IA en cours — extraction des données...</span>';
     ocr_analyzeWithAI(e.target.result);
   };
   reader.readAsDataURL(file);
@@ -205,7 +205,7 @@ async function ocr_analyzeWithAI(dataUrl){
     var confColor=conf==='haute'?'var(--green)':conf==='moyenne'?'var(--amber)':'var(--red)';
     document.getElementById('ocr-result').innerHTML=`
       <div style="display:flex;justify-content:space-between;margin-bottom:10px">
-        <div style="font-size:12px;font-weight:700;color:var(--green-dark)">✓ Extraction réussie</div>
+        <div style="font-size:12px;font-weight:700;color:var(--green-dark)">${ico('checkCircle')} Extraction réussie</div>
         <div style="font-size:10px;padding:2px 8px;border-radius:var(--radius);background:var(--bg);color:${confColor};font-weight:600">Confiance : ${conf}</div>
       </div>
       ${[
@@ -219,9 +219,9 @@ async function ocr_analyzeWithAI(dataUrl){
         {l:'Type',v:parsed.type||'—'},
       ].map(function(row){return`<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:2px solid var(--border);font-size:12px"><span style="color:var(--text-muted)">${row.l}</span><span style="font-weight:600">${row.v}</span></div>`;}).join('')}`;
     document.getElementById('ocr-actions').style.display='block';
-    status.innerHTML='<span style="color:var(--green)">✓ Extraction terminée — vérifiez les données et cliquez sur "Remplir le formulaire".</span>';
+    status.innerHTML='<span style="color:var(--green)">'+ico('checkCircle')+' Extraction terminée — vérifiez les données et cliquez sur "Remplir le formulaire".</span>';
   }catch(err){
-    document.getElementById('ocr-result').innerHTML='<div style="color:var(--red);font-size:12px">⚠ Erreur d\'analyse. Vérifiez votre connexion internet ou essayez une image plus nette.</div>';
+    document.getElementById('ocr-result').innerHTML='<div style="color:var(--red);font-size:12px">'+ico('alertTriangle')+' Erreur d\'analyse. Vérifiez votre connexion internet ou essayez une image plus nette.</div>';
     status.innerHTML='<span style="color:var(--red)">Erreur de traitement</span>';
   }
 }
@@ -237,7 +237,7 @@ function ocr_appliquer(){
   else if(ocrData.type==='vente')document.getElementById('f-type').value='vente';
   if(typeof calcM==='function')calcM();
   go('facture',document.querySelectorAll('.nav-item')[0]);
-  alert('✓ Formulaire pré-rempli depuis la photo. Vérifiez les données et validez.');
+  alert('Formulaire pré-rempli depuis la photo. Vérifiez les données et validez.');
 }
 
 // ─────────────────────────────────────
@@ -248,20 +248,20 @@ function lancerDetection(){
   var today=new Date().toISOString().split('T')[0];
   // 1. Doublons potentiels (même montant + même client + même mois)
   var seen={};
-  EC.forEach(function(e,i){if(e.isTVA||e.isAvance)return;var k=e.cli+'|'+Math.round(e.ttc)+'|'+e.date.substring(0,7);if(seen[k]!==undefined)anomalies.push({niveau:'haute',icon:'🔴',titre:'Doublon potentiel',desc:'Deux écritures similaires : '+e.num+' et '+EC[seen[k]].num+' — même client ('+e.cli+'), même montant ('+Math.round(e.ttc).toLocaleString('fr-FR')+' FCFA), même mois.'});else seen[k]=i;});
+  EC.forEach(function(e,i){if(e.isTVA||e.isAvance)return;var k=e.cli+'|'+Math.round(e.ttc)+'|'+e.date.substring(0,7);if(seen[k]!==undefined)anomalies.push({niveau:'haute',icon:'<span style="color:var(--red)">'+ico('dot')+'</span>',titre:'Doublon potentiel',desc:'Deux écritures similaires : '+e.num+' et '+EC[seen[k]].num+' — même client ('+e.cli+'), même montant ('+Math.round(e.ttc).toLocaleString('fr-FR')+' FCFA), même mois.'});else seen[k]=i;});
   // 2. Écritures déséquilibrées
-  EC.concat(REGL).forEach(function(e){if(Math.abs(e.debit-e.credit)>1)anomalies.push({niveau:'haute',icon:'⚖️',titre:'Écriture déséquilibrée',desc:'L\'écriture '+e.num+' a un débit ('+Math.round(e.debit).toLocaleString('fr-FR')+') différent du crédit ('+Math.round(e.credit).toLocaleString('fr-FR')+') FCFA.'});});
+  EC.concat(REGL).forEach(function(e){if(Math.abs(e.debit-e.credit)>1)anomalies.push({niveau:'haute',icon:ico('scale'),titre:'Écriture déséquilibrée',desc:'L\'écriture '+e.num+' a un débit ('+Math.round(e.debit).toLocaleString('fr-FR')+') différent du crédit ('+Math.round(e.credit).toLocaleString('fr-FR')+') FCFA.'});});
   // 3. Factures très en retard (>60j)
-  EC.filter(function(e){return e.stat==='attente'&&e.echeance&&e.echeance<today}).forEach(function(e){var days=Math.round((new Date(today)-new Date(e.echeance))/(1000*60*60*24));if(days>60)anomalies.push({niveau:'haute',icon:'⏰',titre:'Retard extrême ('+days+'j)',desc:'Facture '+e.num+' de '+e.cli+' — '+Math.round(e.ttc).toLocaleString('fr-FR')+' FCFA — en retard de '+days+' jours. Risque d\'irrécouvrabilité.'});else if(days>30)anomalies.push({niveau:'moyenne',icon:'⚠️',titre:'Retard important ('+days+'j)',desc:'Facture '+e.num+' de '+e.cli+' en retard de '+days+' jours.'});});
+  EC.filter(function(e){return e.stat==='attente'&&e.echeance&&e.echeance<today}).forEach(function(e){var days=Math.round((new Date(today)-new Date(e.echeance))/(1000*60*60*24));if(days>60)anomalies.push({niveau:'haute',icon:ico('clock'),titre:'Retard extrême ('+days+'j)',desc:'Facture '+e.num+' de '+e.cli+' — '+Math.round(e.ttc).toLocaleString('fr-FR')+' FCFA — en retard de '+days+' jours. Risque d\'irrécouvrabilité.'});else if(days>30)anomalies.push({niveau:'moyenne',icon:ico('alertTriangle'),titre:'Retard important ('+days+'j)',desc:'Facture '+e.num+' de '+e.cli+' en retard de '+days+' jours.'});});
   // 4. Montants ronds inhabituels (suspicion)
-  EC.filter(function(e){return !e.isTVA&&!e.isAvance&&e.ttc>500000&&e.ttc%100000===0}).forEach(function(e){anomalies.push({niveau:'faible',icon:'💡',titre:'Montant rond élevé',desc:'La facture '+e.num+' a un montant très rond ('+Math.round(e.ttc).toLocaleString('fr-FR')+' FCFA). Vérifiez que c\'est bien le montant exact.'});});
+  EC.filter(function(e){return !e.isTVA&&!e.isAvance&&e.ttc>500000&&e.ttc%100000===0}).forEach(function(e){anomalies.push({niveau:'faible',icon:ico('lightbulb'),titre:'Montant rond élevé',desc:'La facture '+e.num+' a un montant très rond ('+Math.round(e.ttc).toLocaleString('fr-FR')+' FCFA). Vérifiez que c\'est bien le montant exact.'});});
   // 5. Taux TVA incohérent (vente avec TVA achat ou vice versa)
-  EC.filter(function(e){return !e.isTVA&&e.tvaCpt}).forEach(function(e){if((e.type==='vente'||e.type==='service')&&e.tvaCpt==='4452')anomalies.push({niveau:'moyenne',icon:'🧾',titre:'TVA incohérente',desc:'La facture de vente '+e.num+' utilise le compte 4452 (TVA achat). Une vente devrait utiliser le compte 4431 (TVA collectée).'});if(e.type==='achat'&&e.tvaCpt==='4431')anomalies.push({niveau:'moyenne',icon:'🧾',titre:'TVA incohérente',desc:'La facture d\'achat '+e.num+' utilise le compte 4431 (TVA vente). Un achat devrait utiliser le compte 4452 (TVA récupérable).'});});
+  EC.filter(function(e){return !e.isTVA&&e.tvaCpt}).forEach(function(e){if((e.type==='vente'||e.type==='service')&&e.tvaCpt==='4452')anomalies.push({niveau:'moyenne',icon:ico('receipt'),titre:'TVA incohérente',desc:'La facture de vente '+e.num+' utilise le compte 4452 (TVA achat). Une vente devrait utiliser le compte 4431 (TVA collectée).'});if(e.type==='achat'&&e.tvaCpt==='4431')anomalies.push({niveau:'moyenne',icon:ico('receipt'),titre:'TVA incohérente',desc:'La facture d\'achat '+e.num+' utilise le compte 4431 (TVA vente). Un achat devrait utiliser le compte 4452 (TVA récupérable).'});});
   // 6. Écritures sans description
-  EC.filter(function(e){return !e.desc||e.desc.length<5}).forEach(function(e){anomalies.push({niveau:'faible',icon:'📝',titre:'Description manquante',desc:'L\'écriture '+e.num+' n\'a pas de description suffisante. Ajoutez un libellé pour faciliter les contrôles.'});});
+  EC.filter(function(e){return !e.desc||e.desc.length<5}).forEach(function(e){anomalies.push({niveau:'faible',icon:ico('pencil'),titre:'Description manquante',desc:'L\'écriture '+e.num+' n\'a pas de description suffisante. Ajoutez un libellé pour faciliter les contrôles.'});});
   // 7. Balance non équilibrée globalement
   var tD=0,tC=0;EC.concat(REGL).forEach(function(e){tD+=e.debit;tC+=e.credit;});
-  if(Math.abs(tD-tC)>1)anomalies.push({niveau:'haute',icon:'⚖️',titre:'Journal global déséquilibré',desc:'Le total débit ('+Math.round(tD).toLocaleString('fr-FR')+') ne correspond pas au total crédit ('+Math.round(tC).toLocaleString('fr-FR')+') FCFA. Écart : '+Math.round(Math.abs(tD-tC)).toLocaleString('fr-FR')+' FCFA.'});
+  if(Math.abs(tD-tC)>1)anomalies.push({niveau:'haute',icon:ico('scale'),titre:'Journal global déséquilibré',desc:'Le total débit ('+Math.round(tD).toLocaleString('fr-FR')+') ne correspond pas au total crédit ('+Math.round(tC).toLocaleString('fr-FR')+') FCFA. Écart : '+Math.round(Math.abs(tD-tC)).toLocaleString('fr-FR')+' FCFA.'});
 
   var crit=anomalies.filter(function(a){return a.niveau==='haute'}).length;
   var med=anomalies.filter(function(a){return a.niveau==='moyenne'}).length;
@@ -274,7 +274,7 @@ function lancerDetection(){
   document.getElementById('fr-score').className='kpi-value '+(integ>=80?'kpi-pos':integ>=60?'':'kpi-neg');
 
   if(!anomalies.length){
-    document.getElementById('fraude-results').innerHTML='<div style="text-align:center;padding:32px;color:var(--green-dark);background:var(--green-light);border-radius:var(--radius);font-size:13px;font-weight:600">✓ Aucune anomalie détectée — vos '+EC.length+' écritures semblent conformes.</div>';
+    document.getElementById('fraude-results').innerHTML='<div style="text-align:center;padding:32px;color:var(--green-dark);background:var(--green-light);border-radius:var(--radius);font-size:13px;font-weight:600">'+ico('checkCircle')+' Aucune anomalie détectée — vos '+EC.length+' écritures semblent conformes.</div>';
     return;
   }
   document.getElementById('fraude-results').innerHTML=anomalies.map(function(a){
@@ -388,7 +388,7 @@ function renderBenchmarks(){
         <div style="display:flex;align-items:center;gap:8px">
           <span style="font-size:11px;font-weight:700;color:${good?'var(--green)':'var(--red)'}">${r.vous}${r.unit}</span>
           <span style="font-size:10px;color:var(--text-faint)">vs ${r.ref}${r.unit} secteur</span>
-          <span style="font-size:10px;padding:1px 6px;border-radius:var(--radius);font-weight:600;background:${good?'var(--green-light)':'var(--red-light)'};color:${good?'var(--green-dark)':'var(--red)'}">${good?'✓ Meilleur':'⚠ Inférieur'}</span>
+          <span style="font-size:10px;padding:1px 6px;border-radius:var(--radius);font-weight:600;background:${good?'var(--green-light)':'var(--red-light)'};color:${good?'var(--green-dark)':'var(--red)'}">${good?ico('check')+' Meilleur':ico('alertTriangle')+' Inférieur'}</span>
         </div>
       </div>
       <div style="position:relative;height:14px;background:var(--bg);border-radius:var(--radius);overflow:hidden;border:2px solid var(--border)">

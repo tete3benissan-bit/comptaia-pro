@@ -2,6 +2,7 @@
 /* ═══ 1. BARRE DE RECHERCHE GLOBALE ═══ */
 #gs-wrap{position:relative;flex:1;max-width:380px;min-width:140px}
 #gs-input{width:100%;padding:8px 12px 8px 32px;border:2px solid var(--border-strong);border-radius:var(--radius);font-size:12.5px;background:var(--bg)}
+/* Emoji intentionally kept: CSS content: on a ::before pseudo-element can only hold text, not the app's inline-SVG icon markup (see js/19-nav-icons.js ico()). Documented exception to the icon-system sweep. */
 #gs-wrap::before{content:'🔍';position:absolute;left:9px;top:50%;transform:translateY(-50%);font-size:13px;opacity:.7;pointer-events:none;z-index:1}
 #gs-drop{position:absolute;top:calc(100% + 6px);left:0;right:0;min-width:min(430px,92vw);background:var(--surface);border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);max-height:min(440px,62vh);overflow-y:auto;z-index:1200;display:none;padding:6px}
 #gs-drop.ouvert{display:block}

@@ -27,7 +27,7 @@
   <!-- ── ALERTES (standalone) ── -->
   <div class="acc-group" id="grp-alertes" style="border-top:1px solid rgba(255,255,255,.06)">
     <div class="acc-header" onclick="go('notifs',this)" style="cursor:pointer">
-      <span class="acc-icon">🔔</span>
+      <span class="acc-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 10a6 6 0 0 1 12 0c0 4 1.5 5.5 1.5 5.5h-15S6 14 6 10z"/><path d="M10 18.5a2 2 0 0 0 4 0"/></svg></span>
       <span class="acc-title">Alertes</span>
       <span class="nav-badge" id="nb-notifs" style="background:var(--red);display:none;margin-left:auto">0</span>
     </div>
@@ -36,123 +36,123 @@
   <!-- ── EXPLOITATION ── -->
   <div class="acc-group" id="grp-exploitation">
     <div class="acc-header" onclick="toggleGrp('exploitation')">
-      <span class="acc-icon">🏪</span>
+      <span class="acc-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="1"/><rect x="8" y="6" width="2" height="2"/><rect x="14" y="6" width="2" height="2"/><rect x="8" y="11" width="2" height="2"/><rect x="14" y="11" width="2" height="2"/><rect x="10" y="16" width="4" height="5"/></svg></span>
       <span class="acc-title">Exploitation</span>
       <span class="acc-arrow" id="arr-exploitation">▾</span>
     </div>
     <div class="acc-body" id="body-exploitation">
-      <div class="nav-item active" onclick="go('facture',this)"><span class="nav-icon">📄</span> Facture</div>
-      <div class="nav-item" onclick="go('tiers',this)"><span class="nav-icon">👥</span> Clients / Fournisseurs</div>
-      <div class="nav-item" onclick="go('devis',this)"><span class="nav-icon">📋</span> Devis</div>
-      <div class="nav-item" onclick="go('bc',this)"><span class="nav-icon">🛒</span> Bons de commande</div>
-      <div class="nav-item" onclick="go('bl',this)"><span class="nav-icon">🚚</span> Bons de livraison</div>
-      <div class="nav-item" onclick="go('recurrentes',this)"><span class="nav-icon">🔄</span> Factures récurrentes</div>
-      <div class="nav-item" onclick="go('caisse',this)"><span class="nav-icon">🧾</span> Caisse / PDV</div>
-      <div class="nav-item" onclick="go('production',this)"><span class="nav-icon">🏭</span> Production</div>
+      <div class="nav-item active" onclick="go('facture',this)"><span class="nav-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><line x1="9.5" y1="12" x2="15" y2="12"/><line x1="9.5" y1="15.5" x2="15" y2="15.5"/></svg></span> Facture</div>
+      <div class="nav-item" onclick="go('tiers',this)"><span class="nav-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M4 20c0-3.5 2.5-6 5-6s5 2.5 5 6"/><circle cx="17" cy="9" r="2.4"/><path d="M15.5 20c.1-2.6 1.4-4.6 3-5.4"/></svg></span> Clients / Fournisseurs</div>
+      <div class="nav-item" onclick="go('devis',this)"><span class="nav-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="12" height="17" rx="1.5"/><rect x="9" y="2" width="6" height="3" rx="1"/><line x1="8.5" y1="10" x2="15.5" y2="10"/><line x1="8.5" y1="13.5" x2="15.5" y2="13.5"/></svg></span> Devis</div>
+      <div class="nav-item" onclick="go('bc',this)"><span class="nav-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.3"/><circle cx="17" cy="20" r="1.3"/><path d="M2.5 4h2.5l2.3 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.6L21 8H6"/></svg></span> Bons de commande</div>
+      <div class="nav-item" onclick="go('bl',this)"><span class="nav-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="8" width="11" height="8" rx="1"/><path d="M13.5 11h4l3 3v2h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></svg></span> Bons de livraison</div>
+      <div class="nav-item" onclick="go('recurrentes',this)"><span class="nav-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9a8 8 0 0 1 14-4.5M20 5v5h-5"/><path d="M20 15a8 8 0 0 1-14 4.5M4 19v-5h5"/></svg></span> Factures récurrentes</div>
+      <div class="nav-item" onclick="go('caisse',this)"><span class="nav-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18l-2.5-1.5L13 21l-2-1.5L9 21l-3-1.5z"/><line x1="8.5" y1="8" x2="15.5" y2="8"/><line x1="8.5" y1="12" x2="15.5" y2="12"/></svg></span> Caisse / PDV</div>
+      <div class="nav-item" onclick="go('production',this)"><span class="nav-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20V11l5 3v-3l5 3V8l5 3v9z"/><line x1="3" y1="20" x2="21" y2="20"/></svg></span> Production</div>
     </div>
   </div>
 
   <!-- ── STOCK ── -->
   <div class="acc-group" id="grp-stock">
     <div class="acc-header" onclick="toggleGrp('stock')">
-      <span class="acc-icon">📦</span>
+      <span class="acc-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 7.5 12 3l8.5 4.5L12 12z"/><path d="M3.5 7.5V16l8.5 4.5V12"/><path d="M20.5 7.5V16L12 20.5"/></svg></span>
       <span class="acc-title">Gestion de stock</span>
       <span class="acc-arrow" id="arr-stock">▸</span>
     </div>
     <div class="acc-body" id="body-stock" style="display:none">
-      <div class="nav-item" onclick="go('stock',this)"><span class="nav-icon">📦</span> Vue d'ensemble</div>
-      <div class="nav-item" onclick="go('stock-entrees',this)"><span class="nav-icon">⬇️</span> Entrées de stock</div>
-      <div class="nav-item" onclick="go('stock-sorties',this)"><span class="nav-icon">⬆️</span> Sorties de stock</div>
-      <div class="nav-item" onclick="go('stock-alertes',this)"><span class="nav-icon">⚠️</span> Alertes stock <span class="nav-badge" id="nb-stock-alertes" style="background:var(--amber);display:none">0</span></div>
-      <div class="nav-item" onclick="go('stock-rapport',this)"><span class="nav-icon">📊</span> Rapport de stock</div>
+      <div class="nav-item" onclick="go('stock',this)"><span class="nav-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 7.5 12 3l8.5 4.5L12 12z"/><path d="M3.5 7.5V16l8.5 4.5V12"/><path d="M20.5 7.5V16L12 20.5"/></svg></span> Vue d'ensemble</div>
+      <div class="nav-item" onclick="go('stock-entrees',this)"><span class="nav-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="4" x2="12" y2="18"/><polyline points="6,12 12,18 18,12"/></svg></span> Entrées de stock</div>
+      <div class="nav-item" onclick="go('stock-sorties',this)"><span class="nav-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="6"/><polyline points="6,12 12,6 18,12"/></svg></span> Sorties de stock</div>
+      <div class="nav-item" onclick="go('stock-alertes',this)"><span class="nav-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4 2 20h20z"/><line x1="12" y1="10" x2="12" y2="15"/><circle cx="12" cy="17.7" r="0.9"/></svg></span> Alertes stock <span class="nav-badge" id="nb-stock-alertes" style="background:var(--amber);display:none">0</span></div>
+      <div class="nav-item" onclick="go('stock-rapport',this)"><span class="nav-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="12" width="4" height="8"/><rect x="10" y="7" width="4" height="13"/><rect x="16" y="3" width="4" height="17"/></svg></span> Rapport de stock</div>
     </div>
   </div>
 
   <!-- ── COMPTABILITÉ ── -->
   <div class="acc-group" id="grp-compta">
     <div class="acc-header" onclick="toggleGrp('compta')">
-      <span class="acc-icon">📒</span>
+      <span class="acc-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4.5A2 2 0 0 1 6 3h12v16H6a2 2 0 0 0-2 2z"/><path d="M4 4.5v16"/></svg></span>
       <span class="acc-title">Comptabilité</span>
       <span class="acc-arrow" id="arr-compta">▸</span>
     </div>
     <div class="acc-body" id="body-compta" style="display:none">
-      <div class="nav-item" onclick="go('journal',this)"><span class="nav-icon">📒</span> Journal <span class="nav-badge" id="nb-journal">0</span></div>
-      <div class="nav-item" onclick="go('grandlivre',this)"><span class="nav-icon">📚</span> Grand livre</div>
-      <div class="nav-item" onclick="go('lettrage',this)"><span class="nav-icon">🔗</span> Lettrage</div>
-      <div class="nav-item" onclick="go('bilan',this)"><span class="nav-icon">⚖️</span> Bilan</div>
-      <div class="nav-item" onclick="go('resultats',this)"><span class="nav-icon">📈</span> Compte de résultats</div>
-      <div class="nav-item" onclick="go('balance',this)"><span class="nav-icon">🔢</span> Balance</div>
-      <div class="nav-item" onclick="go('inventaire',this)"><span class="nav-icon">🔢</span> Inventaire physique</div>
-      <div class="nav-item" onclick="go('provisions',this)"><span class="nav-icon">⚠️</span> Provisions</div>
-      <div class="nav-item" onclick="go('immo',this)"><span class="nav-icon">🏗️</span> Immobilisations</div>
-      <div class="nav-item" onclick="go('analytique',this)"><span class="nav-icon">📊</span> Compta analytique</div>
-      <div class="nav-item" onclick="go('tft',this)"><span class="nav-icon">💧</span> Flux de trésorerie</div>
-      <div class="nav-item" onclick="go('audit',this)"><span class="nav-icon">🔍</span> Piste d'audit</div>
-      <div class="nav-item" onclick="go('annexes',this)"><span class="nav-icon">📝</span> Notes annexes</div>
+      <div class="nav-item" onclick="go('journal',this)"><span class="nav-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4.5A2 2 0 0 1 6 3h12v16H6a2 2 0 0 0-2 2z"/><path d="M4 4.5v16"/></svg></span> Journal <span class="nav-badge" id="nb-journal">0</span></div>
+      <div class="nav-item" onclick="go('grandlivre',this)"><span class="nav-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6c-2-1.2-5-1.5-8-1v14c3-.5 6-.2 8 1 2-1.2 5-1.5 8-1V5c-3-.5-6-.2-8 1z"/><line x1="12" y1="6" x2="12" y2="20"/></svg></span> Grand livre</div>
+      <div class="nav-item" onclick="go('lettrage',this)"><span class="nav-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 15 15 9"/><path d="M8 13 5.5 15.5a3 3 0 0 0 4 4.5L12 17"/><path d="M16 11l2.5-2.5a3 3 0 0 0-4-4.5L12 7"/></svg></span> Lettrage</div>
+      <div class="nav-item" onclick="go('bilan',this)"><span class="nav-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="3" x2="12" y2="20"/><line x1="5" y1="7" x2="19" y2="7"/><path d="M5 7 2 13a3 3 0 0 0 6 0z"/><path d="M19 7l-3 6a3 3 0 0 0 6 0z"/></svg></span> Bilan</div>
+      <div class="nav-item" onclick="go('resultats',this)"><span class="nav-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,17 9,11 13,15 21,6"/><polyline points="15,6 21,6 21,12"/></svg></span> Compte de résultats</div>
+      <div class="nav-item" onclick="go('balance',this)"><span class="nav-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2.5" width="12" height="19" rx="1.5"/><line x1="8.5" y1="6.5" x2="15.5" y2="6.5"/><circle cx="9" cy="11" r="0.8"/><circle cx="12" cy="11" r="0.8"/><circle cx="15" cy="11" r="0.8"/><circle cx="9" cy="14.5" r="0.8"/><circle cx="12" cy="14.5" r="0.8"/><circle cx="15" cy="14.5" r="0.8"/></svg></span> Balance</div>
+      <div class="nav-item" onclick="go('inventaire',this)"><span class="nav-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2.5" width="12" height="19" rx="1.5"/><line x1="8.5" y1="6.5" x2="15.5" y2="6.5"/><circle cx="9" cy="11" r="0.8"/><circle cx="12" cy="11" r="0.8"/><circle cx="15" cy="11" r="0.8"/><circle cx="9" cy="14.5" r="0.8"/><circle cx="12" cy="14.5" r="0.8"/><circle cx="15" cy="14.5" r="0.8"/></svg></span> Inventaire physique</div>
+      <div class="nav-item" onclick="go('provisions',this)"><span class="nav-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4 2 20h20z"/><line x1="12" y1="10" x2="12" y2="15"/><circle cx="12" cy="17.7" r="0.9"/></svg></span> Provisions</div>
+      <div class="nav-item" onclick="go('immo',this)"><span class="nav-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20V11l5 3v-3l5 3V8l5 3v9z"/><line x1="3" y1="20" x2="21" y2="20"/></svg></span> Immobilisations</div>
+      <div class="nav-item" onclick="go('analytique',this)"><span class="nav-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="12" width="4" height="8"/><rect x="10" y="7" width="4" height="13"/><rect x="16" y="3" width="4" height="17"/></svg></span> Compta analytique</div>
+      <div class="nav-item" onclick="go('tft',this)"><span class="nav-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6.5 7.2 6.5 11.5a6.5 6.5 0 0 1-13 0C5.5 10.2 12 3 12 3z"/></svg></span> Flux de trésorerie</div>
+      <div class="nav-item" onclick="go('audit',this)"><span class="nav-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="20" y1="20" x2="15.2" y2="15.2"/></svg></span> Piste d'audit</div>
+      <div class="nav-item" onclick="go('annexes',this)"><span class="nav-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1-4L16 5l4 4L9 20z"/><line x1="14.5" y1="6.5" x2="18.5" y2="10.5"/></svg></span> Notes annexes</div>
     </div>
   </div>
 
   <!-- ── TRÉSORERIE ── -->
   <div class="acc-group" id="grp-treso">
     <div class="acc-header" onclick="toggleGrp('treso')">
-      <span class="acc-icon">💰</span>
+      <span class="acc-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.3c0-1.3 1.1-2 2.5-2s2.5.7 2.5 1.8c0 2.6-5 1.5-5 4.1 0 1.1 1.1 1.8 2.5 1.8s2.5-.7 2.5-2"/></svg></span>
       <span class="acc-title">Trésorerie</span>
       <span class="acc-arrow" id="arr-treso">▸</span>
     </div>
     <div class="acc-body" id="body-treso" style="display:none">
-      <div class="nav-item" onclick="go('solde',this)"><span class="nav-icon">💰</span> Solde Caisse / Banque</div>
-      <div class="nav-item" onclick="go('rapprochement',this)"><span class="nav-icon">🏦</span> Rapprochement bancaire</div>
-      <div class="nav-item" onclick="go('multidevises',this)"><span class="nav-icon">💱</span> Multi-devises</div>
-      <div class="nav-item" onclick="go('emprunts',this)"><span class="nav-icon">🏦</span> Emprunts bancaires</div>
-      <div class="nav-item" onclick="go('suivi',this)"><span class="nav-icon">📊</span> Suivi trésorerie</div>
+      <div class="nav-item" onclick="go('solde',this)"><span class="nav-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.3c0-1.3 1.1-2 2.5-2s2.5.7 2.5 1.8c0 2.6-5 1.5-5 4.1 0 1.1 1.1 1.8 2.5 1.8s2.5-.7 2.5-2"/></svg></span> Solde Caisse / Banque</div>
+      <div class="nav-item" onclick="go('rapprochement',this)"><span class="nav-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="20" x2="21" y2="20"/><line x1="5" y1="20" x2="5" y2="10"/><line x1="9.5" y1="20" x2="9.5" y2="10"/><line x1="14.5" y1="20" x2="14.5" y2="10"/><line x1="19" y1="20" x2="19" y2="10"/><polygon points="12,3 21,9 3,9"/></svg></span> Rapprochement bancaire</div>
+      <div class="nav-item" onclick="go('multidevises',this)"><span class="nav-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.3c0-1.3 1.1-2 2.5-2s2.5.7 2.5 1.8c0 2.6-5 1.5-5 4.1 0 1.1 1.1 1.8 2.5 1.8s2.5-.7 2.5-2"/></svg></span> Multi-devises</div>
+      <div class="nav-item" onclick="go('emprunts',this)"><span class="nav-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="20" x2="21" y2="20"/><line x1="5" y1="20" x2="5" y2="10"/><line x1="9.5" y1="20" x2="9.5" y2="10"/><line x1="14.5" y1="20" x2="14.5" y2="10"/><line x1="19" y1="20" x2="19" y2="10"/><polygon points="12,3 21,9 3,9"/></svg></span> Emprunts bancaires</div>
+      <div class="nav-item" onclick="go('suivi',this)"><span class="nav-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="12" width="4" height="8"/><rect x="10" y="7" width="4" height="13"/><rect x="16" y="3" width="4" height="17"/></svg></span> Suivi trésorerie</div>
     </div>
   </div>
 
   <!-- ── FISCALITÉ ── -->
   <div class="acc-group" id="grp-fiscal">
     <div class="acc-header" onclick="toggleGrp('fiscal')">
-      <span class="acc-icon">🏛️</span>
+      <span class="acc-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="20" x2="21" y2="20"/><line x1="5" y1="20" x2="5" y2="10"/><line x1="9.5" y1="20" x2="9.5" y2="10"/><line x1="14.5" y1="20" x2="14.5" y2="10"/><line x1="19" y1="20" x2="19" y2="10"/><polygon points="12,3 21,9 3,9"/></svg></span>
       <span class="acc-title">Fiscalité</span>
       <span class="acc-arrow" id="arr-fiscal">▸</span>
     </div>
     <div class="acc-body" id="body-fiscal" style="display:none">
-      <div class="nav-item" onclick="go('tva',this)"><span class="nav-icon">🧾</span> Déclaration TVA</div>
-      <div class="nav-item" onclick="go('exercice',this)"><span class="nav-icon">📅</span> Exercice fiscal & IS</div>
-      <div class="nav-item" onclick="go('liasse',this)"><span class="nav-icon">📑</span> Liasse fiscale DGI</div>
-      <div class="nav-item" onclick="go('simulateur',this)"><span class="nav-icon">🧮</span> Simulateur fiscal</div>
-      <div class="nav-item" onclick="go('calendrier',this)"><span class="nav-icon">📅</span> Calendrier fiscal</div>
+      <div class="nav-item" onclick="go('tva',this)"><span class="nav-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18l-2.5-1.5L13 21l-2-1.5L9 21l-3-1.5z"/><line x1="8.5" y1="8" x2="15.5" y2="8"/><line x1="8.5" y1="12" x2="15.5" y2="12"/></svg></span> Déclaration TVA</div>
+      <div class="nav-item" onclick="go('exercice',this)"><span class="nav-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="1.5"/><line x1="3.5" y1="9.5" x2="20.5" y2="9.5"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/></svg></span> Exercice fiscal & IS</div>
+      <div class="nav-item" onclick="go('liasse',this)"><span class="nav-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="12" height="17" rx="1.5"/><rect x="9" y="2" width="6" height="3" rx="1"/><line x1="8.5" y1="10" x2="15.5" y2="10"/><line x1="8.5" y1="13.5" x2="15.5" y2="13.5"/></svg></span> Liasse fiscale DGI</div>
+      <div class="nav-item" onclick="go('simulateur',this)"><span class="nav-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2.5" width="12" height="19" rx="1.5"/><line x1="8.5" y1="6.5" x2="15.5" y2="6.5"/><circle cx="9" cy="11" r="0.8"/><circle cx="12" cy="11" r="0.8"/><circle cx="15" cy="11" r="0.8"/><circle cx="9" cy="14.5" r="0.8"/><circle cx="12" cy="14.5" r="0.8"/><circle cx="15" cy="14.5" r="0.8"/></svg></span> Simulateur fiscal</div>
+      <div class="nav-item" onclick="go('calendrier',this)"><span class="nav-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="1.5"/><line x1="3.5" y1="9.5" x2="20.5" y2="9.5"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/></svg></span> Calendrier fiscal</div>
     </div>
   </div>
 
   <!-- ── RH & GESTION ── -->
   <div class="acc-group" id="grp-rh">
     <div class="acc-header" onclick="toggleGrp('rh')">
-      <span class="acc-icon">👷</span>
+      <span class="acc-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M4 20c0-3.5 2.5-6 5-6s5 2.5 5 6"/><circle cx="17" cy="9" r="2.4"/><path d="M15.5 20c.1-2.6 1.4-4.6 3-5.4"/></svg></span>
       <span class="acc-title">RH & Gestion</span>
       <span class="acc-arrow" id="arr-rh">▸</span>
     </div>
     <div class="acc-body" id="body-rh" style="display:none">
-      <div class="nav-item" onclick="go('paie',this)"><span class="nav-icon">👷</span> Gestion de la paie</div>
-      <div class="nav-item" onclick="go('analyse',this)"><span class="nav-icon">🔍</span> Analyse comptable</div>
-      <div class="nav-item" onclick="go('profil',this)"><span class="nav-icon">🏢</span> Profil entreprise</div>
-      <div class="nav-item" onclick="go('prevision',this)"><span class="nav-icon">🔮</span> Prévisions IA</div>
+      <div class="nav-item" onclick="go('paie',this)"><span class="nav-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M4 20c0-3.5 2.5-6 5-6s5 2.5 5 6"/><circle cx="17" cy="9" r="2.4"/><path d="M15.5 20c.1-2.6 1.4-4.6 3-5.4"/></svg></span> Gestion de la paie</div>
+      <div class="nav-item" onclick="go('analyse',this)"><span class="nav-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="20" y1="20" x2="15.2" y2="15.2"/></svg></span> Analyse comptable</div>
+      <div class="nav-item" onclick="go('profil',this)"><span class="nav-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="1"/><rect x="8" y="6" width="2" height="2"/><rect x="14" y="6" width="2" height="2"/><rect x="8" y="11" width="2" height="2"/><rect x="14" y="11" width="2" height="2"/><rect x="10" y="16" width="4" height="5"/></svg></span> Profil entreprise</div>
+      <div class="nav-item" onclick="go('prevision',this)"><span class="nav-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.7 5.8L19.5 10.5l-5.8 1.7L12 18l-1.7-5.8L4.5 10.5l5.8-1.7z"/></svg></span> Prévisions IA</div>
     </div>
   </div>
 
   <!-- ── IA EXCLUSIF ── -->
   <div class="acc-group" id="grp-ia">
     <div class="acc-header acc-header-ia" onclick="toggleGrp('ia')">
-      <span class="acc-icon">✦</span>
+      <span class="acc-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.7 5.8L19.5 10.5l-5.8 1.7L12 18l-1.7-5.8L4.5 10.5l5.8-1.7z"/></svg></span>
       <span class="acc-title" style="color:var(--green)">Exclusif IA</span>
       <span class="acc-arrow" id="arr-ia">▸</span>
     </div>
     <div class="acc-body" id="body-ia" style="display:none">
-      <div class="nav-item" onclick="go('dashboard',this)"><span class="nav-icon">🎛️</span> Tableau de bord IA</div>
-      <div class="nav-item" onclick="go('scoring',this)"><span class="nav-icon">⭐</span> Score financier</div>
-      <div class="nav-item" onclick="go('ocr',this)"><span class="nav-icon">📷</span> Saisie par photo</div>
-      <div class="nav-item" onclick="go('fraude',this)"><span class="nav-icon">🛡️</span> Détection anomalies</div>
-      <div class="nav-item" onclick="go('multiEntreprise',this)"><span class="nav-icon">🏢</span> Multi-entreprises</div>
-      <div class="nav-item" onclick="go('benchmarks',this)"><span class="nav-icon">📐</span> Benchmarks secteur</div>
+      <div class="nav-item" onclick="go('dashboard',this)"><span class="nav-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 3v2.5M12 18.5V21M4.6 7.3l2.2 1.3M17.2 15.4l2.2 1.3M4.6 16.7l2.2-1.3M17.2 8.6l2.2-1.3M3 12h2.5M18.5 12H21"/></svg></span> Tableau de bord IA</div>
+      <div class="nav-item" onclick="go('scoring',this)"><span class="nav-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12,3 14.6,9 21,9.6 16.2,13.9 17.6,20.2 12,16.9 6.4,20.2 7.8,13.9 3,9.6 9.4,9"/></svg></span> Score financier</div>
+      <div class="nav-item" onclick="go('ocr',this)"><span class="nav-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7 9.5 4h5L16 7"/><circle cx="12" cy="13.5" r="3.6"/></svg></span> Saisie par photo</div>
+      <div class="nav-item" onclick="go('fraude',this)"><span class="nav-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4.5 6v6c0 5 3.2 8.2 7.5 9 4.3-.8 7.5-4 7.5-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span> Détection anomalies</div>
+      <div class="nav-item" onclick="go('multiEntreprise',this)"><span class="nav-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="1"/><rect x="8" y="6" width="2" height="2"/><rect x="14" y="6" width="2" height="2"/><rect x="8" y="11" width="2" height="2"/><rect x="14" y="11" width="2" height="2"/><rect x="10" y="16" width="4" height="5"/></svg></span> Multi-entreprises</div>
+      <div class="nav-item" onclick="go('benchmarks',this)"><span class="nav-icon"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4.3"/><circle cx="12" cy="12" r="1"/></svg></span> Benchmarks secteur</div>
     </div>
   </div>
 
@@ -166,12 +166,12 @@
     <div class="page-title" id="page-title">Facture</div>
     <div class="topbar-right">
       <span id="topbar-user" style="font-size:11px;color:var(--text-muted)"></span>
-      <button class="btn btn-sm" onclick="authLogout()" style="font-size:11px;display:none" id="btn-logout">🚪 Déconnecter</button>
-      <button class="btn btn-sm" onclick="exporterJSON()">💾 Sauvegarder</button>
-      <button class="btn btn-sm" onclick="importerJSON()">📂 Charger</button>
+      <button class="btn btn-sm" onclick="authLogout()" style="font-size:11px;display:none" id="btn-logout">Déconnecter</button>
+      <button class="btn btn-sm" onclick="exporterJSON()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 4v5h8V4"/><path d="M7.5 13h9v7h-9z"/></svg> Sauvegarder</button>
+      <button class="btn btn-sm" onclick="importerJSON()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg> Charger</button>
       <input type="file" id="import-file" accept=".json" style="display:none" onchange="lireJSON(event)"/>
-      <button class="btn btn-sm" onclick="exporterPDF()">🖨️ PDF</button>
-      <button class="btn btn-sm" style="background:var(--purple);color:#fff;border-color:var(--purple)" onclick="ouvrirIA()">🤖 Assistant IA</button>
+      <button class="btn btn-sm" onclick="exporterPDF()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="8" width="14" height="8" rx="1"/><path d="M7 8V4h10v4"/><path d="M7 16v4h10v-4"/></svg> PDF</button>
+      <button class="btn btn-sm" style="background:var(--purple);color:#fff;border-color:var(--purple)" onclick="ouvrirIA()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="8" width="14" height="10" rx="2.5"/><line x1="12" y1="3" x2="12" y2="8"/><circle cx="12" cy="3" r="1"/><circle cx="9" cy="13" r="1.2"/><circle cx="15" cy="13" r="1.2"/><line x1="3" y1="11" x2="5" y2="11"/><line x1="19" y1="11" x2="21" y2="11"/></svg> Assistant IA</button>
       <button class="btn btn-sm" onclick="chargerDemo()">Démo</button>
       <button class="btn btn-sm" onclick="toutEffacer()">Effacer</button>
     </div>
@@ -187,24 +187,24 @@
 
       <!-- DOIT / AVOIR toggle -->
       <div class="ftt">
-        <button class="ftt-btn ftt-doit" id="ftt-doit" onclick="setMode('doit')">📄 FACTURE DOIT<small>Achat ou vente de marchandises</small></button>
-        <button class="ftt-btn" id="ftt-avoir" onclick="setMode('avoir')">🔄 FACTURE AVOIR<small>Retour de marchandises</small></button>
+        <button class="ftt-btn ftt-doit" id="ftt-doit" onclick="setMode('doit')"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><line x1="9.5" y1="12" x2="15" y2="12"/><line x1="9.5" y1="15.5" x2="15" y2="15.5"/></svg> FACTURE DOIT<small>Achat ou vente de marchandises</small></button>
+        <button class="ftt-btn" id="ftt-avoir" onclick="setMode('avoir')"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9a8 8 0 0 1 14-4.5M20 5v5h-5"/><path d="M20 15a8 8 0 0 1-14 4.5M4 19v-5h5"/></svg> FACTURE AVOIR<small>Retour de marchandises</small></button>
       </div>
 
       <!-- MODE SECTEUR v14 -->
       <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;align-items:center;padding:8px 12px;background:var(--surface);border:2px solid var(--border);border-radius:var(--radius)">
         <span style="font-size:10.5px;color:var(--text-muted);font-weight:600;white-space:nowrap">Secteur :</span>
-        <button class="btn btn-sm sect-btn active-sect" id="sect-commerce" onclick="setSecteur('commerce')" style="font-size:10.5px">🛒 Commerce</button>
-        <button class="btn btn-sm sect-btn" id="sect-service" onclick="setSecteur('service')" style="font-size:10.5px">🔧 Prestation / Horaire</button>
-        <button class="btn btn-sm sect-btn" id="sect-hotel" onclick="setSecteur('hotel')" style="font-size:10.5px">🏨 Hôtellerie</button>
-        <button class="btn btn-sm sect-btn" id="sect-industrie" onclick="setSecteur('industrie')" style="font-size:10.5px">🏭 Production</button>
-        <button class="btn btn-sm sect-btn" id="sect-event" onclick="setSecteur('event')" style="font-size:10.5px">🍽️ Événementiel</button>
+        <button class="btn btn-sm sect-btn active-sect" id="sect-commerce" onclick="setSecteur('commerce')" style="font-size:10.5px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.3"/><circle cx="17" cy="20" r="1.3"/><path d="M2.5 4h2.5l2.3 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.6L21 8H6"/></svg> Commerce</button>
+        <button class="btn btn-sm sect-btn" id="sect-service" onclick="setSecteur('service')" style="font-size:10.5px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 3v2.5M12 18.5V21M4.6 7.3l2.2 1.3M17.2 15.4l2.2 1.3M4.6 16.7l2.2-1.3M17.2 8.6l2.2-1.3M3 12h2.5M18.5 12H21"/></svg> Prestation / Horaire</button>
+        <button class="btn btn-sm sect-btn" id="sect-hotel" onclick="setSecteur('hotel')" style="font-size:10.5px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="1"/><rect x="8" y="6" width="2" height="2"/><rect x="14" y="6" width="2" height="2"/><rect x="8" y="11" width="2" height="2"/><rect x="14" y="11" width="2" height="2"/><rect x="10" y="16" width="4" height="5"/></svg> Hôtellerie</button>
+        <button class="btn btn-sm sect-btn" id="sect-industrie" onclick="setSecteur('industrie')" style="font-size:10.5px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20V11l5 3v-3l5 3V8l5 3v9z"/><line x1="3" y1="20" x2="21" y2="20"/></svg> Production</button>
+        <button class="btn btn-sm sect-btn" id="sect-event" onclick="setSecteur('event')" style="font-size:10.5px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18l-2.5-1.5L13 21l-2-1.5L9 21l-3-1.5z"/><line x1="8.5" y1="8" x2="15.5" y2="8"/><line x1="8.5" y1="12" x2="15.5" y2="12"/></svg> Événementiel</button>
       </div>
 
       <!-- LIGNES MULTI-ARTICLES v14 -->
       <div class="card" id="multilignes-card" style="margin-bottom:12px">
         <div class="card-header">
-          <span class="card-title" id="ml-card-title">🛒 Articles — Facture multi-lignes</span>
+          <span class="card-title" id="ml-card-title">Articles — Facture multi-lignes</span>
           <button class="btn btn-sm btn-primary" onclick="ajouterLigneML()" style="font-size:10px">+ Ligne</button>
         </div>
         <div class="card-body" style="padding:0;overflow-x:auto">
@@ -225,7 +225,7 @@
         </div>
         <!-- Secteur hotel -->
         <div id="sect-hotel-fields" style="display:none;padding:10px 14px;background:var(--blue-light);border-top:2px solid var(--blue-border)">
-          <div style="font-size:10px;font-weight:700;color:var(--blue);margin-bottom:6px;text-transform:uppercase">🏨 Champs hôtellerie</div>
+          <div style="font-size:10px;font-weight:700;color:var(--blue);margin-bottom:6px;text-transform:uppercase"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="1"/><rect x="8" y="6" width="2" height="2"/><rect x="14" y="6" width="2" height="2"/><rect x="8" y="11" width="2" height="2"/><rect x="14" y="11" width="2" height="2"/><rect x="10" y="16" width="4" height="5"/></svg> Champs hôtellerie</div>
           <div class="fgrid fg4">
             <div class="fg"><label>Date arrivée</label><input type="date" id="h-arrivee" oninput="calcNuits()"/></div>
             <div class="fg"><label>Date départ</label><input type="date" id="h-depart" oninput="calcNuits()"/></div>
@@ -235,7 +235,7 @@
         </div>
         <!-- Secteur service/horaire -->
         <div id="sect-service-fields" style="display:none;padding:10px 14px;background:#f3f0fe;border-top:2px solid var(--border)">
-          <div style="font-size:10px;font-weight:700;color:var(--purple);margin-bottom:6px;text-transform:uppercase">🔧 Prestation horaire</div>
+          <div style="font-size:10px;font-weight:700;color:var(--purple);margin-bottom:6px;text-transform:uppercase"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 3v2.5M12 18.5V21M4.6 7.3l2.2 1.3M17.2 15.4l2.2 1.3M4.6 16.7l2.2-1.3M17.2 8.6l2.2-1.3M3 12h2.5M18.5 12H21"/></svg> Prestation horaire</div>
           <div class="fgrid fg4">
             <div class="fg"><label>Taux horaire (FCFA/h)</label><input type="number" id="s-tauxh" placeholder="0" oninput="calcPrestation()"/></div>
             <div class="fg"><label>Nombre d'heures</label><input type="number" id="s-heures" placeholder="0" step="0.5" oninput="calcPrestation()"/></div>
@@ -246,7 +246,7 @@
         </div>
         <!-- Secteur industrie -->
         <div id="sect-industrie-fields" style="display:none;padding:10px 14px;background:var(--amber-light);border-top:2px solid var(--amber-border)">
-          <div style="font-size:10px;font-weight:700;color:var(--amber);margin-bottom:6px;text-transform:uppercase">🏭 Production industrielle</div>
+          <div style="font-size:10px;font-weight:700;color:var(--amber);margin-bottom:6px;text-transform:uppercase"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20V11l5 3v-3l5 3V8l5 3v9z"/><line x1="3" y1="20" x2="21" y2="20"/></svg> Production industrielle</div>
           <div class="fgrid fg3">
             <div class="fg"><label>Ordre de fabrication (OF)</label><input type="text" id="ind-of" placeholder="OF-2026-001"/></div>
             <div class="fg"><label>Produit fini fabriqué</label><input type="text" id="ind-produit" placeholder="Ex: Engrais NPK 50kg"/></div>
@@ -256,7 +256,7 @@
         </div>
         <!-- Secteur événementiel -->
         <div id="sect-event-fields" style="display:none;padding:10px 14px;background:var(--green-light);border-top:2px solid var(--green-border)">
-          <div style="font-size:10px;font-weight:700;color:var(--green-dark);margin-bottom:6px;text-transform:uppercase">🍽️ Événementiel / Traiteur</div>
+          <div style="font-size:10px;font-weight:700;color:var(--green-dark);margin-bottom:6px;text-transform:uppercase"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18l-2.5-1.5L13 21l-2-1.5L9 21l-3-1.5z"/><line x1="8.5" y1="8" x2="15.5" y2="8"/><line x1="8.5" y1="12" x2="15.5" y2="12"/></svg> Événementiel / Traiteur</div>
           <div class="fgrid fg4">
             <div class="fg"><label>Type d'événement</label><select id="ev-type"><option>Mariage</option><option>Gala / Soirée</option><option>Séminaire</option><option>Cocktail</option><option>Buffet entreprise</option><option>Autre</option></select></div>
             <div class="fg"><label>Date de l'événement</label><input type="date" id="ev-date"/></div>
@@ -280,7 +280,7 @@
             <span style="font-size:11px;color:var(--text-muted)">N° auto :</span>
             <span id="num-auto-preview" style="font-family:'Archivo',sans-serif;font-size:11px;color:var(--green-dark);font-weight:600"></span>
             <button class="btn btn-sm" onclick="reinit()">Réinitialiser</button>
-            <button class="btn btn-sm btn-primary" onclick="valider()">✓ Valider</button>
+            <button class="btn btn-sm btn-primary" onclick="valider()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,13 9,18 20,6"/></svg> Valider</button>
           </div>
         </div>
         <div class="card-body">
@@ -382,7 +382,7 @@
 
         </div>
       </div>
-      <div class="alert alert-info" id="ia-tip" style="display:block">💡 Choisissez <strong>DOIT</strong> (vente/achat classique) ou <strong>AVOIR</strong> (retour marchandises). Les écritures TVA sont générées automatiquement en 3 lignes conformément au plan OHADA.</div>
+      <div class="alert alert-info" id="ia-tip" style="display:block"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 21.5h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg> Choisissez <strong>DOIT</strong> (vente/achat classique) ou <strong>AVOIR</strong> (retour marchandises). Les écritures TVA sont générées automatiquement en 3 lignes conformément au plan OHADA.</div>
     </div>
 
     <!-- ═══ TIERS ═══ -->
@@ -414,12 +414,12 @@
     <!-- ═══ JOURNAL ═══ -->
     <div class="pane" id="pane-journal">
       <div class="journal-search">
-        <input type="text" id="j-search" placeholder="🔍 Rechercher..." oninput="renderJournal()" style="max-width:200px"/>
+        <input type="text" id="j-search" placeholder="Rechercher..." oninput="renderJournal()" style="max-width:200px"/>
         <select id="j-filter-type" onchange="renderJournal()"><option value="">Tous types</option><option value="vente">Vente</option><option value="achat">Achat</option><option value="service">Service</option><option value="avoir">Avoir</option></select>
         <input type="date" id="j-filter-from" onchange="renderJournal()" title="Depuis"/>
         <input type="date" id="j-filter-to" onchange="renderJournal()" title="Jusqu'à"/>
         <select id="j-filter-stat" onchange="renderJournal()"><option value="">Tous statuts</option><option value="payee">Payée</option><option value="attente">En attente</option></select>
-        <button class="btn btn-sm" onclick="clearFilters()">✕ Effacer filtres</button>
+        <button class="btn btn-sm" onclick="clearFilters()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg> Effacer filtres</button>
       </div>
       <div class="card">
         <div class="card-header">
@@ -463,7 +463,7 @@
     <!-- ═══ LETTRAGE ═══ -->
     <div class="pane" id="pane-lettrage">
       <div style="background:var(--blue-light);border:2px solid var(--blue-border);border-radius:var(--radius);padding:10px 14px;margin-bottom:14px;font-size:11.5px;color:var(--blue)">
-        🔗 <strong>Lettrage :</strong> Associez chaque facture à son règlement. Un lettrage A/B/C... indique qu'une facture et son paiement se compensent. Les écritures non lettrées représentent des impayés.
+        <svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 15 15 9"/><path d="M8 13 5.5 15.5a3 3 0 0 0 4 4.5L12 17"/><path d="M16 11l2.5-2.5a3 3 0 0 0-4-4.5L12 7"/></svg> <strong>Lettrage :</strong> Associez chaque facture à son règlement. Un lettrage A/B/C... indique qu'une facture et son paiement se compensent. Les écritures non lettrées représentent des impayés.
       </div>
       <div class="card">
         <div class="card-header"><span class="card-title">Factures en attente de lettrage</span></div>
@@ -546,11 +546,11 @@
     <div class="pane" id="pane-solde">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
         <div style="font-size:13px;font-weight:600">Trésorerie de l'entreprise</div>
-        <button class="btn btn-sm btn-primary" onclick="ouvrirVirement()">🔄 Virement interne</button>
+        <button class="btn btn-sm btn-primary" onclick="ouvrirVirement()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9a8 8 0 0 1 14-4.5M20 5v5h-5"/><path d="M20 15a8 8 0 0 1-14 4.5M4 19v-5h5"/></svg> Virement interne</button>
       </div>
       <div class="solde-grid">
         <div class="solde-card caisse">
-          <div style="font-size:24px;margin-bottom:4px">💵</div>
+          <div style="font-size:24px;margin-bottom:4px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.3c0-1.3 1.1-2 2.5-2s2.5.7 2.5 1.8c0 2.6-5 1.5-5 4.1 0 1.1 1.1 1.8 2.5 1.8s2.5-.7 2.5-2"/></svg></div>
           <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--text-muted)">Caisse (571)</div>
           <div class="solde-mt solde-caisse" id="solde-caisse-mt">0 FCFA</div>
           <div style="font-size:10.5px;color:var(--text-muted)" id="solde-caisse-sub">—</div>
@@ -560,7 +560,7 @@
           </div>
         </div>
         <div class="solde-card banque">
-          <div style="font-size:24px;margin-bottom:4px">🏦</div>
+          <div style="font-size:24px;margin-bottom:4px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="20" x2="21" y2="20"/><line x1="5" y1="20" x2="5" y2="10"/><line x1="9.5" y1="20" x2="9.5" y2="10"/><line x1="14.5" y1="20" x2="14.5" y2="10"/><line x1="19" y1="20" x2="19" y2="10"/><polygon points="12,3 21,9 3,9"/></svg></div>
           <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--text-muted)">Banque (521)</div>
           <div class="solde-mt solde-banque" id="solde-banque-mt">0 FCFA</div>
           <div style="font-size:10.5px;color:var(--text-muted)" id="solde-banque-sub">—</div>
@@ -589,7 +589,7 @@
         <div style="font-size:13px;font-weight:600;flex:1">Analyse comptable</div>
         <select id="an-filter-mois" onchange="renderAnalyse()" style="max-width:160px"><option value="">Tous les mois</option></select>
         <select id="an-filter-type" onchange="renderAnalyse()" style="max-width:160px"><option value="">Tous types</option><option value="vente">Vente</option><option value="achat">Achat</option><option value="service">Service</option><option value="avoir">Avoir</option></select>
-        <button class="btn btn-sm" onclick="clearAnalyseFilters()">✕ Effacer</button>
+        <button class="btn btn-sm" onclick="clearAnalyseFilters()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg> Effacer</button>
       </div>
       <div class="kpi-grid kpi-grid-4" style="margin-bottom:16px">
         <div class="kpi" style="border-top:3px solid var(--green)"><div class="kpi-label">Total Produits</div><div class="kpi-value kpi-pos" id="an-prod">0</div><div class="kpi-sub">FCFA</div></div>
@@ -643,14 +643,14 @@
             <div class="fg" style="justify-content:flex-end;align-items:flex-end"><button class="btn btn-primary" onclick="ajouterImmo()">+ Ajouter</button></div>
           </div>
           <div style="background:var(--blue-light);border:2px solid var(--blue-border);border-radius:var(--radius);padding:8px 12px;font-size:11px;color:var(--blue)">
-            📌 L'écriture de dotation <strong>D 6813 / C 28xx</strong> sera générée automatiquement dans le journal à chaque fin d'exercice. La valeur nette comptable (VNC) s'affiche dans le bilan.
+            <svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.5 7-11.5A7 7 0 0 0 5 9.5C5 14.5 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.3"/></svg> L'écriture de dotation <strong>D 6813 / C 28xx</strong> sera générée automatiquement dans le journal à chaque fin d'exercice. La valeur nette comptable (VNC) s'affiche dans le bilan.
           </div>
         </div>
       </div>
       <div class="card">
         <div class="card-header">
           <span class="card-title">Tableau des immobilisations</span>
-          <button class="btn btn-sm" onclick="genererDotations()">⚙️ Générer les dotations de l'exercice</button>
+          <button class="btn btn-sm" onclick="genererDotations()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 3v2.5M12 18.5V21M4.6 7.3l2.2 1.3M17.2 15.4l2.2 1.3M4.6 16.7l2.2-1.3M17.2 8.6l2.2-1.3M3 12h2.5M18.5 12H21"/></svg> Générer les dotations de l'exercice</button>
         </div>
         <div id="immo-table-wrap">
           <div style="text-align:center;color:var(--text-faint);padding:28px;font-style:italic">Aucune immobilisation — ajoutez vos biens ci-dessus</div>
@@ -700,13 +700,13 @@
 
       <!-- Définir exercice -->
       <div class="card">
-        <div class="card-header"><span class="card-title">⚙️ Exercice fiscal en cours</span></div>
+        <div class="card-header"><span class="card-title"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 3v2.5M12 18.5V21M4.6 7.3l2.2 1.3M17.2 15.4l2.2 1.3M4.6 16.7l2.2-1.3M17.2 8.6l2.2-1.3M3 12h2.5M18.5 12H21"/></svg> Exercice fiscal en cours</span></div>
         <div class="card-body">
           <div class="fgrid fg4" style="margin-bottom:12px">
             <div class="fg"><label>Année</label><input type="number" id="ex-annee" value="2026" min="2000" max="2100"/></div>
             <div class="fg"><label>Date d'ouverture</label><input type="date" id="ex-debut" value="2026-01-01"/></div>
             <div class="fg"><label>Date de clôture</label><input type="date" id="ex-fin" value="2026-12-31"/></div>
-            <div class="fg" style="justify-content:flex-end;align-items:flex-end"><button class="btn btn-primary" onclick="definirExercice()">✓ Définir</button></div>
+            <div class="fg" style="justify-content:flex-end;align-items:flex-end"><button class="btn btn-primary" onclick="definirExercice()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,13 9,18 20,6"/></svg> Définir</button></div>
           </div>
           <div id="ex-status" style="display:none"></div>
         </div>
@@ -716,10 +716,10 @@
       <div class="card" style="border:2px solid var(--amber-border)">
         <div class="card-header" style="background:var(--sidebar-bg)">
           <div>
-            <span class="card-title" style="color:#fff;font-size:14px">🏛️ Calcul de l'Impôt sur les Sociétés (IS) — République Togolaise</span>
+            <span class="card-title" style="color:#fff;font-size:14px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="20" x2="21" y2="20"/><line x1="5" y1="20" x2="5" y2="10"/><line x1="9.5" y1="20" x2="9.5" y2="10"/><line x1="14.5" y1="20" x2="14.5" y2="10"/><line x1="19" y1="20" x2="19" y2="10"/><polygon points="12,3 21,9 3,9"/></svg> Calcul de l'Impôt sur les Sociétés (IS) — République Togolaise</span>
             <div style="font-size:10px;color:var(--sidebar-text);margin-top:2px">Taux IS Togo : <strong style="color:var(--green)">27%</strong> du bénéfice imposable net · Code général des impôts du Togo</div>
           </div>
-          <button class="btn btn-sm" style="background:var(--amber);color:#fff;border-color:var(--amber)" onclick="calcImpot()">🔄 Recalculer</button>
+          <button class="btn btn-sm" style="background:var(--amber);color:#fff;border-color:var(--amber)" onclick="calcImpot()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9a8 8 0 0 1 14-4.5M20 5v5h-5"/><path d="M20 15a8 8 0 0 1-14 4.5M4 19v-5h5"/></svg> Recalculer</button>
         </div>
         <div class="card-body">
 
@@ -811,14 +811,14 @@
 
             <!-- Note légale -->
             <div style="background:var(--bg);border:2px solid var(--border);border-radius:var(--radius);padding:10px 14px;font-size:10.5px;color:var(--text-muted);line-height:1.7">
-              ⚖️ <strong>Base légale :</strong> Code Général des Impôts de la République Togolaise — Taux IS : 27% du bénéfice imposable net. 
+              <svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="3" x2="12" y2="20"/><line x1="5" y1="7" x2="19" y2="7"/><path d="M5 7 2 13a3 3 0 0 0 6 0z"/><path d="M19 7l-3 6a3 3 0 0 0 6 0z"/></svg> <strong>Base légale :</strong> Code Général des Impôts de la République Togolaise — Taux IS : 27% du bénéfice imposable net.
               Les acomptes provisionnels sont versés en 3 fois (avril, juillet, octobre) à raison de 33,33% chacun. Le solde est versé en mars de l'année suivante.
-              <br>⚠️ Ce calcul est indicatif. Consultez un expert-comptable agréé ou la DGI pour validation officielle.
+              <br><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4 2 20h20z"/><line x1="12" y1="10" x2="12" y2="15"/><circle cx="12" cy="17.7" r="0.9"/></svg> Ce calcul est indicatif. Consultez un expert-comptable agréé ou la DGI pour validation officielle.
             </div>
           </div>
 
           <div style="text-align:center;margin-top:14px">
-            <button class="btn btn-primary" style="padding:10px 28px;font-size:13px" onclick="calcImpot()">🏛️ Calculer mon impôt IS</button>
+            <button class="btn btn-primary" style="padding:10px 28px;font-size:13px" onclick="calcImpot()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="20" x2="21" y2="20"/><line x1="5" y1="20" x2="5" y2="10"/><line x1="9.5" y1="20" x2="9.5" y2="10"/><line x1="14.5" y1="20" x2="14.5" y2="10"/><line x1="19" y1="20" x2="19" y2="10"/><polygon points="12,3 21,9 3,9"/></svg> Calculer mon impôt IS</button>
           </div>
 
         </div>
@@ -826,19 +826,19 @@
 
       <!-- Clôturer l'exercice -->
       <div class="card">
-        <div class="card-header"><span class="card-title">📅 Clôturer l'exercice</span></div>
+        <div class="card-header"><span class="card-title"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="1.5"/><line x1="3.5" y1="9.5" x2="20.5" y2="9.5"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/></svg> Clôturer l'exercice</span></div>
         <div class="card-body">
           <div style="background:var(--amber-light);border:2px solid var(--amber-border);border-radius:var(--radius);padding:10px 13px;margin-bottom:12px;font-size:11.5px;color:var(--amber)">
-            ⚠️ La clôture génère les écritures de fin d'exercice (110/119), comptabilise l'IS dû, archive les données et prépare le nouvel exercice. Une sauvegarde est exportée automatiquement.
+            <svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4 2 20h20z"/><line x1="12" y1="10" x2="12" y2="15"/><circle cx="12" cy="17.7" r="0.9"/></svg> La clôture génère les écritures de fin d'exercice (110/119), comptabilise l'IS dû, archive les données et prépare le nouvel exercice. Une sauvegarde est exportée automatiquement.
           </div>
           <div id="ex-resultats-recap" style="margin-bottom:12px;font-size:12px;color:var(--text-muted)">Saisissez des factures pour voir le récapitulatif.</div>
-          <button class="btn btn-danger" onclick="cloturerExercice()">📅 Clôturer l'exercice et passer au suivant</button>
+          <button class="btn btn-danger" onclick="cloturerExercice()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="1.5"/><line x1="3.5" y1="9.5" x2="20.5" y2="9.5"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/></svg> Clôturer l'exercice et passer au suivant</button>
         </div>
       </div>
 
       <!-- Historique -->
       <div class="card">
-        <div class="card-header"><span class="card-title">📁 Historique des exercices clôturés</span></div>
+        <div class="card-header"><span class="card-title"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg> Historique des exercices clôturés</span></div>
         <div id="ex-historique"><div style="text-align:center;color:var(--text-faint);padding:22px;font-style:italic">Aucun exercice clôturé</div></div>
       </div>
     </div>
@@ -866,7 +866,7 @@
       <div style="background:var(--bg);border-radius:var(--radius);padding:9px 12px;font-size:11px;color:var(--text-muted);margin-bottom:14px;line-height:1.7">Écriture :<br><strong id="regl-ecr" style="color:var(--text);font-family:'Archivo',sans-serif"></strong></div>
       <div style="display:flex;gap:7px;justify-content:flex-end">
         <button class="btn" onclick="fermerRegl()">Annuler</button>
-        <button class="btn btn-primary" onclick="confirmerRegl()">✓ Confirmer</button>
+        <button class="btn btn-primary" onclick="confirmerRegl()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,13 9,18 20,6"/></svg> Confirmer</button>
       </div>
     </div>
   </div>
@@ -890,7 +890,7 @@
       </div>
       <div style="display:flex;gap:7px;justify-content:flex-end">
         <button class="btn" onclick="fermerEdit()">Annuler</button>
-        <button class="btn btn-primary" onclick="confirmerEdit()">✓ Enregistrer</button>
+        <button class="btn btn-primary" onclick="confirmerEdit()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,13 9,18 20,6"/></svg> Enregistrer</button>
       </div>
     </div>
   </div>
@@ -899,7 +899,7 @@
 <!-- MODAL VIREMENT -->
 <div id="modal-vir" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:1000;align-items:center;justify-content:center" onclick="if(event.target===this)fermerVir()">
   <div style="background:var(--surface);border-radius:var(--radius);width:420px;max-width:95vw;box-shadow:var(--shadow-lg)">
-    <div style="padding:15px 18px;border-bottom:2px solid var(--border);display:flex;justify-content:space-between;align-items:center"><strong>🔄 Virement interne</strong><button onclick="fermerVir()" style="background:none;border:none;cursor:pointer;font-size:18px;color:var(--text-muted)">×</button></div>
+    <div style="padding:15px 18px;border-bottom:2px solid var(--border);display:flex;justify-content:space-between;align-items:center"><strong><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9a8 8 0 0 1 14-4.5M20 5v5h-5"/><path d="M20 15a8 8 0 0 1-14 4.5M4 19v-5h5"/></svg> Virement interne</strong><button onclick="fermerVir()" style="background:none;border:none;cursor:pointer;font-size:18px;color:var(--text-muted)">×</button></div>
     <div style="padding:18px">
       <div class="fgrid fg2" style="margin-bottom:12px">
         <div class="fg"><label>De</label><select id="vir-de"><option value="caisse">Caisse (571)</option><option value="banque">Banque (521)</option></select></div>
@@ -910,7 +910,7 @@
       </div>
       <div style="display:flex;gap:7px;justify-content:flex-end">
         <button class="btn" onclick="fermerVir()">Annuler</button>
-        <button class="btn btn-primary" onclick="confirmerVir()">✓ Confirmer</button>
+        <button class="btn btn-primary" onclick="confirmerVir()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,13 9,18 20,6"/></svg> Confirmer</button>
       </div>
     </div>
   </div>
@@ -931,7 +931,7 @@
       </div>
       <div style="display:flex;gap:7px;justify-content:flex-end">
         <button class="btn" onclick="fermerGL()">Annuler</button>
-        <button class="btn btn-primary" onclick="confirmerGL()">✓ Ajouter</button>
+        <button class="btn btn-primary" onclick="confirmerGL()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,13 9,18 20,6"/></svg> Ajouter</button>
       </div>
     </div>
   </div>
@@ -940,19 +940,20 @@
 <!-- MODAL CONFIRMATION STOCK -->
 <div id="modal-stock" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1002;align-items:center;justify-content:center">
   <div style="background:var(--surface);border-radius:var(--radius);width:460px;max-width:95vw;box-shadow:var(--shadow-lg)">
-    <div style="padding:15px 18px;border-bottom:2px solid var(--border);display:flex;align-items:center;gap:8px"><span style="font-size:18px">🤔</span><strong>Confirmation mouvement de stock</strong></div>
+    <div style="padding:15px 18px;border-bottom:2px solid var(--border);display:flex;align-items:center;gap:8px"><strong>Confirmation mouvement de stock</strong></div>
     <div style="padding:18px">
       <div style="background:var(--blue-light);border:2px solid var(--blue-border);border-radius:var(--radius);padding:10px 12px;margin-bottom:12px;font-size:11.5px;color:var(--blue);line-height:1.7" id="sc-ctx"></div>
       <div style="display:flex;flex-direction:column;gap:7px;margin-bottom:14px">
-        <button onclick="confirmerStock('sortie')" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border:1.5px solid var(--red);border-radius:var(--radius);background:var(--red-light);cursor:pointer;font-family:'Archivo',sans-serif"><span style="font-size:20px">📤</span><div><div style="font-size:12.5px;font-weight:600;color:var(--red)">Sortie du stock</div><div style="font-size:10px;color:var(--text-muted)">Vente ou utilisation — réduit le stock</div></div></button>
-        <button onclick="confirmerStock('entree')" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border:1.5px solid var(--green);border-radius:var(--radius);background:var(--green-light);cursor:pointer;font-family:'Archivo',sans-serif"><span style="font-size:20px">📥</span><div><div style="font-size:12.5px;font-weight:600;color:var(--green-dark)">Entrée en stock</div><div style="font-size:10px;color:var(--text-muted)">Réception — augmente le stock</div></div></button>
-        <button onclick="confirmerStock('aucun')" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border:2px solid var(--border-strong);border-radius:var(--radius);background:transparent;cursor:pointer;font-family:'Archivo',sans-serif"><span style="font-size:18px">⏭️</span><div style="font-size:12.5px;font-weight:500;color:var(--text-muted)">Ne pas modifier le stock</div></button>
+        <button onclick="confirmerStock('sortie')" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border:1.5px solid var(--red);border-radius:var(--radius);background:var(--red-light);cursor:pointer;font-family:'Archivo',sans-serif"><span style="font-size:20px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="6"/><polyline points="6,12 12,6 18,12"/></svg></span><div><div style="font-size:12.5px;font-weight:600;color:var(--red)">Sortie du stock</div><div style="font-size:10px;color:var(--text-muted)">Vente ou utilisation — réduit le stock</div></div></button>
+        <button onclick="confirmerStock('entree')" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border:1.5px solid var(--green);border-radius:var(--radius);background:var(--green-light);cursor:pointer;font-family:'Archivo',sans-serif"><span style="font-size:20px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="4" x2="12" y2="18"/><polyline points="6,12 12,18 18,12"/></svg></span><div><div style="font-size:12.5px;font-weight:600;color:var(--green-dark)">Entrée en stock</div><div style="font-size:10px;color:var(--text-muted)">Réception — augmente le stock</div></div></button>
+        <button onclick="confirmerStock('aucun')" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border:2px solid var(--border-strong);border-radius:var(--radius);background:transparent;cursor:pointer;font-family:'Archivo',sans-serif"><span style="font-size:20px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="5.5" y1="5.5" x2="18.5" y2="18.5"/></svg></span><div style="font-size:12.5px;font-weight:500;color:var(--text-muted)">Ne pas modifier le stock</div></button>
       </div>
       <div style="font-size:10px;color:var(--text-faint);border-top:2px solid var(--border);padding-top:8px">Produit : <strong id="sc-prod"></strong> | Qté : <strong id="sc-qty"></strong> | Stock actuel : <strong id="sc-act"></strong></div>
     </div>
   </div>
 </div>
 
+<script src="js/19-nav-icons.js"></script>
 <script src="js/01-core.js"></script>
 
 
@@ -987,7 +988,7 @@
       <div class="uiv-auth-title">GEST<span> Africa</span></div>
       <div class="fg"><label>E-mail ou identifiant</label><input type="text" id="auth-user" placeholder="admin"/></div>
       <div class="fg"><label>Mot de passe</label><input type="password" id="auth-pass" placeholder="••••••••" onkeydown="if(event.key==='Enter')authLogin()"/></div>
-      <button class="btn btn-primary" onclick="authLogin()">🔐 Se connecter</button>
+      <button class="btn btn-primary" onclick="authLogin()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10" width="14" height="10" rx="1.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg> Se connecter</button>
       <div class="uiv-demo-note">Compte oublié ou désactivé ? Contactez votre administrateur — la création de comptes se fait uniquement depuis "Gestion des utilisateurs".</div>
     </div>
     <div id="auth-setup-card" class="uiv-auth-card" style="display:none">
@@ -996,21 +997,21 @@
       <div class="fg"><label>Nom complet</label><input type="text" id="setup-nom" placeholder="Ex. Awa Mensah"/></div>
       <div class="fg"><label>Identifiant</label><input type="text" id="setup-user" placeholder="admin"/></div>
       <div class="fg"><label>Mot de passe</label><input type="password" id="setup-pass" placeholder="Min. 6 caractères" onkeydown="if(event.key==='Enter')authSetupAdmin()"/></div>
-      <button class="btn btn-primary" onclick="authSetupAdmin()">✓ Créer le compte administrateur</button>
+      <button class="btn btn-primary" onclick="authSetupAdmin()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,13 9,18 20,6"/></svg> Créer le compte administrateur</button>
     </div>
   </div>
 </div>
 
 <!-- PANE CHAT IA — COPILOTE INTELLIGENT -->
 <div class="pane" id="pane-chat-ia">
-  <div style="font-size:15px;font-weight:600;margin-bottom:14px">💬 Chat IA — Copilote intelligent</div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:14px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="11" rx="2.5"/><path d="M8 15.5v4l4-4"/></svg> Chat IA — Copilote intelligent</div>
   <div id="ia-copilot-body"></div>
 </div>
 
 <!-- PANE ACCÈS REFUSÉ -->
 <div class="pane" id="pane-acces-refuse">
   <div style="max-width:480px;margin:60px auto 0;text-align:center">
-    <div style="font-size:40px;margin-bottom:10px">🚫</div>
+    <div style="font-size:40px;margin-bottom:10px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="5.5" y1="5.5" x2="18.5" y2="18.5"/></svg></div>
     <div class="alert alert-err" style="display:block;font-size:13px;font-weight:700">Vous n'êtes pas autorisé à accéder à ce module.</div>
     <div style="font-size:12px;color:var(--text-muted);margin-top:10px">Accès refusé. Contactez votre administrateur si vous pensez que c'est une erreur.</div>
   </div>
@@ -1019,21 +1020,21 @@
 <!-- PANE TVA DÉCLARATION -->
 <div class="pane" id="pane-tva">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px">
-    <div><div style="font-size:13px;font-weight:600">🧾 Déclaration TVA — République Togolaise</div>
+    <div><div style="font-size:13px;font-weight:600"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18l-2.5-1.5L13 21l-2-1.5L9 21l-3-1.5z"/><line x1="8.5" y1="8" x2="15.5" y2="8"/><line x1="8.5" y1="12" x2="15.5" y2="12"/></svg> Déclaration TVA — République Togolaise</div>
     <div style="font-size:11px;color:var(--text-muted);margin-top:2px">TVA collectée (4431) − TVA déductible (4452/53/54/55) = Solde à payer à la DGI</div></div>
     <div style="display:flex;gap:8px">
       <select id="tva-mois-filter" onchange="renderTVA()" style="max-width:150px;padding:6px 8px;font-size:12px;border:2px solid var(--border-strong);border-radius:var(--radius)"></select>
-      <button class="btn btn-sm btn-primary" onclick="exporterTVAPDF()">🖨️ PDF</button>
+      <button class="btn btn-sm btn-primary" onclick="exporterTVAPDF()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="8" width="14" height="8" rx="1"/><path d="M7 8V4h10v4"/><path d="M7 16v4h10v-4"/></svg> PDF</button>
     </div>
   </div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
     <div style="background:var(--surface);border:2px solid var(--green-border);border-radius:var(--radius);padding:16px">
-      <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--green-dark);margin-bottom:4px">📤 TVA Collectée (4431)</div>
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--green-dark);margin-bottom:4px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="6"/><polyline points="6,12 12,6 18,12"/></svg> TVA Collectée (4431)</div>
       <div style="font-size:24px;font-weight:700;font-family:'Archivo',sans-serif;color:var(--green);margin:6px 0" id="tva-collectee">0 FCFA</div>
       <div style="font-size:10.5px;color:var(--text-muted)" id="tva-collectee-nb">0 écriture(s)</div>
     </div>
     <div style="background:var(--surface);border:2px solid var(--blue-border);border-radius:var(--radius);padding:16px">
-      <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px">📥 TVA Déductible (4452/53/54/55)</div>
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="4" x2="12" y2="18"/><polyline points="6,12 12,18 18,12"/></svg> TVA Déductible (4452/53/54/55)</div>
       <div style="font-size:24px;font-weight:700;font-family:'Archivo',sans-serif;color:var(--blue);margin:6px 0" id="tva-deductible">0 FCFA</div>
       <div style="font-size:10.5px;color:var(--text-muted)" id="tva-deductible-nb">0 écriture(s)</div>
     </div>
@@ -1051,9 +1052,9 @@
     </table></div>
   </div>
   <div class="card">
-    <div class="card-header"><span class="card-title">⚙️ Écriture de régularisation</span><button class="btn btn-sm btn-primary" onclick="genererEcritureTVA()">Générer</button></div>
+    <div class="card-header"><span class="card-title"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 3v2.5M12 18.5V21M4.6 7.3l2.2 1.3M17.2 15.4l2.2 1.3M4.6 16.7l2.2-1.3M17.2 8.6l2.2-1.3M3 12h2.5M18.5 12H21"/></svg> Écriture de régularisation</span><button class="btn btn-sm btn-primary" onclick="genererEcritureTVA()">Générer</button></div>
     <div class="card-body">
-      <div style="background:var(--amber-light);border:2px solid var(--amber-border);border-radius:var(--radius);padding:10px 13px;font-size:11px;color:var(--amber);line-height:1.7">⚠️ Génère l'écriture : <strong>D 4431 / C 4452 / C 4441 (TVA à décaisser)</strong> — À valider avec votre expert-comptable.</div>
+      <div style="background:var(--amber-light);border:2px solid var(--amber-border);border-radius:var(--radius);padding:10px 13px;font-size:11px;color:var(--amber);line-height:1.7"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4 2 20h20z"/><line x1="12" y1="10" x2="12" y2="15"/><circle cx="12" cy="17.7" r="0.9"/></svg> Génère l'écriture : <strong>D 4431 / C 4452 / C 4441 (TVA à décaisser)</strong> — À valider avec votre expert-comptable.</div>
       <div id="tva-regul-result" style="margin-top:10px"></div>
     </div>
   </div>
@@ -1062,12 +1063,12 @@
 <!-- PANE RAPPROCHEMENT BANCAIRE -->
 <div class="pane" id="pane-rapprochement">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px">
-    <div><div style="font-size:13px;font-weight:600">🏦 Rapprochement bancaire</div>
+    <div><div style="font-size:13px;font-weight:600"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="20" x2="21" y2="20"/><line x1="5" y1="20" x2="5" y2="10"/><line x1="9.5" y1="20" x2="9.5" y2="10"/><line x1="14.5" y1="20" x2="14.5" y2="10"/><line x1="19" y1="20" x2="19" y2="10"/><polygon points="12,3 21,9 3,9"/></svg> Rapprochement bancaire</div>
     <div style="font-size:11px;color:var(--text-muted);margin-top:2px">Importez un relevé CSV et rapprochez automatiquement avec vos écritures</div></div>
     <div style="display:flex;gap:8px">
-      <button class="btn btn-sm btn-primary" onclick="document.getElementById('rappr-file').click()">📂 Importer CSV</button>
+      <button class="btn btn-sm btn-primary" onclick="document.getElementById('rappr-file').click()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg> Importer CSV</button>
       <input type="file" id="rappr-file" accept=".csv,.txt" style="display:none" onchange="importerReleve(event)"/>
-      <button class="btn btn-sm" onclick="rapprAuto()">⚡ Auto-rapprocher</button>
+      <button class="btn btn-sm" onclick="rapprAuto()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13,2 4,14 11,14 10,22 20,9 13,9"/></svg> Auto-rapprocher</button>
     </div>
   </div>
   <div class="kpi-grid kpi-grid-4" style="margin-bottom:14px">
@@ -1077,9 +1078,9 @@
     <div class="kpi" style="border-top:3px solid var(--red)"><div class="kpi-label">Écart</div><div class="kpi-value kpi-neg" id="rappr-ecart">0 FCFA</div></div>
   </div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-    <div class="card"><div class="card-header"><span class="card-title">📄 Relevé bancaire</span><span id="rappr-releve-total" style="font-size:10px;color:var(--text-faint)">—</span></div>
+    <div class="card"><div class="card-header"><span class="card-title"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><line x1="9.5" y1="12" x2="15" y2="12"/><line x1="9.5" y1="15.5" x2="15" y2="15.5"/></svg> Relevé bancaire</span><span id="rappr-releve-total" style="font-size:10px;color:var(--text-faint)">—</span></div>
     <div id="rappr-releve-list" style="max-height:350px;overflow-y:auto"><div style="text-align:center;color:var(--text-faint);padding:28px;font-style:italic">Importez un fichier CSV<br><small>Format : date,libellé,débit,crédit</small></div></div></div>
-    <div class="card"><div class="card-header"><span class="card-title">📒 Écritures banque (GEST Africa)</span><span id="rappr-compta-total" style="font-size:10px;color:var(--text-faint)">—</span></div>
+    <div class="card"><div class="card-header"><span class="card-title"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4.5A2 2 0 0 1 6 3h12v16H6a2 2 0 0 0-2 2z"/><path d="M4 4.5v16"/></svg> Écritures banque (GEST Africa)</span><span id="rappr-compta-total" style="font-size:10px;color:var(--text-faint)">—</span></div>
     <div id="rappr-compta-list" style="max-height:350px;overflow-y:auto"><div style="text-align:center;color:var(--text-faint);padding:28px;font-style:italic">Vos écritures banque apparaîtront ici</div></div></div>
   </div>
 </div>
@@ -1094,7 +1095,7 @@
 
 <!-- PANE PROFIL ENTREPRISE -->
 <div class="pane" id="pane-profil">
-  <div style="font-size:15px;font-weight:600;margin-bottom:14px">🏢 Profil entreprise</div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:14px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="1"/><rect x="8" y="6" width="2" height="2"/><rect x="14" y="6" width="2" height="2"/><rect x="8" y="11" width="2" height="2"/><rect x="14" y="11" width="2" height="2"/><rect x="10" y="16" width="4" height="5"/></svg> Profil entreprise</div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
     <div class="card">
       <div class="card-header"><span class="card-title">Identité légale</span></div>
@@ -1135,15 +1136,15 @@
     </div>
   </div>
   <div style="display:flex;gap:8px;margin-top:12px;justify-content:flex-end">
-    <button class="btn btn-sm" onclick="resetProfil()">↩ Réinitialiser</button>
-    <button class="btn btn-primary" onclick="sauverProfil()">💾 Enregistrer le profil</button>
+    <button class="btn btn-sm" onclick="resetProfil()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9a8 8 0 0 1 14-4.5M20 5v5h-5"/><path d="M20 15a8 8 0 0 1-14 4.5M4 19v-5h5"/></svg> Réinitialiser</button>
+    <button class="btn btn-primary" onclick="sauverProfil()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 4v5h8V4"/><path d="M7.5 13h9v7h-9z"/></svg> Enregistrer le profil</button>
   </div>
-  <div id="profil-notif" style="display:none;margin-top:8px;padding:8px 12px;background:var(--green-light);border:2px solid var(--green-border);border-radius:var(--radius);font-size:11.5px;color:var(--green-dark)">✓ Profil enregistré. Toutes les nouvelles factures incluront ces informations.</div>
+  <div id="profil-notif" style="display:none;margin-top:8px;padding:8px 12px;background:var(--green-light);border:2px solid var(--green-border);border-radius:var(--radius);font-size:11.5px;color:var(--green-dark)"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="7.5,12.5 10.5,15.5 16.5,9"/></svg> Profil enregistré. Toutes les nouvelles factures incluront ces informations.</div>
 </div>
 
 <!-- PANE GESTION DES UTILISATEURS (admin uniquement) -->
 <div class="pane" id="pane-utilisateurs">
-  <div style="font-size:15px;font-weight:600;margin-bottom:14px">🛡️ Gestion des utilisateurs</div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:14px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4.5 6v6c0 5 3.2 8.2 7.5 9 4.3-.8 7.5-4 7.5-9V6z"/><path d="M9 12l2 2 4-4"/></svg> Gestion des utilisateurs</div>
   <div class="card" id="um-form-card">
     <div class="card-header"><span class="card-title">Nouvel utilisateur</span></div>
     <div class="card-body">
@@ -1161,7 +1162,7 @@
   <div class="card">
     <div class="card-header">
       <span class="card-title">Comptes existants</span>
-      <input type="text" id="um-search" placeholder="🔍 Filtrer les comptes ci-dessous (pas pour créer un compte)" style="max-width:320px" oninput="umRechercher(this.value)"/>
+      <input type="text" id="um-search" placeholder="Filtrer les comptes ci-dessous (pas pour créer un compte)" style="max-width:320px" oninput="umRechercher(this.value)"/>
     </div>
     <div class="card-body" id="um-table-wrap"></div>
   </div>
@@ -1172,7 +1173,7 @@
   <!-- Topbar devis -->
   <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;flex-wrap:wrap;gap:8px">
     <div>
-      <div style="font-size:15px;font-weight:600">📋 Devis</div>
+      <div style="font-size:15px;font-weight:600"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="12" height="17" rx="1.5"/><rect x="9" y="2" width="6" height="3" rx="1"/><line x1="8.5" y1="10" x2="15.5" y2="10"/><line x1="8.5" y1="13.5" x2="15.5" y2="13.5"/></svg> Devis</div>
       <div style="font-size:11px;color:var(--text-muted)">Créez un devis multi-lignes complet → conversion 1 clic vers Facture ou Bon de commande</div>
     </div>
     <button class="btn btn-primary btn-sm" onclick="ouvrirFormulaireDevis()">+ Nouveau devis</button>
@@ -1186,8 +1187,8 @@
         <span class="card-title" id="devis-form-title">Nouveau devis</span>
         <div style="display:flex;gap:6px">
           <button class="btn btn-sm" onclick="fermerFormulaireDevis()">Annuler</button>
-          <button class="btn btn-sm" onclick="aperçuDevis()" style="background:var(--blue);color:#fff;border-color:var(--blue)">👁 Aperçu PDF</button>
-          <button class="btn btn-primary btn-sm" onclick="sauverDevis()">💾 Enregistrer</button>
+          <button class="btn btn-sm" onclick="aperçuDevis()" style="background:var(--blue);color:#fff;border-color:var(--blue)"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></svg> Aperçu PDF</button>
+          <button class="btn btn-primary btn-sm" onclick="sauverDevis()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 4v5h8V4"/><path d="M7.5 13h9v7h-9z"/></svg> Enregistrer</button>
         </div>
       </div>
       <div class="card-body">
@@ -1270,7 +1271,7 @@
 <!-- PANE BON DE COMMANDE -->
 <div class="pane" id="pane-bc">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px">
-    <div><div style="font-size:15px;font-weight:600">🛒 Bons de commande</div><div style="font-size:11px;color:var(--text-muted)">Convertissez un devis accepté en bon de commande, puis en bon de livraison.</div></div>
+    <div><div style="font-size:15px;font-weight:600"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.3"/><circle cx="17" cy="20" r="1.3"/><path d="M2.5 4h2.5l2.3 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.6L21 8H6"/></svg> Bons de commande</div><div style="font-size:11px;color:var(--text-muted)">Convertissez un devis accepté en bon de commande, puis en bon de livraison.</div></div>
     <button class="btn btn-primary btn-sm" onclick="ouvrirFormulaireBC()">+ Nouveau bon de commande</button>
   </div>
   <div id="bc-form" style="display:none" class="card" style="margin-bottom:14px">
@@ -1290,7 +1291,7 @@
       </div>
       <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:10px">
         <button class="btn btn-sm" onclick="document.getElementById('bc-form').style.display='none'">Annuler</button>
-        <button class="btn btn-primary btn-sm" onclick="sauverBC()">💾 Enregistrer</button>
+        <button class="btn btn-primary btn-sm" onclick="sauverBC()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 4v5h8V4"/><path d="M7.5 13h9v7h-9z"/></svg> Enregistrer</button>
       </div>
     </div>
   </div>
@@ -1300,7 +1301,7 @@
 <!-- PANE BON DE LIVRAISON -->
 <div class="pane" id="pane-bl">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px">
-    <div><div style="font-size:15px;font-weight:600">🚚 Bons de livraison</div><div style="font-size:11px;color:var(--text-muted)">Document légal prouvant la remise de marchandises. Lié à la facture correspondante.</div></div>
+    <div><div style="font-size:15px;font-weight:600"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="8" width="11" height="8" rx="1"/><path d="M13.5 11h4l3 3v2h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></svg> Bons de livraison</div><div style="font-size:11px;color:var(--text-muted)">Document légal prouvant la remise de marchandises. Lié à la facture correspondante.</div></div>
     <button class="btn btn-primary btn-sm" onclick="ouvrirFormulaireBL()">+ Nouveau bon de livraison</button>
   </div>
   <div id="bl-form" style="display:none" class="card" style="margin-bottom:14px">
@@ -1318,7 +1319,7 @@
       </div>
       <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:10px">
         <button class="btn btn-sm" onclick="document.getElementById('bl-form').style.display='none'">Annuler</button>
-        <button class="btn btn-primary btn-sm" onclick="sauverBL()">💾 Enregistrer</button>
+        <button class="btn btn-primary btn-sm" onclick="sauverBL()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 4v5h8V4"/><path d="M7.5 13h9v7h-9z"/></svg> Enregistrer</button>
       </div>
     </div>
   </div>
@@ -1328,9 +1329,9 @@
 <!-- PANE FACTURES RÉCURRENTES -->
 <div class="pane" id="pane-recurrentes">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px">
-    <div><div style="font-size:15px;font-weight:600">🔄 Factures récurrentes</div><div style="font-size:11px;color:var(--text-muted)">Loyers, abonnements, contrats de maintenance — génération automatique.</div></div>
+    <div><div style="font-size:15px;font-weight:600"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9a8 8 0 0 1 14-4.5M20 5v5h-5"/><path d="M20 15a8 8 0 0 1-14 4.5M4 19v-5h5"/></svg> Factures récurrentes</div><div style="font-size:11px;color:var(--text-muted)">Loyers, abonnements, contrats de maintenance — génération automatique.</div></div>
     <div style="display:flex;gap:8px">
-      <button class="btn btn-sm btn-primary" onclick="genererEcheancesRecurrentes()" style="background:var(--amber);border-color:var(--amber)">⚡ Générer les échéances dues</button>
+      <button class="btn btn-sm btn-primary" onclick="genererEcheancesRecurrentes()" style="background:var(--amber);border-color:var(--amber)"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13,2 4,14 11,14 10,22 20,9 13,9"/></svg> Générer les échéances dues</button>
       <button class="btn btn-primary btn-sm" onclick="ouvrirFormulaireRec()">+ Nouvelle règle</button>
     </div>
   </div>
@@ -1350,7 +1351,7 @@
       </div>
       <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:10px">
         <button class="btn btn-sm" onclick="document.getElementById('rec-form').style.display='none'">Annuler</button>
-        <button class="btn btn-primary btn-sm" onclick="sauverRec()">💾 Enregistrer</button>
+        <button class="btn btn-primary btn-sm" onclick="sauverRec()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 4v5h8V4"/><path d="M7.5 13h9v7h-9z"/></svg> Enregistrer</button>
       </div>
     </div>
   </div>
@@ -1359,10 +1360,10 @@
 
 <!-- PANE INVENTAIRE PHYSIQUE -->
 <div class="pane" id="pane-inventaire">
-  <div style="font-size:15px;font-weight:600;margin-bottom:4px">🔢 Inventaire physique</div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:4px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2.5" width="12" height="19" rx="1.5"/><line x1="8.5" y1="6.5" x2="15.5" y2="6.5"/><circle cx="9" cy="11" r="0.8"/><circle cx="12" cy="11" r="0.8"/><circle cx="15" cy="11" r="0.8"/><circle cx="9" cy="14.5" r="0.8"/><circle cx="12" cy="14.5" r="0.8"/><circle cx="15" cy="14.5" r="0.8"/></svg> Inventaire physique</div>
   <div style="font-size:11px;color:var(--text-muted);margin-bottom:14px">Comparez le stock théorique (comptable) au stock réel (physique). Les écarts sont comptabilisés automatiquement (D.6031/C.3111 ou D.3111/C.7032).</div>
   <div class="card">
-    <div class="card-header"><span class="card-title">Feuille d'inventaire — Exercice <span id="inv-annee"></span></span><button class="btn btn-sm btn-primary" onclick="comptabiliserEcarts()" style="font-size:10px">✓ Comptabiliser les écarts</button></div>
+    <div class="card-header"><span class="card-title">Feuille d'inventaire — Exercice <span id="inv-annee"></span></span><button class="btn btn-sm btn-primary" onclick="comptabiliserEcarts()" style="font-size:10px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,13 9,18 20,6"/></svg> Comptabiliser les écarts</button></div>
     <div class="card-body" style="padding:0">
       <div id="inv-table-wrap" style="overflow-x:auto">
         <table style="width:100%;border-collapse:collapse;font-size:12px">
@@ -1385,7 +1386,7 @@
 
 <!-- PANE PROVISIONS -->
 <div class="pane" id="pane-provisions">
-  <div style="font-size:15px;font-weight:600;margin-bottom:4px">⚠️ Provisions & Dépréciations</div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:4px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4 2 20h20z"/><line x1="12" y1="10" x2="12" y2="15"/><circle cx="12" cy="17.7" r="0.9"/></svg> Provisions & Dépréciations</div>
   <div style="font-size:11px;color:var(--text-muted);margin-bottom:14px">Conformité OHADA — Créances douteuses (D.6911/C.491), Dépréciations stocks (D.6031/C.39x), Provisions risques (D.6812/C.151), Provisions congés (D.6412/C.428).</div>
   <div class="card" style="margin-bottom:12px">
     <div class="card-header"><span class="card-title">Nouvelle provision / dépréciation</span></div>
@@ -1407,7 +1408,7 @@
         <div class="fg"><label>Compte crédit</label><input type="text" id="prov-cptC" style="font-family:'Archivo',sans-serif" readonly/></div>
       </div>
       <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:10px">
-        <button class="btn btn-primary btn-sm" onclick="enregistrerProvision()">✓ Comptabiliser la provision</button>
+        <button class="btn btn-primary btn-sm" onclick="enregistrerProvision()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,13 9,18 20,6"/></svg> Comptabiliser la provision</button>
       </div>
     </div>
   </div>
@@ -1416,11 +1417,11 @@
 
 <!-- PANE MULTI-DEVISES -->
 <div class="pane" id="pane-multidevises">
-  <div style="font-size:15px;font-weight:600;margin-bottom:4px">💱 Multi-devises</div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:4px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.3c0-1.3 1.1-2 2.5-2s2.5.7 2.5 1.8c0 2.6-5 1.5-5 4.1 0 1.1 1.1 1.8 2.5 1.8s2.5-.7 2.5-2"/></svg> Multi-devises</div>
   <div style="font-size:11px;color:var(--text-muted);margin-bottom:14px">Gérez les factures en EUR, USD, CNY, GBP. Les écarts de change entre la date de facture et le règlement sont comptabilisés automatiquement (cpte 476/477).</div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
     <div class="card">
-      <div class="card-header"><span class="card-title">Taux de change actuels</span><button class="btn btn-sm" onclick="chargerTauxChange()" style="font-size:10px">🔄 Actualiser</button></div>
+      <div class="card-header"><span class="card-title">Taux de change actuels</span><button class="btn btn-sm" onclick="chargerTauxChange()" style="font-size:10px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9a8 8 0 0 1 14-4.5M20 5v5h-5"/><path d="M20 15a8 8 0 0 1-14 4.5M4 19v-5h5"/></svg> Actualiser</button></div>
       <div class="card-body">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px" id="fx-rates-grid">
           <div style="background:var(--bg);border-radius:var(--radius);padding:10px;text-align:center"><div style="font-size:10px;color:var(--text-muted)">EUR → FCFA</div><div style="font-size:20px;font-weight:700;font-family:'Archivo',sans-serif;color:var(--green)">655,957</div><div style="font-size:9px;color:var(--text-faint)">Fixe UEMOA</div></div>
@@ -1444,7 +1445,7 @@
           <div class="fg sp2"><label>Libellé</label><input type="text" id="fx-lib" placeholder="Ex: Import matériaux Chine — commande #CMD-2026-01"/></div>
         </div>
         <div style="display:flex;justify-content:flex-end;margin-top:10px">
-          <button class="btn btn-primary btn-sm" onclick="enregistrerFX()">✓ Enregistrer en FCFA</button>
+          <button class="btn btn-primary btn-sm" onclick="enregistrerFX()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,13 9,18 20,6"/></svg> Enregistrer en FCFA</button>
         </div>
       </div>
     </div>
@@ -1454,14 +1455,14 @@
 
 <!-- PANE TABLEAU FLUX TRÉSORERIE -->
 <div class="pane" id="pane-tft">
-  <div style="font-size:15px;font-weight:600;margin-bottom:4px">💧 Tableau des Flux de Trésorerie (TFT)</div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:4px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6.5 7.2 6.5 11.5a6.5 6.5 0 0 1-13 0C5.5 10.2 12 3 12 3z"/></svg> Tableau des Flux de Trésorerie (TFT)</div>
   <div style="font-size:11px;color:var(--text-muted);margin-bottom:12px">
     SYSCOHADA révisé 2017 — État financier obligatoire pour toutes les entreprises OHADA (sauf système minimal). Méthode indirecte : le résultat net est retraité pour dégager les flux réels de trésorerie.
   </div>
   <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">
-    <button class="btn btn-sm btn-primary" onclick="calculerTFT()">🔄 Calculer le TFT</button>
-    <button class="btn btn-sm" onclick="exporterTFTPDF()">📄 Export PDF officiel</button>
-    <button class="btn btn-sm" onclick="exporterTFTCSV()">📥 Export CSV</button>
+    <button class="btn btn-sm btn-primary" onclick="calculerTFT()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9a8 8 0 0 1 14-4.5M20 5v5h-5"/><path d="M20 15a8 8 0 0 1-14 4.5M4 19v-5h5"/></svg> Calculer le TFT</button>
+    <button class="btn btn-sm" onclick="exporterTFTPDF()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><line x1="9.5" y1="12" x2="15" y2="12"/><line x1="9.5" y1="15.5" x2="15" y2="15.5"/></svg> Export PDF officiel</button>
+    <button class="btn btn-sm" onclick="exporterTFTCSV()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="4" x2="12" y2="18"/><polyline points="6,12 12,18 18,12"/></svg> Export CSV</button>
     <div id="tft-exercice-label" style="margin-left:auto;font-size:11px;color:var(--text-muted);display:flex;align-items:center"></div>
   </div>
   <div id="tft-content">
@@ -1473,7 +1474,7 @@
 
 <!-- PANE CALENDRIER FISCAL -->
 <div class="pane" id="pane-calendrier">
-  <div style="font-size:15px;font-weight:600;margin-bottom:4px">📅 Calendrier fiscal togolais <span id="cal-annee-badge" class="ex-badge" style="font-size:10px;margin-left:6px">2026</span></div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:4px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="1.5"/><line x1="3.5" y1="9.5" x2="20.5" y2="9.5"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/></svg> Calendrier fiscal togolais <span id="cal-annee-badge" class="ex-badge" style="font-size:10px;margin-left:6px">2026</span></div>
   <div style="font-size:11px;color:var(--text-muted);margin-bottom:14px">Toutes les échéances DGI, CNSS et OHADA. Les délais urgents (<30 jours) sont signalés en rouge.</div>
   <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
     <div id="cal-prochaine" style="flex:1;min-width:200px;background:var(--red-light);border:2px solid var(--red-border);border-radius:var(--radius);padding:10px 14px"></div>
@@ -1490,7 +1491,7 @@
 
 <!-- PANE EMPRUNTS BANCAIRES -->
 <div class="pane" id="pane-emprunts">
-  <div style="font-size:15px;font-weight:600;margin-bottom:4px">🏦 Emprunts bancaires</div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:4px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="20" x2="21" y2="20"/><line x1="5" y1="20" x2="5" y2="10"/><line x1="9.5" y1="20" x2="9.5" y2="10"/><line x1="14.5" y1="20" x2="14.5" y2="10"/><line x1="19" y1="20" x2="19" y2="10"/><polygon points="12,3 21,9 3,9"/></svg> Emprunts bancaires</div>
   <div style="font-size:11px;color:var(--text-muted);margin-bottom:14px">Saisissez vos emprunts, GEST Africa génère le tableau d'amortissement et les écritures mensuelles (D.16x / C.521 capital + D.671 / C.521 intérêts).</div>
   <div class="card" style="margin-bottom:12px">
     <div class="card-header"><span class="card-title">Nouveau prêt bancaire</span></div>
@@ -1513,7 +1514,7 @@
         <div class="fg"><label>Mensualité estimée (auto)</label><input type="text" id="empr-mensualite" readonly style="font-weight:700;color:var(--green-dark);font-family:'Archivo',sans-serif"/></div>
       </div>
       <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:10px">
-        <button class="btn btn-primary btn-sm" onclick="ajouterEmprunt()">✓ Créer le tableau d'amortissement</button>
+        <button class="btn btn-primary btn-sm" onclick="ajouterEmprunt()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,13 9,18 20,6"/></svg> Créer le tableau d'amortissement</button>
       </div>
     </div>
   </div>
@@ -1523,7 +1524,7 @@
 
 <!-- PANE COMPTABILITÉ ANALYTIQUE -->
 <div class="pane" id="pane-analytique">
-  <div style="font-size:15px;font-weight:600;margin-bottom:4px">📊 Comptabilité analytique</div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:4px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="12" width="4" height="8"/><rect x="10" y="7" width="4" height="13"/><rect x="16" y="3" width="4" height="17"/></svg> Comptabilité analytique</div>
   <div style="font-size:11px;color:var(--text-muted);margin-bottom:14px">Affectez chaque écriture à un projet ou centre de coût. Obtenez un compte de résultat par axe analytique.</div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
     <div class="card">
@@ -1531,7 +1532,7 @@
       <div class="card-body" id="axes-list"></div>
     </div>
     <div class="card">
-      <div class="card-header"><span class="card-title">Résultat par axe</span><button class="btn btn-sm" onclick="calculerAnalytique()" style="font-size:10px">🔄 Actualiser</button></div>
+      <div class="card-header"><span class="card-title">Résultat par axe</span><button class="btn btn-sm" onclick="calculerAnalytique()" style="font-size:10px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9a8 8 0 0 1 14-4.5M20 5v5h-5"/><path d="M20 15a8 8 0 0 1-14 4.5M4 19v-5h5"/></svg> Actualiser</button></div>
       <div class="card-body" id="analytique-result"></div>
     </div>
   </div>
@@ -1546,7 +1547,7 @@
       </div>
       <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px">
         <button class="btn btn-sm" onclick="document.getElementById('axe-form').style.display='none'">Annuler</button>
-        <button class="btn btn-primary btn-sm" onclick="sauverAxe()">💾 Enregistrer</button>
+        <button class="btn btn-primary btn-sm" onclick="sauverAxe()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 4v5h8V4"/><path d="M7.5 13h9v7h-9z"/></svg> Enregistrer</button>
       </div>
     </div>
   </div>
@@ -1564,7 +1565,7 @@
 
 <!-- PANE PISTE D'AUDIT -->
 <div class="pane" id="pane-audit">
-  <div style="font-size:15px;font-weight:600;margin-bottom:4px">🔍 Piste d'audit</div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:4px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="20" y1="20" x2="15.2" y2="15.2"/></svg> Piste d'audit</div>
   <div style="font-size:11px;color:var(--text-muted);margin-bottom:14px">Traçabilité complète de toutes les modifications. Conforme aux exigences de contrôle fiscal DGI et certification comptable.</div>
   <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;align-items:center">
     <input type="text" id="audit-filtre" placeholder="Rechercher par N° facture, tiers, montant..." style="max-width:280px;font-size:12px" oninput="filtrerAudit()"/>
@@ -1575,7 +1576,7 @@
       <option value="suppression">Suppression</option>
       <option value="validation">Validation</option>
     </select>
-    <button class="btn btn-sm" onclick="exporterAuditCSV()" style="margin-left:auto">📥 Export CSV</button>
+    <button class="btn btn-sm" onclick="exporterAuditCSV()" style="margin-left:auto"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="4" x2="12" y2="18"/><polyline points="6,12 12,18 18,12"/></svg> Export CSV</button>
   </div>
   <div class="card">
     <div class="card-body" style="padding:0">
@@ -1596,7 +1597,7 @@
 
 <!-- PANE SIMULATEUR FISCAL "ET SI ?" -->
 <div class="pane" id="pane-simulateur">
-  <div style="font-size:15px;font-weight:600;margin-bottom:4px">🧮 Simulateur fiscal — "Et si ?"</div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:4px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2.5" width="12" height="19" rx="1.5"/><line x1="8.5" y1="6.5" x2="15.5" y2="6.5"/><circle cx="9" cy="11" r="0.8"/><circle cx="12" cy="11" r="0.8"/><circle cx="15" cy="11" r="0.8"/><circle cx="9" cy="14.5" r="0.8"/><circle cx="12" cy="14.5" r="0.8"/><circle cx="15" cy="14.5" r="0.8"/></svg> Simulateur fiscal — "Et si ?"</div>
   <div style="font-size:11px;color:var(--text-muted);margin-bottom:14px">Simulez l'impact fiscal de vos décisions <strong>avant</strong> de les prendre. Embauche, investissement, distribution dividendes — l'IA calcule et explique.</div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
     <div class="card">
@@ -1615,7 +1616,7 @@
         <div id="sim-fields">
           <!-- rempli dynamiquement -->
         </div>
-        <button class="btn btn-primary" onclick="simulerImpactFiscal()" style="width:100%;margin-top:10px">🔮 Simuler l'impact fiscal IA</button>
+        <button class="btn btn-primary" onclick="simulerImpactFiscal()" style="width:100%;margin-top:10px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.7 5.8L19.5 10.5l-5.8 1.7L12 18l-1.7-5.8L4.5 10.5l5.8-1.7z"/></svg> Simuler l'impact fiscal IA</button>
       </div>
     </div>
     <div class="card" id="sim-result-card">
@@ -1626,14 +1627,14 @@
     </div>
   </div>
   <div id="sim-ia-conseil" style="display:none" class="card">
-    <div class="card-header" style="background:var(--sidebar-bg)"><span class="card-title" style="color:#fff">✦ Analyse IA — Conseil expert</span></div>
+    <div class="card-header" style="background:var(--sidebar-bg)"><span class="card-title" style="color:#fff"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.7 5.8L19.5 10.5l-5.8 1.7L12 18l-1.7-5.8L4.5 10.5l5.8-1.7z"/></svg> Analyse IA — Conseil expert</span></div>
     <div class="card-body" id="sim-ia-body"></div>
   </div>
 </div>
 
 <!-- PANE PRODUCTION INDUSTRIELLE -->
 <div class="pane" id="pane-production">
-  <div style="font-size:15px;font-weight:600;margin-bottom:4px">🏭 Module Production</div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:4px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20V11l5 3v-3l5 3V8l5 3v9z"/><line x1="3" y1="20" x2="21" y2="20"/></svg> Module Production</div>
   <div style="font-size:11px;color:var(--text-muted);margin-bottom:14px">Nomenclatures produits, ordres de fabrication, coût de revient automatique. Stock matières premières → En-cours (33x) → Produits finis (35x).</div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
     <div class="card">
@@ -1665,7 +1666,7 @@
       <button class="btn btn-sm" onclick="ajouterIngredient()" style="margin-bottom:8px;font-size:10.5px">+ Matière première</button>
       <div style="display:flex;gap:8px;justify-content:flex-end">
         <button class="btn btn-sm" onclick="document.getElementById('nom-form').style.display='none'">Annuler</button>
-        <button class="btn btn-primary btn-sm" onclick="sauverNomenclature()">💾 Sauvegarder</button>
+        <button class="btn btn-primary btn-sm" onclick="sauverNomenclature()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 4v5h8V4"/><path d="M7.5 13h9v7h-9z"/></svg> Sauvegarder</button>
       </div>
     </div>
   </div>
@@ -1679,7 +1680,7 @@
       </div>
       <div id="of-preview" style="margin-top:8px;padding:8px 12px;background:var(--amber-light);border:2px solid var(--amber-border);border-radius:var(--radius);font-size:11.5px;display:none"></div>
       <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:10px">
-        <button class="btn btn-primary btn-sm" onclick="lancerOrdreFabrication()">⚙️ Lancer la production</button>
+        <button class="btn btn-primary btn-sm" onclick="lancerOrdreFabrication()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 3v2.5M12 18.5V21M4.6 7.3l2.2 1.3M17.2 15.4l2.2 1.3M4.6 16.7l2.2-1.3M17.2 8.6l2.2-1.3M3 12h2.5M18.5 12H21"/></svg> Lancer la production</button>
       </div>
     </div>
   </div>
@@ -1688,11 +1689,11 @@
 
 <!-- PANE MODULE CAISSE / PDV -->
 <div class="pane" id="pane-caisse">
-  <div style="font-size:15px;font-weight:600;margin-bottom:4px">🧾 Caisse / Point de Vente</div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:4px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18l-2.5-1.5L13 21l-2-1.5L9 21l-3-1.5z"/><line x1="8.5" y1="8" x2="15.5" y2="8"/><line x1="8.5" y1="12" x2="15.5" y2="12"/></svg> Caisse / Point de Vente</div>
   <div style="font-size:11px;color:var(--text-muted);margin-bottom:14px">Enregistrez les ventes au comptoir. Le Z de caisse journalier génère les écritures comptables en un clic.</div>
   <div style="display:grid;grid-template-columns:2fr 1fr;gap:14px">
     <div class="card">
-      <div class="card-header"><span class="card-title">🛒 Panier de vente</span><button class="btn btn-sm" onclick="viderPanier()">🗑 Vider</button></div>
+      <div class="card-header"><span class="card-title"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.3"/><circle cx="17" cy="20" r="1.3"/><path d="M2.5 4h2.5l2.3 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.6L21 8H6"/></svg> Panier de vente</span><button class="btn btn-sm" onclick="viderPanier()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 7h14"/><path d="M9 7V4.5h6V7"/><path d="M7 7l1 13h8l1-13"/></svg> Vider</button></div>
       <div class="card-body">
         <div style="display:flex;gap:8px;margin-bottom:10px">
           <input type="text" id="caisse-search" list="caisse-produits-list" placeholder="Article (tapez ou scan code-barres)..." style="flex:1;font-size:12.5px" oninput="filterCaisseProd()"/>
@@ -1708,11 +1709,11 @@
           </div>
           <div style="display:flex;gap:8px;flex-direction:column">
             <div style="display:flex;gap:6px">
-              <button class="btn btn-sm" onclick="encaisserPanier('espece')" style="background:var(--green);color:#fff;border-color:var(--green)">💵 Espèces</button>
-              <button class="btn btn-sm" onclick="encaisserPanier('flooz')" style="background:var(--blue);color:#fff;border-color:var(--blue)">📱 Flooz</button>
-              <button class="btn btn-sm" onclick="encaisserPanier('tmoney')" style="background:var(--purple);color:#fff;border-color:var(--purple)">📱 T-Money</button>
+              <button class="btn btn-sm" onclick="encaisserPanier('espece')" style="background:var(--green);color:#fff;border-color:var(--green)"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.3c0-1.3 1.1-2 2.5-2s2.5.7 2.5 1.8c0 2.6-5 1.5-5 4.1 0 1.1 1.1 1.8 2.5 1.8s2.5-.7 2.5-2"/></svg> Espèces</button>
+              <button class="btn btn-sm" onclick="encaisserPanier('flooz')" style="background:var(--blue);color:#fff;border-color:var(--blue)">Flooz</button>
+              <button class="btn btn-sm" onclick="encaisserPanier('tmoney')" style="background:var(--purple);color:#fff;border-color:var(--purple)">T-Money</button>
             </div>
-            <button class="btn btn-sm" onclick="encaisserPanier('banque')" style="background:var(--amber);color:#fff;border-color:var(--amber);width:100%">💳 Carte/Banque</button>
+            <button class="btn btn-sm" onclick="encaisserPanier('banque')" style="background:var(--amber);color:#fff;border-color:var(--amber);width:100%"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/><line x1="6" y1="14.5" x2="10" y2="14.5"/></svg> Carte/Banque</button>
           </div>
         </div>
       </div>
@@ -1723,7 +1724,7 @@
         <div style="text-align:center;color:var(--text-faint);font-style:italic;padding:20px">Aucune vente enregistrée aujourd'hui.</div>
       </div>
       <div style="padding:10px 14px;border-top:2px solid var(--border)">
-        <button class="btn btn-primary" onclick="clotureZCaisse()" style="width:100%">🔒 Clôturer et comptabiliser le Z</button>
+        <button class="btn btn-primary" onclick="clotureZCaisse()" style="width:100%"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10" width="14" height="10" rx="1.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg> Clôturer et comptabiliser le Z</button>
       </div>
     </div>
   </div>
@@ -1742,11 +1743,11 @@
 <div class="pane" id="pane-paie">
   <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;flex-wrap:wrap;gap:8px">
     <div>
-      <div style="font-size:15px;font-weight:600">👷 Gestion de la paie</div>
+      <div style="font-size:15px;font-weight:600"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M4 20c0-3.5 2.5-6 5-6s5 2.5 5 6"/><circle cx="17" cy="9" r="2.4"/><path d="M15.5 20c.1-2.6 1.4-4.6 3-5.4"/></svg> Gestion de la paie</div>
       <div style="font-size:11px;color:var(--text-muted)">Dossiers employés complets — Bulletin de paie CNSS + IR Togo, écritures comptables automatiques</div>
     </div>
     <div style="display:flex;gap:8px">
-      <button class="btn btn-sm" onclick="genererTouteBulletins()" style="background:var(--amber);color:#fff;border-color:var(--amber)">⚡ Générer bulletins du mois</button>
+      <button class="btn btn-sm" onclick="genererTouteBulletins()" style="background:var(--amber);color:#fff;border-color:var(--amber)"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13,2 4,14 11,14 10,22 20,9 13,9"/></svg> Générer bulletins du mois</button>
       <button class="btn btn-primary btn-sm" onclick="ouvrirFormulaireEmploye()">+ Nouvel employé</button>
     </div>
   </div>
@@ -1783,7 +1784,7 @@
       </div>
       <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:10px">
         <button class="btn btn-sm" onclick="fermerFormulaireEmploye()">Annuler</button>
-        <button class="btn btn-primary btn-sm" onclick="sauverEmploye()">💾 Enregistrer le dossier</button>
+        <button class="btn btn-primary btn-sm" onclick="sauverEmploye()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 4v5h8V4"/><path d="M7.5 13h9v7h-9z"/></svg> Enregistrer le dossier</button>
       </div>
     </div>
   </div>
@@ -1799,9 +1800,9 @@
     <div class="card-header">
       <span class="card-title" id="bulletin-titre">Bulletin de paie</span>
       <div style="display:flex;gap:6px">
-        <button class="btn btn-sm" onclick="document.getElementById('paie-bulletin-detail').style.display='none'">✕ Fermer</button>
-        <button class="btn btn-sm" onclick="imprimerBulletin()" style="background:var(--blue);color:#fff;border-color:var(--blue)">🖨 Imprimer PDF</button>
-        <button class="btn btn-sm btn-primary" onclick="comptabiliserBulletin()">✓ Comptabiliser</button>
+        <button class="btn btn-sm" onclick="document.getElementById('paie-bulletin-detail').style.display='none'"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg> Fermer</button>
+        <button class="btn btn-sm" onclick="imprimerBulletin()" style="background:var(--blue);color:#fff;border-color:var(--blue)"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="8" width="14" height="8" rx="1"/><path d="M7 8V4h10v4"/><path d="M7 16v4h10v-4"/></svg> Imprimer PDF</button>
+        <button class="btn btn-sm btn-primary" onclick="comptabiliserBulletin()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,13 9,18 20,6"/></svg> Comptabiliser</button>
       </div>
     </div>
     <div class="card-body" id="bulletin-body"></div>
@@ -1814,14 +1815,14 @@
 <!-- PANE LIASSE FISCALE DGI -->
 <!-- ══════════════════════════════════════════════════════════ -->
 <div class="pane" id="pane-liasse">
-  <div style="font-size:15px;font-weight:600;margin-bottom:4px">📑 Liasse fiscale DGI — Togo</div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:4px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="12" height="17" rx="1.5"/><rect x="9" y="2" width="6" height="3" rx="1"/><line x1="8.5" y1="10" x2="15.5" y2="10"/><line x1="8.5" y1="13.5" x2="15.5" y2="13.5"/></svg> Liasse fiscale DGI — Togo</div>
   <div style="font-size:11px;color:var(--text-muted);margin-bottom:12px">
     Documents fiscaux obligatoires à déposer à la DGI chaque année. Générés automatiquement depuis vos écritures OHADA.
   </div>
   <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">
-    <button class="btn btn-sm btn-primary" onclick="genererLiasse()">🔄 Générer la liasse</button>
-    <button class="btn btn-sm" onclick="exporterLiassePDF()">📄 Export PDF complet</button>
-    <button class="btn btn-sm" onclick="exporterLiasseCSV()">📥 Export CSV pour DGI</button>
+    <button class="btn btn-sm btn-primary" onclick="genererLiasse()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9a8 8 0 0 1 14-4.5M20 5v5h-5"/><path d="M20 15a8 8 0 0 1-14 4.5M4 19v-5h5"/></svg> Générer la liasse</button>
+    <button class="btn btn-sm" onclick="exporterLiassePDF()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><line x1="9.5" y1="12" x2="15" y2="12"/><line x1="9.5" y1="15.5" x2="15" y2="15.5"/></svg> Export PDF complet</button>
+    <button class="btn btn-sm" onclick="exporterLiasseCSV()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="4" x2="12" y2="18"/><polyline points="6,12 12,18 18,12"/></svg> Export CSV pour DGI</button>
     <div style="margin-left:auto;font-size:11px;color:var(--text-muted);display:flex;align-items:center;gap:6px">
       <span id="liasse-statut"></span>
     </div>
@@ -1849,13 +1850,13 @@
 <!-- PANE ANNEXES COMPTABLES -->
 <!-- ══════════════════════════════════════════════════════════ -->
 <div class="pane" id="pane-annexes">
-  <div style="font-size:15px;font-weight:600;margin-bottom:4px">📝 Notes annexes SYSCOHADA</div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:4px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1-4L16 5l4 4L9 20z"/><line x1="14.5" y1="6.5" x2="18.5" y2="10.5"/></svg> Notes annexes SYSCOHADA</div>
   <div style="font-size:11px;color:var(--text-muted);margin-bottom:12px">
     Document obligatoire accompagnant le bilan et le compte de résultat (SYSCOHADA révisé 2017, Art. 29). Explique les méthodes comptables et détaille les postes significatifs.
   </div>
   <div style="display:flex;gap:8px;margin-bottom:14px">
-    <button class="btn btn-sm btn-primary" onclick="genererAnnexes()">🔄 Générer les annexes</button>
-    <button class="btn btn-sm" onclick="exporterAnnexesPDF()">📄 Export PDF</button>
+    <button class="btn btn-sm btn-primary" onclick="genererAnnexes()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9a8 8 0 0 1 14-4.5M20 5v5h-5"/><path d="M20 15a8 8 0 0 1-14 4.5M4 19v-5h5"/></svg> Générer les annexes</button>
+    <button class="btn btn-sm" onclick="exporterAnnexesPDF()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><line x1="9.5" y1="12" x2="15" y2="12"/><line x1="9.5" y1="15.5" x2="15" y2="15.5"/></svg> Export PDF</button>
   </div>
 
   <!-- Onglets annexes -->
@@ -1945,7 +1946,6 @@
 <!-- Barre des tâches (bas) : Accueil, IA, Trésorerie, Alertes, ⏰   -->
 <!-- ═══════════════════════════════════════════════════════════════ -->
 <link rel="stylesheet" href="css/09-v19.css"/>
-<script src="js/19-nav-icons.js"></script>
 <script src="js/15-v19-specializations.js"></script>
 
 <!-- ═══════════════════════════════════════════════════════════════ -->

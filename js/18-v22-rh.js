@@ -31,7 +31,7 @@ function optsEmp(sel){
 function notifRH(type,titre,det){try{if(typeof ajouterNotif==='function')ajouterNotif(type,titre,det);}catch(e){}}
 function photoHTML(emp,lg){
   var cl=lg?'rh-photo-lg':'rh-photo';
-  return emp&&emp.photo?'<img src="'+emp.photo+'" class="'+cl+'"/>':'<span class="'+cl+'">👤</span>';
+  return emp&&emp.photo?'<img src="'+emp.photo+'" class="'+cl+'"/>':'<span class="'+cl+'">'+ico('users')+'</span>';
 }
 function dernierContrat(empId){
   var cs=RH.contrats.filter(function(c){return c.empId===empId;});
@@ -49,28 +49,28 @@ function creerPanes(){
 'rh-dash':
  '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px">'+
  '<div><div style="font-size:15px;font-weight:700">Tableau de bord RH</div><div style="font-size:11px;color:var(--text-muted)">Vue d\'ensemble du personnel — indicateurs en temps réel</div></div>'+
- '<div style="display:flex;gap:6px"><button class="btn btn-sm" onclick="rhExporter()">💾 Exporter RH</button><button class="btn btn-sm" onclick="q(\'rh-import\').click()">📂 Importer</button><input type="file" id="rh-import" accept=".json" style="display:none" onchange="rhImporter(event)"/></div></div>'+
+ '<div style="display:flex;gap:6px"><button class="btn btn-sm" onclick="rhExporter()">'+ico('save')+' Exporter RH</button><button class="btn btn-sm" onclick="q(\'rh-import\').click()">'+ico('folder')+' Importer</button><input type="file" id="rh-import" accept=".json" style="display:none" onchange="rhImporter(event)"/></div></div>'+
  '<div class="kpi-grid kpi-grid-4" id="rh-kpis" style="margin-bottom:12px"></div>'+
  '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">'+
-   carte('👫 Répartition & services','rh-repart')+carte('⏰ Contrats & anniversaires','rh-echeances')+
- '</div>'+carte('🏢 Organigramme (par service)','rh-orga'),
+   carte(ico('users')+' Répartition & services','rh-repart')+carte(ico('clock')+' Contrats & anniversaires','rh-echeances')+
+ '</div>'+carte(ico('building')+' Organigramme (par service)','rh-orga'),
 'rh-employes':
  '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px">'+
  '<div><div style="font-size:15px;font-weight:700">Employés</div><div style="font-size:11px;color:var(--text-muted)">Dossiers complets : identité, photo, documents, parcours, contacts d\'urgence</div></div>'+
  '<button class="btn btn-primary btn-sm" onclick="rhNouvelEmp()">+ Nouvel employé</button></div>'+
- '<div class="card" id="rh-fiche-card" style="display:none;margin-bottom:12px"><div class="card-header"><span class="card-title" id="rh-fiche-titre">Nouvel employé</span><button class="rh-action" onclick="rhFermerFiche()">✕</button></div><div class="card-body" id="rh-fiche"></div></div>'+
- carte('Liste des employés <input type="text" id="rh-emp-filtre" placeholder="🔍 filtrer…" oninput="rhR_employes()" style="margin-left:10px;max-width:170px;font-size:11px;padding:5px 8px"/>','rh-emp-liste'),
+ '<div class="card" id="rh-fiche-card" style="display:none;margin-bottom:12px"><div class="card-header"><span class="card-title" id="rh-fiche-titre">Nouvel employé</span><button class="rh-action" onclick="rhFermerFiche()">'+ico('close')+'</button></div><div class="card-body" id="rh-fiche"></div></div>'+
+ carte('Liste des employés <input type="text" id="rh-emp-filtre" placeholder="filtrer…" oninput="rhR_employes()" style="margin-left:10px;max-width:170px;font-size:11px;padding:5px 8px"/>','rh-emp-liste'),
 'rh-contrats':
  '<div style="margin-bottom:12px"><div style="font-size:15px;font-weight:700">Contrats</div><div style="font-size:11px;color:var(--text-muted)">CDI, CDD, stage, prestataire — alertes automatiques 30 jours avant expiration</div></div>'+
  carte('Nouveau contrat','rh-contrat-form')+carte('Contrats en cours','rh-contrat-liste'),
 'rh-presence':
  '<div style="margin-bottom:12px"><div style="font-size:15px;font-weight:700">Présence & pointage</div><div style="font-size:11px;color:var(--text-muted)">Pointage du jour, retards, absences, heures supplémentaires, travail de nuit</div></div>'+
  carte('Pointage <input type="date" id="rh-pt-date" style="margin-left:10px;font-size:11px;padding:5px 8px;max-width:150px" onchange="rhR_presence()"/>','rh-pt-grille')+
- carte('📈 Statistiques du mois','rh-pt-stats'),
+ carte(ico('trendUp')+' Statistiques du mois','rh-pt-stats'),
 'rh-conges':
  '<div style="margin-bottom:12px"><div style="font-size:15px;font-weight:700">Congés</div><div style="font-size:11px;color:var(--text-muted)">Demandes, validation, soldes (2,5 j/mois — OHADA Togo), calendrier des absences</div></div>'+
- '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">'+carte('Nouvelle demande','rh-cg-form')+carte('🧮 Soldes de congés','rh-cg-soldes')+'</div>'+
- carte('Demandes','rh-cg-liste')+carte('🗓️ Calendrier des absences à venir','rh-cg-cal'),
+ '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">'+carte('Nouvelle demande','rh-cg-form')+carte(ico('calc')+' Soldes de congés','rh-cg-soldes')+'</div>'+
+ carte('Demandes','rh-cg-liste')+carte(ico('calendar')+' Calendrier des absences à venir','rh-cg-cal'),
 'rh-perf':
  '<div style="margin-bottom:12px"><div style="font-size:15px;font-weight:700">Performance</div><div style="font-size:11px;color:var(--text-muted)">Évaluations annuelles, objectifs, résultats, promotions</div></div>'+
  carte('Nouvelle évaluation','rh-pf-form')+carte('Historique des évaluations','rh-pf-liste'),
@@ -79,7 +79,7 @@ function creerPanes(){
  carte('Budget & nouvelle formation','rh-fo-form')+carte('Formations & certifications','rh-fo-liste'),
 'rh-recrut':
  '<div style="margin-bottom:12px"><div style="font-size:15px;font-weight:700">Recrutement</div><div style="font-size:11px;color:var(--text-muted)">Offres, candidatures, entretiens, embauche en un clic</div></div>'+
- '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">'+carte('📢 Offres d\'emploi','rh-rc-offres')+carte('Nouvelle candidature','rh-rc-form')+'</div>'+
+ '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">'+carte(ico('megaphone')+' Offres d\'emploi','rh-rc-offres')+carte('Nouvelle candidature','rh-rc-form')+'</div>'+
  carte('Candidatures','rh-rc-liste'),
 'rh-sante':
  '<div style="margin-bottom:12px"><div style="font-size:15px;font-weight:700">Santé & sécurité</div><div style="font-size:11px;color:var(--text-muted)">Visites médicales, accidents de travail, EPI, incidents</div></div>'+
@@ -89,7 +89,7 @@ function creerPanes(){
  carte('Nouvelle mesure','rh-di-form')+carte('Historique disciplinaire <select id="rh-di-filtre" onchange="rhR_discipline()" style="margin-left:10px;font-size:11px;padding:5px 8px;max-width:180px"></select>','rh-di-liste'),
 'rh-docs':
  '<div style="margin-bottom:12px"><div style="font-size:15px;font-weight:700">Documents RH</div><div style="font-size:11px;color:var(--text-muted)">Attestations, certificats de travail, lettres — générés, signés et imprimables en un clic</div></div>'+
- '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">'+carte('📄 Générer un document','rh-do-form')+carte('✍️ Signature électronique de l\'entreprise','rh-do-sign')+'</div>'+
+ '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">'+carte(ico('file')+' Générer un document','rh-do-form')+carte(ico('pencil')+' Signature électronique de l\'entreprise','rh-do-sign')+'</div>'+
  carte('Historique des documents générés','rh-do-liste')
   };
   Object.keys(defs).forEach(function(id){
@@ -109,7 +109,7 @@ function rhConstruireFormulaires(){
   '<div class="fg"><label>Type</label><select id="rh-ct-type"><option>CDI</option><option>CDD</option><option>Stage</option><option>Prestataire</option></select></div>'+
   '<div class="fg"><label>Début</label><input type="date" id="rh-ct-debut"/></div>'+
   '<div class="fg"><label>Fin (vide si CDI)</label><input type="date" id="rh-ct-fin"/></div></div>'+
-  '<button class="btn btn-primary btn-sm" style="margin-top:8px" onclick="rhAjContrat()">💾 Enregistrer le contrat</button>';
+  '<button class="btn btn-primary btn-sm" style="margin-top:8px" onclick="rhAjContrat()">'+ico('save')+' Enregistrer le contrat</button>';
   /* Congés */
   q('rh-cg-form').innerHTML=
   '<div class="fg" style="margin-bottom:8px"><label>Employé</label><select id="rh-cg-emp"></select></div>'+
@@ -118,7 +118,7 @@ function rhConstruireFormulaires(){
   '<div class="fg"><label>Du</label><input type="date" id="rh-cg-du"/></div>'+
   '<div class="fg"><label>Au</label><input type="date" id="rh-cg-au"/></div></div>'+
   '<div class="fg" style="margin-bottom:8px"><label>Motif</label><input type="text" id="rh-cg-motif" placeholder="optionnel"/></div>'+
-  '<button class="btn btn-primary btn-sm" onclick="rhAjConge()">📨 Soumettre la demande</button>';
+  '<button class="btn btn-primary btn-sm" onclick="rhAjConge()">Soumettre la demande</button>';
   /* Performance */
   q('rh-pf-form').innerHTML=
   '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">'+
@@ -128,7 +128,7 @@ function rhConstruireFormulaires(){
   '<div class="fg"><label>Objectifs</label><input type="text" id="rh-pf-obj" placeholder="ex : +15% de ventes"/></div>'+
   '<div class="fg"><label>Résultats</label><input type="text" id="rh-pf-res" placeholder="ex : objectif atteint"/></div>'+
   '<div class="fg"><label>Promotion (nouveau poste)</label><input type="text" id="rh-pf-promo" placeholder="vide si aucune"/></div></div>'+
-  '<button class="btn btn-primary btn-sm" style="margin-top:8px" onclick="rhAjEval()">💾 Enregistrer l\'évaluation</button>';
+  '<button class="btn btn-primary btn-sm" style="margin-top:8px" onclick="rhAjEval()">'+ico('save')+' Enregistrer l\'évaluation</button>';
   /* Formation */
   q('rh-fo-form').innerHTML=
   '<div class="rh-ligne" style="margin-bottom:10px"><span class="rh-lbl">Budget formation annuel</span><input type="number" id="rh-fo-budget" style="max-width:160px" onchange="rhMajBudget(this.value)"/><span style="font-size:11px;color:var(--text-muted)">FCFA</span></div>'+
@@ -139,7 +139,7 @@ function rhConstruireFormulaires(){
   '<div class="fg"><label>Date</label><input type="date" id="rh-fo-date"/></div>'+
   '<div class="fg"><label>Expiration (certif.)</label><input type="date" id="rh-fo-exp"/></div>'+
   '<div class="fg"><label>Coût (FCFA)</label><input type="number" id="rh-fo-cout" min="0"/></div></div>'+
-  '<button class="btn btn-primary btn-sm" style="margin-top:8px" onclick="rhAjFormation()">💾 Enregistrer</button>';
+  '<button class="btn btn-primary btn-sm" style="margin-top:8px" onclick="rhAjFormation()">'+ico('save')+' Enregistrer</button>';
   /* Recrutement */
   q('rh-rc-form').innerHTML=
   '<div class="fg" style="margin-bottom:8px"><label>Nom du candidat</label><input type="text" id="rh-rc-nom"/></div>'+
@@ -148,7 +148,7 @@ function rhConstruireFormulaires(){
   '<div class="fg"><label>Note entretien (1-5)</label><input type="number" id="rh-rc-note" min="1" max="5" step="0.5"/></div>'+
   '<div class="fg"><label>Statut</label><select id="rh-rc-statut"><option value="recu">Candidature reçue</option><option value="entretien">Entretien planifié</option><option value="refuse">Refusé</option></select></div></div>'+
   '<div class="fg" style="margin-bottom:8px"><label>Notes du recruteur</label><input type="text" id="rh-rc-com"/></div>'+
-  '<button class="btn btn-primary btn-sm" onclick="rhAjCand()">💾 Enregistrer la candidature</button>';
+  '<button class="btn btn-primary btn-sm" onclick="rhAjCand()">'+ico('save')+' Enregistrer la candidature</button>';
   /* Santé */
   q('rh-sa-form').innerHTML=
   '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">'+
@@ -157,7 +157,7 @@ function rhConstruireFormulaires(){
   '<div class="fg"><label>Date</label><input type="date" id="rh-sa-date"/></div>'+
   '<div class="fg"><label>Prochaine visite</label><input type="date" id="rh-sa-next"/></div></div>'+
   '<div class="fg" style="margin-top:8px"><label>Détails</label><input type="text" id="rh-sa-det" placeholder="description, équipements remis, gravité…"/></div>'+
-  '<button class="btn btn-primary btn-sm" style="margin-top:8px" onclick="rhAjSante()">💾 Enregistrer</button>';
+  '<button class="btn btn-primary btn-sm" style="margin-top:8px" onclick="rhAjSante()">'+ico('save')+' Enregistrer</button>';
   /* Discipline */
   q('rh-di-form').innerHTML=
   '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">'+
@@ -165,7 +165,7 @@ function rhConstruireFormulaires(){
   '<div class="fg"><label>Mesure</label><select id="rh-di-type"><option value="avertissement">Avertissement</option><option value="sanction">Sanction</option></select></div>'+
   '<div class="fg"><label>Date</label><input type="date" id="rh-di-date" value="'+auj()+'"/></div></div>'+
   '<div class="fg" style="margin-top:8px"><label>Motif</label><input type="text" id="rh-di-motif"/></div>'+
-  '<button class="btn btn-primary btn-sm" style="margin-top:8px" onclick="rhAjDisc()">💾 Enregistrer</button>';
+  '<button class="btn btn-primary btn-sm" style="margin-top:8px" onclick="rhAjDisc()">'+ico('save')+' Enregistrer</button>';
   /* Documents */
   q('rh-do-form').innerHTML=
   '<div class="fg" style="margin-bottom:8px"><label>Employé</label><select id="rh-do-emp"></select></div>'+
@@ -174,13 +174,13 @@ function rhConstruireFormulaires(){
     '<option value="certificat">Certificat de travail</option>'+
     '<option value="conge">Autorisation de congé</option>'+
     '<option value="felicitations">Lettre de félicitations</option></select></div>'+
-  '<button class="btn btn-primary btn-sm" onclick="rhGenererDoc()">🖨️ Générer & imprimer</button>'+
+  '<button class="btn btn-primary btn-sm" onclick="rhGenererDoc()">'+ico('printer')+' Générer & imprimer</button>'+
   '<div style="font-size:10.5px;color:var(--text-muted);margin-top:8px">Le document s\'ouvre prêt à imprimer ou enregistrer en PDF, avec la signature électronique si elle est définie.</div>';
   q('rh-do-sign').innerHTML=
   '<canvas id="rh-signpad" width="300" height="100"></canvas>'+
   '<div style="display:flex;gap:6px;margin-top:8px;align-items:center;flex-wrap:wrap">'+
-  '<button class="btn btn-sm" onclick="rhSignEffacer()">✕ Effacer</button>'+
-  '<button class="btn btn-primary btn-sm" onclick="rhSignSauver()">💾 Enregistrer la signature</button>'+
+  '<button class="btn btn-sm" onclick="rhSignEffacer()">'+ico('close')+' Effacer</button>'+
+  '<button class="btn btn-primary btn-sm" onclick="rhSignSauver()">'+ico('save')+' Enregistrer la signature</button>'+
   '<span id="rh-sign-etat" style="font-size:11px;color:var(--text-muted)"></span></div>';
   rhInitSignature();
   var d=q('rh-pt-date');if(d)d.value=auj();
@@ -196,7 +196,7 @@ function rhOuvrirFiche(e){
   q('rh-fiche-titre').textContent=e.id?('Fiche — '+e.nom):'Nouvel employé';
   q('rh-fiche').innerHTML=
   '<div style="display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap;margin-bottom:10px">'+
-  '<div style="text-align:center">'+photoHTML(e,true)+'<br/><button class="btn btn-sm" style="margin-top:6px" onclick="q(\'rh-photo-in\').click()">📷 Photo</button><input type="file" id="rh-photo-in" accept="image/*" style="display:none" onchange="rhPhoto(event)"/></div>'+
+  '<div style="text-align:center">'+photoHTML(e,true)+'<br/><button class="btn btn-sm" style="margin-top:6px" onclick="q(\'rh-photo-in\').click()">'+ico('camera')+' Photo</button><input type="file" id="rh-photo-in" accept="image/*" style="display:none" onchange="rhPhoto(event)"/></div>'+
   '<div style="flex:1;min-width:240px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">'+
     '<div class="fg"><label>Nom complet *</label><input type="text" id="rh-f-nom" value="'+e22(e.nom||'')+'"/></div>'+
     '<div class="fg"><label>Poste</label><input type="text" id="rh-f-poste" value="'+e22(e.poste||'')+'"/></div>'+
@@ -212,14 +212,14 @@ function rhOuvrirFiche(e){
     '<div class="fg"><label>Statut</label><select id="rh-f-statut"><option value="actif"'+(e.statut!=='parti'?' selected':'')+'>Actif</option><option value="parti"'+(e.statut==='parti'?' selected':'')+'>Parti</option></select></div>'+
   '</div></div>'+
   '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">'+
-    '<div><div class="section-label">📎 Documents (CNI, diplôme, contrat…)</div><div id="rh-f-docs"></div>'+
+    '<div><div class="section-label">Documents (CNI, diplôme, contrat…)</div><div id="rh-f-docs"></div>'+
       '<button class="btn btn-sm" onclick="q(\'rh-doc-in\').click()">+ Ajouter un document</button><input type="file" id="rh-doc-in" style="display:none" onchange="rhAjDoc(event)"/></div>'+
-    '<div><div class="section-label">🧭 Historique des postes</div><div id="rh-f-postes"></div>'+
+    '<div><div class="section-label">'+ico('compass')+' Historique des postes</div><div id="rh-f-postes"></div>'+
       '<div style="display:flex;gap:6px;margin-top:4px"><input type="text" id="rh-f-npos" placeholder="Nouveau poste" style="flex:1"/><button class="btn btn-sm" onclick="rhChangerPoste()">Changer</button></div></div>'+
   '</div>'+
   '<div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">'+
-  '<button class="btn btn-primary" onclick="rhSauverEmp()">💾 Enregistrer l\'employé</button>'+
-  (e.id?'<button class="btn btn-sm" onclick="go(\'paie\')">💰 Gérer sa paie</button><button class="btn btn-sm" style="color:var(--red)" onclick="rhSupprEmp(\''+e.id+'\')">🗑️ Supprimer</button>':'')+
+  '<button class="btn btn-primary" onclick="rhSauverEmp()">'+ico('save')+' Enregistrer l\'employé</button>'+
+  (e.id?'<button class="btn btn-sm" onclick="go(\'paie\')">'+ico('coin')+' Gérer sa paie</button><button class="btn btn-sm" style="color:var(--red)" onclick="rhSupprEmp(\''+e.id+'\')">'+ico('trash')+' Supprimer</button>':'')+
   '</div>';
   window._FICHE_TMP={photo:e.photo||null,docs:(e.docs||[]).slice(),postes:(e.postes||[]).slice()};
   rhRendreDocsFiche();rhRendrePostesFiche();
@@ -230,9 +230,9 @@ function rhRendreDocsFiche(){
   var z=q('rh-f-docs');if(!z)return;
   var ds=window._FICHE_TMP.docs;
   z.innerHTML=ds.length?ds.map(function(d,i){
-    return '<div class="rh-doc-item"><span>📄</span><span style="flex:1;overflow:hidden;text-overflow:ellipsis">'+e22(d.n)+'</span><span style="color:var(--text-faint)">'+Math.round(d.taille/1024)+' Ko</span>'+
-    (d.data?'<a href="'+d.data+'" download="'+e22(d.n)+'" class="rh-action" title="Télécharger">⬇️</a>':'')+
-    '<button class="rh-action" onclick="rhSupDoc('+i+')" style="color:var(--red)">✕</button></div>';
+    return '<div class="rh-doc-item"><span>'+ico('file')+'</span><span style="flex:1;overflow:hidden;text-overflow:ellipsis">'+e22(d.n)+'</span><span style="color:var(--text-faint)">'+Math.round(d.taille/1024)+' Ko</span>'+
+    (d.data?'<a href="'+d.data+'" download="'+e22(d.n)+'" class="rh-action" title="Télécharger">'+ico('arrowDown')+'</a>':'')+
+    '<button class="rh-action" onclick="rhSupDoc('+i+')" style="color:var(--red)">'+ico('close')+'</button></div>';
   }).join(''):'<div style="font-size:11px;color:var(--text-faint);font-style:italic;margin-bottom:6px">Aucun document</div>';
 }
 function rhRendrePostesFiche(){
@@ -290,7 +290,7 @@ window.rhSauverEmp=function(){
   e.photo=window._FICHE_TMP.photo;e.docs=window._FICHE_TMP.docs;e.postes=window._FICHE_TMP.postes;
   if(!e.postes.length&&e.poste)e.postes.push({date:e.embauche||auj(),poste:e.poste});
   rhSave();rhFermerFiche();rhRenderTout();
-  notifRH('info','👤 Employé enregistré : '+e.nom,(e.poste||'')+' — '+(e.service||''));
+  notifRH('info',ico('users')+' Employé enregistré : '+e.nom,(e.poste||'')+' — '+(e.service||''));
 };
 window.rhSupprEmp=function(id){
   if(!confirm('Supprimer définitivement cet employé et son historique RH ?'))return;
@@ -311,7 +311,7 @@ window.rhR_employes=function(){
     '<td>'+(ct?'<span class="tagr tagr-info">'+ct.type+'</span>':'<span class="tagr tagr-neutre">aucun</span>')+'</td>'+
     '<td style="text-align:right;font-variant-numeric:tabular-nums">'+fN(e.salaire)+'</td>'+
     '<td style="text-align:center">'+(e.statut==='parti'?'<span class="tagr tagr-bad">parti</span>':'<span class="tagr tagr-ok">actif</span>')+'</td>'+
-    '<td style="white-space:nowrap"><button class="rh-action" title="Fiche" onclick="rhEditerEmp(\''+e.id+'\')">✏️</button></td></tr>';
+    '<td style="white-space:nowrap"><button class="rh-action" title="Fiche" onclick="rhEditerEmp(\''+e.id+'\')">'+ico('pencil')+'</button></td></tr>';
   }).join('')+'</tbody></table></div>';
 };
 
@@ -320,14 +320,14 @@ window.rhAjContrat=function(){
   var empId=q('rh-ct-emp').value;if(!empId)return alert('Choisissez un employé.');
   var c={id:uid(),empId:empId,type:q('rh-ct-type').value,debut:q('rh-ct-debut').value||auj(),fin:q('rh-ct-fin').value||null};
   RH.contrats.push(c);rhSave();rhRenderTout();
-  notifRH('info','📃 Contrat '+c.type+' — '+rhNom(empId),'Du '+dFR(c.debut)+(c.fin?' au '+dFR(c.fin):' (durée indéterminée)'));
+  notifRH('info',ico('file')+' Contrat '+c.type+' — '+rhNom(empId),'Du '+dFR(c.debut)+(c.fin?' au '+dFR(c.fin):' (durée indéterminée)'));
 };
 window.rhRenouveler=function(id){
   var c=RH.contrats.find(function(x){return x.id===id;});if(!c||!c.fin)return;
   var f=new Date(c.fin);f.setFullYear(f.getFullYear()+1);
   c.fin=f.toISOString().split('T')[0];delete RH.notifies['ct'+c.id];
   rhSave();rhRenderTout();
-  notifRH('info','🔄 Contrat renouvelé — '+rhNom(c.empId),'Nouvelle échéance : '+dFR(c.fin));
+  notifRH('info',ico('refresh')+' Contrat renouvelé — '+rhNom(c.empId),'Nouvelle échéance : '+dFR(c.fin));
 };
 window.rhTerminerContrat=function(id){
   var c=RH.contrats.find(function(x){return x.id===id;});if(!c)return;
@@ -346,7 +346,7 @@ window.rhR_contrats=function(){
     else if(jr<=30)tag='<span class="tagr tagr-warn">expire dans '+jr+' j</span>';
     else tag='<span class="tagr tagr-ok">en cours</span>';
     return '<tr><td>'+e22(rhNom(c.empId))+'</td><td style="text-align:center"><span class="tagr tagr-info">'+c.type+'</span></td><td style="text-align:center">'+dFR(c.debut)+'</td><td style="text-align:center">'+dFR(c.fin)+'</td><td style="text-align:center">'+tag+'</td>'+
-    '<td style="white-space:nowrap;text-align:right">'+(c.fin&&jr>=0?'<button class="btn btn-sm" onclick="rhRenouveler(\''+c.id+'\')">🔄 Renouveler</button> ':'')+(!c.fin||jr>0?'<button class="btn btn-sm" onclick="rhTerminerContrat(\''+c.id+'\')">⏹ Terminer</button>':'')+'</td></tr>';
+    '<td style="white-space:nowrap;text-align:right">'+(c.fin&&jr>=0?'<button class="btn btn-sm" onclick="rhRenouveler(\''+c.id+'\')">'+ico('refresh')+' Renouveler</button> ':'')+(!c.fin||jr>0?'<button class="btn btn-sm" onclick="rhTerminerContrat(\''+c.id+'\')">Terminer</button>':'')+'</td></tr>';
   }).join('')+'</tbody></table></div>';
 };
 function rhVerifierContrats(){
@@ -354,7 +354,7 @@ function rhVerifierContrats(){
     var jr=jRestants(c.fin);
     if(c.fin&&jr!=null&&jr>=0&&jr<=30&&!RH.notifies['ct'+c.id]){
       RH.notifies['ct'+c.id]=1;
-      notifRH('alerte','⏰ Contrat qui expire — '+rhNom(c.empId),c.type+' : fin le '+dFR(c.fin)+' ('+jr+' jours restants)');
+      notifRH('alerte',ico('clock')+' Contrat qui expire — '+rhNom(c.empId),c.type+' : fin le '+dFR(c.fin)+' ('+jr+' jours restants)');
     }
   });
   rhSave();
@@ -391,9 +391,9 @@ window.rhR_presence=function(){
     var p=ptDe(date,e.id)||{};
     return '<tr><td>'+photoHTML(e)+' '+e22(e.nom)+'</td>'+
     '<td style="text-align:center;white-space:nowrap">'+
-      '<button class="pt-btn'+(p.etat==='present'?' actif-p':'')+'" onclick="rhPointer(\''+e.id+'\',\'present\')">✓ Présent</button> '+
-      '<button class="pt-btn'+(p.etat==='retard'?' actif-r':'')+'" onclick="rhPointer(\''+e.id+'\',\'retard\')">⏱ Retard</button> '+
-      '<button class="pt-btn'+(p.etat==='absent'?' actif-a':'')+'" onclick="rhPointer(\''+e.id+'\',\'absent\')">✕ Absent</button></td>'+
+      '<button class="pt-btn'+(p.etat==='present'?' actif-p':'')+'" onclick="rhPointer(\''+e.id+'\',\'present\')">'+ico('check')+' Présent</button> '+
+      '<button class="pt-btn'+(p.etat==='retard'?' actif-r':'')+'" onclick="rhPointer(\''+e.id+'\',\'retard\')">'+ico('clock')+' Retard</button> '+
+      '<button class="pt-btn'+(p.etat==='absent'?' actif-a':'')+'" onclick="rhPointer(\''+e.id+'\',\'absent\')">'+ico('close')+' Absent</button></td>'+
     '<td style="text-align:center"><input type="number" min="0" step="0.5" value="'+(p.hsup||0)+'" style="max-width:70px;text-align:center" onchange="rhHSup(\''+e.id+'\',this.value)"/></td>'+
     '<td style="text-align:center"><input type="checkbox" '+(p.nuit?'checked':'')+' onchange="rhNuit(\''+e.id+'\',this.checked)" style="width:18px;height:18px"/></td></tr>';
   }).join('')+'</tbody></table></div>';
@@ -428,12 +428,12 @@ window.rhAjConge=function(){
   if(!du||!au||au<du)return alert('Vérifiez les dates.');
   var c={id:uid(),empId:empId,type:q('rh-cg-type').value,du:du,au:au,motif:q('rh-cg-motif').value.trim(),statut:'attente'};
   RH.conges.push(c);rhSave();rhR_conges();
-  notifRH('info','🌴 Demande de congé — '+rhNom(empId),dFR(du)+' → '+dFR(au)+' ('+jEntre(du,au)+' j)');
+  notifRH('info',ico('palm')+' Demande de congé — '+rhNom(empId),dFR(du)+' → '+dFR(au)+' ('+jEntre(du,au)+' j)');
 };
 window.rhStatutConge=function(id,st){
   var c=RH.conges.find(function(x){return x.id===id;});if(!c)return;
   c.statut=st;rhSave();rhR_conges();rhR_dash();
-  notifRH('info',(st==='approuve'?'✅ Congé approuvé — ':'🚫 Congé refusé — ')+rhNom(c.empId),dFR(c.du)+' → '+dFR(c.au));
+  notifRH('info',(st==='approuve'?ico('checkCircle')+' Congé approuvé — ':ico('ban')+' Congé refusé — ')+rhNom(c.empId),dFR(c.du)+' → '+dFR(c.au));
 };
 var TYPES_CG={paye:'Congé payé',maladie:'Maladie',maternite:'Maternité',sans_solde:'Sans solde'};
 window.rhR_conges=function(){
@@ -445,7 +445,7 @@ window.rhR_conges=function(){
     RH.conges.slice().reverse().map(function(c){
       var tag=c.statut==='approuve'?'<span class="tagr tagr-ok">approuvé</span>':c.statut==='refuse'?'<span class="tagr tagr-bad">refusé</span>':'<span class="tagr tagr-warn">en attente</span>';
       return '<tr><td>'+e22(rhNom(c.empId))+'</td><td style="text-align:center">'+TYPES_CG[c.type]+'</td><td style="text-align:center">'+dFR(c.du)+' → '+dFR(c.au)+'</td><td style="text-align:center">'+jEntre(c.du,c.au)+'</td><td style="text-align:center">'+tag+'</td>'+
-      '<td style="white-space:nowrap;text-align:right">'+(c.statut==='attente'?'<button class="btn btn-sm" onclick="rhStatutConge(\''+c.id+'\',\'approuve\')">✅</button> <button class="btn btn-sm" onclick="rhStatutConge(\''+c.id+'\',\'refuse\')">🚫</button>':'')+'</td></tr>';
+      '<td style="white-space:nowrap;text-align:right">'+(c.statut==='attente'?'<button class="btn btn-sm" onclick="rhStatutConge(\''+c.id+'\',\'approuve\')">'+ico('checkCircle')+'</button> <button class="btn btn-sm" onclick="rhStatutConge(\''+c.id+'\',\'refuse\')">'+ico('ban')+'</button>':'')+'</td></tr>';
     }).join('')+'</tbody></table></div>';
   }
   var zs=q('rh-cg-soldes');
@@ -460,7 +460,7 @@ window.rhR_conges=function(){
   if(zc){
     var av=RH.conges.filter(function(c){return c.statut==='approuve'&&c.au>=auj();}).sort(function(a,b){return a.du<b.du?-1:1;});
     zc.innerHTML=av.length?av.map(function(c){
-      return '<div class="rh-ligne"><span style="font-size:14px">🗓️</span><strong style="font-size:12px">'+e22(rhNom(c.empId))+'</strong><span style="font-size:11.5px;color:var(--text-muted)">'+TYPES_CG[c.type]+' · '+dFR(c.du)+' → '+dFR(c.au)+'</span></div>';
+      return '<div class="rh-ligne"><span style="font-size:14px">'+ico('calendar')+'</span><strong style="font-size:12px">'+e22(rhNom(c.empId))+'</strong><span style="font-size:11.5px;color:var(--text-muted)">'+TYPES_CG[c.type]+' · '+dFR(c.du)+' → '+dFR(c.au)+'</span></div>';
     }).join(''):'<div class="rh-vide">Aucune absence à venir.</div>';
   }
 };
@@ -472,7 +472,7 @@ window.rhAjEval=function(){
   var ev={id:uid(),empId:empId,annee:q('rh-pf-annee').value,objectifs:q('rh-pf-obj').value.trim(),
           resultat:q('rh-pf-res').value.trim(),note:parseFloat(q('rh-pf-note').value)||0,promotion:promo||null};
   RH.evals.push(ev);
-  if(promo){var e=rhE(empId);if(e){e.poste=promo;(e.postes=e.postes||[]).push({date:auj(),poste:promo});notifRH('info','🎉 Promotion — '+e.nom,'Nouveau poste : '+promo);}}
+  if(promo){var e=rhE(empId);if(e){e.poste=promo;(e.postes=e.postes||[]).push({date:auj(),poste:promo});notifRH('info',ico('checkCircle')+' Promotion — '+e.nom,'Nouveau poste : '+promo);}}
   rhSave();rhRenderTout();
 };
 window.rhR_perf=function(){
@@ -532,7 +532,7 @@ window.rhEmbaucher=function(id){
   var e={id:uid(),nom:c.nom,poste:c.poste,service:'Général',sexe:'H',embauche:auj(),salaire:0,
          docs:[],postes:[{date:auj(),poste:c.poste||''}],statut:'actif'};
   RH.emp.push(e);rhSave();rhRenderTout();
-  notifRH('info','🎉 Embauche : '+c.nom,(c.poste||'')+' — complétez sa fiche employé et son contrat.');
+  notifRH('info',ico('checkCircle')+' Embauche : '+c.nom,(c.poste||'')+' — complétez sa fiche employé et son contrat.');
   window.go('rh-employes',null);
   setTimeout(function(){rhEditerEmp(e.id);},250);
 };
@@ -541,7 +541,7 @@ window.rhR_recrut=function(){
   if(zo){
     zo.innerHTML='<div style="display:flex;gap:6px;margin-bottom:10px"><input type="text" id="rh-of-poste" placeholder="Poste à pourvoir…" style="flex:1"/><button class="btn btn-primary btn-sm" onclick="rhAjOffre()">+ Publier</button></div>'+
     (RH.offres.length?RH.offres.slice().reverse().map(function(o){
-      return '<div class="rh-ligne"><span>'+(o.statut==='ouverte'?'🟢':'⚪')+'</span><strong style="flex:1;font-size:12px">'+e22(o.poste)+'</strong><span style="font-size:10.5px;color:var(--text-faint)">'+dFR(o.date)+'</span><button class="btn btn-sm" onclick="rhToggleOffre(\''+o.id+'\')">'+(o.statut==='ouverte'?'Clôturer':'Rouvrir')+'</button></div>';
+      return '<div class="rh-ligne"><span>'+(o.statut==='ouverte'?'<span style="color:var(--green)">'+ico('dot')+'</span>':ico('dot'))+'</span><strong style="flex:1;font-size:12px">'+e22(o.poste)+'</strong><span style="font-size:10.5px;color:var(--text-faint)">'+dFR(o.date)+'</span><button class="btn btn-sm" onclick="rhToggleOffre(\''+o.id+'\')">'+(o.statut==='ouverte'?'Clôturer':'Rouvrir')+'</button></div>';
     }).join(''):'<div class="rh-vide">Aucune offre publiée.</div>');
     var dl=q('rh-offres-dl');if(dl)dl.innerHTML=RH.offres.filter(function(o){return o.statut==='ouverte';}).map(function(o){return '<option value="'+e22(o.poste)+'">';}).join('');
   }
@@ -551,7 +551,7 @@ window.rhR_recrut=function(){
   z.innerHTML='<div class="table-wrap"><table style="width:100%;border-collapse:collapse" class="rh-mini-table"><thead><tr><th style="text-align:left">Candidat</th><th style="text-align:left">Poste</th><th>Note</th><th style="text-align:left">Notes recruteur</th><th>Statut</th><th></th></tr></thead><tbody>'+
   RH.cands.slice().reverse().map(function(c){
     return '<tr><td><strong>'+e22(c.nom)+'</strong></td><td>'+e22(c.poste||'—')+'</td><td style="text-align:center">'+(c.note||'—')+'/5</td><td>'+e22(c.commentaire||'—')+'</td><td style="text-align:center">'+ST[c.statut]+'</td>'+
-    '<td style="text-align:right">'+(c.statut!=='embauche'&&c.statut!=='refuse'?'<button class="btn btn-sm btn-primary" onclick="rhEmbaucher(\''+c.id+'\')">✅ Embaucher</button>':'')+'</td></tr>';
+    '<td style="text-align:right">'+(c.statut!=='embauche'&&c.statut!=='refuse'?'<button class="btn btn-sm btn-primary" onclick="rhEmbaucher(\''+c.id+'\')">'+ico('checkCircle')+' Embaucher</button>':'')+'</td></tr>';
   }).join('')+'</tbody></table></div>';
 };
 
@@ -561,9 +561,9 @@ window.rhAjSante=function(){
   RH.sante.push({id:uid(),empId:empId,type:q('rh-sa-type').value,date:q('rh-sa-date').value||auj(),
     detail:q('rh-sa-det').value.trim(),prochaine:q('rh-sa-next').value||null});
   rhSave();rhR_sante();
-  if(q('rh-sa-type').value==='accident')notifRH('alerte','🚑 Accident de travail — '+rhNom(empId),q('rh-sa-det').value||'');
+  if(q('rh-sa-type').value==='accident')notifRH('alerte',ico('health')+' Accident de travail — '+rhNom(empId),q('rh-sa-det').value||'');
 };
-var TYPES_SA={visite:['🩺','Visite médicale','tagr-info'],accident:['🚑','Accident','tagr-bad'],incident:['⚠️','Incident','tagr-warn'],epi:['🦺','EPI','tagr-neutre']};
+var TYPES_SA={visite:[ico('health'),'Visite médicale','tagr-info'],accident:[ico('health'),'Accident','tagr-bad'],incident:[ico('alertTriangle'),'Incident','tagr-warn'],epi:[ico('shield'),'EPI','tagr-neutre']};
 window.rhR_sante=function(){
   var s=q('rh-sa-emp');if(s)s.innerHTML=optsEmp(s.value);
   var z=q('rh-sa-liste');if(!z)return;
@@ -582,7 +582,7 @@ window.rhAjDisc=function(){
   var motif=q('rh-di-motif').value.trim();
   RH.disc.push({id:uid(),empId:empId,type:q('rh-di-type').value,date:q('rh-di-date').value||auj(),motif:motif});
   q('rh-di-motif').value='';rhSave();rhR_discipline();
-  notifRH('info','⚖️ '+(q('rh-di-type').value==='sanction'?'Sanction':'Avertissement')+' — '+rhNom(empId),motif);
+  notifRH('info',ico('scale')+' '+(q('rh-di-type').value==='sanction'?'Sanction':'Avertissement')+' — '+rhNom(empId),motif);
 };
 window.rhR_discipline=function(){
   var s=q('rh-di-emp');if(s)s.innerHTML=optsEmp(s.value);
@@ -592,7 +592,7 @@ window.rhR_discipline=function(){
   var filt=f&&f.value?RH.disc.filter(function(d){return d.empId===f.value;}):RH.disc;
   if(!filt.length){z.innerHTML='<div class="rh-vide">Aucune mesure disciplinaire.</div>';return;}
   z.innerHTML=filt.slice().reverse().map(function(d){
-    return '<div class="rh-ligne"><span>'+(d.type==='sanction'?'🔴':'🟠')+'</span><strong style="font-size:12px">'+e22(rhNom(d.empId))+'</strong><span class="tagr '+(d.type==='sanction'?'tagr-bad':'tagr-warn')+'">'+d.type+'</span><span style="font-size:11.5px;color:var(--text-muted);flex:1">'+e22(d.motif||'—')+'</span><span style="font-size:10.5px;color:var(--text-faint)">'+dFR(d.date)+'</span></div>';
+    return '<div class="rh-ligne"><span>'+(d.type==='sanction'?'<span style="color:var(--red)">'+ico('dot')+'</span>':'<span style="color:var(--amber)">'+ico('dot')+'</span>')+'</span><strong style="font-size:12px">'+e22(rhNom(d.empId))+'</strong><span class="tagr '+(d.type==='sanction'?'tagr-bad':'tagr-warn')+'">'+d.type+'</span><span style="font-size:11.5px;color:var(--text-muted);flex:1">'+e22(d.motif||'—')+'</span><span style="font-size:10.5px;color:var(--text-faint)">'+dFR(d.date)+'</span></div>';
   }).join('');
 };
 
@@ -608,7 +608,7 @@ function rhInitSignature(){
   if(RH.sign){var img=new Image();img.onload=function(){ctx.drawImage(img,0,0);};img.src=RH.sign;}
   rhSignEtat();
 }
-function rhSignEtat(){var s=q('rh-sign-etat');if(s)s.textContent=RH.sign?'✓ Signature enregistrée':'Dessinez la signature ci-dessus (souris ou doigt).';}
+function rhSignEtat(){var s=q('rh-sign-etat');if(s)s.textContent=RH.sign?'Signature enregistrée':'Dessinez la signature ci-dessus (souris ou doigt).';}
 window.rhSignEffacer=function(){var c=q('rh-signpad');if(c)c.getContext('2d').clearRect(0,0,c.width,c.height);RH.sign=null;rhSave();rhSignEtat();};
 window.rhSignSauver=function(){var c=q('rh-signpad');if(!c)return;RH.sign=c.toDataURL('image/png');rhSave();rhSignEtat();};
 function nomSociete(){
@@ -649,7 +649,7 @@ window.rhR_docs=function(){
   var z=q('rh-do-liste');if(!z)return;
   if(!RH.docsGen.length){z.innerHTML='<div class="rh-vide">Aucun document généré.</div>';return;}
   z.innerHTML=RH.docsGen.slice().reverse().map(function(d){
-    return '<div class="rh-ligne"><span>📄</span><strong style="font-size:12px">'+e22(d.type)+'</strong><span style="font-size:11.5px;color:var(--text-muted);flex:1">'+e22(rhNom(d.empId))+'</span><span style="font-size:10.5px;color:var(--text-faint)">'+dFR(d.date)+'</span></div>';
+    return '<div class="rh-ligne"><span>'+ico('file')+'</span><strong style="font-size:12px">'+e22(d.type)+'</strong><span style="font-size:11.5px;color:var(--text-muted);flex:1">'+e22(rhNom(d.empId))+'</span><span style="font-size:10.5px;color:var(--text-faint)">'+dFR(d.date)+'</span></div>';
   }).join('');
 };
 
@@ -687,12 +687,12 @@ window.rhR_dash=function(){
   var ze=q('rh-echeances');
   if(ze){
     var exp=RH.contrats.filter(function(c){var j=jRestants(c.fin);return c.fin&&j!=null&&j>=0&&j<=60;})
-      .map(function(c){return '<div class="rh-ligne"><span>⏰</span><strong style="font-size:12px">'+e22(rhNom(c.empId))+'</strong><span style="font-size:11.5px;color:var(--text-muted);flex:1">'+c.type+' — fin '+dFR(c.fin)+'</span><span class="tagr tagr-warn">'+jRestants(c.fin)+' j</span></div>';});
+      .map(function(c){return '<div class="rh-ligne"><span>'+ico('clock')+'</span><strong style="font-size:12px">'+e22(rhNom(c.empId))+'</strong><span style="font-size:11.5px;color:var(--text-muted);flex:1">'+c.type+' — fin '+dFR(c.fin)+'</span><span class="tagr tagr-warn">'+jRestants(c.fin)+' j</span></div>';});
     var mois=new Date().getMonth()+1;
     var anniv=actifs.filter(function(e){return e.naissance&&parseInt(e.naissance.split('-')[1])===mois;})
-      .map(function(e){return '<div class="rh-ligne"><span>🎂</span><strong style="font-size:12px">'+e22(e.nom)+'</strong><span style="font-size:11.5px;color:var(--text-muted)">le '+dFR(e.naissance).slice(0,5)+'</span></div>';});
+      .map(function(e){return '<div class="rh-ligne"><strong style="font-size:12px">'+e22(e.nom)+'</strong><span style="font-size:11.5px;color:var(--text-muted)">le '+dFR(e.naissance).slice(0,5)+'</span></div>';});
     ze.innerHTML=(exp.length?'<div class="section-label">Contrats ≤ 60 jours</div>'+exp.join(''):'')+
-                 (anniv.length?'<div class="section-label" style="margin-top:8px">🎂 Anniversaires du mois</div>'+anniv.join(''):'')||'<div class="rh-vide">Rien à signaler.</div>';
+                 (anniv.length?'<div class="section-label" style="margin-top:8px">Anniversaires du mois</div>'+anniv.join(''):'')||'<div class="rh-vide">Rien à signaler.</div>';
   }
   /* organigramme */
   var zo=q('rh-orga');
@@ -715,7 +715,7 @@ window.rhImporter=function(ev){
   var f=ev.target.files&&ev.target.files[0];if(!f)return;
   var r=new FileReader();
   r.onload=function(e){
-    try{var o=JSON.parse(e.target.result);Object.keys(RH).forEach(function(k){if(o[k]!=null)RH[k]=o[k];});rhSave();rhRenderTout();alert('✓ Données RH importées.');}
+    try{var o=JSON.parse(e.target.result);Object.keys(RH).forEach(function(k){if(o[k]!=null)RH[k]=o[k];});rhSave();rhRenderTout();alert('Données RH importées.');}
     catch(err){alert('Fichier invalide.');}
   };
   r.readAsText(f);

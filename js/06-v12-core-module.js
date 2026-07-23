@@ -108,7 +108,7 @@ function onAuthSuccess() {
   var displayName=CURRENT_USER.nom||CURRENT_USER.username;
   var roleLbl=(window.permLabelRole?permLabelRole(CURRENT_USER.role):CURRENT_USER.role);
   var roleCls=(window.permBadgeClass?permBadgeClass(CURRENT_USER.role):'bg-amber');
-  if(tu)tu.innerHTML='👤 <strong>'+displayName+'</strong> <span class="badge '+roleCls+'">'+roleLbl+'</span>';
+  if(tu)tu.innerHTML=ico('users')+' <strong>'+displayName+'</strong> <span class="badge '+roleCls+'">'+roleLbl+'</span>';
   var btnLogout=document.getElementById('btn-logout');
   if(btnLogout)btnLogout.style.display='inline-block';
   // Load data
@@ -180,7 +180,7 @@ renderJournal=function(){
   pageItems.forEach(function(e){
     var origIdx=EC.indexOf(e);
     var isAtt=e.stat==='attente'&&!REGL.includes(e);
-    var sb=isAtt?'<span class="badge bg-amber" style="cursor:pointer" onclick="ouvrirRegl('+origIdx+')">⏳</span>':'<span class="badge bg-green">✓</span>';
+    var sb=isAtt?'<span class="badge bg-amber" style="cursor:pointer" onclick="ouvrirRegl('+origIdx+')">'+ico('clock')+'</span>':'<span class="badge bg-green">'+ico('check')+'</span>';
     var btnR=isAtt?'<button onclick="ouvrirRegl('+origIdx+')" style="font-size:10px;padding:2px 8px;border-radius:var(--radius);cursor:pointer;border:1px solid var(--green);background:var(--green-light);color:var(--green-dark);font-weight:600">Régler</button>':'';
     var bg=isAtt?'background:#f5efe2;':e.avoir?'background:#FAF5FF;':e.isTVA?'':'';
     var bl=isAtt?'border-left:3px solid var(--amber);':e.avoir?'border-left:3px solid var(--purple);':e.isTVA?'border-left:3px solid var(--teal);':'border-left:3px solid transparent;';
@@ -190,7 +190,7 @@ renderJournal=function(){
     if(e.isTVA)tags+=' <span style="font-size:9px;padding:1px 4px;background:var(--teal-light);color:var(--teal);border-radius:var(--radius)">TVA</span>';
     var tvaBadge=e.tvaTaux>0?'<span class="badge bg-teal">'+e.tvaTaux+'%</span>':'—';
     var echTag=e.echeance?'<span style="font-size:10px;color:'+(new Date(e.echeance)<new Date()&&e.stat==='attente'?'var(--red)':'var(--text-muted)')+'">'+fmtD(e.echeance)+'</span>':'—';
-    var btnEdit=origIdx>=0?'<button onclick="ouvrirEdit('+origIdx+',\'EC\')" style="font-size:10px;padding:2px 6px;border-radius:var(--radius);cursor:pointer;border:2px solid var(--border-strong);background:transparent;color:var(--text-muted)">✏️</button>'+'<button onclick="genererFacturePDF('+origIdx+')" style="font-size:10px;padding:2px 6px;border-radius:var(--radius);cursor:pointer;border:2px solid var(--blue-border);background:var(--blue-light);color:var(--blue)" title="PDF">🖨️</button>':'';
+    var btnEdit=origIdx>=0?'<button onclick="ouvrirEdit('+origIdx+',\'EC\')" style="font-size:10px;padding:2px 6px;border-radius:var(--radius);cursor:pointer;border:2px solid var(--border-strong);background:transparent;color:var(--text-muted)">'+ico('pencil')+'</button>'+'<button onclick="genererFacturePDF('+origIdx+')" style="font-size:10px;padding:2px 6px;border-radius:var(--radius);cursor:pointer;border:2px solid var(--blue-border);background:var(--blue-light);color:var(--blue)" title="PDF">'+ico('printer')+'</button>':'';
     h+='<tr style="'+bg+bl+'"><td style="white-space:nowrap">'+(e.dateF||e.date||'')+'</td><td><strong>'+e.num+'</strong>'+tags+'</td><td style="max-width:160px;white-space:normal;font-size:10.5px">'+e.desc+'</td><td><span class="acc">'+e.cptD+'</span></td><td><span class="acc">'+e.cptC+'</span></td><td style="font-family:\'Archivo\',sans-serif;text-align:right">'+fmt(e.debit)+'</td><td style="font-family:\'Archivo\',sans-serif;text-align:right">'+fmt(e.credit)+'</td><td>'+tvaBadge+'</td><td>'+echTag+'</td><td>'+sb+'</td><td style="display:flex;gap:3px;white-space:nowrap">'+btnR+btnEdit+'</td></tr>';
   });
   document.getElementById('j-body').innerHTML=h;
@@ -198,9 +198,9 @@ renderJournal=function(){
   document.getElementById('j-totd').textContent=fmt(tD)+' FCFA';
   document.getElementById('j-totc').textContent=fmt(tC)+' FCFA';
   var eq=document.getElementById('j-equilibre');
-  if(attente>0){eq.innerHTML='<span style="color:var(--amber)">⏳ '+attente+' en attente</span>';}
-  else if(Math.abs(tD-tC)<1){eq.textContent='✓ Équilibré';eq.style.color='var(--green)';}
-  else{eq.textContent='⚠ Déséquilibré '+fmt(Math.abs(tD-tC))+' FCFA';eq.style.color='var(--red)';}
+  if(attente>0){eq.innerHTML='<span style="color:var(--amber)">'+ico('clock')+' '+attente+' en attente</span>';}
+  else if(Math.abs(tD-tC)<1){eq.textContent='Équilibré';eq.style.color='var(--green)';}
+  else{eq.textContent='Déséquilibré '+fmt(Math.abs(tD-tC))+' FCFA';eq.style.color='var(--red)';}
   // Pagination
   var pag=document.getElementById('j-pagination');
   if(pag){
@@ -280,7 +280,7 @@ function genererEcritureTVA(){
     avoir:false,modeLabel:'REGUL',lettre:'',_modifie:false,isRegulTVA:true});
   sauvegarderAuto();renderAll();renderTVA();
   var r=document.getElementById('tva-regul-result');
-  if(r)r.innerHTML='<div class="alert alert-ok" style="display:block">✓ Écriture <strong>'+num+'</strong> générée — D 4431 / C '+(solde>0?'4441':'4452')+' : '+fmt(Math.abs(solde))+' FCFA</div>';
+  if(r)r.innerHTML='<div class="alert alert-ok" style="display:block">'+ico('check')+' Écriture <strong>'+num+'</strong> générée — D 4431 / C '+(solde>0?'4441':'4452')+' : '+fmt(Math.abs(solde))+' FCFA</div>';
 }
 
 function exporterTVAPDF(){
@@ -320,7 +320,7 @@ function renderRapprochement(){
   RELEVE_BANQUE.forEach(function(r,i){
     var ok=RAPPROCHEMENT[i]!==undefined;var isIn=r.montant>0;
     hR+='<div style="display:flex;align-items:center;gap:8px;padding:8px 10px;border-bottom:2px solid var(--border);font-size:11.5px;background:'+(ok?'#eaf1ec':'#f5efe2')+'">'+
-      '<span style="font-size:12px">'+(ok?'✅':'⏳')+'</span>'+
+      '<span style="font-size:12px">'+(ok?ico('checkCircle'):ico('clock'))+'</span>'+
       '<div style="flex:1"><div style="font-size:11.5px;font-weight:500">'+r.lib+'</div><div style="font-size:10px;color:var(--text-muted)">'+r.date+'</div></div>'+
       '<div style="font-size:12px;font-weight:700;font-family:\'Archivo\',sans-serif;color:'+(isIn?'var(--green)':'var(--red)')+'">'+( isIn?'+':'-')+fmt(Math.abs(r.montant))+' FCFA</div></div>';
   });
@@ -332,7 +332,7 @@ function renderRapprochement(){
   banqueEC.forEach(function(e,i){
     var ok=matchedIdxs.includes(i);var isIn=e.type==='vente'||e.type==='service';
     hC+='<div style="display:flex;align-items:center;gap:8px;padding:8px 10px;border-bottom:2px solid var(--border);font-size:11.5px;background:'+(ok?'#eaf1ec':'')+'">'+
-      '<span style="font-size:12px">'+(ok?'✅':'⬜')+'</span>'+
+      '<span style="font-size:12px">'+(ok?ico('checkCircle'):ico('dot'))+'</span>'+
       '<div style="flex:1"><div style="font-size:11.5px;font-weight:500">'+e.desc+'</div><div style="font-size:10px;color:var(--text-muted)">'+e.num+' | '+e.dateF+'</div></div>'+
       '<div style="font-size:12px;font-weight:700;font-family:\'Archivo\',sans-serif;color:'+(isIn?'var(--green)':'var(--red)')+'">'+( isIn?'+':'-')+fmt(e.ttc)+' FCFA</div></div>';
   });
@@ -357,7 +357,7 @@ function importerReleve(ev){
       RELEVE_BANQUE.push({date:dateRaw,lib,debit,credit,montant:credit-debit});
     });
     RAPPROCHEMENT={};renderRapprochement();
-    alert('✓ '+RELEVE_BANQUE.length+' lignes importées. Cliquez "Auto-rapprocher".');
+    alert(RELEVE_BANQUE.length+' lignes importées. Cliquez "Auto-rapprocher".');
   };
   reader.readAsText(file);ev.target.value='';
 }
@@ -375,7 +375,7 @@ function rapprAuto(){
     });
   });
   renderRapprochement();
-  alert('✓ '+Object.keys(RAPPROCHEMENT).length+' ligne(s) rapprochées sur '+RELEVE_BANQUE.length+'.');
+  alert(Object.keys(RAPPROCHEMENT).length+' ligne(s) rapprochées sur '+RELEVE_BANQUE.length+'.');
 }
 
 // ── Dashboard Chart.js ────────────────────────────────
@@ -398,10 +398,10 @@ function renderDashboard(){
   if(kpiEl){
     kpiEl.innerHTML=[
       {l:'Chiffre d\'affaires',v:fmt(tPr)+' FCFA',s:'Exercice '+EXERCICE.annee,c:'green'},
-      {l:'Résultat net',v:fmt(Math.abs(res))+' FCFA',s:res>=0?'✓ Bénéfice':'⚠ Déficit',c:res>=0?'green':'red'},
+      {l:'Résultat net',v:fmt(Math.abs(res))+' FCFA',s:res>=0?ico('check')+' Bénéfice':ico('alertTriangle')+' Déficit',c:res>=0?'green':'red'},
       {l:'Trésorerie',v:fmt(treso)+' FCFA',s:'Caisse + Banque',c:treso>0?'blue':'red'},
       {l:'Impayés',v:fmt(attMt)+' FCFA',s:att.length+' facture(s)',c:'amber'},
-      {l:'Marge nette',v:marge+'%',s:marge>10?'✓ Bonne':'Attention',c:marge>10?'green':marge>0?'amber':'red'},
+      {l:'Marge nette',v:marge+'%',s:marge>10?ico('check')+' Bonne':'Attention',c:marge>10?'green':marge>0?'amber':'red'},
       {l:'Charges',v:fmt(tCh)+' FCFA',s:'Total classe 6',c:'red'},
       {l:'Écritures',v:EC.length,s:'Journal',c:'blue'},
       {l:'Tiers',v:TIERS.length,s:'Clients & Fournisseurs',c:'purple'}
@@ -509,10 +509,10 @@ function verifierAlertes(){
     var d=new Date(e.echeance||e.date);
     return(today-d)/(864e5)>(ALERT_CONFIG2.retard||30);
   });
-  if(retard.length>0)try{ajouterNotif('retard','⚠️ '+retard.length+' facture(s) en retard de +'+(ALERT_CONFIG2.retard||30)+' jours',retard.map(e=>e.num+' ('+e.cli+')').join(' · '));}catch(e){}
+  if(retard.length>0)try{ajouterNotif('retard',ico('alertTriangle')+' '+retard.length+' facture(s) en retard de +'+(ALERT_CONFIG2.retard||30)+' jours',retard.map(e=>e.num+' ('+e.cli+')').join(' · '));}catch(e){}
   if(typeof getSoldeCalcule==='function'){
     var s=getSoldeCalcule();var t=(s.caisse||0)+(s.banque||0);
-    if(t<(ALERT_CONFIG2.treso_min||500000))try{ajouterNotif('alerte','🚨 Trésorerie basse : '+fmt(t)+' FCFA','Seuil d\'alerte : '+fmt(ALERT_CONFIG2.treso_min||500000)+' FCFA');}catch(e){}
+    if(t<(ALERT_CONFIG2.treso_min||500000))try{ajouterNotif('alerte',ico('alertOctagon')+' Trésorerie basse : '+fmt(t)+' FCFA','Seuil d\'alerte : '+fmt(ALERT_CONFIG2.treso_min||500000)+' FCFA');}catch(e){}
   }
 }
 
@@ -524,7 +524,7 @@ function verifierAlertes(){
     var pane=document.getElementById('pane-'+id);
     if(pane)pane.classList.add('active');
     if(el)el.classList.add('active');
-    var T={facture:'📄 Facture',tiers:'👥 Clients / Fournisseurs',journal:'📒 Journal',grandlivre:'📚 Grand livre',lettrage:'🔗 Lettrage',bilan:'⚖️ Bilan',resultats:'📈 Compte de résultats',balance:'🔢 Balance',solde:'💰 Trésorerie',analyse:'🔍 Analyse comptable',stock:'📦 Stock',suivi:'📊 Suivi',exercice:'📅 Exercice fiscal',notifs:'🔔 Alertes',immo:'🏗️ Immobilisations',tva:'🧾 Déclaration TVA',rapprochement:'🏦 Rapprochement bancaire',dashboard:'🎛️ Dashboard IA',scoring:'⭐ Score financier',ocr:'📷 Saisie photo',fraude:'🛡️ Anomalies',multiEntreprise:'🏢 Multi-entreprises',benchmarks:'📐 Benchmarks',prevision:'🔮 Prévisions IA'};
+    var T={facture:'Facture',tiers:'Clients / Fournisseurs',journal:'Journal',grandlivre:'Grand livre',lettrage:'Lettrage',bilan:'Bilan',resultats:'Compte de résultats',balance:'Balance',solde:'Trésorerie',analyse:'Analyse comptable',stock:'Stock',suivi:'Suivi',exercice:'Exercice fiscal',notifs:'Alertes',immo:'Immobilisations',tva:'Déclaration TVA',rapprochement:'Rapprochement bancaire',dashboard:'Dashboard IA',scoring:'Score financier',ocr:'Saisie photo',fraude:'Anomalies',multiEntreprise:'Multi-entreprises',benchmarks:'Benchmarks',prevision:'Prévisions IA'};
     var titleEl=document.getElementById('page-title');if(titleEl)titleEl.textContent=T[id]||id;
     currentPage=id;
     if(id==='solde')renderSolde();
@@ -587,7 +587,7 @@ window.addEventListener('load',function(){
       if(dashPane){
         var tcDiv=document.createElement('div');
         tcDiv.className='card';tcDiv.style.marginTop='14px';
-        tcDiv.innerHTML='<div class="card-header"><span class="card-title">🏆 Top 5 Clients par CA</span></div><div class="card-body" id="dash-top-clients" style="padding:12px"><div style="text-align:center;color:var(--text-faint);font-style:italic">—</div></div>';
+        tcDiv.innerHTML='<div class="card-header"><span class="card-title">'+ico('trophy')+' Top 5 Clients par CA</span></div><div class="card-body" id="dash-top-clients" style="padding:12px"><div style="text-align:center;color:var(--text-faint);font-style:italic">—</div></div>';
         dashPane.appendChild(tcDiv);
       }
     }

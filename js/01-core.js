@@ -227,7 +227,7 @@ function valider(){
   if(!pay)err.push('Mode de paiement');
 
   nb('ia-tip').style.display='none';
-  if(err.length){nb('ia-err').style.display='block';nb('ia-ok').style.display='none';nb('ia-err').innerHTML='<strong>⚠ Champs manquants :</strong> '+err.join(' · ');return;}
+  if(err.length){nb('ia-err').style.display='block';nb('ia-ok').style.display='none';nb('ia-err').innerHTML='<strong>'+ico('alertTriangle')+' Champs manquants :</strong> '+err.join(' · ');return;}
   nb('ia-err').style.display='none';
 
   var escVal=Math.round(ht*escp/100);
@@ -319,7 +319,7 @@ function valider(){
 function finaliserFacture(e,ttc,pm,cpts,num,desc,cli,type,avoir){
   nb('ia-ok').style.display='block';
   var pmL=pm==='espece'?'Espèce':pm==='banque'?'Banque':'À crédit';
-  nb('ia-ok').innerHTML=(avoir?'<span class="badge bg-purple">AVOIR</span> ':'')+`✓ Facture <strong>${num}</strong> validée — TTC : <strong>${fmt(ttc)} FCFA</strong> (${pmL})<br>Écriture : D <strong>${cpts.d}</strong> / C <strong>${cpts.c}</strong> — Tous onglets mis à jour.`;
+  nb('ia-ok').innerHTML=(avoir?'<span class="badge bg-purple">AVOIR</span> ':'')+`${ico('check')} Facture <strong>${num}</strong> validée — TTC : <strong>${fmt(ttc)} FCFA</strong> (${pmL})<br>Écriture : D <strong>${cpts.d}</strong> / C <strong>${cpts.c}</strong> — Tous onglets mis à jour.`;
   nb('nb-journal').textContent=EC.length;
   ajouterNotif('facture',(avoir?'[AVOIR] ':'')+'Facture '+num+' enregistrée',desc+' — '+cli+' | '+fmt(ttc)+' FCFA | '+pmL);
   updateNumAuto();
@@ -343,7 +343,7 @@ function verifierRetards(){
   var b=nb('retard-banner');
   if(retard.length>0){
     b.style.display='block';
-    b.innerHTML='⚠️ <strong>'+retard.length+' facture(s) en retard de +30 jours</strong> : '+retard.map(e=>e.num).join(', ')+'  — <a href="#" onclick="go(\'journal\',document.querySelectorAll(\'.nav-item\')[2])" style="color:var(--red);font-weight:700">Voir le journal →</a>';
+    b.innerHTML=ico('alertTriangle')+' <strong>'+retard.length+' facture(s) en retard de +30 jours</strong> : '+retard.map(e=>e.num).join(', ')+'  — <a href="#" onclick="go(\'journal\',document.querySelectorAll(\'.nav-item\')[2])" style="color:var(--red);font-weight:700">Voir le journal →</a>';
     ajouterNotif('retard','Factures en retard de paiement',retard.map(e=>e.num+' ('+e.cli+')').join(' · '));
   } else b.style.display='none';
 }
@@ -363,7 +363,7 @@ function renderNotifs(){
   if(!NOTIFS.length){list.innerHTML='<div style="text-align:center;color:var(--text-faint);padding:32px;font-style:italic">Aucune notification</div>';return;}
   var h='';
   NOTIFS.forEach((n,i)=>{
-    var icon=n.type==='modif'?'✏️':n.type==='facture'?'📄':n.type==='reglement'?'✅':n.type==='virement'?'🔄':n.type==='retard'?'⚠️':n.type==='save'?'💾':'🔔';
+    var icon=n.type==='modif'?ico('pencil'):n.type==='facture'?ico('file'):n.type==='reglement'?ico('checkCircle'):n.type==='virement'?ico('refresh'):n.type==='retard'?ico('alertTriangle'):n.type==='save'?ico('save'):ico('bell');
     var bL=n.lu?'3px solid var(--border)':n.type==='retard'?'3px solid var(--red)':n.type==='modif'?'3px solid var(--amber)':n.type==='virement'?'3px solid var(--blue)':'3px solid var(--green)';
     h+=`<div style="background:${n.lu?'var(--bg)':'var(--surface)'};border:2px solid var(--border);border-left:${bL};border-radius:var(--radius);padding:10px 14px;margin-bottom:8px;cursor:pointer" onclick="marquerLu(${i})">
       <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
@@ -403,7 +403,7 @@ function renderTiers(){
     var solde=EC.filter(e=>e.cli===t.nom&&e.stat==='attente'&&!e.isTVA&&!e.isAvance).reduce((a,e)=>a+e.ttc,0);
     var tb=t.type==='client'?'<span class="badge bg-green">Client</span>':t.type==='fournisseur'?'<span class="badge bg-amber">Fourn.</span>':'<span class="badge bg-blue">Les deux</span>';
     var soldeCl=solde>0?`<span style="color:var(--amber);font-weight:600;font-family:'Archivo',sans-serif">${fmt(solde)} FCFA</span>`:'<span style="color:var(--text-faint)">—</span>';
-    return`<tr><td><strong>${t.nom}</strong></td><td>${tb}</td><td>${t.tel||'—'}</td><td>${t.email||'—'}</td><td>${t.adresse||'—'}</td><td>${soldeCl}</td><td><button onclick="supprimerTiers(${i})" style="font-size:10px;padding:2px 7px;border-radius:var(--radius);cursor:pointer;border:2px solid var(--red-border);background:var(--red-light);color:var(--red)">✕</button></td></tr>`;
+    return`<tr><td><strong>${t.nom}</strong></td><td>${tb}</td><td>${t.tel||'—'}</td><td>${t.email||'—'}</td><td>${t.adresse||'—'}</td><td>${soldeCl}</td><td><button onclick="supprimerTiers(${i})" style="font-size:10px;padding:2px 7px;border-radius:var(--radius);cursor:pointer;border:2px solid var(--red-border);background:var(--red-light);color:var(--red)">${ico('close')}</button></td></tr>`;
   }).join('');
 }
 function supprimerTiers(i){if(confirm('Supprimer ce tiers ?')){TIERS.splice(i,1);syncTiersList();renderTiers();sauvegarderAuto();}}
@@ -437,7 +437,7 @@ function renderJournal(){
     tD+=e.debit;tC+=e.credit;
     var pm=e.pay==='espece'?'Espèce':e.pay==='banque'?'Banque':'À crédit';
     var isAtt=e.stat==='attente'&&!REGL.includes(e);
-    var sb=isAtt?`<span class="badge bg-amber" style="cursor:pointer" onclick="ouvrirRegl(${origIdx})">⏳</span>`:'<span class="badge bg-green">✓</span>';
+    var sb=isAtt?`<span class="badge bg-amber" style="cursor:pointer" onclick="ouvrirRegl(${origIdx})">${ico('clock')}</span>`:'<span class="badge bg-green">'+ico('check')+'</span>';
     var btnR=isAtt?`<button onclick="ouvrirRegl(${origIdx})" style="font-size:10px;padding:2px 8px;border-radius:var(--radius);cursor:pointer;border:1px solid var(--green);background:var(--green-light);color:var(--green-dark);font-weight:600">Régler</button>`:'';
     var bg=isAtt?'background:#f5efe2;':e.avoir?'background:#FAF5FF;':e.isTVA?'background:#E0F7FA08;':'';
     var bl=isAtt?'border-left:3px solid var(--amber);':e.avoir?'border-left:3px solid var(--purple);':e.isTVA?'border-left:3px solid var(--teal);':'border-left:3px solid transparent;';
@@ -448,7 +448,7 @@ function renderJournal(){
     var tvaBadge=e.tvaTaux>0?`<span class="badge bg-teal">${e.tvaTaux}%</span>`:'—';
     var echTag=e.echeance?`<span style="font-size:10px;color:${new Date(e.echeance)<new Date()&&e.stat==='attente'?'var(--red)':'var(--text-muted)'}">${fmtD(e.echeance)}</span>`:'—';
     var isRegl=REGL.includes(e);
-    var btnEdit=origIdx>=0?`<button onclick="ouvrirEdit(${origIdx},'EC')" style="font-size:10px;padding:2px 6px;border-radius:var(--radius);cursor:pointer;border:2px solid var(--border-strong);background:transparent;color:var(--text-muted)">✏️</button>`:'';
+    var btnEdit=origIdx>=0?`<button onclick="ouvrirEdit(${origIdx},'EC')" style="font-size:10px;padding:2px 6px;border-radius:var(--radius);cursor:pointer;border:2px solid var(--border-strong);background:transparent;color:var(--text-muted)">${ico('pencil')}</button>`:'';
     h+=`<tr style="${bg}${bl}">
       <td style="white-space:nowrap">${e.dateF||e.date||''}</td>
       <td><strong>${e.num}</strong>${tags}</td>
@@ -468,9 +468,9 @@ function renderJournal(){
   nb('j-tfoot').style.display='';
   nb('j-totd').textContent=fmt(tD)+' FCFA';nb('j-totc').textContent=fmt(tC)+' FCFA';
   var eq=nb('j-equilibre');
-  if(attente>0){eq.innerHTML=`<span style="color:var(--amber)">⏳ ${attente} en attente</span>`;}
-  else if(Math.abs(tD-tC)<1){eq.textContent='✓ Équilibré';eq.style.color='var(--green)';}
-  else{eq.textContent='⚠ Déséquilibré';eq.style.color='var(--red)';}
+  if(attente>0){eq.innerHTML=`<span style="color:var(--amber)">${ico('clock')} ${attente} en attente</span>`;}
+  else if(Math.abs(tD-tC)<1){eq.textContent='Équilibré';eq.style.color='var(--green)';}
+  else{eq.textContent='Déséquilibré';eq.style.color='var(--red)';}
 }
 
 // ═══ GRAND LIVRE ═══
@@ -517,7 +517,7 @@ function renderGL_Tab(c){
         <div style="display:flex;align-items:center;gap:8px"><span class="acc" style="font-size:12px;padding:2px 8px">${cpt}</span><span class="card-title">${NOMS[cpt]||'Compte '+cpt}</span></div>
         <div style="display:flex;align-items:center;gap:8px">
           <span style="font-size:11.5px;font-weight:600;color:${solde>=0?'var(--green)':'var(--red)'}">Solde : ${fmt(Math.abs(solde))} FCFA ${solde>=0?'D':'C'}</span>
-          <button onclick="renommerCpt('${cpt}')" style="font-size:10px;padding:2px 7px;border-radius:var(--radius);cursor:pointer;border:2px solid var(--border-strong);background:transparent;color:var(--text-muted)">✏️</button>
+          <button onclick="renommerCpt('${cpt}')" style="font-size:10px;padding:2px 7px;border-radius:var(--radius);cursor:pointer;border:2px solid var(--border-strong);background:transparent;color:var(--text-muted)">${ico('pencil')}</button>
         </div>
       </div>
       <div class="table-wrap"><table><thead><tr><th>Date</th><th>Libellé</th><th style="text-align:right">Débit</th><th style="text-align:right">Crédit</th><th style="text-align:right">Solde cumulé</th></tr></thead><tbody>`;
@@ -633,8 +633,8 @@ function renderBilan(){
   var tA=buildRows(actif,'b-actif'),tP=buildRows(passif,'b-passif');
   nb('b-ta').textContent=fmt(tA)+' FCFA';nb('b-tp').textContent=fmt(tP)+' FCFA';
   var eq=nb('b-eq');eq.style.display='block';
-  if(Math.abs(tA-tP)<1){eq.style.cssText='display:block;margin-top:10px;padding:9px 14px;border-radius:var(--radius);font-size:12px;font-weight:600;text-align:center;background:var(--green-light);color:var(--green-dark);border:2px solid var(--green-border)';eq.textContent='✓ Bilan équilibré — '+fmt(tA)+' FCFA';}
-  else{eq.style.cssText='display:block;margin-top:10px;padding:9px 14px;border-radius:var(--radius);font-size:12px;font-weight:600;text-align:center;background:var(--amber-light);color:var(--amber);border:2px solid var(--amber-border)';eq.textContent='⚠ Écart — Actif : '+fmt(tA)+' / Passif : '+fmt(tP)+' FCFA';}
+  if(Math.abs(tA-tP)<1){eq.style.cssText='display:block;margin-top:10px;padding:9px 14px;border-radius:var(--radius);font-size:12px;font-weight:600;text-align:center;background:var(--green-light);color:var(--green-dark);border:2px solid var(--green-border)';eq.textContent='Bilan équilibré — '+fmt(tA)+' FCFA';}
+  else{eq.style.cssText='display:block;margin-top:10px;padding:9px 14px;border-radius:var(--radius);font-size:12px;font-weight:600;text-align:center;background:var(--amber-light);color:var(--amber);border:2px solid var(--amber-border)';eq.textContent='Écart — Actif : '+fmt(tA)+' / Passif : '+fmt(tP)+' FCFA';}
 }
 
 // ═══ COMPTE DE RÉSULTATS ═══
@@ -689,8 +689,8 @@ function renderBalance(){
   nb('bal-tfoot').style.display='';
   nb('bal-td').textContent=fmt(tD)+' FCFA';nb('bal-tc').textContent=fmt(tC)+' FCFA';nb('bal-tsd').textContent=fmt(tSD)+' FCFA';nb('bal-tsc').textContent=fmt(tSC)+' FCFA';
   var eq=nb('bal-eq');
-  if(Math.abs(tSD-tSC)<1){eq.textContent='✓ Balance équilibrée';eq.style.color='var(--green)';}
-  else{eq.textContent='⚠ Déséquilibre : '+fmt(Math.abs(tSD-tSC))+' FCFA';eq.style.color='var(--amber)';}
+  if(Math.abs(tSD-tSC)<1){eq.textContent='Balance équilibrée';eq.style.color='var(--green)';}
+  else{eq.textContent='Déséquilibre : '+fmt(Math.abs(tSD-tSC))+' FCFA';eq.style.color='var(--amber)';}
 }
 
 // ═══ SOLDE ═══
@@ -736,7 +736,7 @@ function renderSolde(){
   if(!mvts.length){nb('mvt-list').innerHTML='<div style="text-align:center;color:var(--text-faint);padding:22px;font-style:italic">Aucun mouvement</div>';return;}
   nb('mvt-list').innerHTML=mvts.map(v=>{
     var isIn=v.sens==='in';var isInit=v.sens==='init';
-    var icon=isInit?'🔧':isIn?'📥':'📤';
+    var icon=isInit?ico('gear'):isIn?ico('arrowDown'):ico('arrowUp');
     var col=isInit?'var(--text-muted)':isIn?'var(--green)':'var(--red)';
     var cb=v.compte==='caisse'?'<span class="badge bg-amber">Caisse</span>':'<span class="badge bg-blue">Banque</span>';
     var bl=isIn?'border-left:3px solid var(--green);':isInit?'border-left:3px solid var(--border);':'border-left:3px solid var(--red);';
@@ -876,7 +876,7 @@ function renderSalaires(){
         </div>
         <div style="text-align:right">
           <div style="font-size:13px;font-weight:700;font-family:'Archivo',sans-serif;color:var(--purple)">${fmt(s.mtAnnuel)} FCFA/an</div>
-          <button onclick="supprimerSalaire(${i})" style="font-size:10px;padding:1px 6px;border-radius:var(--radius);cursor:pointer;border:2px solid var(--purple-border);background:transparent;color:var(--purple);margin-top:3px">✕</button>
+          <button onclick="supprimerSalaire(${i})" style="font-size:10px;padding:1px 6px;border-radius:var(--radius);cursor:pointer;border:2px solid var(--purple-border);background:transparent;color:var(--purple);margin-top:3px">${ico('close')}</button>
         </div>
       </div>`;
     });
@@ -899,7 +899,7 @@ function renderDedExtras(){
   nb('ded-extras-liste').innerHTML='<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px">'+
     DED_EXTRAS.map((d,i)=>`<div style="background:var(--teal-light);border:1px solid #B2EBF2;border-radius:var(--radius);padding:8px 10px;display:flex;align-items:center;justify-content:space-between">
       <div><div style="font-size:11px;font-weight:600;color:var(--teal)">${d.lib}</div><div style="font-size:12px;font-weight:700;font-family:'Archivo',sans-serif;color:var(--teal)">${fmt(d.mt)} FCFA</div></div>
-      <button onclick="supprimerDedExtra(${i})" style="font-size:10px;padding:1px 6px;border-radius:var(--radius);cursor:pointer;border:1px solid #B2EBF2;background:transparent;color:var(--teal)">✕</button>
+      <button onclick="supprimerDedExtra(${i})" style="font-size:10px;padding:1px 6px;border-radius:var(--radius);cursor:pointer;border:1px solid #B2EBF2;background:transparent;color:var(--teal)">${ico('close')}</button>
     </div>`).join('')+
   '</div>';
 }
@@ -981,7 +981,7 @@ function calcImpot(){
   var verdict=nb('is-verdict');
   if(isTotal===0){
     verdict.style.cssText='border-radius:var(--radius);padding:20px 24px;text-align:center;background:var(--green-light);border:2px solid var(--green-border)';
-    verdict.innerHTML=`<div style="font-size:28px;margin-bottom:6px">🎉</div><div style="font-size:14px;font-weight:600;color:var(--green-dark)">Pas d'impôt à payer</div><div style="font-size:12px;color:var(--text-muted);margin-top:4px">${benImposable<0?'Déficit fiscal de '+fmt(Math.abs(benImposable))+' FCFA — Aucun IS exigible.':'Bénéfice imposable nul.'}</div>`;
+    verdict.innerHTML=`<div style="font-size:28px;margin-bottom:6px">${ico('checkCircle')}</div><div style="font-size:14px;font-weight:600;color:var(--green-dark)">Pas d'impôt à payer</div><div style="font-size:12px;color:var(--text-muted);margin-top:4px">${benImposable<0?'Déficit fiscal de '+fmt(Math.abs(benImposable))+' FCFA — Aucun IS exigible.':'Bénéfice imposable nul.'}</div>`;
   } else {
     verdict.style.cssText='border-radius:var(--radius);padding:20px 24px;text-align:center;background:var(--sidebar-bg);border:2px solid var(--green-border)';
     verdict.innerHTML=`
@@ -999,7 +999,7 @@ function calcImpot(){
   var ann=EXERCICE.annee;
   nb('is-echeances').innerHTML=isTotal>0?`
     <div style="background:var(--surface);border:2px solid var(--border);border-radius:var(--radius);padding:14px 16px;grid-column:span 2">
-      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);margin-bottom:10px">📅 Échéancier de paiement IS ${ann}</div>
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);margin-bottom:10px">${ico('calendar')} Échéancier de paiement IS ${ann}</div>
       <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
         <div style="background:var(--amber-light);border:2px solid var(--amber-border);border-radius:var(--radius);padding:10px;text-align:center">
           <div style="font-size:10px;font-weight:700;color:var(--amber);text-transform:uppercase">1er acompte</div>
@@ -1039,7 +1039,7 @@ function definirExercice(){
   EXERCICE.fin=nb('ex-fin').value;
   nb('ex-badge').textContent='Ex. '+EXERCICE.annee;
   nb('ex-status').style.display='block';
-  nb('ex-status').innerHTML='<div class="alert alert-ok" style="display:block">✓ Exercice '+EXERCICE.annee+' défini — du '+fmtD(EXERCICE.debut)+' au '+fmtD(EXERCICE.fin)+'</div>';
+  nb('ex-status').innerHTML='<div class="alert alert-ok" style="display:block">'+ico('check')+' Exercice '+EXERCICE.annee+' défini — du '+fmtD(EXERCICE.debut)+' au '+fmtD(EXERCICE.fin)+'</div>';
   ajouterNotif('save','Exercice '+EXERCICE.annee+' défini','Du '+fmtD(EXERCICE.debut)+' au '+fmtD(EXERCICE.fin));
   sauvegarderAuto();renderExercice();
 }
@@ -1060,7 +1060,7 @@ function renderExercice(){
     <div class="kpi" style="border-top:3px solid var(--amber)"><div class="kpi-label">IS dû (27%)</div><div class="kpi-value" style="font-size:15px;color:var(--amber)">${fmt(isTotal)}</div><div class="kpi-sub">FCFA${isTotal===0?' (calculez l\'IS d\'abord)':''}</div></div>
     <div class="kpi" style="border-top:3px solid ${res>=0?'var(--blue)':'var(--red)'}"><div class="kpi-label">Résultat net après IS</div><div class="kpi-value ${res>=0?'kpi-pos':'kpi-neg'}" style="font-size:15px">${fmt(resApresIS)}</div><div class="kpi-sub">FCFA</div></div>
   </div>
-  ${isTotal===0?'<div class="alert alert-warn" style="display:block">⚠️ Calculez d\'abord l\'IS dans la section ci-dessus avant de clôturer, pour que l\'impôt soit correctement comptabilisé.</div>':''}`;
+  ${isTotal===0?'<div class="alert alert-warn" style="display:block">'+ico('alertTriangle')+' Calculez d\'abord l\'IS dans la section ci-dessus avant de clôturer, pour que l\'impôt soit correctement comptabilisé.</div>':''}`;
   if(!EXERCICES_ARCHIVES.length){nb('ex-historique').innerHTML='<div style="text-align:center;color:var(--text-faint);padding:22px;font-style:italic">Aucun exercice clôturé</div>';return;}
   nb('ex-historique').innerHTML=EXERCICES_ARCHIVES.map(a=>`
     <div style="padding:12px 16px;border-bottom:2px solid var(--border)">
@@ -1138,7 +1138,7 @@ function cloturerExercice(){
 
   ajouterNotif('save','Exercice '+EXERCICES_ARCHIVES[EXERCICES_ARCHIVES.length-1].annee+' clôturé','IS : '+fmt(isTotal)+' FCFA · Résultat : '+fmt(Math.abs(res))+' FCFA · Exercice '+nouvelAn+' ouvert.');
   sauvegarderAuto();renderAll();renderExercice();
-  alert('✓ Exercice '+EXERCICES_ARCHIVES[EXERCICES_ARCHIVES.length-1].annee+' clôturé !\n\nRésultat brut : '+fmt(res)+' FCFA\nIS (27%) : '+fmt(isTotal)+' FCFA\nRésultat net après IS : '+fmt(Math.max(0,resApresIS))+' FCFA\n\nÉcriture IS : D 8951 / C 4471\nExercice '+nouvelAn+' ouvert.');
+  alert('Exercice '+EXERCICES_ARCHIVES[EXERCICES_ARCHIVES.length-1].annee+' clôturé !\n\nRésultat brut : '+fmt(res)+' FCFA\nIS (27%) : '+fmt(isTotal)+' FCFA\nRésultat net après IS : '+fmt(Math.max(0,resApresIS))+' FCFA\n\nÉcriture IS : D 8951 / C 4471\nExercice '+nouvelAn+' ouvert.');
 }
 
 // ═══ ÉDITION ÉCRITURE ═══
@@ -1332,5 +1332,5 @@ function chargerDemo(){
   });
   FACTURE_MODE='doit';reinit();
   sauvegarderAuto();
-  alert('✅ Démo chargée — 7 factures (dont 1 AVOIR), TVA variées, tiers, stock, soldes définis.\nToutes les données sont sauvegardées automatiquement dans votre navigateur.');
+  alert('Démo chargée — 7 factures (dont 1 AVOIR), TVA variées, tiers, stock, soldes définis.\nToutes les données sont sauvegardées automatiquement dans votre navigateur.');
 }

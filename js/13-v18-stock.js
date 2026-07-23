@@ -43,7 +43,7 @@ function loadStockConfig(){
       if(pane) pane.classList.add('active');
       if(el) el.classList.add('active');
       var pt=document.getElementById('page-title');
-      var titles={'stock':'📦 Gestion de stock','stock-entrees':'⬇️ Entrées de stock','stock-sorties':'⬆️ Sorties de stock','stock-alertes':'⚠️ Alertes de stock','stock-rapport':'📊 Rapport de stock'};
+      var titles={'stock':'Gestion de stock','stock-entrees':'Entrées de stock','stock-sorties':'Sorties de stock','stock-alertes':'Alertes de stock','stock-rapport':'Rapport de stock'};
       if(pt) pt.textContent=titles[id]||'Stock';
       openGrp('stock');
       loadStockConfig();
@@ -107,21 +107,21 @@ function renderStockDashboard(){
 
   // Rebuild pane content
   var html='<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;flex-wrap:wrap;gap:8px">'
-    +'<div><div style="font-size:15px;font-weight:600">📦 Gestion de stock</div>'
+    +'<div><div style="font-size:15px;font-weight:600">'+ico('package')+' Gestion de stock</div>'
     +'<div style="font-size:11px;color:var(--text-muted)">Vue d\'ensemble — Méthodes CMUP et FIFO — Temps réel</div></div>'
     +'<div style="display:flex;gap:8px;flex-wrap:wrap">'
-      +'<button class="btn btn-sm" onclick="go(\'stock-entrees\',document.querySelector(\'[onclick*=stock-entrees]\')||null)">⬇️ Saisir entrée</button>'
-      +'<button class="btn btn-sm" onclick="go(\'stock-sorties\',document.querySelector(\'[onclick*=stock-sorties]\')||null)">⬆️ Saisir sortie</button>'
+      +'<button class="btn btn-sm" onclick="go(\'stock-entrees\',document.querySelector(\'[onclick*=stock-entrees]\')||null)">'+ico('arrowDown')+' Saisir entrée</button>'
+      +'<button class="btn btn-sm" onclick="go(\'stock-sorties\',document.querySelector(\'[onclick*=stock-sorties]\')||null)">'+ico('arrowUp')+' Saisir sortie</button>'
       +'<button class="btn btn-primary btn-sm" onclick="ouvrirAjoutProduit()">+ Nouveau produit</button>'
     +'</div>'
   +'</div>';
 
   // KPIs
   html+='<div class="stock-kpi-grid">'
-    +stockKpi('📦 Articles', totalArticles, 'références', 'blue')
-    +stockKpi('💰 Valeur totale', totalValeur.toLocaleString('fr-FR')+' FCFA', 'en stock', 'green')
-    +stockKpi('⚠️ En alerte', enAlerte, 'à réapprovisionner', 'amber')
-    +stockKpi('🚫 En rupture', enRupture, 'stock épuisé', enRupture>0?'red':'teal')
+    +stockKpi(ico('package')+' Articles', totalArticles, 'références', 'blue')
+    +stockKpi(ico('coin')+' Valeur totale', totalValeur.toLocaleString('fr-FR')+' FCFA', 'en stock', 'green')
+    +stockKpi(ico('alertTriangle')+' En alerte', enAlerte, 'à réapprovisionner', 'amber')
+    +stockKpi(ico('ban')+' En rupture', enRupture, 'stock épuisé', enRupture>0?'red':'teal')
   +'</div>';
 
   // Formulaire ajout produit
@@ -143,12 +143,12 @@ function renderStockDashboard(){
       +'<div class="fg"><label>Seuil d\'alerte (qté min)</label><input type="number" id="s-seuil" min="0" placeholder="0" title="Notification quand le stock descend sous ce seuil"/></div>'
     +'</div>'
     +'<div style="background:var(--blue-light);border:2px solid var(--blue-border);border-radius:var(--radius);padding:8px 12px;font-size:11px;color:var(--blue);margin-top:8px">'
-      +'💡 <strong>CMUP</strong> : Le coût unitaire est recalculé en moyenne à chaque entrée. '
+      +ico('lightbulb')+' <strong>CMUP</strong> : Le coût unitaire est recalculé en moyenne à chaque entrée. '
       +'<strong>FIFO</strong> : Les premières unités entrées sont les premières sorties — idéal pour produits périssables ou avec variations de prix.'
     +'</div>'
     +'<div style="display:flex;gap:8px;justify-content:flex-end;margin-top:10px">'
       +'<button class="btn btn-sm" onclick="document.getElementById(\'stock-add-form\').style.display=\'none\'">Annuler</button>'
-      +'<button class="btn btn-primary btn-sm" onclick="ajouterProduit()">✓ Créer le produit</button>'
+      +'<button class="btn btn-primary btn-sm" onclick="ajouterProduit()">'+ico('check')+' Créer le produit</button>'
     +'</div></div></div>';
 
   // Liste produits
@@ -160,9 +160,9 @@ function renderStockDashboard(){
       +'<input type="text" id="stock-search" placeholder="Rechercher un produit..." style="max-width:220px;font-size:12px" oninput="filtrerStock()"/>'
       +'<select id="stock-filtre-niveau" onchange="filtrerStock()" style="max-width:160px;font-size:12px">'
         +'<option value="">Tous les niveaux</option>'
-        +'<option value="ok">✅ Stock OK</option>'
-        +'<option value="bas">🟡 Stock bas</option>'
-        +'<option value="critique">🔴 Critique / Rupture</option>'
+        +'<option value="ok">Stock OK</option>'
+        +'<option value="bas">Stock bas</option>'
+        +'<option value="critique">Critique / Rupture</option>'
       +'</select>'
       +'<select id="stock-filtre-methode" onchange="filtrerStock()" style="max-width:130px;font-size:12px">'
         +'<option value="">Toutes méthodes</option>'
@@ -197,7 +197,7 @@ function renderStockCards(noms){
     var pct=s.qteInit>0?Math.round(s.qteActuelle/s.qteInit*100):0;
     var seuil=s.seuilAlerte||0;
     var barColor=s.qteActuelle===0?'var(--red)':seuil>0&&s.qteActuelle<=seuil?'var(--red)':pct<=20?'var(--red)':pct<=40?'var(--amber)':'var(--green)';
-    var statusBadge=s.qteActuelle===0?'<span class="badge bg-red">Rupture</span>':seuil>0&&s.qteActuelle<=seuil?'<span class="badge bg-red">⚠ Critique</span>':pct<=40?'<span class="badge bg-amber">Faible</span>':'<span class="badge bg-green">OK</span>';
+    var statusBadge=s.qteActuelle===0?'<span class="badge bg-red">Rupture</span>':seuil>0&&s.qteActuelle<=seuil?'<span class="badge bg-red">'+ico('alertTriangle')+' Critique</span>':pct<=40?'<span class="badge bg-amber">Faible</span>':'<span class="badge bg-green">OK</span>';
     var methodeBadge=s.methode==='fifo'?'<span class="badge bg-blue" style="font-size:9px">FIFO</span>':'<span class="badge bg-purple" style="font-size:9px">CMUP</span>';
     var valeurStock=Math.round(s.qteActuelle*(s.cmup||0));
 
@@ -209,9 +209,9 @@ function renderStockCards(noms){
           +(s.categorie?'<span style="font-size:10px;color:var(--text-faint)">'+s.categorie+'</span>':'')
         +'</div>'
         +'<div style="display:flex;gap:6px">'
-          +'<button class="btn btn-sm" style="font-size:9px;padding:2px 7px" onclick="ouvrirEntreeRapide(\''+nom+'\')">⬇️ Entrée</button>'
-          +'<button class="btn btn-sm" style="font-size:9px;padding:2px 7px" onclick="ouvrirSortieRapide(\''+nom+'\')">⬆️ Sortie</button>'
-          +'<button class="btn btn-sm" style="font-size:9px;padding:2px 7px" onclick="configurerSeuil(\''+nom+'\')">⚙️ Seuil</button>'
+          +'<button class="btn btn-sm" style="font-size:9px;padding:2px 7px" onclick="ouvrirEntreeRapide(\''+nom+'\')">'+ico('arrowDown')+' Entrée</button>'
+          +'<button class="btn btn-sm" style="font-size:9px;padding:2px 7px" onclick="ouvrirSortieRapide(\''+nom+'\')">'+ico('arrowUp')+' Sortie</button>'
+          +'<button class="btn btn-sm" style="font-size:9px;padding:2px 7px" onclick="configurerSeuil(\''+nom+'\')">'+ico('gear')+' Seuil</button>'
         +'</div>'
       +'</div>'
       +'<div class="card-body" style="padding:10px 14px">'
@@ -337,7 +337,7 @@ function configurerSeuil(nom){
 function renderStockEntrees(){
   var pane=document.getElementById('pane-stock-entrees'); if(!pane) return;
   var noms=Object.keys(STOCKS);
-  pane.innerHTML='<div style="font-size:15px;font-weight:600;margin-bottom:14px">⬇️ Entrée en stock</div>'
+  pane.innerHTML='<div style="font-size:15px;font-weight:600;margin-bottom:14px">'+ico('arrowDown')+' Entrée en stock</div>'
     +'<div class="card" style="margin-bottom:14px">'
       +'<div class="card-header"><span class="card-title">Enregistrer une entrée de stock</span></div>'
       +'<div class="card-body"><div class="fgrid fg3">'
@@ -352,7 +352,7 @@ function renderStockEntrees(){
         +'<div class="fg sp3" id="se-info-cmup" style="display:none"></div>'
       +'</div>'
       +'<div style="display:flex;gap:8px;justify-content:flex-end;margin-top:10px">'
-        +'<button class="btn btn-primary" onclick="enregistrerEntreeStock()">⬇️ Enregistrer l\'entrée</button>'
+        +'<button class="btn btn-primary" onclick="enregistrerEntreeStock()">'+ico('arrowDown')+' Enregistrer l\'entrée</button>'
       +'</div>'
     +'</div></div>'
     +'<div id="se-recent"></div>';
@@ -367,7 +367,7 @@ function majInfosEntree(){
   if(info){
     info.style.display='block';
     info.innerHTML='<div style="background:var(--blue-light);border:2px solid var(--blue-border);border-radius:var(--radius);padding:8px 12px;font-size:11.5px;color:var(--blue)">'
-      +'📦 <strong>'+nom+'</strong> — Stock actuel : <strong>'+s.qteActuelle+' '+s.unite+'</strong> | CMUP actuel : <strong>'+(s.cmup||0).toLocaleString('fr-FR')+' FCFA</strong> | Méthode : <strong>'+( s.methode||'cmup').toUpperCase()+'</strong>'
+      +ico('package')+' <strong>'+nom+'</strong> — Stock actuel : <strong>'+s.qteActuelle+' '+s.unite+'</strong> | CMUP actuel : <strong>'+(s.cmup||0).toLocaleString('fr-FR')+' FCFA</strong> | Méthode : <strong>'+( s.methode||'cmup').toUpperCase()+'</strong>'
       +(s.methode==='fifo'?' | Lots FIFO : '+s.lots.length+' lot(s)':'')
       +'</div>';
   }
@@ -437,7 +437,7 @@ function renderEntreesRecentes(){
 function renderStockSorties(){
   var pane=document.getElementById('pane-stock-sorties'); if(!pane) return;
   var noms=Object.keys(STOCKS);
-  pane.innerHTML='<div style="font-size:15px;font-weight:600;margin-bottom:14px">⬆️ Sortie de stock</div>'
+  pane.innerHTML='<div style="font-size:15px;font-weight:600;margin-bottom:14px">'+ico('arrowUp')+' Sortie de stock</div>'
     +'<div class="card" style="margin-bottom:14px">'
       +'<div class="card-header"><span class="card-title">Enregistrer une sortie de stock</span></div>'
       +'<div class="card-body"><div class="fgrid fg3">'
@@ -451,7 +451,7 @@ function renderStockSorties(){
         +'<div class="fg sp3" id="ss-info" style="display:none"></div>'
       +'</div>'
       +'<div style="display:flex;gap:8px;justify-content:flex-end;margin-top:10px">'
-        +'<button class="btn btn-primary" onclick="enregistrerSortieStock()" style="background:var(--red);border-color:var(--red)">⬆️ Enregistrer la sortie</button>'
+        +'<button class="btn btn-primary" onclick="enregistrerSortieStock()" style="background:var(--red);border-color:var(--red)">'+ico('arrowUp')+' Enregistrer la sortie</button>'
       +'</div>'
     +'</div></div>'
     +'<div id="ss-recent"></div>';
@@ -467,9 +467,9 @@ function majInfosSortie(){
     info.style.display='block';
     var couleur=s.qteActuelle===0?'red':s.qteActuelle<=(s.seuilAlerte||0)?'red':'blue';
     info.innerHTML='<div style="background:var(--'+couleur+'-light);border:1px solid var(--'+couleur+'-border);border-radius:var(--radius);padding:8px 12px;font-size:11.5px;color:var(--'+couleur+')">'
-      +'📦 <strong>'+nom+'</strong> — Stock disponible : <strong>'+s.qteActuelle+' '+s.unite+'</strong> | CMUP : <strong>'+(s.cmup||0).toLocaleString('fr-FR')+' FCFA</strong>'
+      +ico('package')+' <strong>'+nom+'</strong> — Stock disponible : <strong>'+s.qteActuelle+' '+s.unite+'</strong> | CMUP : <strong>'+(s.cmup||0).toLocaleString('fr-FR')+' FCFA</strong>'
       +(s.methode==='fifo'?' | FIFO : sortie à '+( s.lots[0]?s.lots[0].pu.toLocaleString('fr-FR'):0)+' FCFA (lot le plus ancien)':'')
-      +(s.qteActuelle===0?' ⚠ RUPTURE DE STOCK':'')
+      +(s.qteActuelle===0?' '+ico('alertTriangle')+' RUPTURE DE STOCK':'')
       +'</div>';
   }
 }
@@ -540,18 +540,18 @@ function renderStockAlertes(){
 
   updateStockAlerteBadge();
 
-  var html='<div style="font-size:15px;font-weight:600;margin-bottom:4px">⚠️ Alertes de stock</div>'
+  var html='<div style="font-size:15px;font-weight:600;margin-bottom:4px">'+ico('alertTriangle')+' Alertes de stock</div>'
     +'<div style="font-size:11px;color:var(--text-muted);margin-bottom:14px">Produits nécessitant une attention immédiate. Configurez les seuils depuis la vue d\'ensemble.</div>';
 
   if(!enProbleme.length){
     html+='<div style="background:var(--green-light);border:2px solid var(--green-border);border-radius:var(--radius);padding:20px;text-align:center;color:var(--green-dark);font-size:13px;margin-bottom:14px">'
-      +'✅ Tous les stocks sont à un niveau satisfaisant. Aucune alerte active.'
+      +ico('checkCircle')+' Tous les stocks sont à un niveau satisfaisant. Aucune alerte active.'
       +'</div>';
   } else {
     html+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">'
       +enProbleme.map(function(a){
         var cls=a.niveau==='rupture'||a.niveau==='critique'?'alerte-critique':'alerte-faible';
-        var icon=a.niveau==='rupture'?'🚫':a.niveau==='critique'?'🔴':'🟡';
+        var icon=a.niveau==='rupture'?ico('ban'):a.niveau==='critique'?'<span style="color:var(--red)">'+ico('dot')+'</span>':'<span style="color:var(--amber)">'+ico('dot')+'</span>';
         var valeurStock=Math.round(a.s.qteActuelle*(a.s.cmup||0));
         return '<div class="card '+cls+'" style="padding:12px 14px;border-radius:var(--radius)">'
           +'<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">'
@@ -572,7 +572,7 @@ function renderStockAlertes(){
   }
 
   if(ok.length){
-    html+='<div style="font-size:11px;font-weight:700;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px">✅ Stocks OK ('+ok.length+')</div>'
+    html+='<div style="font-size:11px;font-weight:700;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px">'+ico('checkCircle')+' Stocks OK ('+ok.length+')</div>'
       +'<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">'
       +ok.map(function(a){return '<div class="alerte-ok" style="padding:8px 12px;border-radius:var(--radius);font-size:11.5px;display:flex;justify-content:space-between"><span><strong>'+a.nom+'</strong></span><span style="font-family:\'Archivo\',sans-serif;color:var(--green-dark)">'+a.s.qteActuelle+' '+a.s.s.unite+'</span></div>';}).join('')
       +'</div>';
@@ -586,9 +586,9 @@ function checkStockAlerteNotif(nom){
   var s=STOCKS[nom];
   var seuil=s.seuilAlerte||0;
   if(s.qteActuelle===0){
-    if(typeof ajouterNotif==='function') ajouterNotif('warn','🚫 RUPTURE DE STOCK — '+nom,'Le stock de "'+nom+'" est épuisé. Pensez à passer une commande fournisseur.');
+    if(typeof ajouterNotif==='function') ajouterNotif('warn',ico('ban')+' RUPTURE DE STOCK — '+nom,'Le stock de "'+nom+'" est épuisé. Pensez à passer une commande fournisseur.');
   } else if(seuil>0 && s.qteActuelle<=seuil){
-    if(typeof ajouterNotif==='function') ajouterNotif('warn','⚠️ Stock critique — '+nom,'Stock actuel ('+s.qteActuelle+' '+s.unite+') ≤ seuil d\'alerte ('+seuil+' '+s.unite+'). Réapprovisionnement recommandé.');
+    if(typeof ajouterNotif==='function') ajouterNotif('warn',ico('alertTriangle')+' Stock critique — '+nom,'Stock actuel ('+s.qteActuelle+' '+s.unite+') ≤ seuil d\'alerte ('+seuil+' '+s.unite+'). Réapprovisionnement recommandé.');
   }
   updateStockAlerteBadge();
 }
@@ -606,7 +606,7 @@ function renderStockRapport(){
   });
 
   // Rotation : nb sorties / stock moyen
-  var html='<div style="font-size:15px;font-weight:600;margin-bottom:14px">📊 Rapport de stock</div>';
+  var html='<div style="font-size:15px;font-weight:600;margin-bottom:14px">'+ico('dashboard')+' Rapport de stock</div>';
 
   // KPIs
   html+='<div class="stock-kpi-grid">'
@@ -619,7 +619,7 @@ function renderStockRapport(){
   // Tableau récapitulatif
   if(noms.length){
     html+='<div class="card"><div class="card-header"><span class="card-title">Récapitulatif par produit</span>'
-      +'<button class="btn btn-sm" onclick="exporterStockCSV()" style="font-size:10px">📥 Export CSV</button></div>'
+      +'<button class="btn btn-sm" onclick="exporterStockCSV()" style="font-size:10px">'+ico('arrowDown')+' Export CSV</button></div>'
       +'<div class="card-body" style="padding:0"><table style="width:100%;border-collapse:collapse;font-size:11.5px"><thead>'
       +'<tr style="background:var(--bg)">'
       +'<th style="padding:7px 10px;text-align:left;border-bottom:2px solid var(--border);font-size:10px;text-transform:uppercase;color:var(--text-muted)">Produit</th>'

@@ -48,18 +48,18 @@ function applyFormeJuridique() {
   if(FORME_JURIDIQUE === 'sa') {
     banner.style.display = 'block';
     banner.style.cssText = 'display:block;padding:7px 10px;border-radius:var(--radius);font-size:10.5px;margin-top:7px;line-height:1.6;background:var(--blue-light);border:2px solid var(--blue-border);color:var(--blue)';
-    banner.innerHTML = '🏢 <strong>SA</strong> — IS 27% + IRVM 7%/3% sur dividendes + Conseil d\'administration obligatoire + Capital min. 10M FCFA';
+    banner.innerHTML = ico('building') + ' <strong>SA</strong> — IS 27% + IRVM 7%/3% sur dividendes + Conseil d\'administration obligatoire + Capital min. 10M FCFA';
   } else {
     banner.style.display = 'block';
     banner.style.cssText = 'display:block;padding:7px 10px;border-radius:var(--radius);font-size:10.5px;margin-top:7px;line-height:1.6;background:var(--green-light);border:2px solid var(--green-border);color:var(--green-dark)';
-    banner.innerHTML = '🏬 <strong>SARL</strong> — IS 27% + distribution libre aux associés + Gérance désignée + Capital libre';
+    banner.innerHTML = ico('building') + ' <strong>SARL</strong> — IS 27% + distribution libre aux associés + Gérance désignée + Capital libre';
   }
   // Update exercice IS section header
   var isHead = document.querySelector('#pane-exercice .card:nth-child(2) .card-header .card-title');
   if(isHead) {
     isHead.textContent = FORME_JURIDIQUE === 'sa'
-      ? '🏛️ Calcul IS + IRVM — SA Togolaise (IS 27% + IRVM dividendes 7%/3%)'
-      : '🏛️ Calcul IS — SARL Togolaise (27% du bénéfice imposable)';
+      ? 'Calcul IS + IRVM — SA Togolaise (IS 27% + IRVM dividendes 7%/3%)'
+      : 'Calcul IS — SARL Togolaise (27% du bénéfice imposable)';
   }
 }
 
@@ -96,7 +96,7 @@ calcImpot = function() {
   }
   if(panel) {
     panel.innerHTML = `
-      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--blue);margin-bottom:10px">🏢 RÉGIME SA — Impôts supplémentaires</div>
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--blue);margin-bottom:10px">${ico('building')} RÉGIME SA — Impôts supplémentaires</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
         <div style="background:var(--surface);border:2px solid var(--blue-border);border-radius:var(--radius);padding:10px">
           <div style="font-size:10px;color:var(--text-muted);margin-bottom:4px;font-weight:600;text-transform:uppercase">Résultat net après IS</div>
@@ -138,16 +138,16 @@ calcImpot = function() {
       <div style="background:var(--surface);border:2px solid var(--blue-border);border-radius:var(--radius);padding:10px;font-size:11px">
         <div style="font-weight:600;color:var(--blue);margin-bottom:6px">Obligations spécifiques SA — Togo</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:10.5px;color:var(--text-muted)">
-          <div>✓ Assemblée Générale Ordinaire obligatoire (6 mois après clôture)</div>
-          <div>✓ Rapport du Commissaire aux Comptes (si CA > 250M FCFA)</div>
-          <div>✓ Réserve légale : 5% du bénéfice jusqu'à 20% du capital</div>
-          <div>✓ IRVM retenu à la source lors du versement des dividendes</div>
-          <div>✓ Déclaration annuelle à la BRVM (si cotée) ou OHADA</div>
-          <div>✓ Registre des actionnaires et mouvements de titres</div>
+          <div>${ico('check')} Assemblée Générale Ordinaire obligatoire (6 mois après clôture)</div>
+          <div>${ico('check')} Rapport du Commissaire aux Comptes (si CA > 250M FCFA)</div>
+          <div>${ico('check')} Réserve légale : 5% du bénéfice jusqu'à 20% du capital</div>
+          <div>${ico('check')} IRVM retenu à la source lors du versement des dividendes</div>
+          <div>${ico('check')} Déclaration annuelle à la BRVM (si cotée) ou OHADA</div>
+          <div>${ico('check')} Registre des actionnaires et mouvements de titres</div>
         </div>
       </div>
       <div style="margin-top:10px;font-size:10px;color:var(--text-faint)">
-        ⚖️ Source : CGI Togo Art. 88 et suivants — IRVM 7% (pers. morales) / 3% (pers. physiques) sur dividendes. IS 27% identique SARL/SA.
+        ${ico('scale')} Source : CGI Togo Art. 88 et suivants — IRVM 7% (pers. morales) / 3% (pers. physiques) sur dividendes. IS 27% identique SARL/SA.
       </div>`;
   }
 };
@@ -181,13 +181,13 @@ function recalcIRVM() {
       <div style="font-size:15px;font-weight:600">Prévisions & Plan d'affaires IA</div>
       <div style="font-size:11px;color:var(--text-muted);margin-top:2px">Décrivez vos objectifs par voix ou texte — l'IA génère un plan complet avec fournisseurs, coûts, délais et projections financières.</div>
     </div>
-    <button class="btn btn-sm" onclick="effacerPrevision()" style="font-size:10px">✕ Effacer</button>
+    <button class="btn btn-sm" onclick="effacerPrevision()" style="font-size:10px">${ico('close')} Effacer</button>
   </div>
   
   <!-- Zone conversation -->
   <div class="card" style="margin-bottom:12px">
     <div class="card-header" style="background:var(--sidebar-bg)">
-      <span class="card-title" style="color:#fff;font-size:12px">🔮 Assistant Prévision IA</span>
+      <span class="card-title" style="color:#fff;font-size:12px">${ico('sparkle')} Assistant Prévision IA</span>
       <span style="font-size:10px;color:var(--sidebar-text)">Parlez ou tapez votre projet</span>
     </div>
     <div class="card-body" style="padding:12px">
@@ -202,7 +202,7 @@ function recalcIRVM() {
         </div>
       </div>
       <div style="display:flex;gap:8px;align-items:center;margin-top:10px;border-top:2px solid var(--border);padding-top:10px">
-        <button class="prev-mic" id="prev-mic-btn" onclick="toggleMicro()" title="Parler">🎤</button>
+        <button class="prev-mic" id="prev-mic-btn" onclick="toggleMicro()" title="Parler">${ico('mic')}</button>
         <input type="text" id="prev-input" placeholder="Décrivez votre projet ou objectif..." 
           onkeydown="if(event.key==='Enter')envoyerPrevision()" style="flex:1;font-size:12.5px"/>
         <button class="btn btn-primary" onclick="envoyerPrevision()" style="white-space:nowrap">Analyser →</button>
@@ -223,7 +223,7 @@ function recalcIRVM() {
     <!-- Fournisseurs recommandés -->
     <div class="plan-section" id="prev-fournisseurs">
       <div class="plan-section-header" onclick="toggleSection('prev-fourn-body')">
-        <span style="font-size:16px">🏭</span>
+        <span style="font-size:16px">${ico('factory')}</span>
         <span style="font-size:13px;font-weight:600">Fournisseurs & prestataires recommandés</span>
         <span style="margin-left:auto;font-size:11px;color:var(--text-faint)">cliquer pour développer</span>
       </div>
@@ -235,7 +235,7 @@ function recalcIRVM() {
     <!-- Chronogramme -->
     <div class="plan-section">
       <div class="plan-section-header" onclick="toggleSection('prev-chrono-body')">
-        <span style="font-size:16px">📅</span>
+        <span style="font-size:16px">${ico('calendar')}</span>
         <span style="font-size:13px;font-weight:600">Chronogramme de réalisation</span>
         <span style="margin-left:auto;font-size:11px;color:var(--text-faint)">cliquer pour développer</span>
       </div>
@@ -247,7 +247,7 @@ function recalcIRVM() {
     <!-- Budget détaillé -->
     <div class="plan-section">
       <div class="plan-section-header" onclick="toggleSection('prev-budget-body')">
-        <span style="font-size:16px">💰</span>
+        <span style="font-size:16px">${ico('coin')}</span>
         <span style="font-size:13px;font-weight:600">Répartition budgétaire détaillée</span>
         <span style="margin-left:auto;font-size:11px;color:var(--text-faint)">cliquer pour développer</span>
       </div>
@@ -260,7 +260,7 @@ function recalcIRVM() {
     <!-- Risques & opportunités -->
     <div class="plan-section">
       <div class="plan-section-header" onclick="toggleSection('prev-risques-body')">
-        <span style="font-size:16px">⚡</span>
+        <span style="font-size:16px">${ico('bolt')}</span>
         <span style="font-size:13px;font-weight:600">Analyse risques & opportunités</span>
         <span style="margin-left:auto;font-size:11px;color:var(--text-faint)">cliquer pour développer</span>
       </div>
@@ -272,7 +272,7 @@ function recalcIRVM() {
     <!-- Projections financières -->
     <div class="plan-section">
       <div class="plan-section-header" onclick="toggleSection('prev-proj-body')">
-        <span style="font-size:16px">📈</span>
+        <span style="font-size:16px">${ico('trendUp')}</span>
         <span style="font-size:13px;font-weight:600">Projections financières sur 3 ans</span>
         <span style="margin-left:auto;font-size:11px;color:var(--text-faint)">cliquer pour développer</span>
       </div>
@@ -284,8 +284,8 @@ function recalcIRVM() {
 
     <!-- Export -->
     <div style="display:flex;gap:8px;margin-top:14px;justify-content:flex-end">
-      <button class="btn btn-sm" onclick="exporterPlanPDF()">📄 Exporter en PDF</button>
-      <button class="btn btn-sm btn-primary" onclick="integrerDansBudget()">📥 Intégrer dans le budget GEST Africa</button>
+      <button class="btn btn-sm" onclick="exporterPlanPDF()">${ico('file')} Exporter en PDF</button>
+      <button class="btn btn-sm btn-primary" onclick="integrerDansBudget()">${ico('arrowDown')} Intégrer dans le budget GEST Africa</button>
     </div>
   </div>`;
   content.appendChild(pane);
@@ -321,8 +321,8 @@ function startMicro() {
     mediaRecorder.start();
     isRecording = true;
     var btn = document.getElementById('prev-mic-btn');
-    if(btn) { btn.className = 'prev-mic recording'; btn.textContent = '⏹️'; }
-    document.getElementById('prev-mic-status').textContent = '🔴 Enregistrement en cours... Cliquez pour arrêter.';
+    if(btn) { btn.className = 'prev-mic recording'; btn.innerHTML = ico('stop'); }
+    document.getElementById('prev-mic-status').textContent = 'Enregistrement en cours... Cliquez pour arrêter.';
   }).catch(function(err) {
     document.getElementById('prev-mic-status').textContent = 'Erreur micro : ' + err.message;
   });
@@ -333,8 +333,8 @@ function stopMicro() {
     mediaRecorder.stop();
     isRecording = false;
     var btn = document.getElementById('prev-mic-btn');
-    if(btn) { btn.className = 'prev-mic'; btn.textContent = '🎤'; }
-    document.getElementById('prev-mic-status').textContent = '⏳ Transcription en cours...';
+    if(btn) { btn.className = 'prev-mic'; btn.innerHTML = ico('mic'); }
+    document.getElementById('prev-mic-status').textContent = 'Transcription en cours...';
   }
 }
 
@@ -347,7 +347,7 @@ async function transcribeAudio(blob) {
     try {
       // Use Claude to "understand" via a text prompt since we can't do audio directly
       // Instead, activate speech recognition API
-      document.getElementById('prev-mic-status').textContent = '✓ Audio capturé — utilisez la transcription navigateur.';
+      document.getElementById('prev-mic-status').textContent = 'Audio capturé — utilisez la transcription navigateur.';
       // Fallback: use browser SpeechRecognition
     } catch(e) {
       document.getElementById('prev-mic-status').textContent = 'Tapez votre message ci-dessous.';
@@ -359,7 +359,7 @@ async function transcribeAudio(blob) {
 function startSpeechRecognition() {
   var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
   if(!SR) {
-    document.getElementById('prev-mic-status').textContent = '⚠ Reconnaissance vocale non supportée. Tapez votre texte.';
+    document.getElementById('prev-mic-status').textContent = 'Reconnaissance vocale non supportée. Tapez votre texte.';
     return false;
   }
   var rec = new SR();
@@ -369,26 +369,26 @@ function startSpeechRecognition() {
   rec.onstart = function() {
     isRecording = true;
     var btn = document.getElementById('prev-mic-btn');
-    if(btn) { btn.className = 'prev-mic recording'; btn.textContent = '⏹️'; }
-    document.getElementById('prev-mic-status').textContent = '🔴 Parlez maintenant...';
+    if(btn) { btn.className = 'prev-mic recording'; btn.innerHTML = ico('stop'); }
+    document.getElementById('prev-mic-status').textContent = 'Parlez maintenant...';
   };
   rec.onresult = function(e) {
     var text = e.results[0][0].transcript;
     document.getElementById('prev-input').value = text;
-    document.getElementById('prev-mic-status').textContent = '✓ "' + text + '"';
+    document.getElementById('prev-mic-status').textContent = '"' + text + '"';
     isRecording = false;
     var btn = document.getElementById('prev-mic-btn');
-    if(btn) { btn.className = 'prev-mic'; btn.textContent = '🎤'; }
+    if(btn) { btn.className = 'prev-mic'; btn.innerHTML = ico('mic'); }
     envoyerPrevision();
   };
   rec.onerror = function(e) {
     document.getElementById('prev-mic-status').textContent = 'Erreur : ' + e.error + '. Tapez votre texte.';
     isRecording = false;
     var btn = document.getElementById('prev-mic-btn');
-    if(btn) { btn.className = 'prev-mic'; btn.textContent = '🎤'; }
+    if(btn) { btn.className = 'prev-mic'; btn.innerHTML = ico('mic'); }
   };
   rec.onend = function() {
-    if(isRecording) { isRecording = false; var b=document.getElementById('prev-mic-btn');if(b){b.className='prev-mic';b.textContent='🎤';} }
+    if(isRecording) { isRecording = false; var b=document.getElementById('prev-mic-btn');if(b){b.className='prev-mic';b.innerHTML=ico('mic');} }
   };
   rec.start();
   return true;
@@ -399,7 +399,7 @@ toggleMicro = function() {
   if(isRecording) {
     isRecording = false;
     var btn = document.getElementById('prev-mic-btn');
-    if(btn) { btn.className = 'prev-mic'; btn.textContent = '🎤'; }
+    if(btn) { btn.className = 'prev-mic'; btn.innerHTML = ico('mic'); }
     return;
   }
   startSpeechRecognition();
@@ -502,14 +502,14 @@ Sois TRÈS précis sur les prix en FCFA. Cite des fournisseurs réels ou très p
     PREV_PLAN_DATA = plan;
 
     // Update thinking with summary
-    thinking.innerHTML = `<strong>✓ Plan généré !</strong> ${plan.resume || ''}<br><span style="font-size:10px;color:var(--text-faint);margin-top:4px;display:block">Consultez les sections ci-dessous pour le plan complet.</span>`;
+    thinking.innerHTML = `<strong>${ico('checkCircle')} Plan généré !</strong> ${plan.resume || ''}<br><span style="font-size:10px;color:var(--text-faint);margin-top:4px;display:block">Consultez les sections ci-dessous pour le plan complet.</span>`;
 
     // Render plan
     renderPrevisionPlan(plan);
     document.getElementById('prev-plan-wrap').style.display = 'block';
 
   } catch(err) {
-    thinking.innerHTML = '⚠ Erreur de connexion. Vérifiez votre connexion internet et réessayez.';
+    thinking.innerHTML = ico('alertTriangle') + ' Erreur de connexion. Vérifiez votre connexion internet et réessayez.';
     thinking.style.cssText = 'background:var(--red-light);border:2px solid var(--red-border);border-radius:var(--radius);padding:11px 14px;font-size:12px;color:var(--red)';
   }
   chat.scrollTop = chat.scrollHeight;
@@ -531,7 +531,7 @@ function renderPrevisionPlan(plan) {
       <tbody>${fourn.map(function(f){return `<tr>
         <td><span class="badge bg-blue" style="font-size:9px">${f.categorie||'—'}</span></td>
         <td style="font-weight:600">${f.nom||'—'}</td>
-        <td style="font-size:10.5px;color:var(--text-muted)">📍 ${f.localisation||'—'}</td>
+        <td style="font-size:10.5px;color:var(--text-muted)">${ico('pin')} ${f.localisation||'—'}</td>
         <td style="font-size:10.5px">${f.description||'—'}</td>
         <td style="font-family:'Archivo',sans-serif;font-weight:600;color:var(--amber);white-space:nowrap">${f.prix_estime||'—'}</td>
         <td style="font-size:10.5px;color:var(--text-muted)">${f.justification||'—'}</td>
@@ -630,7 +630,7 @@ function renderPrevisionPlan(plan) {
   var opps = plan.opportunites || [];
   var rc = '';
   if(risques.length) {
-    rc += '<div style="font-size:11px;font-weight:600;margin-bottom:8px;color:var(--red)">⚠ Risques identifiés</div>';
+    rc += '<div style="font-size:11px;font-weight:600;margin-bottom:8px;color:var(--red)">' + ico('alertTriangle') + ' Risques identifiés</div>';
     rc += risques.map(function(r){
       var cl = r.niveau==='Élevé'?'anomalie-haute':r.niveau==='Moyen'?'anomalie-moyenne':'anomalie-faible';
       return`<div class="anomalie-row ${cl}" style="margin-bottom:6px">
@@ -640,13 +640,13 @@ function renderPrevisionPlan(plan) {
     }).join('');
   }
   if(opps.length) {
-    rc += '<div style="font-size:11px;font-weight:600;margin:12px 0 8px;color:var(--green-dark)">✓ Opportunités à saisir</div>';
+    rc += '<div style="font-size:11px;font-weight:600;margin:12px 0 8px;color:var(--green-dark)">' + ico('check') + ' Opportunités à saisir</div>';
     rc += opps.map(function(o){
-      return`<div style="background:var(--green-light);border:2px solid var(--green-border);border-radius:var(--radius);padding:8px 12px;margin-bottom:6px;display:flex;gap:8px"><span style="font-size:14px">🚀</span><div><div style="font-size:12px;font-weight:600;color:var(--green-dark)">${o.titre||'—'}</div><div style="font-size:11px;color:var(--text-muted);margin-top:2px">${o.impact||'—'}</div></div></div>`;
+      return`<div style="background:var(--green-light);border:2px solid var(--green-border);border-radius:var(--radius);padding:8px 12px;margin-bottom:6px;display:flex;gap:8px"><span style="font-size:14px">${ico('rocket')}</span><div><div style="font-size:12px;font-weight:600;color:var(--green-dark)">${o.titre||'—'}</div><div style="font-size:11px;color:var(--text-muted);margin-top:2px">${o.impact||'—'}</div></div></div>`;
     }).join('');
   }
   if(plan.conseil_expert) {
-    rc += `<div style="margin-top:12px;background:var(--sidebar-bg);border-radius:var(--radius);padding:14px 16px;color:#fff"><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--green-border);margin-bottom:6px">✦ Conseil de l'expert</div><div style="font-size:12px;line-height:1.7;color:rgba(255,255,255,.85)">${plan.conseil_expert}</div></div>`;
+    rc += `<div style="margin-top:12px;background:var(--sidebar-bg);border-radius:var(--radius);padding:14px 16px;color:#fff"><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--green-border);margin-bottom:6px">${ico('sparkle')} Conseil de l'expert</div><div style="font-size:12px;line-height:1.7;color:rgba(255,255,255,.85)">${plan.conseil_expert}</div></div>`;
   }
   document.getElementById('prev-risques-content').innerHTML = rc;
   document.getElementById('prev-risques-body').style.display = 'block';
@@ -679,7 +679,7 @@ function integrerDansBudget() {
   });
   if(typeof renderBudget === 'function') renderBudget();
   if(typeof sauvegarderAuto === 'function') sauvegarderAuto();
-  alert('✓ ' + cnt + ' postes budgétaires intégrés dans le module Budget de GEST Africa.');
+  alert(cnt + ' postes budgétaires intégrés dans le module Budget de GEST Africa.');
 }
 
 function exporterPlanPDF() {

@@ -20,7 +20,7 @@ function saveV17(){ try{ localStorage.setItem('v17_engagements',JSON.stringify(E
       if(pane) pane.classList.add('active');
       if(el) el.classList.add('active');
       var pt = document.getElementById('page-title');
-      if(pt) pt.textContent = id==='liasse'?'📑 Liasse fiscale DGI':'📝 Notes annexes SYSCOHADA';
+      if(pt) pt.textContent = id==='liasse'?'Liasse fiscale DGI':'Notes annexes SYSCOHADA';
       if(id==='liasse') genererLiasse();
       if(id==='annexes'){ genererAnnexes(); renderEngagements(); renderEvenements(); }
       return;
@@ -159,8 +159,8 @@ window.calculerTFT = function(){
   var equil = diff < 100;
   html += '<div style="margin-top:10px;padding:10px 14px;border-radius:var(--radius);font-size:11.5px;'
     +(equil ? 'background:var(--green-light);border:2px solid var(--green-border);color:var(--green-dark)' : 'background:var(--amber-light);border:2px solid var(--amber-border);color:var(--amber)')+';">'
-    +(equil ? '✓ TFT équilibré — La variation calculée correspond à la variation réelle de trésorerie.'
-            : '⚠ Écart de '+Math.round(diff).toLocaleString('fr-FR')+' FCFA — Vérifiez l\'exhaustivité des écritures (soldes d\'ouverture à paramétrer dans Trésorerie).')
+    +(equil ? ico('check')+' TFT équilibré — La variation calculée correspond à la variation réelle de trésorerie.'
+            : ico('alertTriangle')+' Écart de '+Math.round(diff).toLocaleString('fr-FR')+' FCFA — Vérifiez l\'exhaustivité des écritures (soldes d\'ouverture à paramétrer dans Trésorerie).')
     +'<span style="float:right;font-size:10px;color:var(--text-faint)">SYSCOHADA révisé 2017 — Art. 29 — Méthode indirecte — Exercice '+an+'</span>'
     +'</div>';
 
@@ -317,7 +317,7 @@ function genererLiasse(){
     if(e.cptC==='4421') irTotal+=(e.credit||0);
   });
 
-  document.getElementById('liasse-statut').innerHTML = '<span style="background:var(--green-light);border:2px solid var(--green-border);border-radius:var(--radius);padding:2px 8px;font-size:10px;color:var(--green-dark)">✓ Liasse générée — Exercice '+an+'</span>';
+  document.getElementById('liasse-statut').innerHTML = '<span style="background:var(--green-light);border:2px solid var(--green-border);border-radius:var(--radius);padding:2px 8px;font-size:10px;color:var(--green-dark)">'+ico('check')+' Liasse générée — Exercice '+an+'</span>';
 
   // ── Tableau BIC ──
   function lRow(label,val,cls,indent){
@@ -424,7 +424,7 @@ function fiscKpi(label,val,cls){
     +'</div>';
 }
 function checkItem(label,done){
-  var icon = done===true?'✅':done==='auto'?'🔄':'⬜';
+  var icon = done===true?ico('checkCircle'):done==='auto'?ico('refresh'):ico('dot');
   var color = done===true?'var(--green-dark)':done==='auto'?'var(--blue)':'var(--text-muted)';
   return '<div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:2px solid var(--border);font-size:11.5px;color:'+color+'">'+icon+' '+label+'</div>';
 }

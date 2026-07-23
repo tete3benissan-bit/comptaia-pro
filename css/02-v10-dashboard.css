@@ -1,7 +1,8 @@
 /* v10: Dashboard IA / Score / OCR / Fraude / Multi-entreprise / Benchmarks styles - extracted from ComptaIA_Pro_original.html lines 2837-2878 */
 /* Dashboard IA */
 .dash-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
-.dash-insight{background:var(--surface);border:2px solid var(--border);border-radius:var(--radius);padding:14px;position:relative;overflow:hidden}
+.dash-insight{background:var(--surface);border:2px solid var(--border);border-radius:var(--radius);padding:14px;position:relative;overflow:hidden;box-shadow:var(--shadow-sm);transition:box-shadow .15s,transform .15s}
+.dash-insight:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
 .dash-insight::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
 .dash-insight.green::before{background:var(--green)}
 .dash-insight.red::before{background:var(--red)}
@@ -16,7 +17,7 @@
 /* Score financier */
 .score-ring{width:120px;height:120px;margin:0 auto}
 .score-card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
-.score-detail{background:var(--bg);border:2px solid var(--border);border-radius:var(--radius);padding:12px;text-align:center}
+.score-detail{background:var(--bg);border:2px solid var(--border);border-radius:var(--radius);padding:12px;text-align:center;box-shadow:var(--shadow-sm)}
 .score-bar{height:6px;background:var(--border);border-radius:var(--radius);margin-top:6px;overflow:hidden}
 .score-bar-fill{height:100%;border-radius:var(--radius);transition:width .6s ease}
 /* OCR */
@@ -31,7 +32,7 @@
 .anomalie-faible{background:var(--blue-light);border-color:var(--blue-border)}
 .anomalie-icon{font-size:20px;flex-shrink:0}
 /* Multi-entreprises */
-.entreprise-card{background:var(--surface);border:2px solid var(--border);border-radius:var(--radius);padding:14px;cursor:pointer;transition:all .2s}
+.entreprise-card{background:var(--surface);border:2px solid var(--border);border-radius:var(--radius);padding:14px;cursor:pointer;transition:all .2s;box-shadow:var(--shadow-sm)}
 .entreprise-card:hover{box-shadow:0 6px 16px rgba(26,158,92,.35);transform:translateY(-2px)}
 .entreprise-card.active-co{border-color:var(--green);background:var(--green-light)}
 /* Benchmarks */

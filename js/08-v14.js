@@ -128,17 +128,17 @@ function renderEmprunts(){
   EMPRUNTS.forEach(function(e,i){
     var comptabilise=e.comptabilise||0;
     var restant=e.tableau.slice(comptabilise).reduce(function(a,m){return a+m.capital;},0);
-    html+='<tr style="border-bottom:2px solid var(--border)"><td style="padding:7px 10px;font-weight:600">'+e.lib+'</td><td style="padding:7px 10px;font-size:11px;color:var(--text-muted)">'+( e.banque||'—')+'</td><td style="padding:7px 10px;text-align:right;font-family:\'Archivo\',sans-serif">'+e.capital.toLocaleString('fr-FR')+' FCFA</td><td style="padding:7px 10px;text-align:right;font-family:\'Archivo\',sans-serif;color:var(--amber)">'+e.mensualite.toLocaleString('fr-FR')+' FCFA</td><td style="padding:7px 10px;text-align:right;font-family:\'Archivo\',sans-serif;color:var(--red)">'+Math.max(0,restant).toLocaleString('fr-FR')+' FCFA</td><td style="padding:7px 10px"><div style="display:flex;gap:4px"><button class="btn btn-sm" style="font-size:9px;padding:2px 6px" onclick="afficherTableauAmortissement(EMPRUNTS['+i+'])">📅 Tableau</button><button class="btn btn-sm" style="font-size:9px;padding:2px 6px;background:var(--amber);color:#fff;border-color:var(--amber)" onclick="comptabiliserMensualite('+i+')">⚡ Prochaine mensualité</button></div></td></tr>';
+    html+='<tr style="border-bottom:2px solid var(--border)"><td style="padding:7px 10px;font-weight:600">'+e.lib+'</td><td style="padding:7px 10px;font-size:11px;color:var(--text-muted)">'+( e.banque||'—')+'</td><td style="padding:7px 10px;text-align:right;font-family:\'Archivo\',sans-serif">'+e.capital.toLocaleString('fr-FR')+' FCFA</td><td style="padding:7px 10px;text-align:right;font-family:\'Archivo\',sans-serif;color:var(--amber)">'+e.mensualite.toLocaleString('fr-FR')+' FCFA</td><td style="padding:7px 10px;text-align:right;font-family:\'Archivo\',sans-serif;color:var(--red)">'+Math.max(0,restant).toLocaleString('fr-FR')+' FCFA</td><td style="padding:7px 10px"><div style="display:flex;gap:4px"><button class="btn btn-sm" style="font-size:9px;padding:2px 6px" onclick="afficherTableauAmortissement(EMPRUNTS['+i+'])">'+ico('calendar')+' Tableau</button><button class="btn btn-sm" style="font-size:9px;padding:2px 6px;background:var(--amber);color:#fff;border-color:var(--amber)" onclick="comptabiliserMensualite('+i+')">'+ico('bolt')+' Prochaine mensualité</button></div></td></tr>';
   });
   html+='</tbody></table></div></div>';
   w.innerHTML=html;
 }
 function afficherTableauAmortissement(empr){
   var w=document.getElementById('empr-tableau-wrap'); if(!w)return;
-  var html='<div class="card"><div class="card-header"><span class="card-title">📅 Tableau d\'amortissement — '+empr.lib+'</span></div><div class="card-body" style="padding:0;overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:11px"><thead><tr style="background:var(--bg)"><th style="padding:6px 8px;border-bottom:2px solid var(--border);color:var(--text-muted);font-size:9px;text-transform:uppercase">Mois</th><th style="padding:6px 8px;border-bottom:2px solid var(--border);color:var(--text-muted);font-size:9px;text-transform:uppercase">Date</th><th style="padding:6px 8px;text-align:right;border-bottom:2px solid var(--border);color:var(--text-muted);font-size:9px;text-transform:uppercase">Mensualité</th><th style="padding:6px 8px;text-align:right;border-bottom:2px solid var(--border);color:var(--text-muted);font-size:9px;text-transform:uppercase">Capital</th><th style="padding:6px 8px;text-align:right;border-bottom:2px solid var(--border);color:var(--text-muted);font-size:9px;text-transform:uppercase">Intérêts</th><th style="padding:6px 8px;text-align:right;border-bottom:2px solid var(--border);color:var(--text-muted);font-size:9px;text-transform:uppercase">Capital restant</th><th style="padding:6px 8px;border-bottom:2px solid var(--border);font-size:9px">Statut</th></tr></thead><tbody>';
+  var html='<div class="card"><div class="card-header"><span class="card-title">'+ico('calendar')+' Tableau d\'amortissement — '+empr.lib+'</span></div><div class="card-body" style="padding:0;overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:11px"><thead><tr style="background:var(--bg)"><th style="padding:6px 8px;border-bottom:2px solid var(--border);color:var(--text-muted);font-size:9px;text-transform:uppercase">Mois</th><th style="padding:6px 8px;border-bottom:2px solid var(--border);color:var(--text-muted);font-size:9px;text-transform:uppercase">Date</th><th style="padding:6px 8px;text-align:right;border-bottom:2px solid var(--border);color:var(--text-muted);font-size:9px;text-transform:uppercase">Mensualité</th><th style="padding:6px 8px;text-align:right;border-bottom:2px solid var(--border);color:var(--text-muted);font-size:9px;text-transform:uppercase">Capital</th><th style="padding:6px 8px;text-align:right;border-bottom:2px solid var(--border);color:var(--text-muted);font-size:9px;text-transform:uppercase">Intérêts</th><th style="padding:6px 8px;text-align:right;border-bottom:2px solid var(--border);color:var(--text-muted);font-size:9px;text-transform:uppercase">Capital restant</th><th style="padding:6px 8px;border-bottom:2px solid var(--border);font-size:9px">Statut</th></tr></thead><tbody>';
   empr.tableau.forEach(function(m,i){
     var done=i<(empr.comptabilise||0);
-    html+='<tr style="border-bottom:2px solid var(--border);'+(done?'opacity:.5;background:var(--bg)':'')+'"><td style="padding:5px 8px;font-family:\'Archivo\',sans-serif">'+m.mois+'</td><td style="padding:5px 8px;font-size:10.5px">'+m.date.split('-').reverse().join('/')+'</td><td style="padding:5px 8px;text-align:right;font-family:\'Archivo\',sans-serif">'+m.mensualite.toLocaleString('fr-FR')+'</td><td style="padding:5px 8px;text-align:right;font-family:\'Archivo\',sans-serif;color:var(--blue)">'+m.capital.toLocaleString('fr-FR')+'</td><td style="padding:5px 8px;text-align:right;font-family:\'Archivo\',sans-serif;color:var(--red)">'+m.interests.toLocaleString('fr-FR')+'</td><td style="padding:5px 8px;text-align:right;font-family:\'Archivo\',sans-serif">'+m.solde.toLocaleString('fr-FR')+'</td><td style="padding:5px 8px">'+( done?'<span class="badge bg-green" style="font-size:9px">✓ Comptabilisé</span>':'<span class="badge bg-teal" style="font-size:9px">En attente</span>')+'</td></tr>';
+    html+='<tr style="border-bottom:2px solid var(--border);'+(done?'opacity:.5;background:var(--bg)':'')+'"><td style="padding:5px 8px;font-family:\'Archivo\',sans-serif">'+m.mois+'</td><td style="padding:5px 8px;font-size:10.5px">'+m.date.split('-').reverse().join('/')+'</td><td style="padding:5px 8px;text-align:right;font-family:\'Archivo\',sans-serif">'+m.mensualite.toLocaleString('fr-FR')+'</td><td style="padding:5px 8px;text-align:right;font-family:\'Archivo\',sans-serif;color:var(--blue)">'+m.capital.toLocaleString('fr-FR')+'</td><td style="padding:5px 8px;text-align:right;font-family:\'Archivo\',sans-serif;color:var(--red)">'+m.interests.toLocaleString('fr-FR')+'</td><td style="padding:5px 8px;text-align:right;font-family:\'Archivo\',sans-serif">'+m.solde.toLocaleString('fr-FR')+'</td><td style="padding:5px 8px">'+( done?'<span class="badge bg-green" style="font-size:9px">'+ico('check')+' Comptabilisé</span>':'<span class="badge bg-teal" style="font-size:9px">En attente</span>')+'</td></tr>';
   });
   html+='</tbody></table></div></div>';
   w.innerHTML=html;
@@ -211,7 +211,7 @@ function renderAxes(){
   if(!AXES_ANALYTIQUES.length){el.innerHTML='<div style="color:var(--text-faint);font-style:italic;font-size:12px">Aucun axe. Créez votre premier axe analytique.</div>';return;}
   var sel=document.getElementById('affect-axe-sel');if(sel){sel.innerHTML='<option value="">— Choisir un axe —</option>';AXES_ANALYTIQUES.forEach(function(a){var o=document.createElement('option');o.value=a.id;o.textContent='['+a.code+'] '+a.lib;sel.appendChild(o);});}
   el.innerHTML=AXES_ANALYTIQUES.map(function(a,i){
-    return'<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:2px solid var(--border)"><div style="width:12px;height:12px;border-radius:50%;background:'+a.couleur+';flex-shrink:0"></div><div style="flex:1"><div style="font-size:12px;font-weight:600">['+a.code+'] '+a.lib+'</div><div style="font-size:10px;color:var(--text-muted)">'+a.type+'</div></div><button class="btn btn-sm" style="font-size:9px;padding:1px 5px;color:var(--red);border-color:var(--red-border)" onclick="supprimerAxe('+i+')">✕</button></div>';
+    return'<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:2px solid var(--border)"><div style="width:12px;height:12px;border-radius:50%;background:'+a.couleur+';flex-shrink:0"></div><div style="flex:1"><div style="font-size:12px;font-weight:600">['+a.code+'] '+a.lib+'</div><div style="font-size:10px;color:var(--text-muted)">'+a.type+'</div></div><button class="btn btn-sm" style="font-size:9px;padding:1px 5px;color:var(--red);border-color:var(--red-border)" onclick="supprimerAxe('+i+')">'+ico('close')+'</button></div>';
   }).join('');
 }
 function supprimerAxe(i){if(confirm('Supprimer cet axe ?')){AXES_ANALYTIQUES.splice(i,1);saveV14();renderAxes();calculerAnalytique();}}
@@ -304,7 +304,7 @@ async function simulerImpactFiscal(preview){
   // Conseil IA (pas en preview)
   if(!preview && res.label){
     document.getElementById('sim-ia-conseil').style.display='block';
-    document.getElementById('sim-ia-body').innerHTML='<div style="color:var(--text-muted);font-size:12px">⏳ Analyse IA en cours...</div>';
+    document.getElementById('sim-ia-body').innerHTML='<div style="color:var(--text-muted);font-size:12px">'+ico('clock')+' Analyse IA en cours...</div>';
     try{
       var isCalcT=window._IS_CALCULE||{};
       var prompt='Tu es un expert fiscaliste OHADA spécialisé au Togo. Analyse l\'impact de cette décision et donne 3 conseils concrets en 4-5 phrases maximum.\n\nEntreprise : '+((document.querySelector('.logo-sub')||{}).textContent||'Mon Entreprise')+'\nIS actuel : '+(isCalcT.isTotal||0).toLocaleString('fr-FR')+' FCFA\nBénéfice imposable : '+(isCalcT.benImposableNet||0).toLocaleString('fr-FR')+' FCFA\n\nDécision simulée : '+res.label+'\nRésultat calculé : '+JSON.stringify(res,null,2)+'\n\nContexte fiscal Togo : IS 27%, IRVM 3%/7%, CNSS 17,5% patronal, barème IR progressif.';
@@ -332,7 +332,7 @@ function setSecteur(s){
     if(el)el.style.display=(s===x)?'block':'none';
   });
   // Update title
-  var titles={commerce:'🛒 Articles — Facture multi-lignes',service:'🔧 Lignes de prestation',hotel:'🏨 Séjour & services hôteliers',industrie:'🏭 Produits finis / Production',event:'🍽️ Prestations événementielles'};
+  var titles={commerce:'Articles — Facture multi-lignes',service:'Lignes de prestation',hotel:'Séjour & services hôteliers',industrie:'Produits finis / Production',event:'Prestations événementielles'};
   var t=document.getElementById('ml-card-title');if(t)t.textContent=titles[s]||titles.commerce;
   // Init lignes vides si vide
   if(!ML_LIGNES.length)ajouterLigneML();
@@ -517,7 +517,7 @@ function lancerOrdreFabrication(){
   if(typeof sauvegarderAuto==='function')sauvegarderAuto();
   renderOFHistory();renderNomenclatures();
   if(typeof ajouterNotif==='function')ajouterNotif('info','OF lancé — '+n.produit,qtteProduite+' '+n.unite+' produits pour '+Math.round(coutTotal).toLocaleString('fr-FR')+' FCFA. Coût unitaire : '+Math.round(coutTotal/qtteProduite).toLocaleString('fr-FR')+' FCFA.');
-  alert('✓ Production lancée ! '+qtteProduite+' '+n.unite+' de "'+n.produit+'" ajoutés au stock produits finis (35x). Coût total : '+Math.round(coutTotal).toLocaleString('fr-FR')+' FCFA.');
+  alert('Production lancée ! '+qtteProduite+' '+n.unite+' de "'+n.produit+'" ajoutés au stock produits finis (35x). Coût total : '+Math.round(coutTotal).toLocaleString('fr-FR')+' FCFA.');
 }
 function renderOFHistory(){
   var el=document.getElementById('of-history');if(!el)return;
@@ -575,7 +575,7 @@ function renderZCaisse(){
   var grandTotal=0;
   VENTES_CAISSE.forEach(function(v){totals[v.mode]=(totals[v.mode]||0)+v.ttc;grandTotal+=v.ttc;});
   var html='<div style="font-size:11.5px;margin-bottom:8px"><div style="font-weight:600;color:var(--text-muted);font-size:10px;text-transform:uppercase;margin-bottom:6px">Ventilation par mode</div>';
-  var modeLabels={espece:'💵 Espèces',flooz:'📱 Flooz',tmoney:'📱 T-Money',banque:'💳 Banque'};
+  var modeLabels={espece:ico('coin')+' Espèces',flooz:'Flooz',tmoney:'T-Money',banque:ico('card')+' Banque'};
   Object.keys(totals).forEach(function(m){if(totals[m]>0)html+='<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:2px solid var(--border)"><span>'+modeLabels[m]+'</span><span style="font-family:\'Archivo\',sans-serif;font-weight:600">'+totals[m].toLocaleString('fr-FR')+' FCFA</span></div>';});
   html+='<div style="display:flex;justify-content:space-between;padding:8px 0;font-weight:700;font-size:13px"><span>TOTAL Z</span><span style="font-family:\'Archivo\',sans-serif;color:var(--green-dark)">'+grandTotal.toLocaleString('fr-FR')+' FCFA</span></div>';
   html+='<div style="font-size:10.5px;color:var(--text-muted)">'+VENTES_CAISSE.length+' vente(s) enregistrée(s)</div></div>';
@@ -601,7 +601,7 @@ function clotureZCaisse(){
   if(typeof renderJournal==='function')renderJournal();
   renderZCaisse();
   if(typeof ajouterNotif==='function')ajouterNotif('info','Z de caisse clôturé',grandTotal.toLocaleString('fr-FR')+' FCFA comptabilisés en journée du '+new Date().toLocaleDateString('fr-FR'));
-  alert('✓ Z de caisse clôturé. '+grandTotal.toLocaleString('fr-FR')+' FCFA comptabilisés dans le journal.');
+  alert('Z de caisse clôturé. '+grandTotal.toLocaleString('fr-FR')+' FCFA comptabilisés dans le journal.');
 }
 
 // ── GO() PATCH v14 ─────────────────────────────────────────
@@ -614,7 +614,7 @@ function clotureZCaisse(){
       document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});
       var pane=document.getElementById('pane-'+id);if(pane)pane.classList.add('active');
       if(el)el.classList.add('active');
-      var titles={emprunts:'🏦 Emprunts bancaires',analytique:'📊 Comptabilité analytique',audit:'🔍 Piste d\'audit',simulateur:'🧮 Simulateur fiscal',production:'🏭 Module Production',caisse:'🧾 Caisse / Point de Vente'};
+      var titles={emprunts:'Emprunts bancaires',analytique:'Comptabilité analytique',audit:'Piste d\'audit',simulateur:'Simulateur fiscal',production:'Module Production',caisse:'Caisse / Point de Vente'};
       var pt=document.getElementById('page-title');if(pt)pt.textContent=titles[id]||id;
       if(id==='emprunts'){renderEmprunts();}
       if(id==='analytique'){renderAxes();calculerAnalytique();}
@@ -642,7 +642,7 @@ function clotureZCaisse(){
   if(ML_LIGNES.length===0){ajouterLigneML();ajouterLigneML();}
   // Update sidebar compte pour flooz/tmoney
   var T=window._go14_titles||{};
-  T.emprunts='🏦 Emprunts bancaires';T.analytique='📊 Comptabilité analytique';T.audit='🔍 Piste d\'audit';T.simulateur='🧮 Simulateur fiscal';T.production='🏭 Module Production';T.caisse='🧾 Caisse / Point de Vente';
+  T.emprunts='Emprunts bancaires';T.analytique='Comptabilité analytique';T.audit='Piste d\'audit';T.simulateur='Simulateur fiscal';T.production='Module Production';T.caisse='Caisse / Point de Vente';
   // Patch valider() pour log audit
   var origVal=window.valider;
   if(origVal&&!origVal._v14patched){
@@ -660,7 +660,7 @@ function clotureZCaisse(){
       var cont=document.getElementById('pane-solde');
       if(cont&&!document.getElementById('sc-flooz')){
         var mmDiv=document.createElement('div');mmDiv.style.cssText='display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px';
-        mmDiv.innerHTML='<div style="background:var(--blue-light);border:2px solid var(--blue-border);border-radius:var(--radius);padding:12px;text-align:center"><div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;margin-bottom:4px">📱 Flooz (5215)</div><div style="font-size:20px;font-weight:700;font-family:\'Archivo\',sans-serif;color:var(--blue)" id="sc-flooz">0 FCFA</div></div><div style="background:var(--purple-light,#f3f0fe);border:2px solid var(--border);border-radius:var(--radius);padding:12px;text-align:center"><div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;margin-bottom:4px">📱 T-Money (5216)</div><div style="font-size:20px;font-weight:700;font-family:\'Archivo\',sans-serif;color:var(--purple)" id="sc-tmoney">0 FCFA</div></div>';
+        mmDiv.innerHTML='<div style="background:var(--blue-light);border:2px solid var(--blue-border);border-radius:var(--radius);padding:12px;text-align:center"><div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;margin-bottom:4px">Flooz (5215)</div><div style="font-size:20px;font-weight:700;font-family:\'Archivo\',sans-serif;color:var(--blue)" id="sc-flooz">0 FCFA</div></div><div style="background:var(--purple-light,#f3f0fe);border:2px solid var(--border);border-radius:var(--radius);padding:12px;text-align:center"><div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;margin-bottom:4px">T-Money (5216)</div><div style="font-size:20px;font-weight:700;font-family:\'Archivo\',sans-serif;color:var(--purple)" id="sc-tmoney">0 FCFA</div></div>';
         var firstCard=cont.querySelector('.card');if(firstCard)firstCard.after(mmDiv);
         // Patch renderSolde
         var origRS=window.renderSolde;

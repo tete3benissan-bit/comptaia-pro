@@ -12,18 +12,18 @@
       <div style="font-size:15px;font-weight:600;color:var(--text)">Tableau de bord IA</div>
       <div style="font-size:11px;color:var(--text-muted);margin-top:2px">Analyse intelligente de votre entreprise — mis à jour en temps réel</div>
     </div>
-    <button class="btn btn-primary btn-sm" onclick="refreshDashboard()">⟳ Actualiser l'analyse IA</button>
+    <button class="btn btn-primary btn-sm" onclick="refreshDashboard()">${ico('refresh')} Actualiser l'analyse IA</button>
   </div>
   <div class="ai-reco" id="dash-reco">
-    <div class="ai-reco-title">✦ Recommandations prioritaires de l'IA</div>
+    <div class="ai-reco-title">${ico('sparkle')} Recommandations prioritaires de l'IA</div>
     <div style="color:rgba(168,164,159,.6);font-style:italic;font-size:12px">Cliquez sur "Actualiser l'analyse IA" pour obtenir des recommandations personnalisées.</div>
   </div>
   <div class="dash-grid" id="dash-kpis"></div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
-    <div class="card"><div class="card-header"><span class="card-title">📈 Évolution CA mensuel</span></div><div class="card-body" style="padding:10px"><div style="position:relative;height:160px"><canvas id="dash-chart-ca" role="img" aria-label="CA mensuel"></canvas></div></div></div>
-    <div class="card"><div class="card-header"><span class="card-title">📊 Répartition des charges</span></div><div class="card-body" style="padding:10px"><div style="position:relative;height:160px"><canvas id="dash-chart-charges" role="img" aria-label="Répartition charges"></canvas></div></div></div>
+    <div class="card"><div class="card-header"><span class="card-title">${ico('trendUp')} Évolution CA mensuel</span></div><div class="card-body" style="padding:10px"><div style="position:relative;height:160px"><canvas id="dash-chart-ca" role="img" aria-label="CA mensuel"></canvas></div></div></div>
+    <div class="card"><div class="card-header"><span class="card-title">${ico('dashboard')} Répartition des charges</span></div><div class="card-body" style="padding:10px"><div style="position:relative;height:160px"><canvas id="dash-chart-charges" role="img" aria-label="Répartition charges"></canvas></div></div></div>
   </div>
-  <div class="card" id="dash-alertes"><div class="card-header"><span class="card-title">🔔 Points d'attention</span></div><div class="card-body" id="dash-alertes-body"><div style="color:var(--text-faint);font-style:italic;font-size:12px">Aucune alerte — vos comptes semblent en ordre.</div></div></div>`;
+  <div class="card" id="dash-alertes"><div class="card-header"><span class="card-title">${ico('bell')} Points d'attention</span></div><div class="card-body" id="dash-alertes-body"><div style="color:var(--text-faint);font-style:italic;font-size:12px">Aucune alerte — vos comptes semblent en ordre.</div></div></div>`;
   content.appendChild(pDash);
 
   // ─── SCORE FINANCIER ───
@@ -32,7 +32,7 @@
   pScore.innerHTML=`
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
     <div><div style="font-size:15px;font-weight:600">Score de santé financière</div><div style="font-size:11px;color:var(--text-muted);margin-top:2px">Évaluation automatique basée sur vos données comptables — comme un rapport d'agence de notation</div></div>
-    <button class="btn btn-primary btn-sm" onclick="calculerScore()">⟳ Calculer le score</button>
+    <button class="btn btn-primary btn-sm" onclick="calculerScore()">${ico('refresh')} Calculer le score</button>
   </div>
   <div style="display:grid;grid-template-columns:220px 1fr;gap:20px;margin-bottom:16px">
     <div class="card" style="text-align:center;padding:20px">
@@ -46,7 +46,7 @@
       <div id="score-details"></div>
     </div>
   </div>
-  <div class="card"><div class="card-header"><span class="card-title">📋 Rapport détaillé</span></div><div class="card-body" id="score-rapport"><div style="color:var(--text-faint);font-style:italic;font-size:12px">Calculez votre score pour voir le rapport complet.</div></div></div>`;
+  <div class="card"><div class="card-header"><span class="card-title">${ico('clipboard')} Rapport détaillé</span></div><div class="card-body" id="score-rapport"><div style="color:var(--text-faint);font-style:italic;font-size:12px">Calculez votre score pour voir le rapport complet.</div></div></div>`;
   content.appendChild(pScore);
 
   // ─── OCR PHOTO ───
@@ -60,7 +60,7 @@
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
     <div>
       <div class="ocr-drop" id="ocr-drop" onclick="document.getElementById('ocr-file').click()" ondragover="event.preventDefault();this.classList.add('drag-over')" ondragleave="this.classList.remove('drag-over')" ondrop="ocr_drop(event)">
-        <div style="font-size:32px;margin-bottom:8px">📷</div>
+        <div style="font-size:32px;margin-bottom:8px">${ico('camera')}</div>
         <div style="font-size:13px;font-weight:600;color:var(--text-muted)">Cliquez ou glissez-déposez une image</div>
         <div style="font-size:11px;color:var(--text-faint);margin-top:4px">PNG, JPG, JPEG, WebP · Max 5MB</div>
         <div style="margin-top:10px;font-size:11px;color:var(--green-dark);background:var(--green-light);padding:4px 10px;border-radius:var(--radius);display:inline-block">Prise en charge : factures, reçus, relevés</div>
@@ -75,12 +75,12 @@
         <div style="color:var(--text-faint);font-style:italic;font-size:12px;text-align:center;padding-top:60px">Importez une image pour voir les données extraites ici.</div>
       </div>
       <div id="ocr-actions" style="display:none;margin-top:10px">
-        <button class="btn btn-primary" onclick="ocr_appliquer()" style="width:100%">✓ Remplir le formulaire de facture avec ces données</button>
+        <button class="btn btn-primary" onclick="ocr_appliquer()" style="width:100%">${ico('check')} Remplir le formulaire de facture avec ces données</button>
       </div>
     </div>
   </div>
   <div class="card" style="margin-top:14px">
-    <div class="card-header"><span class="card-title">💡 Comment ça marche</span></div>
+    <div class="card-header"><span class="card-title">${ico('lightbulb')} Comment ça marche</span></div>
     <div class="card-body" style="font-size:12px;color:var(--text-muted);line-height:1.8">
       1. Prenez une photo claire de la facture (bien éclairée, lisible) ou scannez-la.<br>
       2. Importez l'image ci-dessus — l'IA Claude analyse automatiquement le document.<br>
@@ -97,7 +97,7 @@
   pFraude.innerHTML=`
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
     <div><div style="font-size:15px;font-weight:600">Détection d'anomalies comptables</div><div style="font-size:11px;color:var(--text-muted);margin-top:2px">Analyse automatique pour détecter les erreurs, doublons et patterns inhabituels.</div></div>
-    <button class="btn btn-primary btn-sm" onclick="lancerDetection()">🛡️ Lancer l'analyse</button>
+    <button class="btn btn-primary btn-sm" onclick="lancerDetection()">${ico('shield')} Lancer l'analyse</button>
   </div>
   <div class="kpi-grid kpi-grid-4" id="fraude-kpis" style="margin-bottom:14px">
     <div class="kpi" style="border-top:3px solid var(--red)"><div class="kpi-label">Anomalies critiques</div><div class="kpi-value kpi-neg" id="fr-crit">—</div><div class="kpi-sub">à corriger</div></div>
@@ -125,8 +125,8 @@
       <div class="card" style="margin-top:10px">
         <div class="card-header"><span class="card-title">Import/Export dossier</span></div>
         <div class="card-body">
-          <button class="btn btn-sm" onclick="exporterEntreprise()" style="width:100%;margin-bottom:6px">💾 Exporter le dossier actuel</button>
-          <button class="btn btn-sm btn-primary" onclick="document.getElementById('import-co').click()" style="width:100%">📂 Importer un dossier</button>
+          <button class="btn btn-sm" onclick="exporterEntreprise()" style="width:100%;margin-bottom:6px">${ico('save')} Exporter le dossier actuel</button>
+          <button class="btn btn-sm btn-primary" onclick="document.getElementById('import-co').click()" style="width:100%">${ico('folder')} Importer un dossier</button>
           <input type="file" id="import-co" accept=".json" style="display:none" onchange="importerEntreprise(event)"/>
         </div>
       </div>
@@ -177,7 +177,7 @@
       <div id="bench-ratios" class="card-body">Sélectionnez votre secteur et cliquez sur Calculer.</div>
     </div>
   </div>
-  <div class="card"><div class="card-header"><span class="card-title">📊 Visualisation comparative</span></div><div class="card-body" style="padding:10px"><div style="position:relative;height:240px"><canvas id="bench-chart" role="img" aria-label="Benchmarks comparatifs"></canvas></div></div></div>`;
+  <div class="card"><div class="card-header"><span class="card-title">${ico('dashboard')} Visualisation comparative</span></div><div class="card-body" style="padding:10px"><div style="position:relative;height:240px"><canvas id="bench-chart" role="img" aria-label="Benchmarks comparatifs"></canvas></div></div></div>`;
   content.appendChild(pBench);
 
 })();
