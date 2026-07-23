@@ -172,7 +172,7 @@ renderBilan=renderBilanV9;
 // ═══ PDF PROFESSIONNEL ═══
 function exporterPDF(){
   var menu=document.createElement('div');
-  menu.style.cssText='position:fixed;top:56px;right:16px;background:var(--surface);border:2px solid var(--border);border-radius:var(--radius);box-shadow:8px 8px 0 var(--main);z-index:9999;padding:6px 0;min-width:210px';
+  menu.style.cssText='position:fixed;top:56px;right:16px;background:var(--surface);border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);z-index:9999;padding:6px 0;min-width:210px';
   var items=[['📒 Journal comptable','genPDF("journal")'],['⚖️ Bilan OHADA','genPDF("bilan")'],['📈 Compte de résultats','genPDF("resultats")'],['🔢 Balance des comptes','genPDF("balance")'],['🏗️ Tableau des immobilisations','genPDF("immo")'],['📄 Liste des factures','genPDF("factures")']];
   menu.innerHTML='<div style="padding:4px 14px 7px;font-size:10px;font-weight:700;text-transform:uppercase;color:var(--text-muted)">Exporter en PDF</div>'+items.map(function(it){return'<div onclick="'+it[1]+';this.closest(\'div[style*=fixed]\').remove()" style="padding:8px 14px;cursor:pointer;font-size:12.5px;color:var(--text)" onmouseover="this.style.background=\'var(--bg)\'" onmouseout="this.style.background=\'transparent\'">'+it[0]+'</div>';}).join('')+'<div style="border-top:2px solid var(--border);margin:4px 0"></div><div onclick="this.closest(\'div[style*=fixed]\').remove()" style="padding:7px 14px;cursor:pointer;font-size:11.5px;color:var(--text-muted)">✕ Fermer</div>';
   document.body.appendChild(menu);

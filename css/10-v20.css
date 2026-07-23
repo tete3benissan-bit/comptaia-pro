@@ -1,6 +1,6 @@
 /* v20: SA/SARL top-bar selector styles - extracted from ComptaIA_Pro_original.html lines 10197-10214 */
 /* ── Sélecteur de statut juridique dans la barre du haut ── */
-#fj-topbar{display:flex;border:2px solid var(--border-strong);border-radius:var(--radius);overflow:hidden;flex-shrink:0}
+#fj-topbar{display:flex;border-radius:999px;overflow:hidden;flex-shrink:0;box-shadow:var(--shadow-sm)}
 #fj-topbar .fj-btn{padding:6px 13px;font-size:11px;letter-spacing:.3px}
 #fj-selector-wrap{display:none!important}
 

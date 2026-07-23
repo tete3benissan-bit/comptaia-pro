@@ -854,7 +854,7 @@
 
 <!-- MODAL RÈGLEMENT -->
 <div id="modal-regl" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:1000;align-items:center;justify-content:center" onclick="if(event.target===this)fermerRegl()">
-  <div style="background:var(--surface);border-radius:var(--radius);width:440px;max-width:95vw;box-shadow:8px 8px 0 var(--main)">
+  <div style="background:var(--surface);border-radius:var(--radius);width:440px;max-width:95vw;box-shadow:var(--shadow-lg)">
     <div style="padding:15px 18px;border-bottom:2px solid var(--border);display:flex;justify-content:space-between;align-items:center"><strong>Enregistrer le règlement</strong><button onclick="fermerRegl()" style="background:none;border:none;cursor:pointer;font-size:18px;color:var(--text-muted)">×</button></div>
     <div style="padding:18px">
       <div id="regl-info" style="background:var(--amber-light);border:2px solid var(--amber-border);border-radius:var(--radius);padding:9px 12px;margin-bottom:14px;font-size:11.5px;color:var(--amber)"></div>
@@ -874,7 +874,7 @@
 
 <!-- MODAL ÉDITION -->
 <div id="modal-edit" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:1001;align-items:center;justify-content:center" onclick="if(event.target===this)fermerEdit()">
-  <div style="background:var(--surface);border-radius:var(--radius);width:500px;max-width:95vw;box-shadow:8px 8px 0 var(--main)">
+  <div style="background:var(--surface);border-radius:var(--radius);width:500px;max-width:95vw;box-shadow:var(--shadow-lg)">
     <div style="padding:15px 18px;border-bottom:2px solid var(--border);display:flex;justify-content:space-between;align-items:center"><strong>Modifier l'écriture</strong><button onclick="fermerEdit()" style="background:none;border:none;cursor:pointer;font-size:18px;color:var(--text-muted)">×</button></div>
     <div style="padding:18px">
       <div style="background:var(--amber-light);border:2px solid var(--amber-border);border-radius:var(--radius);padding:8px 12px;margin-bottom:12px;font-size:11px;color:var(--amber)">Toute modification sera tracée dans les notifications.</div>
@@ -898,7 +898,7 @@
 
 <!-- MODAL VIREMENT -->
 <div id="modal-vir" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:1000;align-items:center;justify-content:center" onclick="if(event.target===this)fermerVir()">
-  <div style="background:var(--surface);border-radius:var(--radius);width:420px;max-width:95vw;box-shadow:8px 8px 0 var(--main)">
+  <div style="background:var(--surface);border-radius:var(--radius);width:420px;max-width:95vw;box-shadow:var(--shadow-lg)">
     <div style="padding:15px 18px;border-bottom:2px solid var(--border);display:flex;justify-content:space-between;align-items:center"><strong>🔄 Virement interne</strong><button onclick="fermerVir()" style="background:none;border:none;cursor:pointer;font-size:18px;color:var(--text-muted)">×</button></div>
     <div style="padding:18px">
       <div class="fgrid fg2" style="margin-bottom:12px">
@@ -918,7 +918,7 @@
 
 <!-- MODAL AJOUT GL -->
 <div id="modal-gl" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:1001;align-items:center;justify-content:center" onclick="if(event.target===this)fermerGL()">
-  <div style="background:var(--surface);border-radius:var(--radius);width:460px;max-width:95vw;box-shadow:8px 8px 0 var(--main)">
+  <div style="background:var(--surface);border-radius:var(--radius);width:460px;max-width:95vw;box-shadow:var(--shadow-lg)">
     <div style="padding:15px 18px;border-bottom:2px solid var(--border);display:flex;justify-content:space-between;align-items:center"><strong>+ Ajouter un compte au Grand Livre</strong><button onclick="fermerGL()" style="background:none;border:none;cursor:pointer;font-size:18px;color:var(--text-muted)">×</button></div>
     <div style="padding:18px">
       <div style="background:var(--blue-light);border:2px solid var(--blue-border);border-radius:var(--radius);padding:8px 12px;margin-bottom:12px;font-size:11px;color:var(--blue)">Le compte sera complété automatiquement dès qu'une écriture y est imputée.</div>
@@ -939,7 +939,7 @@
 
 <!-- MODAL CONFIRMATION STOCK -->
 <div id="modal-stock" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1002;align-items:center;justify-content:center">
-  <div style="background:var(--surface);border-radius:var(--radius);width:460px;max-width:95vw;box-shadow:8px 8px 0 var(--main)">
+  <div style="background:var(--surface);border-radius:var(--radius);width:460px;max-width:95vw;box-shadow:var(--shadow-lg)">
     <div style="padding:15px 18px;border-bottom:2px solid var(--border);display:flex;align-items:center;gap:8px"><span style="font-size:18px">🤔</span><strong>Confirmation mouvement de stock</strong></div>
     <div style="padding:18px">
       <div style="background:var(--blue-light);border:2px solid var(--blue-border);border-radius:var(--radius);padding:10px 12px;margin-bottom:12px;font-size:11.5px;color:var(--blue);line-height:1.7" id="sc-ctx"></div>

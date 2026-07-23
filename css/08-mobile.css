@@ -15,7 +15,7 @@ html{-webkit-text-size-adjust:100%}
 
   /* — Sidebar transformée en tiroir coulissant — */
   .sidebar{position:fixed;left:0;top:0;bottom:0;height:100vh;height:100dvh;width:min(290px,86vw);transform:translateX(-103%);transition:transform .28s cubic-bezier(.4,0,.2,1);z-index:1500;padding-bottom:env(safe-area-inset-bottom)}
-  body.nav-open .sidebar{transform:translateX(0);box-shadow:6px 0 0 var(--main)}
+  body.nav-open .sidebar{transform:translateX(0);box-shadow:14px 0 30px rgba(35,42,54,.35)}
   .sidebar-nav{overscroll-behavior:contain}
   .main{width:100%;min-width:0}
   #menu-burger{display:flex}
