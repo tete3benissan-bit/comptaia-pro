@@ -26,7 +26,7 @@
 body{font-family:'Archivo',sans-serif;background:var(--bg);color:var(--text);display:flex;height:100vh;overflow:hidden;font-size:14px;font-variant-numeric:tabular-nums}
 
 /* ── SIDEBAR ── */
-.sidebar{width:230px;background:var(--sidebar-bg);display:flex;flex-direction:column;flex-shrink:0;height:100vh;overflow-y:auto}
+.sidebar{position:relative;width:230px;background:var(--sidebar-bg);display:flex;flex-direction:column;flex-shrink:0;height:100vh;overflow-y:auto}
 .logo{padding:20px 20px 14px}
 .logo-name{font-size:18px;font-weight:800;color:#fff;letter-spacing:-.3px}
 .logo-name span{color:var(--accent)}
@@ -200,3 +200,22 @@ textarea{resize:vertical;min-height:52px}
 
 ::-webkit-scrollbar{width:6px;height:6px}
 ::-webkit-scrollbar-thumb{background:rgba(163,177,198,.6);border-radius:6px}
+
+/* ── FOND DE MARQUE SARL/SA (sidebar + écran d'accueil + écran de connexion) ──
+   Deux motifs Uiverse.io, très atténués (faible opacité) pour rester en
+   arrière-plan discret sur les zones sans données denses. Bascule
+   automatique via body.fj-sa (déjà géré par js/16-v20-notifications-sa-sarl.js
+   au chargement de la page, avant même la connexion). Positionné en
+   z-index négatif : le contenu réel (nav, cartes, formulaire...) passe
+   toujours devant sans qu'il soit nécessaire de lui ajouter un z-index. */
+.sidebar::before,#hub::before,#auth-overlay::before{
+  content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.05;
+  background:
+    repeating-conic-gradient(from 30deg,#0000 0 120deg,#3c3c3c 0 180deg) 40px 23.1px,
+    repeating-conic-gradient(from 30deg,#1d1d1d 0 60deg,#4e4f51 0 120deg,#3c3c3c 0 180deg);
+  background-size:80px 46.2px;
+}
+body.fj-sa .sidebar::before,body.fj-sa #hub::before,body.fj-sa #auth-overlay::before{
+  background:repeating-linear-gradient(135deg,#232526 0px,#232526 60px,#23252699 70px,#414345 130px);
+  opacity:.07;
+}
