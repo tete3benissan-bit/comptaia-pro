@@ -21,11 +21,3 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 #tb-start{background:var(--accent)}
 #tb-start:hover{filter:none;background:var(--accent-dark)}
 ::-webkit-scrollbar-thumb{border-radius:6px}
-
-/* TEMPORARY DEBUG — outlines to locate the blue-background bug on the dashboard pane, remove once found */
-body{outline:5px solid #ff00ff!important}
-.main{outline:5px solid #ffa500!important}
-.content{outline:5px dashed #00ff00!important}
-#pane-dashboard{outline:5px solid #ff0000!important}
-#dash-kpis{outline:4px dashed #00ffff!important}
-.dash-insight{outline:2px solid #000!important}
