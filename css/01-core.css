@@ -1,26 +1,41 @@
 /* Core layout & design tokens (root CSS variables, sidebar, main, cards, tables, forms) - extracted from ComptaIA_Pro_original.html lines 12-204 */
-/* Restyled: soft neumorphic theme (dual-direction soft shadows for relief, no hard borders, generous rounded corners), adapted from a Uiverse.io button component. Variable NAMES kept identical on purpose - every other file in this app references these by name; --border/--border-strong now resolve to transparent so most borders across the whole app disappear for free via the existing token system. */
+/* Restyled: dark tactile "keycap" theme, adapted from a Uiverse.io embossed 3D button component (by Yaya12085). Variable NAMES kept identical on purpose - every other file in this app references these by name; *-dark variants now mean "bright, legible on a dark tint" rather than literally darker, since they're used as text color on top of the *-light chip backgrounds. --border/--border-strong still resolve to transparent so most borders across the whole app disappear for free via the existing token system. */
 :root{
-  --accent:#2d8cf0;--accent-dark:#1f6fc4;--accent-light:#dceafc;--accent-rgb:45,140,240;
-  --main:rgba(163,177,198,.5);
-  --green:#1a9e5c;--green-dark:#0f6b3d;--green-light:#e3f6ec;--green-mid:#1a9e5c;--green-border:transparent;
-  --red:#e0554a;--red-light:#fbe9e7;--red-border:transparent;
-  --amber:#d99a2b;--amber-light:#fdf3e0;--amber-border:transparent;
-  --blue:#2d8cf0;--blue-light:#dceafc;--blue-border:transparent;
-  --purple:#9b6fd9;--purple-light:#f1e9fb;--purple-border:transparent;
-  --teal:#33a89c;--teal-light:#e2f6f4;
-  --bg:#e8ecf1;--surface:#e8ecf1;--sidebar-bg:#232a36;
-  --sidebar-text:#8b96a8;--text:#3d4451;--text-muted:#5b6270;--text-faint:#7d8492;
-  --border:transparent;--border-strong:transparent;--border-soft:#dbe1e8;
-  --radius:16px;--radius-lg:22px;
-  --shadow-light:#ffffff;--shadow-dark:rgba(163,177,198,.55);
-  --shadow-sm:4px 4px 8px var(--shadow-dark),-4px -4px 8px var(--shadow-light);
-  --shadow-md:6px 6px 14px var(--shadow-dark),-6px -6px 14px var(--shadow-light);
-  --shadow-lg:10px 10px 24px var(--shadow-dark),-8px -8px 20px var(--shadow-light);
-  --shadow-inset:inset 3px 3px 6px var(--shadow-dark),inset -3px -3px 6px var(--shadow-light);
-  --sidebar-shadow-light:rgba(255,255,255,.05);--sidebar-shadow-dark:rgba(0,0,0,.45);
-  --sidebar-shadow-sm:3px 3px 6px var(--sidebar-shadow-dark),-3px -3px 6px var(--sidebar-shadow-light);
+  --accent:#4da6ff;--accent-dark:#2f86e0;--accent-light:rgba(77,166,255,.14);--accent-rgb:77,166,255;
+  --main:#000;
+  --green:#22c07a;--green-dark:#3ddb92;--green-light:rgba(34,192,122,.14);--green-mid:#22c07a;--green-border:transparent;
+  --red:#ff6b5e;--red-light:rgba(255,107,94,.14);--red-border:transparent;
+  --amber:#f0b432;--amber-light:rgba(240,180,50,.14);--amber-border:transparent;
+  --blue:#4da6ff;--blue-light:rgba(77,166,255,.14);--blue-border:transparent;
+  --purple:#b18aef;--purple-light:rgba(177,138,239,.14);--purple-border:transparent;
+  --teal:#3ecbbd;--teal-light:rgba(62,203,189,.14);
+  --bg:#111319;--surface:#1c1f27;--sidebar-bg:#0a0b0e;
+  --sidebar-text:#7d8494;--text:#e9ebf1;--text-muted:#9aa0b1;--text-faint:#666c7c;
+  --border:transparent;--border-strong:transparent;--border-soft:rgba(255,255,255,.08);
+  --radius:15px;--radius-lg:20px;
+  --shadow-light:rgba(255,255,255,.05);--shadow-dark:rgba(0,0,0,.6);
+  --shadow-sm:4px 4px 8px var(--shadow-dark),-3px -3px 7px var(--shadow-light);
+  --shadow-md:6px 6px 14px var(--shadow-dark),-4px -4px 10px var(--shadow-light);
+  --shadow-lg:10px 10px 24px var(--shadow-dark),-6px -6px 16px var(--shadow-light);
+  --shadow-inset:inset 3px 3px 6px var(--shadow-dark),inset -2px -2px 5px var(--shadow-light);
+  --sidebar-shadow-light:rgba(255,255,255,.04);--sidebar-shadow-dark:rgba(0,0,0,.7);
+  --sidebar-shadow-sm:3px 3px 6px var(--sidebar-shadow-dark),-2px -2px 5px var(--sidebar-shadow-light);
   --sidebar-shadow-inset:inset 2px 2px 4px var(--sidebar-shadow-dark),inset -2px -2px 4px var(--sidebar-shadow-light);
+  --row-hover:rgba(255,255,255,.04);--topbar-shadow:0 2px 10px rgba(0,0,0,.4);--scrollbar-thumb:rgba(255,255,255,.15);
+  --switch-track:#3a3f4b;
+}
+/* Light theme override - toggled via [data-theme="light"] on <html> (see .ui-switch in css/14-uiverse.css
+   and toggleTheme() in js/01-core.js). Only the base tones are restated here; --shadow-sm/md/lg/inset,
+   --sidebar-shadow-sm/inset etc. are all derived from these via var(), so they adapt for free. */
+:root[data-theme="light"]{
+  --accent-light:#dceafc;--green-light:#e3f6ec;--red-light:#fbe9e7;--amber-light:#fdf3e0;--blue-light:#dceafc;--purple-light:#f1e9fb;--teal-light:#e2f6f4;
+  --bg:#e8ecf1;--surface:#e8ecf1;
+  --sidebar-text:#8b96a8;--text:#3d4451;--text-muted:#5b6270;--text-faint:#7d8492;
+  --border-soft:#dbe1e8;
+  --shadow-light:#ffffff;--shadow-dark:rgba(163,177,198,.55);
+  --sidebar-shadow-light:rgba(255,255,255,.05);--sidebar-shadow-dark:rgba(0,0,0,.45);
+  --row-hover:rgba(163,177,198,.08);--topbar-shadow:0 2px 10px rgba(163,177,198,.35);--scrollbar-thumb:rgba(163,177,198,.6);
+  --switch-track:#c3cbd6;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Archivo',sans-serif;background:var(--bg);color:var(--text);display:flex;height:100vh;overflow:hidden;font-size:14px;font-variant-numeric:tabular-nums}
@@ -62,15 +77,18 @@ body{font-family:'Archivo',sans-serif;background:var(--bg);color:var(--text);dis
 
 /* ── MAIN ── */
 .main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
-.topbar{background:var(--surface);padding:0 20px;height:56px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;gap:10px;box-shadow:0 2px 10px rgba(163,177,198,.35)}
+.topbar{background:var(--surface);padding:0 20px;height:56px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;gap:10px;box-shadow:var(--topbar-shadow)}
 .page-title{font-size:14px;font-weight:800;white-space:nowrap}
 .topbar-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.btn{padding:8px 16px;font-size:11.5px;font-family:'Archivo',sans-serif;border-radius:var(--radius);cursor:pointer;border:none;background:var(--surface);color:var(--text);font-weight:700;transition:box-shadow .15s,transform .15s;white-space:nowrap;box-shadow:var(--shadow-sm)}
-.btn:hover{box-shadow:var(--shadow-md);transform:translateY(-1px)}
-.btn:active{box-shadow:var(--shadow-inset);transform:translateY(0)}
-.btn-primary{background:var(--accent);color:#fff}
-.btn-primary:hover{background:var(--accent-dark)}
-.btn-danger{background:var(--red);color:#fff}
+/* Keycap button - embossed 3D press, adapted from the Uiverse.io snippet: gradient
+   sheen for the top-lit/bottom-shaded facet, hard (non-blurred) drop shadow that
+   collapses to 0 on :active so the button reads as pressed into the surface. */
+.btn{padding:8px 16px;font-size:11.5px;font-family:'Archivo',sans-serif;border-radius:15px 15px 12px 12px;cursor:pointer;border:none;background-color:var(--surface);background-image:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,0) 45%),linear-gradient(0deg,rgba(0,0,0,.3),rgba(0,0,0,0) 55%);color:var(--text);font-weight:700;transition:box-shadow .12s ease-in-out,transform .12s ease-in-out;white-space:nowrap;user-select:none;box-shadow:0 3px 0 rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.06),inset 0 -2px 4px rgba(0,0,0,.35)}
+.btn:hover{transform:translateY(-1px);box-shadow:0 4px 0 rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.08),inset 0 -2px 4px rgba(0,0,0,.4)}
+.btn:active{transform:translateY(3px);box-shadow:0 0 0 rgba(0,0,0,.45),inset 0 2px 5px rgba(0,0,0,.55)}
+.btn-primary{background-color:var(--accent);color:#fff}
+.btn-primary:hover{background-color:var(--accent-dark)}
+.btn-danger{background-color:var(--red);color:#fff}
 .btn-sm{padding:6px 12px;font-size:11px}
 .content{flex:1;overflow-y:auto;padding:22px}
 
@@ -104,7 +122,7 @@ table{width:100%;border-collapse:collapse;font-size:11.5px}
 th{text-align:left;padding:9px 12px;font-size:10px;font-weight:800;color:var(--text-muted);background:transparent;border-bottom:1px solid var(--border-soft);text-transform:uppercase;letter-spacing:.05em;white-space:nowrap}
 td{padding:10px 12px;border-bottom:1px solid var(--border-soft);color:var(--text);vertical-align:middle;transition:background .12s}
 tr:last-child td{border-bottom:none}
-tr:hover td{background:rgba(163,177,198,.08)}
+tr:hover td{background:var(--row-hover)}
 .tot-row td{font-weight:800;background:var(--green-light);border-top:1px solid var(--border-soft);border-bottom:none;color:var(--green-dark)}
 .empty-row td{text-align:center;color:var(--text-faint);padding:24px;font-style:italic}
 
@@ -138,7 +156,7 @@ textarea{resize:vertical;min-height:52px}
 
 /* ── ALERTS ── */
 .alert{padding:12px 16px;border-radius:var(--radius);font-size:11.5px;line-height:1.6;margin-bottom:12px;display:none;box-shadow:var(--shadow-sm)}
-.alert-err{background:var(--red-light);color:#a13c33}
+.alert-err{background:var(--red-light);color:var(--red)}
 .alert-ok{background:var(--green-light);color:var(--green-dark)}
 .alert-info{background:var(--blue-light);color:var(--blue)}
 .alert-warn{background:var(--amber-light);color:var(--amber)}
@@ -199,7 +217,7 @@ textarea{resize:vertical;min-height:52px}
 .acc{display:inline-block;padding:2px 9px;background:var(--accent-light);color:var(--accent-dark);border-radius:999px;font-size:10.5px;font-weight:800;font-family:'Archivo',sans-serif}
 
 ::-webkit-scrollbar{width:6px;height:6px}
-::-webkit-scrollbar-thumb{background:rgba(163,177,198,.6);border-radius:6px}
+::-webkit-scrollbar-thumb{background:var(--scrollbar-thumb);border-radius:6px}
 
 /* ── FOND DE MARQUE SARL/SA (sidebar + écran d'accueil + écran de connexion) ──
    Deux motifs Uiverse.io, très atténués (faible opacité) pour rester en

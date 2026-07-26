@@ -38,3 +38,59 @@
   background:linear-gradient(135deg,var(--blue),var(--purple));
   color:#fff;
 }
+
+/* ─── Light/dark theme switch, by Galahhad — sun/moon icons kept as the
+   original inlined SVG data-URIs, track/thumb retinted to the app's own
+   --switch-track / --accent tokens so it flips color with the theme
+   instead of staying a fixed navy-on-grey. Toggled via toggleTheme() in
+   js/01-core.js, which flips [data-theme] on <html> and persists the
+   choice. ─── */
+.ui-switch{
+  --switch-width:44px;--switch-height:18px;--circle-diameter:26px;
+  --circle-inset:calc((var(--circle-diameter) - var(--switch-height)) / 2);
+  display:inline-flex;align-items:center;flex-shrink:0;
+}
+.ui-switch input{display:none}
+.ui-switch .slider{
+  appearance:none;width:var(--switch-width);height:var(--switch-height);
+  background:var(--switch-track);border-radius:999px;position:relative;cursor:pointer;
+  transition:background .2s ease;
+}
+.ui-switch .slider .circle{
+  top:calc(var(--circle-inset) * -1);left:0;
+  width:var(--circle-diameter);height:var(--circle-diameter);position:absolute;
+  background:var(--accent);border-radius:50%;
+  background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjAiIHdpZHRoPSIyMCIgdmlld0JveD0iMCAwIDIwIDIwIj4KICAgIDxwYXRoIGZpbGw9IiNmZmYiCiAgICAgICAgZD0iTTkuMzA1IDEuNjY3VjMuNzVoMS4zODlWMS42NjdoLTEuMzl6bS00LjcwNyAxLjk1bC0uOTgyLjk4Mkw1LjA5IDYuMDcybC45ODItLjk4Mi0xLjQ3My0xLjQ3M3ptMTAuODAyIDBMMTMuOTI3IDUuMDlsLjk4Mi45ODIgMS40NzMtMS40NzMtLjk4Mi0uOTgyek0xMCA1LjEzOWE0Ljg3MiA0Ljg3MiAwIDAwLTQuODYyIDQuODZBNC44NzIgNC44NzIgMCAwMDEwIDE0Ljg2MiA0Ljg3MiA0Ljg3MiAwIDAwMTQuODYgMTAgNC44NzIgNC44NzIgMCAwMDEwIDUuMTM5em0wIDEuMzg5QTMuNDYyIDMuNDYyIDAgMDExMy40NzEgMTBhMy40NjIgMy40NjIgMCAwMS0zLjQ3MyAzLjQ3MkEzLjQ2MiAzLjQ2MiAwIDAxNi41MjcgMTAgMy40NjIgMy40NjIgMCAwMTEwIDYuNTI4ek0xLjY2NSA5LjMwNXYxLjM5aDIuMDgzdi0xLjM5SDEuNjY2em0xNC41ODMgMHYxLjM5aDIuMDg0di0xLjM5aC0yLjA4NHpNNS4wOSAxMy45MjhMMy42MTYgMTUuNGwuOTgyLjk4MiAxLjQ3My0xLjQ3My0uOTgyLS45ODJ6bTkuODIgMGwtLjk4Mi45ODIgMS40NzMgMS40NzMuOTgyLS45ODItMS40NzMtMS40NzN6TTkuMzA1IDE2LjI1djIuMDgzaDEuMzg5VjE2LjI1aC0xLjM5eiIgLz4KPC9zdmc+");
+  background-repeat:no-repeat;background-position:center center;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 2px 4px rgba(0,0,0,.35);
+  transition:left .15s cubic-bezier(.4,0,.2,1),background-color .15s;
+}
+.ui-switch input:checked + .slider .circle{
+  left:calc(100% - var(--circle-diameter));
+  background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjAiIHdpZHRoPSIyMCIgdmlld0JveD0iMCAwIDIwIDIwIj4KICAgIDxwYXRoIGZpbGw9IiNmZmYiCiAgICAgICAgZD0iTTQuMiAyLjVsLS43IDEuOC0xLjguNyAxLjguNy43IDEuOC42LTEuOEw2LjcgNWwtMS45LS43LS42LTEuOHptMTUgOC4zYTYuNyA2LjcgMCAxMS02LjYtNi42IDUuOCA1LjggMCAwMDYuNiA2LjZ6IiAvPgo8L3N2Zz4=");
+}
+
+/* ─── Hub launcher tiles get the radial-gradient "bloom on hover" identity
+   from Smit-Prajapati's card, retinted to the app's own accent/teal/purple
+   family instead of the original candy pink/cyan. Kept CSS-only (no extra
+   nested .box1-4 layers, which are markup this card doesn't have) rather
+   than the literal 4-layer unfurl, since .hub-carte already carries a
+   title/description/badge that the original icon-only demo didn't. ─── */
+.hub-carte{position:relative}
+.hub-carte::before,.hub-carte::after{
+  content:'';position:absolute;border-radius:50%;pointer-events:none;
+  opacity:0;transform:scale(.4);transition:opacity .5s ease,transform .6s ease;
+}
+.hub-carte::before{
+  width:220px;height:220px;right:-90px;bottom:-110px;
+  background:radial-gradient(circle,var(--accent) 0%,var(--teal) 55%,transparent 75%);
+  transition-delay:0s;
+}
+.hub-carte::after{
+  width:140px;height:140px;right:-50px;bottom:-70px;
+  background:radial-gradient(circle,var(--purple) 0%,transparent 70%);
+  transition-delay:.08s;
+}
+.hub-carte:hover::before,.hub-carte:hover::after{opacity:.22;transform:scale(1)}
+.hub-carte:hover{transform:translateY(-3px) scale(1.015)}

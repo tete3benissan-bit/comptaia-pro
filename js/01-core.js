@@ -31,6 +31,13 @@ function fmtD(d){if(!d)return'';var p=d.split('-');return p.length===3?p[2]+'/'+
 function nowStr(){var d=new Date();return d.toLocaleDateString('fr-FR')+' à '+d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}
 function nb(id){return document.getElementById(id)}
 
+// ═══ THÈME CLAIR / SOMBRE ═══
+function toggleTheme(){
+  var light=document.documentElement.getAttribute('data-theme')==='light';
+  if(light){document.documentElement.removeAttribute('data-theme');try{localStorage.setItem('comptaia_theme','dark');}catch(e){}}
+  else{document.documentElement.setAttribute('data-theme','light');try{localStorage.setItem('comptaia_theme','light');}catch(e){}}
+}
+
 // ═══ INIT DATE ═══
 window.onload=function(){
   nb('f-date').value=new Date().toISOString().split('T')[0];
@@ -38,6 +45,8 @@ window.onload=function(){
   updateNumAuto();
   chargerLocalStorage();
   verifierRetards();
+  var ts=nb('theme-switch');
+  if(ts)ts.checked=document.documentElement.getAttribute('data-theme')==='light';
 };
 
 // ═══ SAUVEGARDE LOCALE AUTO ═══
@@ -439,7 +448,7 @@ function renderJournal(){
     var isAtt=e.stat==='attente'&&!REGL.includes(e);
     var sb=isAtt?`<span class="badge bg-amber" style="cursor:pointer" onclick="ouvrirRegl(${origIdx})">${ico('clock')}</span>`:'<span class="badge bg-green">'+ico('check')+'</span>';
     var btnR=isAtt?`<button onclick="ouvrirRegl(${origIdx})" style="font-size:10px;padding:2px 8px;border-radius:var(--radius);cursor:pointer;border:1px solid var(--green);background:var(--green-light);color:var(--green-dark);font-weight:600">Régler</button>`:'';
-    var bg=isAtt?'background:#f5efe2;':e.avoir?'background:#FAF5FF;':e.isTVA?'background:#E0F7FA08;':'';
+    var bg=isAtt?'background:var(--amber-light);':e.avoir?'background:var(--purple-light);':e.isTVA?'background:var(--teal-light);':'';
     var bl=isAtt?'border-left:3px solid var(--amber);':e.avoir?'border-left:3px solid var(--purple);':e.isTVA?'border-left:3px solid var(--teal);':'border-left:3px solid transparent;';
     var tags='';
     if(e._modifie)tags+=' <span style="font-size:9px;padding:1px 4px;background:var(--amber-light);color:var(--amber);border-radius:var(--radius)">modifié</span>';
@@ -897,9 +906,9 @@ function supprimerDedExtra(i){DED_EXTRAS.splice(i,1);renderDedExtras();calcImpot
 function renderDedExtras(){
   if(!DED_EXTRAS.length){nb('ded-extras-liste').innerHTML='';return;}
   nb('ded-extras-liste').innerHTML='<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px">'+
-    DED_EXTRAS.map((d,i)=>`<div style="background:var(--teal-light);border:1px solid #B2EBF2;border-radius:var(--radius);padding:8px 10px;display:flex;align-items:center;justify-content:space-between">
+    DED_EXTRAS.map((d,i)=>`<div style="background:var(--teal-light);border:1px solid var(--teal-border,transparent);border-radius:var(--radius);padding:8px 10px;display:flex;align-items:center;justify-content:space-between">
       <div><div style="font-size:11px;font-weight:600;color:var(--teal)">${d.lib}</div><div style="font-size:12px;font-weight:700;font-family:'Archivo',sans-serif;color:var(--teal)">${fmt(d.mt)} FCFA</div></div>
-      <button onclick="supprimerDedExtra(${i})" style="font-size:10px;padding:1px 6px;border-radius:var(--radius);cursor:pointer;border:1px solid #B2EBF2;background:transparent;color:var(--teal)">${ico('close')}</button>
+      <button onclick="supprimerDedExtra(${i})" style="font-size:10px;padding:1px 6px;border-radius:var(--radius);cursor:pointer;border:1px solid var(--teal-border,transparent);background:transparent;color:var(--teal)">${ico('close')}</button>
     </div>`).join('')+
   '</div>';
 }
@@ -964,7 +973,7 @@ function calcImpot(){
   DED_EXTRAS.forEach(d=>dedDetails.push({lib:d.lib+' (extra)',mt:d.mt}));
 
   var rows='';
-  rows+=`<tr style="background:#eaf1ec"><td style="font-weight:600">Chiffre d'affaires net (HT, avoirs déduits)</td><td style="text-align:right;font-family:'Archivo',sans-serif;font-weight:700;color:var(--green)">${fmt(ca)} FCFA</td><td style="text-align:center"><span class="badge bg-green">Base</span></td></tr>`;
+  rows+=`<tr style="background:var(--green-light)"><td style="font-weight:600">Chiffre d'affaires net (HT, avoirs déduits)</td><td style="text-align:right;font-family:'Archivo',sans-serif;font-weight:700;color:var(--green)">${fmt(ca)} FCFA</td><td style="text-align:center"><span class="badge bg-green">Base</span></td></tr>`;
   rows+=`<tr><td style="padding-left:24px;color:var(--text-muted)">− Charges comptables enregistrées (Classe 6)</td><td style="text-align:right;font-family:'Archivo',sans-serif;color:var(--red)">− ${fmt(chCompta)} FCFA</td><td style="text-align:center"><span class="badge bg-red">Déductible</span></td></tr>`;
   if(totalSal>0){
     rows+=`<tr style="background:var(--purple-light)"><td style="padding-left:24px;color:var(--purple);font-weight:600">− Charges salariales (${SALAIRES.length} catégorie(s) — ${SALAIRES.reduce((a,s)=>a+s.nb,0)} employé(s))</td><td style="text-align:right;font-family:'Archivo',sans-serif;color:var(--purple);font-weight:700">− ${fmt(totalSal)} FCFA</td><td style="text-align:center"><span class="badge bg-purple">Déductible</span></td></tr>`;
@@ -974,7 +983,7 @@ function calcImpot(){
     rows+=`<tr><td style="padding-left:24px;color:var(--teal)">− ${d.lib}</td><td style="text-align:right;font-family:'Archivo',sans-serif;color:var(--teal)">− ${fmt(d.mt)} FCFA</td><td style="text-align:center"><span class="badge bg-teal">Déductible</span></td></tr>`;
   });
   rows+=`<tr style="background:var(--bg);border-top:2px solid var(--border-strong)"><td style="font-weight:700">= Bénéfice imposable net</td><td style="text-align:right;font-family:'Archivo',sans-serif;font-weight:700;font-size:13px;color:${benImposable>=0?'var(--blue)':'var(--text-muted)'}">${benImposable<0?'0 FCFA (déficit fiscal — IS = 0)':fmt(benImposableNet)+' FCFA'}</td><td style="text-align:center"><span class="badge bg-blue">Base IS</span></td></tr>`;
-  rows+=`<tr style="background:#FFF9E6;border-top:2px solid var(--amber-border)"><td style="font-weight:700;color:var(--amber)">× Taux IS Togo = 27%</td><td style="text-align:right;font-family:'Archivo',sans-serif;font-weight:700;font-size:15px;color:var(--amber)">${fmt(isTotal)} FCFA</td><td style="text-align:center"><span class="badge bg-amber">IS DÛ</span></td></tr>`;
+  rows+=`<tr style="background:var(--amber-light);border-top:2px solid var(--amber-border)"><td style="font-weight:700;color:var(--amber)">× Taux IS Togo = 27%</td><td style="text-align:right;font-family:'Archivo',sans-serif;font-weight:700;font-size:15px;color:var(--amber)">${fmt(isTotal)} FCFA</td><td style="text-align:center"><span class="badge bg-amber">IS DÛ</span></td></tr>`;
   nb('is-detail-table').innerHTML=rows;
 
   // Verdict final

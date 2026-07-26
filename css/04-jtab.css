@@ -3,5 +3,5 @@
 .jtab.active{background:var(--green);color:#fff}
 .page-btn{padding:4px 10px;font-size:11px;border:2px solid var(--border-strong);border-radius:var(--radius);cursor:pointer;background:var(--surface);color:var(--text);font-family:'Archivo',sans-serif}
 .page-btn.active{background:var(--green);color:#fff;border-color:var(--green)}
-.rappr-matched{background:#eaf1ec}
-.rappr-unmatched{background:#f5efe2}
+.rappr-matched{background:var(--green-light)}
+.rappr-unmatched{background:var(--amber-light)}
