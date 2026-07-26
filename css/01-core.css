@@ -9,11 +9,11 @@
   --blue:#4da6ff;--blue-light:rgba(77,166,255,.14);--blue-border:transparent;
   --purple:#b18aef;--purple-light:rgba(177,138,239,.14);--purple-border:transparent;
   --teal:#3ecbbd;--teal-light:rgba(62,203,189,.14);
-  --bg:#111319;--surface:#1c1f27;--sidebar-bg:#0a0b0e;
-  --sidebar-text:#7d8494;--text:#e9ebf1;--text-muted:#9aa0b1;--text-faint:#666c7c;
-  --border:transparent;--border-strong:transparent;--border-soft:rgba(255,255,255,.08);
+  --bg:#181b22;--surface:#262b36;--sidebar-bg:#0a0b0e;
+  --sidebar-text:#7d8494;--text:#f1f3f7;--text-muted:#aab0c0;--text-faint:#7c8294;
+  --border:transparent;--border-strong:transparent;--border-soft:rgba(255,255,255,.11);
   --radius:15px;--radius-lg:20px;
-  --shadow-light:rgba(255,255,255,.05);--shadow-dark:rgba(0,0,0,.6);
+  --shadow-light:rgba(255,255,255,.06);--shadow-dark:rgba(0,0,0,.55);
   --shadow-sm:4px 4px 8px var(--shadow-dark),-3px -3px 7px var(--shadow-light);
   --shadow-md:6px 6px 14px var(--shadow-dark),-4px -4px 10px var(--shadow-light);
   --shadow-lg:10px 10px 24px var(--shadow-dark),-6px -6px 16px var(--shadow-light);
@@ -113,19 +113,27 @@ body{font-family:'Archivo',sans-serif;background:var(--bg);color:var(--text);dis
    green/red tokens on top since these numbers carry real gain/loss meaning that has to stay
    legible and correct regardless of the decorative palette. The existing inline
    `border-top:3px solid var(--color)` used across ~20 KPI instances in index.html still works
-   unmodified - it only overrides the top edge, the ink border stays on the other 3 sides. */
+   unmodified - it only overrides the top edge, the ink border stays on the other 3 sides.
+   NOTE: .kpi-label/.kpi-value/.kpi-sub are also reused bare inside .dash-insight (dashboard
+   tiles, css/02-v10-dashboard.css), which keeps its own dark var(--surface) background - so
+   the ink-black color below is scoped to ".kpi .kpi-label" etc, not the bare class, otherwise
+   dashboard tiles would get black text on a dark background (illegible - this is exactly the
+   bug that got reported). */
 .kpi-grid{display:grid;gap:16px;margin-bottom:16px}
 .kpi-grid-2{grid-template-columns:repeat(2,1fr)}
 .kpi-grid-3{grid-template-columns:repeat(3,1fr)}
 .kpi-grid-4{grid-template-columns:repeat(4,1fr)}
-.kpi{position:relative;overflow:hidden;background:#fbf8f1;color:#0e0e0c;border:1px solid #0e0e0c;border-radius:var(--radius-lg);padding:18px 20px;transition:box-shadow .2s cubic-bezier(.2,.7,.2,1),transform .2s cubic-bezier(.2,.7,.2,1)}
+.kpi-label{font-size:10px;color:var(--text-muted);margin-bottom:3px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.kpi-value{display:block;font-size:21px;font-weight:800;font-family:'Archivo',sans-serif;letter-spacing:-.3px;color:var(--text)}
+.kpi-sub{font-size:10px;color:var(--text-faint);margin-top:2px}
+.kpi{position:relative;overflow:hidden;background:#fbf8f1;border:1px solid #0e0e0c;border-radius:var(--radius-lg);padding:18px 20px;transition:box-shadow .2s cubic-bezier(.2,.7,.2,1),transform .2s cubic-bezier(.2,.7,.2,1)}
 .kpi::before{content:'';position:absolute;inset:-40% -20% auto auto;width:150px;height:150px;background:radial-gradient(circle,#d8ff3d 0 38%,transparent 39%);opacity:.55;pointer-events:none}
 .kpi:hover{box-shadow:0 14px 28px -18px rgba(14,14,12,.4);transform:translateY(-3px)}
-.kpi-label{position:relative;font-family:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;font-size:9.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#0e0e0c;margin-bottom:8px}
-.kpi-value{position:relative;display:block;font-size:clamp(22px,3vw,32px);font-weight:800;font-family:'Archivo',sans-serif;letter-spacing:-.03em;line-height:.9;color:#0e0e0c}
-.kpi-sub{position:relative;font-size:10.5px;color:#4a4842;margin-top:6px}
-.kpi-pos{color:var(--green)}
-.kpi-neg{color:var(--red)}
+.kpi .kpi-label{position:relative;font-family:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;font-size:9.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#0e0e0c;margin-bottom:8px}
+.kpi .kpi-value{position:relative;font-size:clamp(22px,3vw,32px);letter-spacing:-.03em;line-height:.9;color:#0e0e0c}
+.kpi .kpi-sub{position:relative;font-size:10.5px;color:#4a4842;margin-top:6px}
+.kpi-value.kpi-pos{color:var(--green)}
+.kpi-value.kpi-neg{color:var(--red)}
 
 /* ── TABLES ── */
 .table-wrap{overflow-x:auto}

@@ -88,7 +88,7 @@ async function authLogin() {
   var p=document.getElementById('auth-pass').value;
   if(!u||!p){showAErr('Identifiant et mot de passe requis.');return;}
   var users=getUsers(); var ph=await hashPass(p);
-  var user=users.find(x=>x.username===u&&x.passHash===ph);
+  var user=users.find(x=>x.username.toLowerCase()===u.toLowerCase()&&x.passHash===ph);
   if(!user){showAErr('Identifiant ou mot de passe incorrect.');return;}
   if(user.active===false){showAErr('Ce compte a été désactivé. Contactez votre administrateur.');return;}
   CURRENT_USER=user; sessionStorage.setItem('comptaia_session',JSON.stringify(user));
