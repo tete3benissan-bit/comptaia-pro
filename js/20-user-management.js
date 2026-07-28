@@ -76,8 +76,9 @@ async function umAjouter(){
     if(!nom||!email){alert('Nom complet et e-mail requis.');return;}
     if(!role){alert("Aucun rôle sélectionné — rechargez la page et réessayez.");return;}
     var res=await supabaseClient.functions.invoke('invite-user',{body:{email:email,nom:nom,role:role}});
-    if(res.error||(res.data&&res.data.error)){
-      alert("Erreur lors de l'invitation : "+(res.data&&res.data.error?res.data.error:(res.error&&res.error.message?res.error.message:'inconnue')));
+    var errMsg=await supabaseFnError(res);
+    if(errMsg){
+      alert("Erreur lors de l'invitation : "+errMsg);
       return;
     }
     document.getElementById('um-nom').value='';

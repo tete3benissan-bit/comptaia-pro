@@ -48,8 +48,9 @@ async function authSetupAdmin() {
   if(!entreprise||!nom||!email||!p){showAErr('Tous les champs sont requis.');return;}
   if(p.length<6){showAErr('Mot de passe trop court (min. 6 caractères).');return;}
   var res=await supabaseClient.functions.invoke('create-company',{body:{entreprise:entreprise,nom:nom,email:email,password:p}});
-  if(res.error||(res.data&&res.data.error)){
-    showAErr(res.data&&res.data.error?res.data.error:(res.error&&res.error.message?res.error.message:'Échec de la création.'));
+  var errMsg=await supabaseFnError(res);
+  if(errMsg){
+    showAErr(errMsg);
     return;
   }
   var signIn=await supabaseClient.auth.signInWithPassword({email:email,password:p});
