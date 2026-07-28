@@ -3,109 +3,105 @@
 // GEST Africa v12 — Module principal
 // ═══════════════════════════════════════════════════════
 
-// ── Authentification ──────────────────────────────────
+// ── Authentification (Supabase Auth + profiles, multi-entreprise) ────
 var CURRENT_USER = null;
 
-async function hashPass(str) {
-  try {
-    var buf = new TextEncoder().encode(str);
-    var hash = await crypto.subtle.digest('SHA-256', buf);
-    return Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,'0')).join('');
-  } catch(e) {
-    // Fallback simple hash for older browsers
-    var h = 0;
-    for(var i=0;i<str.length;i++){h=((h<<5)-h)+str.charCodeAt(i);h|=0;}
-    return 'h'+Math.abs(h).toString(16);
-  }
+function showAErr(m){var e=document.getElementById('auth-err');e.textContent=m;e.style.display='block';var ok=document.getElementById('auth-ok');if(ok)ok.style.display='none';}
+function showAOk(m){var e=document.getElementById('auth-ok');e.textContent=m;e.style.display='block';var err=document.getElementById('auth-err');if(err)err.style.display='none';}
+
+function authShowSetup(){
+  document.getElementById('auth-login-card').style.display='none';
+  document.getElementById('auth-setup-card').style.display='flex';
+  document.getElementById('auth-setpass-card').style.display='none';
+}
+function authShowLogin(){
+  document.getElementById('auth-setup-card').style.display='none';
+  document.getElementById('auth-setpass-card').style.display='none';
+  document.getElementById('auth-login-card').style.display='flex';
 }
 
-function getUsers() { try{return JSON.parse(localStorage.getItem('comptaia_users')||'[]');}catch(e){return [];} }
-function saveUsers(u) { localStorage.setItem('comptaia_users',JSON.stringify(u)); }
-
-// Migration: installs that ran the old hardcoded-demo-account version have
-// admin/comptable/lecture users already sitting in localStorage. Those never
-// had a "nom" field (added with this version) — real accounts always do, so
-// any user missing it is unmistakably leftover demo data. Wipe it so the
-// installation goes through first-run admin setup instead of silently
-// keeping the old admin123/compta123/lecture123 passwords alive.
-function migrerAnciensComptesDemo() {
-  var users = getUsers();
-  if (users.length && users.every(function(u){ return !u.nom; })) {
-    saveUsers([]);
-    sessionStorage.removeItem('comptaia_session');
-  }
+// Fetches the profile row (+ company name) for a logged-in Supabase user.
+// CURRENT_USER keeps the same field names as the old local-only version
+// (nom, role, active, company) so js/20-user-management.js and
+// js/22-permissions.js don't need to change how they read it.
+async function authFetchProfile(userId){
+  var res=await supabaseClient.from('profiles').select('id,company_id,nom,email,role,active,companies(name)').eq('id',userId).single();
+  if(res.error||!res.data)return null;
+  var d=res.data;
+  return {id:d.id,company_id:d.company_id,nom:d.nom,email:d.email,role:d.role,active:d.active,company:(d.companies&&d.companies.name)||''};
 }
 
-// Migration : le système à 3 rôles (admin/comptable/lecture) a été remplacé
-// par 6 rôles (voir js/22-permissions.js) qui n'incluent plus "lecture". Un
-// vrai compte créé sous l'ancien système (donc avec un "nom", pas wipe par
-// migrerAnciensComptesDemo) resterait sinon bloqué hors de tous les modules.
-// On le fait passer sur "comptable", l'équivalent le plus proche.
-function migrerAncienRoleLecture() {
-  var users = getUsers();
-  var change = false;
-  users.forEach(function(u){ if(u.role==='lecture'){ u.role='comptable'; change=true; } });
-  if (change) saveUsers(users);
-}
-
-// No more hardcoded demo accounts. On first launch (zero users), the auth
-// screen shows a one-time "create the administrator account" form instead
-// of the login form; every other account is created afterwards by that
-// admin from the "Gestion des utilisateurs" panel (js/20-user-management.js).
-function authBootstrap() {
-  migrerAnciensComptesDemo();
-  migrerAncienRoleLecture();
-  var users = getUsers();
-  var loginCard = document.getElementById('auth-login-card');
-  var setupCard = document.getElementById('auth-setup-card');
-  if (users.length === 0) {
-    if (loginCard) loginCard.style.display = 'none';
-    if (setupCard) setupCard.style.display = 'flex';
-  } else {
-    if (loginCard) loginCard.style.display = 'flex';
-    if (setupCard) setupCard.style.display = 'none';
-  }
-}
-
+// The one self-serve path: creating a brand-new company makes you its admin.
+// Every other account is created afterwards by that admin via the
+// invite-user Edge Function, from "Gestion des utilisateurs" (js/20).
+// Goes through the create-company Edge Function (service_role) rather than
+// a plain client-side signUp()+insert: that would leave the account
+// unconfirmed with no active session on a project where email confirmation
+// is required, which makes the immediately-following RLS-protected inserts
+// fail. The Edge Function creates the account already confirmed, so all we
+// do here afterward is sign in normally.
 async function authSetupAdmin() {
+  var entreprise=(document.getElementById('setup-entreprise').value||'').trim();
   var nom=(document.getElementById('setup-nom').value||'').trim();
-  var u=(document.getElementById('setup-user').value||'').trim();
+  var email=(document.getElementById('setup-user').value||'').trim();
   var p=document.getElementById('setup-pass').value;
-  if(!nom||!u||!p){showAErr('Tous les champs sont requis.');return;}
+  if(!entreprise||!nom||!email||!p){showAErr('Tous les champs sont requis.');return;}
   if(p.length<6){showAErr('Mot de passe trop court (min. 6 caractères).');return;}
-  var users=getUsers();
-  if(users.find(x=>x.username.toLowerCase()===u.toLowerCase())){showAErr('Identifiant déjà utilisé.');return;}
-  var ph=await hashPass(p);
-  var admin={nom:nom,username:u,passHash:ph,role:'admin',active:true};
-  users.push(admin);
-  saveUsers(users);
-  CURRENT_USER=admin; sessionStorage.setItem('comptaia_session',JSON.stringify(admin));
+  var res=await supabaseClient.functions.invoke('create-company',{body:{entreprise:entreprise,nom:nom,email:email,password:p}});
+  if(res.error||(res.data&&res.data.error)){
+    showAErr(res.data&&res.data.error?res.data.error:(res.error&&res.error.message?res.error.message:'Échec de la création.'));
+    return;
+  }
+  var signIn=await supabaseClient.auth.signInWithPassword({email:email,password:p});
+  if(signIn.error||!signIn.data.user){showAErr('Entreprise créée, mais échec de la connexion automatique. Essayez de vous connecter manuellement.');authShowLogin();return;}
+  CURRENT_USER=await authFetchProfile(signIn.data.user.id);
   onAuthSuccess();
 }
 
 async function authLogin() {
-  var u=(document.getElementById('auth-user').value||'').trim();
+  var email=(document.getElementById('auth-user').value||'').trim();
   var p=document.getElementById('auth-pass').value;
-  if(!u||!p){showAErr('Identifiant et mot de passe requis.');return;}
-  var users=getUsers(); var ph=await hashPass(p);
-  var user=users.find(x=>x.username.toLowerCase()===u.toLowerCase()&&x.passHash===ph);
-  if(!user){showAErr('Identifiant ou mot de passe incorrect.');return;}
-  if(user.active===false){showAErr('Ce compte a été désactivé. Contactez votre administrateur.');return;}
-  CURRENT_USER=user; sessionStorage.setItem('comptaia_session',JSON.stringify(user));
+  if(!email||!p){showAErr('E-mail et mot de passe requis.');return;}
+  var res=await supabaseClient.auth.signInWithPassword({email:email,password:p});
+  if(res.error||!res.data.user){showAErr('Identifiant ou mot de passe incorrect.');return;}
+  var profile=await authFetchProfile(res.data.user.id);
+  if(!profile){showAErr('Profil introuvable. Contactez votre administrateur.');await supabaseClient.auth.signOut();return;}
+  if(profile.active===false){showAErr('Ce compte a été désactivé. Contactez votre administrateur.');await supabaseClient.auth.signOut();return;}
+  CURRENT_USER=profile;
   onAuthSuccess();
 }
 
-function showAErr(m){var e=document.getElementById('auth-err');e.textContent=m;e.style.display='block';}
+async function authForgotPassword(){
+  var email=(document.getElementById('auth-user').value||'').trim();
+  if(!email){showAErr('Entrez votre e-mail ci-dessus d\'abord.');return;}
+  var res=await supabaseClient.auth.resetPasswordForEmail(email);
+  if(res.error){showAErr(res.error.message);return;}
+  showAOk('E-mail de réinitialisation envoyé si ce compte existe.');
+}
+
+// Landing page after clicking an invite link (or a password-reset link):
+// Supabase's detectSessionInUrl already exchanged the token into a session
+// by the time this runs (see the load handler below).
+async function authSetPassword(){
+  var p=document.getElementById('setpass-pass').value;
+  if(!p||p.length<6){showAErr('Mot de passe trop court (min. 6 caractères).');return;}
+  var res=await supabaseClient.auth.updateUser({password:p});
+  if(res.error||!res.data.user){showAErr(res.error?res.error.message:'Échec de la définition du mot de passe.');return;}
+  var profile=await authFetchProfile(res.data.user.id);
+  if(!profile){showAErr('Profil introuvable.');return;}
+  CURRENT_USER=profile;
+  onAuthSuccess();
+}
 
 function onAuthSuccess() {
   document.getElementById('auth-overlay').style.display='none';
-  var company=CURRENT_USER.company||'Mon Entreprise SARL';
+  var company=CURRENT_USER.company||'Mon Entreprise';
   var logoSub=document.querySelector('.logo-sub');
   if(logoSub)logoSub.textContent=company;
   var footer=document.getElementById('sidebar-footer');
   if(footer)footer.textContent='GEST Africa v12 — '+company;
   var tu=document.getElementById('topbar-user');
-  var displayName=CURRENT_USER.nom||CURRENT_USER.username;
+  var displayName=CURRENT_USER.nom||CURRENT_USER.email;
   var roleLbl=(window.permLabelRole?permLabelRole(CURRENT_USER.role):CURRENT_USER.role);
   var roleCls=(window.permBadgeClass?permBadgeClass(CURRENT_USER.role):'bg-amber');
   if(tu)tu.innerHTML=ico('users')+' <strong>'+displayName+'</strong> <span class="badge '+roleCls+'">'+roleLbl+'</span>';
@@ -120,9 +116,11 @@ function onAuthSuccess() {
   setTimeout(function(){try{verifierAlertes();}catch(e){}},1500);
 }
 
-function authLogout() {
+async function authLogout() {
   if(!confirm('Se déconnecter ?'))return;
-  CURRENT_USER=null; sessionStorage.removeItem('comptaia_session');
+  await supabaseClient.auth.signOut();
+  CURRENT_USER=null;
+  authShowLogin();
   document.getElementById('auth-overlay').style.display='flex';
   var tu=document.getElementById('topbar-user'); if(tu)tu.innerHTML='';
   var btnLogout=document.getElementById('btn-logout'); if(btnLogout)btnLogout.style.display='none';
@@ -545,26 +543,36 @@ function verifierAlertes(){
 })();
 
 // ── Init v12 ─────────────────────────────────────────
-window.addEventListener('load',function(){
+window.addEventListener('load',async function(){
   document.title='GEST Africa v12 — OHADA Togo';
   var footer=document.getElementById('sidebar-footer');if(footer)footer.textContent='GEST Africa v12 — OHADA Togo';
   // Show auth overlay
   var overlay=document.getElementById('auth-overlay');
   if(overlay)overlay.style.display='flex';
-  // Decide login vs first-run admin setup, then check for a session — but
-  // always re-check the account is still active against the live user list
-  // rather than trusting the stored session snapshot (an admin may have
-  // disabled/deleted the account since it was saved).
-  authBootstrap();
+  // Supabase's detectSessionInUrl (on by default) has already exchanged an
+  // invite/recovery link's token into a session by the time this runs, but
+  // only the URL hash tells us it was that kind of link (vs. a normal
+  // already-logged-in visit) - hence the explicit type=invite/type=recovery
+  // check rather than trusting onAuthStateChange's event name.
+  var hash=window.location.hash||'';
+  var isInviteOrRecovery=hash.indexOf('type=invite')>-1||hash.indexOf('type=recovery')>-1;
   try{
-    var s=sessionStorage.getItem('comptaia_session');
-    if(s){
-      var savedUser=JSON.parse(s);
-      var fresh=getUsers().find(function(x){return x.username===savedUser.username;});
-      if(fresh&&fresh.active!==false){CURRENT_USER=fresh;onAuthSuccess();}
-      else{sessionStorage.removeItem('comptaia_session');}
+    var sess=await supabaseClient.auth.getSession();
+    var session=sess.data&&sess.data.session;
+    if(session&&isInviteOrRecovery){
+      document.getElementById('auth-login-card').style.display='none';
+      document.getElementById('auth-setup-card').style.display='none';
+      document.getElementById('auth-setpass-card').style.display='flex';
+    }else if(session){
+      // Always re-check the profile is still active rather than trusting a
+      // stale session (an admin may have disabled the account meanwhile).
+      var profile=await authFetchProfile(session.user.id);
+      if(profile&&profile.active!==false){CURRENT_USER=profile;onAuthSuccess();}
+      else{await supabaseClient.auth.signOut();authShowLogin();}
+    }else{
+      authShowLogin();
     }
-  }catch(e){}
+  }catch(e){authShowLogin();}
   // Add pagination div to journal
   setTimeout(function(){
     var jTable=document.querySelector('#pane-journal .card');
