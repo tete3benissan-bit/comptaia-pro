@@ -94,7 +94,7 @@ async function authSetPassword(){
   onAuthSuccess();
 }
 
-function onAuthSuccess() {
+async function onAuthSuccess() {
   document.getElementById('auth-overlay').style.display='none';
   var company=CURRENT_USER.company||'Mon Entreprise';
   var logoSub=document.querySelector('.logo-sub');
@@ -108,8 +108,10 @@ function onAuthSuccess() {
   if(tu)tu.innerHTML=ico('users')+' <strong>'+displayName+'</strong> <span class="badge '+roleCls+'">'+roleLbl+'</span>';
   var btnLogout=document.getElementById('btn-logout');
   if(btnLogout)btnLogout.style.display='inline-block';
-  // Load data
-  try{chargerLocalStorage();}catch(e){}
+  // Load data (cloud-aware once js/23-supabase-sync.js has loaded) - awaited
+  // so the render calls right below run against the data that was actually
+  // loaded, not whatever was in memory before this async fetch resolved.
+  try{ if(window.syncAwareLoad) await syncAwareLoad(); else chargerLocalStorage(); }catch(e){}
   try{syncTiersList();syncProduitSelect();}catch(e){}
   try{renderAll();}catch(e){}
   try{verifierRetards();}catch(e){}
