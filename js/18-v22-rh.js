@@ -735,6 +735,32 @@ function marqueV22(){
     if(f)f.textContent=f.textContent.replace(/GEST Africa( Pro)? v[12][0-9]/,'GEST Africa v22');
   }catch(e){}
 }
+/* Cloud sync (Phase 2 extension) - reuses the same company_data mechanism
+   as the core accounting blob (js/23-supabase-sync.js), under its own
+   module_key so it doesn't collide with the core sync. registerModuleSync
+   isn't defined yet at this point in the script load order (js/23 loads
+   after this file), so registration is deferred to first actual use rather
+   than done here at top level. */
+var _rhSync = null;
+function rhSyncEnsure(){
+  if(!_rhSync && window.registerModuleSync){
+    _rhSync = registerModuleSync('rh', function(){ return RH; }, function(o){
+      Object.keys(RH).forEach(function(k){ if(o[k]!=null) RH[k]=o[k]; });
+    });
+  }
+  return _rhSync;
+}
+var _origRhSave = rhSave;
+rhSave = function(){ _origRhSave(); var s=rhSyncEnsure(); if(s) s.schedule(); };
+// Called from onAuthSuccess() (js/06) right after login, same spot that
+// triggers the core data's syncAwareLoad() - pulls this company's RH data
+// down from the cloud before the user opens any RH screen.
+window.rhModuleSyncLoad = async function(){
+  var s=rhSyncEnsure(); if(!s) return;
+  await s.load();
+  try{ rhRenderTout(); }catch(e){}
+};
+
 /* Init */
 rhCharger();
 try{creerPanes();}catch(e){}

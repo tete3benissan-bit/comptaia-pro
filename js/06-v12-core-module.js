@@ -112,6 +112,7 @@ async function onAuthSuccess() {
   // so the render calls right below run against the data that was actually
   // loaded, not whatever was in memory before this async fetch resolved.
   try{ if(window.syncAwareLoad) await syncAwareLoad(); else chargerLocalStorage(); }catch(e){}
+  try{ if(window.rhModuleSyncLoad) await rhModuleSyncLoad(); }catch(e){}
   try{syncTiersList();syncProduitSelect();}catch(e){}
   try{renderAll();}catch(e){}
   try{verifierRetards();}catch(e){}
