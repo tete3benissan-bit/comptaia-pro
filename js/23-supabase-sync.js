@@ -17,8 +17,13 @@ window.registerModuleSync = function(moduleKey, getData, setData){
   var pushTimer=null, maxTimer=null, dirty=false, inFlight=false;
   var localTsKey = 'comptaia_local_updated_at_'+moduleKey;
 
+  // Bumped synchronously on every local edit (not just after a successful
+  // cloud push) - this is what load() below compares against the cloud's
+  // updated_at, so a fresh local edit always wins the race even if its push
+  // hasn't gone out yet (e.g. a refresh lands inside the debounce window).
   function schedule(){
     dirty = true;
+    try{ localStorage.setItem(localTsKey, new Date().toISOString()); }catch(e){}
     if(pushTimer) clearTimeout(pushTimer);
     pushTimer = setTimeout(flush, DEBOUNCE_MS);
     if(!maxTimer) maxTimer = setTimeout(flush, MAX_WAIT_MS);
@@ -30,12 +35,11 @@ window.registerModuleSync = function(moduleKey, getData, setData){
     if(!navigator.onLine) return;
     inFlight = true; dirty = false;
     try{
-      var nowIso = new Date().toISOString();
       var res = await supabaseClient.from('company_data').upsert({
         company_id: CURRENT_USER.company_id, module_key: moduleKey,
-        data: getData(), updated_at: nowIso, updated_by: CURRENT_USER.id
+        data: getData(), updated_at: new Date().toISOString(), updated_by: CURRENT_USER.id
       }, {onConflict:'company_id,module_key'});
-      if(res.error) dirty = true; else localStorage.setItem(localTsKey, nowIso);
+      if(res.error) dirty = true;
     }catch(e){ dirty = true; }
     inFlight = false;
     if(dirty) schedule();
@@ -66,8 +70,17 @@ window.registerModuleSync = function(moduleKey, getData, setData){
   var _origSauvegarder = window.sauvegarderAuto;
   var pushTimer=null, maxTimer=null, dirty=false, inFlight=false;
 
+  // Bumped synchronously on every local edit (not just after a successful
+  // cloud push) - this is what syncAwareLoad() below compares against the
+  // cloud's updated_at, so a fresh local edit always wins the race even if
+  // its push hasn't gone out yet (e.g. a refresh lands inside the debounce
+  // window - this was the actual bug behind "data disappears on refresh":
+  // the marker used to only move after a successful push, so a refresh
+  // taken before that push completed made a same-age-or-older cloud copy
+  // look authoritative and overwrite the newer local edit).
   function schedule(){
     dirty = true;
+    try{ localStorage.setItem('comptaia_local_updated_at', new Date().toISOString()); }catch(e){}
     if(pushTimer) clearTimeout(pushTimer);
     pushTimer = setTimeout(flush, DEBOUNCE_MS);
     if(!maxTimer) maxTimer = setTimeout(flush, MAX_WAIT_MS);
@@ -81,12 +94,11 @@ window.registerModuleSync = function(moduleKey, getData, setData){
     inFlight = true; dirty = false;
     try{
       var payload = JSON.parse(localStorage.getItem('comptaia_data')||'{}');
-      var nowIso = new Date().toISOString();
       var res = await supabaseClient.from('company_data').upsert({
         company_id: CURRENT_USER.company_id, module_key:'core',
-        data: payload, updated_at: nowIso, updated_by: CURRENT_USER.id
+        data: payload, updated_at: new Date().toISOString(), updated_by: CURRENT_USER.id
       }, {onConflict:'company_id,module_key'});
-      if(res.error) dirty = true; else localStorage.setItem('comptaia_local_updated_at', nowIso);
+      if(res.error) dirty = true;
     }catch(e){ dirty = true; }
     inFlight = false;
     if(dirty) schedule();
@@ -99,7 +111,8 @@ window.registerModuleSync = function(moduleKey, getData, setData){
 
   // Decides which JSON sits under the comptaia_data key before delegating
   // to chargerLocalStorage() (left completely untouched - single read path).
-  // "Last write wins" via updated_at vs. a local marker set on every push.
+  // "Last write wins" via updated_at vs. a local marker set on every local
+  // edit (schedule(), not flush() - see the comment above schedule()).
   window.syncAwareLoad = async function(){
     try{
       if(!navigator.onLine) return chargerLocalStorage();
