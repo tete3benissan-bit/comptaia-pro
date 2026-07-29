@@ -13,7 +13,7 @@
 // NOTE: if new css/*.css or js/*.js files are added to the app, add them to
 // PRECACHE_URLS below too, or they simply won't be available offline until
 // the first time they're fetched online (they'll still work fine online).
-const CACHE_NAME = 'gest-africa-shell-v1';
+const CACHE_NAME = 'gest-africa-shell-v2';
 
 const PRECACHE_URLS = [
   './',
@@ -51,6 +51,14 @@ self.addEventListener('activate', function(event){
 
 self.addEventListener('fetch', function(event){
   if(event.request.method !== 'GET') return; // never intercept writes (Supabase calls etc.)
+  // Only handle this app's own same-origin files. Cross-origin requests
+  // (Supabase's REST/Auth API, the CDN scripts, Google Fonts) must be left
+  // completely alone - caching a Supabase API GET response here and serving
+  // it back as a stale fallback on a later transient failure is exactly
+  // what caused accounting data to intermittently vanish/revert after a
+  // refresh, since supabase-js has no way to tell that "response" apart
+  // from a real fresh one.
+  if(new URL(event.request.url).origin !== self.location.origin) return;
   event.respondWith(
     fetch(event.request).then(function(res){
       var copy = res.clone();
