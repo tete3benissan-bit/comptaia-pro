@@ -397,7 +397,7 @@ function construireImportFacture(){
     '<div class="fimp-sous">Saisie manuelle, ou import automatique : l\'IA lit le document, remplit le formulaire et prépare les écritures. Vous vérifiez, puis validez.</div>'+
     '<div class="fimp-btns">'+
       '<button type="button" class="fimp-btn" onclick="fimpManuel()"><span class="fimp-ic">'+ico('pencil')+'</span>Saisie manuelle<small>formulaire ci-dessous</small></button>'+
-      '<button type="button" class="fimp-btn" onclick="$fimp(\'fimp-pdf\')"><span class="fimp-ic">'+ico('file')+'</span>Import PDF<small>facture numérique</small></button>'+
+      '<button type="button" class="fimp-btn" onclick="$fimp(\'fimp-pdf\')"><span class="fimp-ic">'+ico('file')+'</span>Importer documents<small>facture numérique</small></button>'+
       '<button type="button" class="fimp-btn" onclick="$fimp(\'fimp-photo\')"><span class="fimp-ic">'+ico('camera')+'</span>Import photo<small>depuis la galerie</small></button>'+
       '<button type="button" class="fimp-btn" onclick="$fimp(\'fimp-cam\')"><span class="fimp-ic">'+ico('camera')+'</span>Prendre une photo<small>appareil photo</small></button>'+
     '</div>'+
@@ -429,12 +429,22 @@ function fimpStatus(msg,coul){
   if(s){s.style.display='block';s.innerHTML='<span style="color:'+(coul||'var(--text)')+';font-weight:600">'+msg+'</span>';}
 }
 async function fimpAnalyser(dataUrl,mime){
+  var provider=(typeof iaGetProvider==='function')?iaGetProvider():'anthropic';
+  var apiKey=(typeof iaGetKey==='function')?iaGetKey():'';
+  if(!apiKey){
+    fimpStatus(ico('alertTriangle')+' Configurez d\'abord une clé IA dans "Assistant IA" pour utiliser l\'import automatique.','var(--red)');
+    return;
+  }
+  // Reconnaissance d'image/document : seuls Anthropic et Gemini savent lire
+  // un fichier joint directement (Groq/GitHub Models, tels que configurés
+  // ici, sont des modèles texte-seul côté chat).
+  if(provider!=='anthropic'&&provider!=='gemini'){
+    fimpStatus(ico('alertTriangle')+' L\'import automatique nécessite Anthropic Claude ou Google Gemini comme fournisseur IA (changez-le dans "Assistant IA").','var(--red)');
+    return;
+  }
   fimpStatus(ico('bot')+' Analyse IA du document — extraction des données comptables…','var(--amber)');
   var b64=dataUrl.split(',')[1];
   var estPDF=(mime||'').indexOf('pdf')>-1;
-  var bloc=estPDF
-    ?{type:'document',source:{type:'base64',media_type:'application/pdf',data:b64}}
-    :{type:'image',source:{type:'base64',media_type:mime||'image/jpeg',data:b64}};
   var prompt='Tu es un expert-comptable OHADA (Togo). Analyse cette facture (ou reçu) et réponds UNIQUEMENT avec un JSON valide, sans markdown, sans commentaire :\n'+
 '{"type_document":"facture_achat|facture_vente|recu","numero_facture":"...","date":"YYYY-MM-DD","tiers":"nom du fournisseur ou client","description":"résumé court",'+
 '"lignes":[{"designation":"...","quantite":0,"prix_unitaire":0,"taux_tva":18}],'+
@@ -442,13 +452,42 @@ async function fimpAnalyser(dataUrl,mime){
 '"mode_paiement":"banque|espece|credit","echeance":"YYYY-MM-DD ou null","confiance":"haute|moyenne|basse"}\n'+
 'Règles : montants en FCFA sans séparateurs ; si le document est une facture reçue d\'un fournisseur → type_document="facture_achat" ; si émise vers un client → "facture_vente" ; mode_paiement="credit" si paiement à échéance ou non précisé.';
   try{
-    var r=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1500,
-        messages:[{role:'user',content:[bloc,{type:'text',text:prompt}]}]})
-    });
-    var d=await r.json();
-    var texte=(d.content||[]).filter(function(b){return b.type==='text';}).map(function(b){return b.text;}).join('\n');
+    var texte;
+    if(provider==='anthropic'){
+      var bloc=estPDF
+        ?{type:'document',source:{type:'base64',media_type:'application/pdf',data:b64}}
+        :{type:'image',source:{type:'base64',media_type:mime||'image/jpeg',data:b64}};
+      var r=await fetch('https://api.anthropic.com/v1/messages',{
+        method:'POST',
+        headers:{
+          'Content-Type':'application/json',
+          'x-api-key':apiKey,
+          'anthropic-version':'2023-06-01',
+          'anthropic-dangerous-direct-browser-access':'true'
+        },
+        body:JSON.stringify({model:IA_PROVIDERS.anthropic.model,max_tokens:1500,
+          messages:[{role:'user',content:[bloc,{type:'text',text:prompt}]}]})
+      });
+      if(!r.ok) throw new Error('HTTP '+r.status);
+      var d=await r.json();
+      texte=(d.content||[]).filter(function(b){return b.type==='text';}).map(function(b){return b.text;}).join('\n');
+    }else{
+      // Gemini : le fichier (image ou PDF) est envoyé en inline_data, la clé
+      // dans l'URL comme pour le chat.
+      var urlGemini='https://generativelanguage.googleapis.com/v1beta/models/'+IA_PROVIDERS.gemini.model+':generateContent?key='+encodeURIComponent(apiKey);
+      var r2=await fetch(urlGemini,{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({contents:[{role:'user',parts:[
+          {inline_data:{mime_type:estPDF?'application/pdf':(mime||'image/jpeg'),data:b64}},
+          {text:prompt}
+        ]}],generationConfig:{maxOutputTokens:1500}})
+      });
+      if(!r2.ok) throw new Error('HTTP '+r2.status);
+      var d2=await r2.json();
+      var cand=d2.candidates&&d2.candidates[0];
+      texte=(cand&&cand.content&&cand.content.parts&&cand.content.parts[0]&&cand.content.parts[0].text)||'';
+    }
     var parsed=JSON.parse(texte.replace(/```json|```/g,'').trim());
     FIMP_DATA=parsed;
     fimpRemplir(parsed);
