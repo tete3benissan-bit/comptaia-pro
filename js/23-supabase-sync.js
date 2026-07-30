@@ -6,6 +6,23 @@
 // synchronous as before; a debounced cloud push is scheduled on top of it.
 var DEBOUNCE_MS = 2000, MAX_WAIT_MS = 10000;
 
+// All the per-module "last local edit" timestamps below are only
+// meaningful for whichever company they were recorded under - on a
+// browser that's ever been used for more than one company (switching
+// accounts, or just this app's own multi-company testing), a leftover
+// timestamp from company A must never be trusted to judge freshness for
+// company B's data, or a genuinely older cloud copy for B could look
+// "not newer than what I already have" purely because A's marker happens
+// to be a later date. localOwnerOk() gates every comparison below on the
+// currently logged-in company actually matching who last wrote that
+// timestamp; bumpLocalOwner() stamps it every time a marker is set.
+function localOwnerOk(){
+  try{ return localStorage.getItem('comptaia_local_owner')===((window.CURRENT_USER||{}).company_id||null); }catch(e){ return false; }
+}
+function bumpLocalOwner(){
+  try{ if(window.CURRENT_USER&&CURRENT_USER.company_id) localStorage.setItem('comptaia_local_owner', CURRENT_USER.company_id); }catch(e){}
+}
+
 // Generic version of the same mechanism for the ~20 OTHER modules that each
 // keep their own independent localStorage key (RH, devis, emprunts...) -
 // each call gets its own debounce/flush state and pushes to the same
@@ -24,6 +41,7 @@ window.registerModuleSync = function(moduleKey, getData, setData){
   function schedule(){
     dirty = true;
     try{ localStorage.setItem(localTsKey, new Date().toISOString()); }catch(e){}
+    bumpLocalOwner();
     if(pushTimer) clearTimeout(pushTimer);
     pushTimer = setTimeout(flush, DEBOUNCE_MS);
     if(!maxTimer) maxTimer = setTimeout(flush, MAX_WAIT_MS);
@@ -54,10 +72,11 @@ window.registerModuleSync = function(moduleKey, getData, setData){
       var res = await supabaseClient.from('company_data')
         .select('data,updated_at').eq('company_id',CURRENT_USER.company_id).eq('module_key',moduleKey).maybeSingle();
       if(res.error || !res.data) return;
-      var localTs = localStorage.getItem(localTsKey);
+      var localTs = localOwnerOk() ? localStorage.getItem(localTsKey) : null;
       if(!localTs || new Date(res.data.updated_at) > new Date(localTs)){
         setData(res.data.data);
         localStorage.setItem(localTsKey, res.data.updated_at);
+        bumpLocalOwner();
       }else if(localTs && new Date(localTs) > new Date(res.data.updated_at)){
         schedule(); // push queued offline edits
       }
@@ -81,6 +100,7 @@ window.registerModuleSync = function(moduleKey, getData, setData){
   function schedule(){
     dirty = true;
     try{ localStorage.setItem('comptaia_local_updated_at', new Date().toISOString()); }catch(e){}
+    bumpLocalOwner();
     if(pushTimer) clearTimeout(pushTimer);
     pushTimer = setTimeout(flush, DEBOUNCE_MS);
     if(!maxTimer) maxTimer = setTimeout(flush, MAX_WAIT_MS);
@@ -119,10 +139,11 @@ window.registerModuleSync = function(moduleKey, getData, setData){
       var res = await supabaseClient.from('company_data')
         .select('data,updated_at').eq('company_id',CURRENT_USER.company_id).eq('module_key','core').maybeSingle();
       if(res.error || !res.data){ chargerLocalStorage(); return; }
-      var localTs = localStorage.getItem('comptaia_local_updated_at');
+      var localTs = localOwnerOk() ? localStorage.getItem('comptaia_local_updated_at') : null;
       if(!localTs || new Date(res.data.updated_at) > new Date(localTs)){
         localStorage.setItem('comptaia_data', JSON.stringify(res.data.data));
         localStorage.setItem('comptaia_local_updated_at', res.data.updated_at);
+        bumpLocalOwner();
       }
       chargerLocalStorage();
       if(localTs && new Date(localTs) > new Date(res.data.updated_at)) schedule(); // push queued offline edits
