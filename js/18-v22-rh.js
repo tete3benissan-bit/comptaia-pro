@@ -751,7 +751,12 @@ function rhSyncEnsure(){
   return _rhSync;
 }
 var _origRhSave = rhSave;
-rhSave = function(){ _origRhSave(); var s=rhSyncEnsure(); if(s) s.schedule(); };
+rhSave = function(){
+  _origRhSave();
+  var s=rhSyncEnsure();
+  if(s) s.schedule();
+  else console.warn('[sync:rh] schedule skipped: registerModuleSync not available yet');
+};
 // Called from onAuthSuccess() (js/06) right after login, same spot that
 // triggers the core data's syncAwareLoad() - pulls this company's RH data
 // down from the cloud before the user opens any RH screen.

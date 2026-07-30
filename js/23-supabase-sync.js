@@ -49,16 +49,17 @@ window.registerModuleSync = function(moduleKey, getData, setData){
   async function flush(){
     clearTimeout(pushTimer); clearTimeout(maxTimer); pushTimer=maxTimer=null;
     if(!dirty || inFlight) return;
-    if(!window.CURRENT_USER || !CURRENT_USER.company_id) return;
-    if(!navigator.onLine) return;
+    if(!window.CURRENT_USER || !CURRENT_USER.company_id){ console.warn('[sync:'+moduleKey+'] push skipped: no CURRENT_USER.company_id',window.CURRENT_USER); return; }
+    if(!navigator.onLine){ console.warn('[sync:'+moduleKey+'] push skipped: offline'); return; }
     inFlight = true; dirty = false;
     try{
       var res = await supabaseClient.from('company_data').upsert({
         company_id: CURRENT_USER.company_id, module_key: moduleKey,
         data: getData(), updated_at: new Date().toISOString(), updated_by: CURRENT_USER.id
       }, {onConflict:'company_id,module_key'});
-      if(res.error) dirty = true;
-    }catch(e){ dirty = true; }
+      if(res.error){ dirty = true; console.error('[sync:'+moduleKey+'] push failed',res.error); }
+      else console.log('[sync:'+moduleKey+'] push ok',CURRENT_USER.company_id);
+    }catch(e){ dirty = true; console.error('[sync:'+moduleKey+'] push threw',e); }
     inFlight = false;
     if(dirty) schedule();
   }
@@ -71,7 +72,8 @@ window.registerModuleSync = function(moduleKey, getData, setData){
       if(!navigator.onLine) return;
       var res = await supabaseClient.from('company_data')
         .select('data,updated_at').eq('company_id',CURRENT_USER.company_id).eq('module_key',moduleKey).maybeSingle();
-      if(res.error || !res.data) return;
+      if(res.error){ console.error('[sync:'+moduleKey+'] load failed',res.error); return; }
+      if(!res.data) return;
       var localTs = localOwnerOk() ? localStorage.getItem(localTsKey) : null;
       if(!localTs || new Date(res.data.updated_at) > new Date(localTs)){
         setData(res.data.data);
