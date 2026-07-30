@@ -75,7 +75,15 @@ function chargerLocalStorage(){
     if(obj.IMMOS)IMMOS=obj.IMMOS;
     if(obj.BUDGETS)BUDGETS=obj.BUDGETS;
     nb('nb-journal').textContent=EC.length;
-    if(EC.length){renderAll();}
+    // Always re-render, not just "if(EC.length)" - that guard used to skip
+    // repainting everything (journal, bilan, tiers, stock...) whenever
+    // there happened to be zero journal entries yet, even if TIERS/STOCKS/
+    // etc. had real data to show (e.g. a client list set up before any
+    // invoice exists) - the in-memory arrays above were always reloaded
+    // correctly, nothing ever told the screen to redraw them.
+    try{renderAll();}catch(e){}
+    try{renderTiers();}catch(e){}
+    try{renderAllStocks();}catch(e){}
     syncTiersList();syncProduitSelect();
     try{renderSalaires();renderDedExtras();}catch(e){}
     if(obj.EXERCICE)nb('ex-badge').textContent='Ex. '+obj.EXERCICE.annee;
