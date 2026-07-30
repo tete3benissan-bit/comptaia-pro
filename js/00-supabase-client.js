@@ -89,20 +89,23 @@ window.registerModuleSync = function(moduleKey, getData, setData){
 
   async function load(){
     try{
-      if(!navigator.onLine) return;
+      if(!window.CURRENT_USER || !CURRENT_USER.company_id){ console.warn('[sync:'+moduleKey+'] load skipped: no CURRENT_USER.company_id'); return; }
+      if(!navigator.onLine){ console.warn('[sync:'+moduleKey+'] load skipped: offline'); return; }
       var res = await supabaseClient.from('company_data')
         .select('data,updated_at').eq('company_id',CURRENT_USER.company_id).eq('module_key',moduleKey).maybeSingle();
       if(res.error){ console.error('[sync:'+moduleKey+'] load failed',res.error); return; }
-      if(!res.data) return;
+      if(!res.data){ console.warn('[sync:'+moduleKey+'] load: no cloud row yet for',CURRENT_USER.company_id); return; }
       var localTs = localOwnerOk() ? localStorage.getItem(localTsKey) : null;
       if(!localTs || new Date(res.data.updated_at) > new Date(localTs)){
         setData(res.data.data);
         localStorage.setItem(localTsKey, res.data.updated_at);
         bumpLocalOwner();
+        console.log('[sync:'+moduleKey+'] load applied cloud data',CURRENT_USER.company_id,res.data.updated_at);
       }else if(localTs && new Date(localTs) > new Date(res.data.updated_at)){
+        console.log('[sync:'+moduleKey+'] load: local is newer, keeping local and rescheduling push');
         schedule(); // push queued offline edits
       }
-    }catch(e){}
+    }catch(e){ console.error('[sync:'+moduleKey+'] load threw',e); }
   }
   return {schedule:schedule, load:load};
 };
