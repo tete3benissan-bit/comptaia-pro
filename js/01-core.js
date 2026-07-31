@@ -1314,7 +1314,14 @@ function confirmerStock(sens){
   finaliserFacture(p.e,p.ttc,p.pm,p.cpts,p.num,p.desc,p.cli,p.type,p.avoir);
 }
 function renderAllStocks(){
+  // v18's renderStockDashboard() replaces #pane-stock's entire innerHTML
+  // (including the legacy #s-wrap this function used to target) the first
+  // time the Stock page renders. After that, #s-wrap no longer exists, so
+  // this must delegate to the dashboard that's actually on screen - the old
+  // #s-wrap path below is only reachable before v18 has ever rendered.
+  if(typeof renderStockDashboard==='function'){renderStockDashboard();return;}
   var wrap=nb('s-wrap');
+  if(!wrap)return;
   if(!Object.keys(STOCKS).length){wrap.innerHTML='<div style="text-align:center;color:var(--text-faint);padding:26px;font-style:italic">Aucun produit</div>';return;}
   wrap.innerHTML=Object.keys(STOCKS).map(nom=>{
     var s=STOCKS[nom];var pct=s.qteInit>0?Math.round((s.qteActuelle/s.qteInit)*100):0;
