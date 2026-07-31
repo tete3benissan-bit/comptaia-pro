@@ -389,8 +389,15 @@ function calcTotauxML(){
   if(elHT)elHT.textContent=totalHT.toLocaleString('fr-FR');
   if(elTVA)elTVA.textContent=totalTVA.toLocaleString('fr-FR');
   if(elTTC)elTTC.textContent=(totalHT+totalTVA).toLocaleString('fr-FR');
-  // Sync to main form
-  var fHT=document.getElementById('f-ht');if(fHT&&ML_LIGNES.length)fHT.value=totalHT;
+  // Sync to main form - only when the lines actually add up to something.
+  // setSecteur() auto-creates one empty placeholder line (pu:0) whenever
+  // the table is empty, so ML_LIGNES.length alone is true almost always;
+  // gating on it used to silently zero out whatever the user had typed
+  // directly into "Montant brut HT" (bypassing the line table entirely)
+  // the moment anything called calcTotauxML() - which validerMultifacture()
+  // now does on every click of "Valider la facture", turning an occasional
+  // quirk into "the HT field empties itself and the invoice won't save".
+  var fHT=document.getElementById('f-ht');if(fHT&&totalHT>0)fHT.value=totalHT;
   if(typeof calcM==='function')calcM();
 }
 // Called by the "Valider la facture" button on the multi-lignes card:
