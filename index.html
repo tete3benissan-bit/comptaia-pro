@@ -351,9 +351,9 @@
           <div class="section-label">Montants</div>
           <div class="fgrid fg4" style="margin-bottom:12px">
             <div class="fg"><label>Montant brut HT (FCFA)</label><input type="number" id="f-ht" placeholder="0" min="0" oninput="calcM()"/></div>
-            <div class="fg"><label>Net HT (auto)</label><input type="text" id="f-ht-net" readonly/></div>
+            <div class="fg"><label>Net HT (auto — modifiable)</label><input type="text" id="f-ht-net" title="Calculé automatiquement, mais modifiable si besoin"/></div>
             <div class="fg"><label id="f-tva-label">TVA 18% (auto)</label><input type="text" id="f-tva-val" readonly style="color:var(--teal)"/></div>
-            <div class="fg"><label>Net TTC (auto)</label><input type="text" id="f-ttc" readonly style="font-weight:700;color:var(--green-dark);font-size:13px"/></div>
+            <div class="fg"><label>Net TTC (auto — modifiable)</label><input type="text" id="f-ttc" title="Calculé automatiquement, mais modifiable si besoin" style="font-weight:700;color:var(--green-dark);font-size:13px"/></div>
           </div>
 
           <details style="margin-bottom:12px;background:var(--surface);border-radius:var(--radius);overflow:hidden">
@@ -431,6 +431,19 @@
 
     <!-- ═══ JOURNAL ═══ -->
     <div class="pane" id="pane-journal">
+      <details style="margin-bottom:12px;background:var(--surface);border-radius:var(--radius);overflow:hidden">
+        <summary style="cursor:pointer;padding:9px 14px;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--text-muted)">+ Saisir une écriture manuelle</summary>
+        <div class="fgrid fg4" style="padding:4px 14px 14px">
+          <div class="fg"><label>Date</label><input type="date" id="me-date"/></div>
+          <div class="fg"><label>N° pièce</label><input type="text" id="me-num" placeholder="Ex : OD-001"/></div>
+          <div class="fg sp2"><label>Libellé</label><input type="text" id="me-libelle" placeholder="Ex : Régularisation..."/></div>
+          <div class="fg"><label>Compte Débit</label><input type="text" id="me-cptd" placeholder="Ex : 6011" style="font-family:'Archivo',sans-serif"/></div>
+          <div class="fg"><label>Compte Crédit</label><input type="text" id="me-cptc" placeholder="Ex : 4011" style="font-family:'Archivo',sans-serif"/></div>
+          <div class="fg"><label>Montant (FCFA)</label><input type="number" id="me-montant" placeholder="0" min="0"/></div>
+          <div class="fg"><label>Statut</label><select id="me-stat"><option value="payee">Payée</option><option value="attente">En attente</option></select></div>
+          <div class="fg" style="justify-content:flex-end;flex-direction:row;align-items:flex-end"><button class="btn btn-primary" onclick="ajouterEcritureManuelle()">+ Ajouter l'écriture</button></div>
+        </div>
+      </details>
       <div class="journal-search">
         <input type="text" id="j-search" placeholder="Rechercher..." oninput="renderJournal()" style="max-width:200px"/>
         <select id="j-filter-type" onchange="renderJournal()"><option value="">Tous types</option><option value="vente">Vente</option><option value="achat">Achat</option><option value="service">Service</option><option value="avoir">Avoir</option></select>

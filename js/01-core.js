@@ -27,6 +27,7 @@ var NOMS={
 var TVA_P={'18v':{t:18,c:'4431'},'18a':{t:18,c:'4452'},'8t':{t:8,c:'4454'},'5i':{t:5,c:'4453'},'10s':{t:10,c:'4455'},'0':{t:0,c:''},'custom':{t:18,c:'4431'}};
 
 function fmt(n){return Math.round(n||0).toLocaleString('fr-FR')}
+function parseMontant(str){return parseFloat(String(str||'').replace(/[^\d-]/g,''))||0}
 function fmtD(d){if(!d)return'';var p=d.split('-');return p.length===3?p[2]+'/'+p[1]+'/'+p[0]:d}
 function nowStr(){var d=new Date();return d.toLocaleDateString('fr-FR')+' à '+d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}
 function nb(id){return document.getElementById(id)}
@@ -263,10 +264,16 @@ function valider(){
   }
 
   var escVal=Math.round(ht*escp/100);
-  var htNet=ht-escVal-rrr;
+  // Net HT / Net TTC restent calculés automatiquement par calcM() à chaque
+  // frappe, mais le comptable peut ensuite taper directement dans ces deux
+  // champs pour les corriger (ex: montant négocié, arrondi client) - on
+  // respecte alors sa saisie plutôt que d'écraser avec la formule.
+  var htNetAuto=ht-escVal-rrr;
+  var htNet=parseMontant(nb('f-ht-net').value)||htNetAuto;
   var tva=Math.round(htNet*tvaTaux/100);
   var tr=parseFloat(nb('f-tr').value)||0;
-  var ttc=htNet+tva+tr+port+emballage+autresFrais;
+  var ttcAuto=htNet+tva+tr+port+emballage+autresFrais;
+  var ttc=parseMontant(nb('f-ttc').value)||ttcAuto;
   var resteDu=Math.max(0,ttc-avance);
   var cpts=getComptes(type,pay,avoir);
   var dateF=fmtD(date);
@@ -551,6 +558,45 @@ function renderJournal(){
   if(attente>0){eq.innerHTML=`<span style="color:var(--amber)">${ico('clock')} ${attente} en attente</span>`;}
   else if(Math.abs(tD-tC)<1){eq.textContent='Équilibré';eq.style.color='var(--green)';}
   else{eq.textContent='Déséquilibré';eq.style.color='var(--red)';}
+}
+
+// ═══ ÉCRITURE MANUELLE (Journal) ═══
+// Écriture double libre, hors circuit facture - utile pour les
+// régularisations, corrections ou opérations que le module Ventes/Achats ne
+// couvre pas. type:'manuel' est volontairement absent des filtres CA/charges
+// (voir getComptes/renderSuivi/renderDashboard) pour ne jamais fausser le
+// chiffre d'affaires ou les charges calculés à partir des factures.
+function ajouterEcritureManuelle(){
+  var date=nb('me-date').value;
+  var num=nb('me-num').value.trim();
+  var desc=nb('me-libelle').value.trim();
+  var cptD=nb('me-cptd').value.trim().toUpperCase();
+  var cptC=nb('me-cptc').value.trim().toUpperCase();
+  var montant=parseFloat(nb('me-montant').value)||0;
+  var stat=nb('me-stat').value;
+
+  var err=[];
+  if(!date)err.push('Date');
+  if(!num)err.push('N° pièce');
+  if(!desc)err.push('Libellé');
+  if(!cptD)err.push('Compte Débit');
+  if(!cptC)err.push('Compte Crédit');
+  if(!montant)err.push('Montant');
+  if(err.length){alert('Champs manquants : '+err.join(' · '));return;}
+
+  EC.push({
+    date,dateF:fmtD(date),dateRaw:date,num,desc,cli:'',
+    cptD,cptC,debit:montant,credit:montant,pay:'',stat,
+    ht:0,htNet:0,escVal:0,escPct:0,rrr:0,tva:0,tvaTaux:0,tvaCpt:'',tvaType:'',
+    tr:0,port:0,emballage:0,autresFrais:0,ttc:montant,avance:0,resteDu:0,echeance:'',
+    type:'manuel',qty:0,cp:0,coutReel:0,
+    avoir:false,modeLabel:'DOIT',lettre:'',_modifie:false
+  });
+
+  ['me-num','me-libelle','me-cptd','me-cptc','me-montant'].forEach(id=>nb(id).value='');
+  renderJournal();
+  sauvegarderAuto();
+  showToast('Écriture manuelle enregistrée.');
 }
 
 // ═══ GRAND LIVRE ═══
