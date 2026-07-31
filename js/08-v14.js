@@ -407,8 +407,38 @@ function calcTotauxML(){
 // so a validation error leaves them in place to fix and retry.
 function validerMultifacture(){
   calcTotauxML();
+  // Capturé avant valider() : le champ unique "Produit en stock" du
+  // formulaire principal ne fait bouger le stock que pour UN SEUL article -
+  // le tableau multi-lignes doit gérer chaque ligne lui-même, sinon une
+  // facture de 3 articles ne met à jour le stock d'aucun d'entre eux.
+  var lignesSnapshot=ML_LIGNES.slice();
+  var typeF=(document.getElementById('f-type')||{}).value;
+  var avoirF=(typeof FACTURE_MODE!=='undefined'&&FACTURE_MODE==='avoir');
+  var dateFF=(typeof fmtD==='function')?fmtD((document.getElementById('f-date')||{}).value):'';
+  var numF=((document.getElementById('f-num')||{}).value||'').trim();
   valider();
   if(document.getElementById('ia-err').style.display!=='block'){
+    if((typeF==='achat'||typeF==='vente')&&lignesSnapshot.length){
+      // Même règle de direction que dans valider() (achat/vente × avoir).
+      var estEntreeML=(typeF==='achat')!==avoirF;
+      lignesSnapshot.forEach(function(l){
+        var nomL=(l.desc||'').trim();
+        var qtyL=parseFloat(l.qty)||0;
+        if(!nomL||qtyL<=0)return;
+        if(!STOCKS[nomL]){
+          STOCKS[nomL]={nom:nomL,unite:l.unite||'unite',methode:'cmup',qteInit:0,puInit:0,qteActuelle:0,cmup:0,lots:[],mvts:[]};
+          try{ if(typeof ajouterNotif==='function') ajouterNotif('info','Produit créé automatiquement',nomL+' — ajouté au stock depuis la facture '+numF); }catch(err){}
+        }
+        var puL=(estEntreeML&&typeF==='achat')?(parseFloat(l.pu)||0):STOCKS[nomL].cmup;
+        if(typeof mouvementStock==='function')mouvementStock(nomL,estEntreeML?'achat':'vente',qtyL,puL,dateFF,numF);
+      });
+      if(typeof syncProduitSelect==='function')syncProduitSelect();
+      if(typeof renderAllStocks==='function')renderAllStocks();
+      if(typeof currentPage!=='undefined'){
+        if(currentPage==='stock-entrees'&&typeof renderStockEntrees==='function')renderStockEntrees();
+        if(currentPage==='stock-sorties'&&typeof renderStockSorties==='function')renderStockSorties();
+      }
+    }
     ML_LIGNES=[];
     renderMLTable();
     ajouterLigneML();
