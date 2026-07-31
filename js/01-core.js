@@ -344,6 +344,15 @@ function valider(){
     // ce paramètre.
     var puStock=(estEntree&&type==='achat')?Math.round(htNet/qty):STOCKS[nomProduit].cmup;
     mouvementStock(nomProduit,estEntree?'achat':'vente',qty,puStock,dateF,num);
+    // mouvementStock() already refreshes the "Vue d'ensemble" stock cards
+    // (renderAllStocks) - but if the user happens to already be sitting on
+    // the dedicated Entrées/Sorties pane when a facture posts a movement
+    // (rather than navigating there afterward, which already re-renders
+    // fresh via the go() wrapper in js/13-v18-stock.js), that pane's HTML
+    // was built before this movement existed. Refresh it in place too.
+    if(currentPage==='stock-entrees'&&typeof renderStockEntrees==='function')renderStockEntrees();
+    if(currentPage==='stock-sorties'&&typeof renderStockSorties==='function')renderStockSorties();
+    try{ if(typeof ajouterNotif==='function') ajouterNotif('info',(estEntree?'✓ Entrée stock — ':'✓ Sortie stock — ')+nomProduit,(estEntree?'+':'-')+qty+' '+unite+' — facture '+num); }catch(err){}
   }
   finaliserFacture(e,ttc,pay,cpts,num,desc,cli,type,avoir);
 }
