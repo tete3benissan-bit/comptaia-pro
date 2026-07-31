@@ -254,8 +254,11 @@ function valider(){
   // Rappel doux, pas un blocage : un achat/vente sans produit de stock lié
   // reste tout à fait légitime (frais divers, prestation classée en
   // "vente"...), donc on prévient plutôt que d'empêcher l'enregistrement.
-  // Placé avant toute écriture pour que "Annuler" n'ait rien à défaire.
-  if((type==='achat'||type==='vente')&&!(nb('f-produit-stock').value&&qty>0&&STOCKS[nb('f-produit-stock').value])){
+  // Ne se déclenche que si AUCUN nom de produit n'a été tapé/choisi (ou
+  // quantité nulle) - un nom de produit qui n'existe pas encore en stock
+  // n'est plus un cas d'avertissement, il sera créé automatiquement plus
+  // bas. Placé avant toute écriture pour que "Annuler" n'ait rien à défaire.
+  if((type==='achat'||type==='vente')&&!((nb('f-produit-stock').value||'').trim()&&qty>0)){
     if(!confirm('Aucun produit de stock lié à cette facture (ou quantité non renseignée) — le stock ne sera pas mis à jour.\n\nEnregistrer quand même ?'))return;
   }
 
@@ -330,8 +333,19 @@ function valider(){
   }
 
   // ── Stock ──
-  var nomProduit=nb('f-produit-stock').value;
+  var nomProduit=(nb('f-produit-stock').value||'').trim();
   var unite=nb('f-unite').value;
+  // Auto-création si le produit tapé/choisi n'existe pas encore en stock -
+  // seulement pour achat/vente (pas service, qui passe par la modale de
+  // désambiguïsation ci-dessous, réservée aux produits déjà suivis). Même
+  // forme d'objet que "Nouveau produit" (ajouterProduit()) : le champ
+  // s'appelle "nom", pas "nomProduit" - tout le reste du code (rendu,
+  // sélecteurs, mouvementStock...) lit STOCKS[x].nom.
+  if(nomProduit&&qty>0&&(type==='achat'||type==='vente')&&!STOCKS[nomProduit]){
+    STOCKS[nomProduit]={nom:nomProduit,unite:unite||'unite',methode:'cmup',qteInit:0,puInit:0,qteActuelle:0,cmup:0,lots:[],mvts:[]};
+    try{ if(typeof ajouterNotif==='function') ajouterNotif('info','Produit créé automatiquement',nomProduit+' — ajouté au stock depuis la facture '+num); }catch(err){}
+    syncProduitSelect();
+  }
   if(nomProduit&&qty>0&&STOCKS[nomProduit]){
     if(type==='service'){
       pendingFacture={e,htNet,nomProduit,qty,unite,dateF,num,cpts,pm:pay,extras:[],extStr:'',ttc,desc,cli,type,avoir};
