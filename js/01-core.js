@@ -251,6 +251,14 @@ function valider(){
   if(err.length){nb('ia-err').style.display='block';nb('ia-ok').style.display='none';nb('ia-err').innerHTML='<strong>'+ico('alertTriangle')+' Champs manquants :</strong> '+err.join(' · ');return;}
   nb('ia-err').style.display='none';
 
+  // Rappel doux, pas un blocage : un achat/vente sans produit de stock lié
+  // reste tout à fait légitime (frais divers, prestation classée en
+  // "vente"...), donc on prévient plutôt que d'empêcher l'enregistrement.
+  // Placé avant toute écriture pour que "Annuler" n'ait rien à défaire.
+  if((type==='achat'||type==='vente')&&!(nb('f-produit-stock').value&&qty>0&&STOCKS[nb('f-produit-stock').value])){
+    if(!confirm('Aucun produit de stock lié à cette facture (ou quantité non renseignée) — le stock ne sera pas mis à jour.\n\nEnregistrer quand même ?'))return;
+  }
+
   var escVal=Math.round(ht*escp/100);
   var htNet=ht-escVal-rrr;
   var tva=Math.round(htNet*tvaTaux/100);
