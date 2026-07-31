@@ -256,3 +256,12 @@ body.fj-sa .sidebar::before,body.fj-sa #hub::before,body.fj-sa #auth-overlay::be
   background:repeating-linear-gradient(135deg,#232526 0px,#232526 60px,#23252699 70px,#414345 130px);
   opacity:.04;
 }
+
+/* ── TOAST (notification éphémère, coin bas-droit) ── */
+#toast-wrap{position:fixed;bottom:20px;right:20px;z-index:9999;display:flex;flex-direction:column;gap:8px;pointer-events:none}
+.toast{pointer-events:auto;min-width:220px;max-width:340px;padding:12px 16px;border-radius:var(--radius);font-size:12.5px;font-weight:600;color:#fff;box-shadow:var(--shadow-lg);animation:toast-in .2s ease;display:flex;align-items:center;gap:8px}
+.toast.toast-ok{background:var(--green)}
+.toast.toast-err{background:var(--red)}
+.toast.toast-fade{animation:toast-out .3s ease forwards}
+@keyframes toast-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes toast-out{from{opacity:1}to{opacity:0;transform:translateY(8px)}}

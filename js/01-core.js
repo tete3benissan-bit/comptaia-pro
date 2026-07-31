@@ -365,12 +365,29 @@ function valider(){
   finaliserFacture(e,ttc,pay,cpts,num,desc,cli,type,avoir);
 }
 
+// Toast éphémère coin bas-droit (5s, auto-disparition) - séparé de la
+// bannière alert-ok au-dessus du formulaire et du centre de notifications
+// (cloche) : les deux restent tant qu'on ne les ferme pas / naviguer
+// ailleurs, un toast est juste un accusé de réception furtif.
+function showToast(msg,type){
+  var wrap=document.getElementById('toast-wrap');
+  if(!wrap){wrap=document.createElement('div');wrap.id='toast-wrap';document.body.appendChild(wrap);}
+  var t=document.createElement('div');
+  t.className='toast toast-'+(type||'ok');
+  t.innerHTML=msg;
+  wrap.appendChild(t);
+  setTimeout(function(){
+    t.classList.add('toast-fade');
+    setTimeout(function(){t.remove();},300);
+  },5000);
+}
 function finaliserFacture(e,ttc,pm,cpts,num,desc,cli,type,avoir){
   nb('ia-ok').style.display='block';
   var pmL=pm==='espece'?'Espèce':pm==='banque'?'Banque':'À crédit';
   nb('ia-ok').innerHTML=(avoir?'<span class="badge bg-purple">AVOIR</span> ':'')+`${ico('check')} Facture <strong>${num}</strong> validée — TTC : <strong>${fmt(ttc)} FCFA</strong> (${pmL})<br>Écriture : D <strong>${cpts.d}</strong> / C <strong>${cpts.c}</strong> — Tous onglets mis à jour.`;
   nb('nb-journal').textContent=EC.length;
   ajouterNotif('facture',(avoir?'[AVOIR] ':'')+'Facture '+num+' enregistrée',desc+' — '+cli+' | '+fmt(ttc)+' FCFA | '+pmL);
+  showToast(ico('check')+' '+(avoir?'Avoir':'Facture')+' <strong>'+num+'</strong> enregistrée — '+fmt(ttc)+' FCFA','ok');
   updateNumAuto();
   renderAll();
   sauvegarderAuto();
