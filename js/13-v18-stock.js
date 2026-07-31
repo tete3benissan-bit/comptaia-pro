@@ -351,6 +351,10 @@ function renderStockEntrees(){
         +'<div class="fg"><label>Référence / Fournisseur</label><input type="text" id="se-ref" placeholder="Ex: BC2026-012, Ecobank..."/></div>'
         +'<div class="fg sp3" id="se-info-cmup" style="display:none"></div>'
       +'</div>'
+      +'<div style="display:flex;align-items:center;gap:8px;padding:0 14px 10px">'
+        +'<input type="checkbox" id="se-initial" style="width:auto"/>'
+        +'<label for="se-initial" style="margin:0;text-transform:none;font-weight:600;font-size:11.5px;letter-spacing:normal">Stock initial (pas un achat — quantité de départ déjà en stock)</label>'
+      +'</div>'
       +'<div style="display:flex;gap:8px;justify-content:flex-end;margin-top:10px">'
         +'<button class="btn btn-primary" onclick="enregistrerEntreeStock()">'+ico('arrowDown')+' Enregistrer l\'entrée</button>'
       +'</div>'
@@ -388,26 +392,31 @@ function enregistrerEntreeStock(){
   var pu=parseFloat(document.getElementById('se-pu').value)||0;
   var date=document.getElementById('se-date').value;
   var ref=document.getElementById('se-ref').value||'ENT-'+Date.now();
+  var estInitial=document.getElementById('se-initial')&&document.getElementById('se-initial').checked;
   if(!nom||!qty||!pu){alert('Produit, quantité et prix unitaire sont obligatoires.');return;}
   if(!STOCKS[nom]){alert('Produit "'+nom+'" introuvable. Ajoutez-le d\'abord depuis la vue d\'ensemble.');return;}
-  mouvementStock(nom,'achat',qty,pu,date,ref);
+  mouvementStock(nom,estInitial?'initial':'achat',qty,pu,date,ref);
   checkStockAlerteNotif(nom);
   saveStockConfig();
   if(typeof sauvegarderAuto==='function') sauvegarderAuto();
+  document.getElementById('se-produit').value='';
   document.getElementById('se-qty').value='';
   document.getElementById('se-pu').value='';
   document.getElementById('se-val').value='';
+  document.getElementById('se-ref').value='';
+  document.getElementById('se-date').value=new Date().toISOString().split('T')[0];
+  if(document.getElementById('se-initial')) document.getElementById('se-initial').checked=false;
   majInfosEntree();
   renderEntreesRecentes();
   updateStockAlerteBadge();
-  if(typeof ajouterNotif==='function') ajouterNotif('info','Entrée stock — '+nom,'+'+qty+' '+STOCKS[nom].unite+' à '+pu.toLocaleString('fr-FR')+' FCFA/u. Nouveau stock : '+STOCKS[nom].qteActuelle);
+  if(typeof ajouterNotif==='function') ajouterNotif('info',(estInitial?'Stock initial — ':'Entrée stock — ')+nom,'+'+qty+' '+STOCKS[nom].unite+' à '+pu.toLocaleString('fr-FR')+' FCFA/u. Nouveau stock : '+STOCKS[nom].qteActuelle);
 }
 
 function renderEntreesRecentes(){
   var el=document.getElementById('se-recent');if(!el)return;
   var mvts=[];
   Object.keys(STOCKS).forEach(function(nom){
-    (STOCKS[nom].mvts||[]).filter(function(m){return m.entree>0;}).forEach(function(m){mvts.push(Object.assign({},m,{nom:nom,unite:STOCKS[nom].unite}));});
+    (STOCKS[nom].mvts||[]).filter(function(m){return m.entree>0&&m.op!=='Init';}).forEach(function(m){mvts.push(Object.assign({},m,{nom:nom,unite:STOCKS[nom].unite}));});
   });
   mvts.sort(function(a,b){return b.date.localeCompare(a.date);});
   if(!mvts.length){el.innerHTML='<div style="text-align:center;padding:24px;color:var(--text-faint);font-style:italic">Aucune entrée de stock enregistrée.</div>';return;}
@@ -487,7 +496,11 @@ function enregistrerSortieStock(){
   checkStockAlerteNotif(nom);
   saveStockConfig();
   if(typeof sauvegarderAuto==='function') sauvegarderAuto();
+  document.getElementById('ss-produit').value='';
   document.getElementById('ss-qty').value='';
+  document.getElementById('ss-ref').value='';
+  document.getElementById('ss-motif').value='vente';
+  document.getElementById('ss-date').value=new Date().toISOString().split('T')[0];
   majInfosSortie();
   renderSortiesRecentes();
   updateStockAlerteBadge();

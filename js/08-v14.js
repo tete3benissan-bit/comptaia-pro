@@ -393,6 +393,20 @@ function calcTotauxML(){
   var fHT=document.getElementById('f-ht');if(fHT&&ML_LIGNES.length)fHT.value=totalHT;
   if(typeof calcM==='function')calcM();
 }
+// Called by the "Valider la facture" button on the multi-lignes card:
+// syncs the lines' total into the main form, then reuses the same
+// valider() the single-line form already posts through (one écriture
+// pipeline, not a second one) - only clears the lines table on success,
+// so a validation error leaves them in place to fix and retry.
+function validerMultifacture(){
+  calcTotauxML();
+  valider();
+  if(document.getElementById('ia-err').style.display!=='block'){
+    ML_LIGNES=[];
+    renderMLTable();
+    ajouterLigneML();
+  }
+}
 // Hotel fields
 function calcNuits(){
   var a=(document.getElementById('h-arrivee')||{}).value;

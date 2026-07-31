@@ -275,10 +275,11 @@
           <div id="ev-total-display" style="margin-top:5px;font-size:11.5px;font-weight:600;color:var(--green-dark)"></div>
         </div>
         <!-- Totaux multi-lignes -->
-        <div style="padding:8px 14px;background:var(--bg);border-top:2px solid var(--border);display:flex;justify-content:flex-end;gap:20px;flex-wrap:wrap">
+        <div style="padding:8px 14px;background:var(--bg);border-top:2px solid var(--border);display:flex;align-items:center;justify-content:flex-end;gap:20px;flex-wrap:wrap">
           <span style="font-size:11px;color:var(--text-muted)">HT : <strong id="ml-total-ht" style="font-family:'Archivo',sans-serif">0</strong> FCFA</span>
           <span style="font-size:11px;color:var(--text-muted)">TVA : <strong id="ml-total-tva" style="font-family:'Archivo',sans-serif;color:var(--teal)">0</strong> FCFA</span>
           <span style="font-size:11.5px;font-weight:600;color:var(--green-dark)">TTC : <strong id="ml-total-ttc" style="font-family:'Archivo',sans-serif;font-size:13px">0</strong> FCFA</span>
+          <button class="btn btn-primary" onclick="validerMultifacture()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,13 9,18 20,6"/></svg> Valider la facture</button>
         </div>
       </div>
 
@@ -350,15 +351,23 @@
           <div class="section-label">Montants</div>
           <div class="fgrid fg4" style="margin-bottom:12px">
             <div class="fg"><label>Montant brut HT (FCFA)</label><input type="number" id="f-ht" placeholder="0" min="0" oninput="calcM()"/></div>
-            <div class="fg"><label>Escompte %</label><input type="number" id="f-escompte" placeholder="0" min="0" max="100" step=".5" oninput="calcM()"/></div>
-            <div class="fg"><label>Escompte FCFA (auto)</label><input type="text" id="f-escompte-val" readonly style="color:var(--red)"/></div>
             <div class="fg"><label>Net HT (auto)</label><input type="text" id="f-ht-net" readonly/></div>
             <div class="fg"><label id="f-tva-label">TVA 18% (auto)</label><input type="text" id="f-tva-val" readonly style="color:var(--teal)"/></div>
-            <div class="fg"><label>Transport (FCFA)</label><input type="number" id="f-tr" placeholder="0" min="0" oninput="calcM()"/></div>
-            <div class="fg"><label>Port & emballage (FCFA)</label><input type="number" id="f-port" placeholder="0" min="0" oninput="calcM()"/></div>
-            <div class="fg"><label>3R (rabais/remises) (FCFA)</label><input type="number" id="f-rrr" placeholder="0" min="0" oninput="calcM()"/></div>
             <div class="fg"><label>Net TTC (auto)</label><input type="text" id="f-ttc" readonly style="font-weight:700;color:var(--green-dark);font-size:13px"/></div>
           </div>
+
+          <details style="margin-bottom:12px;background:var(--surface);border-radius:var(--radius);overflow:hidden">
+            <summary style="cursor:pointer;padding:9px 14px;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--text-muted)">Options avancées — remises, transport, frais</summary>
+            <div class="fgrid fg4" style="padding:4px 14px 14px">
+              <div class="fg"><label>Remises / Rabais / Ristournes — 3R (FCFA)</label><input type="number" id="f-rrr" placeholder="0" min="0" oninput="calcM()"/></div>
+              <div class="fg"><label>Escompte %</label><input type="number" id="f-escompte" placeholder="0" min="0" max="100" step=".5" oninput="calcM()"/></div>
+              <div class="fg"><label>Escompte FCFA (auto)</label><input type="text" id="f-escompte-val" readonly style="color:var(--red)"/></div>
+              <div class="fg"><label>Transport (FCFA)</label><input type="number" id="f-tr" placeholder="0" min="0" oninput="calcM()"/></div>
+              <div class="fg"><label>Port (FCFA)</label><input type="number" id="f-port" placeholder="0" min="0" oninput="calcM()"/></div>
+              <div class="fg"><label>Emballage (FCFA)</label><input type="number" id="f-emballage" placeholder="0" min="0" oninput="calcM()"/></div>
+              <div class="fg"><label>Autres frais (FCFA)</label><input type="number" id="f-autres-frais" placeholder="0" min="0" oninput="calcM()"/></div>
+            </div>
+          </details>
 
           <div style="background:var(--blue-light);border:2px solid var(--blue-border);border-radius:var(--radius);padding:10px 12px;margin-bottom:12px">
             <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">

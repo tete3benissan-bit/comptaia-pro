@@ -177,13 +177,15 @@ function calcM(){
   var escp=parseFloat(nb('f-escompte').value)||0;
   var tr=parseFloat(nb('f-tr').value)||0;
   var port=parseFloat(nb('f-port').value)||0;
+  var emballage=parseFloat(nb('f-emballage').value)||0;
+  var autresFrais=parseFloat(nb('f-autres-frais').value)||0;
   var rrr=parseFloat(nb('f-rrr').value)||0;
   var avance=parseFloat(nb('f-avance').value)||0;
   var tvaTaux=parseFloat(nb('f-tva-taux').value)||0;
   var escVal=Math.round(ht*escp/100);
   var htNet=ht-escVal-rrr;
   var tva=Math.round(htNet*tvaTaux/100);
-  var ttc=htNet+tva+tr+port;
+  var ttc=htNet+tva+tr+port+emballage+autresFrais;
   var resteDu=Math.max(0,ttc-avance);
   nb('f-escompte-val').value=escVal?'- '+fmt(escVal)+' FCFA':'';
   nb('f-ht-net').value=htNet?fmt(htNet)+' FCFA':'';
@@ -229,6 +231,8 @@ function valider(){
   var rrr=parseFloat(nb('f-rrr').value)||0;
   var avance=parseFloat(nb('f-avance').value)||0;
   var port=parseFloat(nb('f-port').value)||0;
+  var emballage=parseFloat(nb('f-emballage').value)||0;
+  var autresFrais=parseFloat(nb('f-autres-frais').value)||0;
   var tvaTaux=parseFloat(nb('f-tva-taux').value)||0;
   var tvaCpt=nb('f-tva-cpt').value.trim();
   var tvaType=nb('f-tva-type').value;
@@ -251,7 +255,7 @@ function valider(){
   var htNet=ht-escVal-rrr;
   var tva=Math.round(htNet*tvaTaux/100);
   var tr=parseFloat(nb('f-tr').value)||0;
-  var ttc=htNet+tva+tr+port;
+  var ttc=htNet+tva+tr+port+emballage+autresFrais;
   var resteDu=Math.max(0,ttc-avance);
   var cpts=getComptes(type,pay,avoir);
   var dateF=fmtD(date);
@@ -262,7 +266,7 @@ function valider(){
     cptD:cpts.d,cptC:cpts.c,
     debit:ttc,credit:ttc,pay,stat,
     ht,htNet,escVal,escPct:escp,rrr,tva,tvaTaux,tvaCpt,tvaType,
-    tr,port,ttc,avance,resteDu,echeance,
+    tr,port,emballage,autresFrais,ttc,avance,resteDu,echeance,
     type,qty,cp,coutReel:htNet,
     avoir,modeLabel:avoir?'AVOIR':'DOIT',lettre:'',_modifie:false
   };
@@ -1239,7 +1243,7 @@ function onProduitChange(){var nom=nb('f-produit-stock').value;var h=nb('f-stock
 function mouvementStock(nom,type,qty,pu,dateF,ref){
   if(!STOCKS[nom]||!qty)return;
   var s=STOCKS[nom];var avant=s.qteActuelle;
-  if(type==='achat'){s.lots.push({qte:qty,pu,date:dateF});s.qteActuelle+=qty;var tv=s.lots.reduce((a,l)=>a+l.qte*l.pu,0);s.cmup=Math.round(tv/s.qteActuelle);s.mvts.push({date:dateF,op:'Entrée',ref,avant,entree:qty,sortie:0,apres:s.qteActuelle,pu,valApres:s.qteActuelle*s.cmup});}
+  if(type==='achat'||type==='initial'){s.lots.push({qte:qty,pu,date:dateF});s.qteActuelle+=qty;var tv=s.lots.reduce((a,l)=>a+l.qte*l.pu,0);s.cmup=Math.round(tv/s.qteActuelle);s.mvts.push({date:dateF,op:type==='initial'?'Init':'Entrée',ref,avant,entree:qty,sortie:0,apres:s.qteActuelle,pu,valApres:s.qteActuelle*s.cmup});}
   else if(type==='vente'||type==='service'){var sortie=Math.min(qty,s.qteActuelle);var cout=0;if(s.methode==='fifo'){var r=sortie;while(r>0&&s.lots.length>0){var l=s.lots[0];if(l.qte<=r){cout+=l.qte*l.pu;r-=l.qte;s.lots.shift();}else{cout+=r*l.pu;l.qte-=r;r=0;}}}else{cout=sortie*s.cmup;var r2=sortie;while(r2>0&&s.lots.length>0){if(s.lots[0].qte<=r2){r2-=s.lots[0].qte;s.lots.shift();}else{s.lots[0].qte-=r2;r2=0;}}}s.qteActuelle-=sortie;var vA=s.methode==='cmup'?s.qteActuelle*s.cmup:s.lots.reduce((a,l)=>a+l.qte*l.pu,0);s.mvts.push({date:dateF,op:'Sortie',ref,avant,entree:0,sortie,apres:s.qteActuelle,pu:Math.round(cout/sortie||0),coutTotal:Math.round(cout),valApres:Math.round(vA)});}
   syncProduitSelect();renderAllStocks();
 }
@@ -1292,7 +1296,7 @@ function renderSuivi(){
 
 // ═══ REINIT ═══
 function reinit(){
-  ['f-num','f-client','f-desc','f-ht','f-escompte','f-escompte-val','f-ht-net','f-tr','f-port','f-rrr','f-tva-val','f-ttc','f-qty','f-cout-pre','f-avance','f-echeance'].forEach(id=>nb(id).value='');
+  ['f-num','f-client','f-desc','f-ht','f-escompte','f-escompte-val','f-ht-net','f-tr','f-port','f-emballage','f-autres-frais','f-rrr','f-tva-val','f-ttc','f-qty','f-cout-pre','f-avance','f-echeance'].forEach(id=>nb(id).value='');
   nb('f-reste-du').textContent='—';nb('f-reste-du').style.color='var(--text)';
   nb('f-type').value='';nb('f-pay').value='';nb('f-statut').value='payee';
   nb('f-produit-stock').value='';nb('f-unite').value='unite';
