@@ -331,8 +331,19 @@ function valider(){
       nb('sc-prod').textContent=nomProduit;nb('sc-qty').textContent=qty+' '+unite;nb('sc-act').textContent=fmt(STOCKS[nomProduit].qteActuelle)+' '+STOCKS[nomProduit].unite;
       nb('modal-stock').style.display='flex';return;
     }
-    var puStock=type==='achat'?Math.round(htNet/qty):STOCKS[nomProduit].cmup;
-    mouvementStock(nomProduit,avoir?'vente':type,qty,puStock,dateF,num);
+    // Direction du mouvement : une facture normale suit son type (achat →
+    // entrée, vente → sortie), mais un AVOIR l'inverse (avoir sur achat =
+    // on retourne la marchandise au fournisseur = sortie ; avoir sur vente
+    // = le client nous la rend = entrée). estEntree est un XOR entre "type
+    // achat" et "avoir" pour couvrir les 4 cas sans les lister un par un.
+    var estEntree=(type==='achat')!==avoir;
+    // Coût d'entrée réel seulement pour un vrai achat ; un retour client
+    // (avoir vente) réintègre le stock au CMUP existant, pas au prix de
+    // vente. Sans incidence pour une sortie (vente normale ou avoir achat) -
+    // mouvementStock calcule alors le coût depuis les lots/CMUP, pas depuis
+    // ce paramètre.
+    var puStock=(estEntree&&type==='achat')?Math.round(htNet/qty):STOCKS[nomProduit].cmup;
+    mouvementStock(nomProduit,estEntree?'achat':'vente',qty,puStock,dateF,num);
   }
   finaliserFacture(e,ttc,pay,cpts,num,desc,cli,type,avoir);
 }
