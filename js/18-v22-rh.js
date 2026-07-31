@@ -756,6 +756,10 @@ rhSave = function(){
   var s=rhSyncEnsure();
   if(s) s.schedule();
   else console.warn('[sync:rh] schedule skipped: registerModuleSync not available yet');
+  // rhSave() doesn't go through the global sauvegarderAuto(), so the
+  // generic draft-autosave (js/24-draft-autosave.js) can't clear a RH
+  // screen's draft from there - do it here instead.
+  if(window.clearDraftCurrentPane) window.clearDraftCurrentPane();
 };
 // Called from onAuthSuccess() (js/06) right after login, same spot that
 // triggers the core data's syncAwareLoad() - pulls this company's RH data

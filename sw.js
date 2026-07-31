@@ -13,7 +13,7 @@
 // NOTE: if new css/*.css or js/*.js files are added to the app, add them to
 // PRECACHE_URLS below too, or they simply won't be available offline until
 // the first time they're fetched online (they'll still work fine online).
-const CACHE_NAME = 'gest-africa-shell-v2';
+const CACHE_NAME = 'gest-africa-shell-v3';
 
 const PRECACHE_URLS = [
   './',
@@ -31,6 +31,7 @@ const PRECACHE_URLS = [
   'js/12-v17-tft-liasse-annexes.js','js/13-v18-stock.js','js/14-mobile.js','js/15-v19-specializations.js',
   'js/16-v20-notifications-sa-sarl.js','js/17-v21-recherche-import.js','js/18-v22-rh.js','js/19-nav-icons.js',
   'js/20-user-management.js','js/21-ia-copilot.js','js/22-permissions.js','js/23-supabase-sync.js',
+  'js/24-draft-autosave.js',
 ];
 
 self.addEventListener('install', function(event){
