@@ -536,8 +536,10 @@ function renderJournal(){
     if(e.isTVA)tags+=' <span style="font-size:9px;padding:1px 4px;background:var(--teal-light);color:var(--teal);border-radius:var(--radius)">TVA</span>';
     var tvaBadge=e.tvaTaux>0?`<span class="badge bg-teal">${e.tvaTaux}%</span>`:'—';
     var echTag=e.echeance?`<span style="font-size:10px;color:${new Date(e.echeance)<new Date()&&e.stat==='attente'?'var(--red)':'var(--text-muted)'}">${fmtD(e.echeance)}</span>`:'—';
-    var isRegl=REGL.includes(e);
+    var reglIdx=origIdx<0?REGL.indexOf(e):-1;
     var btnEdit=origIdx>=0?`<button onclick="ouvrirEdit(${origIdx},'EC')" style="font-size:10px;padding:2px 6px;border-radius:var(--radius);cursor:pointer;border:2px solid var(--border-strong);background:transparent;color:var(--text-muted)">${ico('pencil')}</button>`:'';
+    var btnDel=origIdx>=0?`<button onclick="supprimerEcriture(${origIdx},'EC')" title="Supprimer définitivement" style="font-size:10px;padding:2px 6px;border-radius:var(--radius);cursor:pointer;border:2px solid var(--red-border);background:var(--red-light);color:var(--red)">${ico('trash')}</button>`
+      :reglIdx>=0?`<button onclick="supprimerEcriture(${reglIdx},'REGL')" title="Supprimer définitivement" style="font-size:10px;padding:2px 6px;border-radius:var(--radius);cursor:pointer;border:2px solid var(--red-border);background:var(--red-light);color:var(--red)">${ico('trash')}</button>`:'';
     h+=`<tr style="${bg}${bl}">
       <td style="white-space:nowrap">${e.dateF||e.date||''}</td>
       <td><strong>${e.num}</strong>${tags}</td>
@@ -549,7 +551,7 @@ function renderJournal(){
       <td>${tvaBadge}</td>
       <td>${echTag}</td>
       <td>${sb}</td>
-      <td style="display:flex;gap:3px;white-space:nowrap">${btnR}${btnEdit}</td>
+      <td style="display:flex;gap:3px;white-space:nowrap">${btnR}${btnEdit}${btnDel}</td>
     </tr>`;
   });
 
@@ -1490,6 +1492,37 @@ function confirmerEdit(){
   if(avant.credit!==e.credit)diff.push('Crédit');
   if(diff.length){e._modifie=true;ajouterNotif('modif','Modification — '+e.num,'Motif : '+motif+' | Champs : '+diff.join(', '));}
   fermerEdit();renderAll();sauvegarderAuto();
+}
+
+// ═══ SUPPRESSION ÉCRITURE ═══
+// Retire réellement l'entrée du tableau EC/REGL (pas juste de l'affichage)
+// puis appelle sauvegarderAuto() - qui persiste dans localStorage ET
+// programme le push Supabase (js/00-supabase-client.js) - donc la
+// suppression survit à un rafraîchissement ou à un changement d'appareil,
+// contrairement à un simple retrait du DOM. renderAll() rafraîchit aussi
+// bilan/grand livre/balance/résultats/lettrage, qui dépendent tous de EC.
+function supprimerEcriture(idx,src){
+  var arr=src==='REGL'?REGL:EC;
+  var e=arr[idx];if(!e)return false;
+  if(!confirm('Supprimer définitivement cette écriture ?\n\n'+(e.num?e.num+' — ':'')+(e.desc||'')+'\n\nCette action ne peut pas être annulée.'))return false;
+  var num=e.num;
+  var toRemove=[idx];
+  // Une vente/achat avec TVA est postée en 2 lignes liées par le même num
+  // (voir valider()) : supprimer la ligne principale sans emporter sa
+  // ligne "TVA-<num>" laisserait une TVA orpheline, invisible sans lien
+  // vers une facture, qui fausserait le total du journal.
+  if(src!=='REGL'&&!e.isTVA){
+    EC.forEach(function(ec,i){ if(i!==idx&&ec.isTVA&&ec.num==='TVA-'+num) toRemove.push(i); });
+  }
+  toRemove.sort(function(a,b){return b-a;}).forEach(function(i){ arr.splice(i,1); });
+  ajouterNotif('modif','Écriture supprimée'+(num?' — '+num:''),e.desc||'');
+  renderAll();
+  sauvegarderAuto();
+  showToast('Écriture supprimée définitivement.');
+  return true;
+}
+function supprimerEcritureModal(){
+  if(supprimerEcriture(editIdx,editSrc)) fermerEdit();
 }
 
 // ═══ RÈGLEMENT ═══

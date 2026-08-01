@@ -28,6 +28,16 @@
   // continuer à réapparaître indéfiniment.
   function isDraftableId(id){ return !/search|filtre|filter/i.test(id); }
 
+  // Un <select> a TOUJOURS une valeur (celle de sa première <option>, ou
+  // celle déjà choisie) même quand l'utilisateur n'a rien touché sur
+  // l'écran - contrairement à un champ texte/nombre/date, vide par défaut.
+  // Sans distinction, le simple fait de déclencher un événement input/change
+  // n'IMPORTE OÙ sur l'écran actif (ex: taper dans un filtre déjà exclu)
+  // capturait quand même la valeur par défaut du select "Statut"/"Méthode"/
+  // etc. du même écran, qui suffisait à elle seule à faire croire qu'un
+  // brouillon existait. On garde sa valeur pour la restauration (fidèle à
+  // ce que l'utilisateur avait choisi), mais elle ne compte jamais, à elle
+  // seule, comme preuve qu'une saisie a été commencée.
   function collectFields(pane){
     var data={};
     pane.querySelectorAll('input,select,textarea').forEach(function(el){
@@ -35,12 +45,18 @@
       // temporairement - et readonly/disabled/file n'ont rien à restaurer.
       if(!el.id||el.type==='password'||el.type==='file'||el.readOnly||el.disabled) return;
       if(!isDraftableId(el.id)) return;
-      data[el.id]=(el.type==='checkbox'||el.type==='radio')?el.checked:el.value;
+      var v=(el.type==='checkbox'||el.type==='radio')?el.checked:el.value;
+      data[el.id]={v:v,sel:el.tagName==='SELECT'};
     });
     return data;
   }
   function hasContent(data){
-    return Object.keys(data).some(function(k){var v=data[k];return isDraftableId(k)&&v!==''&&v!==false&&v!=null;});
+    return Object.keys(data).some(function(k){
+      var f=data[k];
+      if(!f||typeof f!=='object'||f.sel||!isDraftableId(k))return false; // ancien format ou <select> : ignoré
+      var v=f.v;
+      return v!==''&&v!==false&&v!=null;
+    });
   }
   function draftKey(pane){ return 'comptaia_draft_'+pane.id; }
 
@@ -69,14 +85,23 @@
       try{localStorage.removeItem(draftKey(pane));}catch(e){}
       return;
     }
-    var restored=0;
+    var restored=0,firstEl=null;
     Object.keys(parsed.data).forEach(function(id){
       if(!isDraftableId(id)) return; // purge un vieux brouillon enregistré avant l'exclusion des filtres
       var el=document.getElementById(id); if(!el) return;
-      var v=parsed.data[id];
-      if(el.type==='checkbox'||el.type==='radio'){ if(v){el.checked=true;restored++;} }
-      else if(v!==''&&v!=null){ el.value=v; restored++; }
+      var f=parsed.data[id]; if(!f||typeof f!=='object') return; // ancien format (avant {v,sel}) - ignoré
+      var v=f.v;
+      if(el.type==='checkbox'||el.type==='radio'){ if(v){el.checked=true;restored++;firstEl=firstEl||el;} }
+      else if(v!==''&&v!=null){ el.value=v; restored++; firstEl=firstEl||el; }
+      else if(f.sel&&v!=null){ el.value=v; } // un select gardé tel quel (n'est jamais "restauré" à lui seul)
     });
+    // Si le champ restauré est caché dans une section repliable
+    // ("Options avancées", "Saisir une écriture manuelle"...), l'ouvrir -
+    // sinon les valeurs sont bien restaurées mais invisibles à l'écran.
+    if(firstEl){
+      var det=firstEl.closest('details'); if(det) det.open=true;
+      try{ firstEl.scrollIntoView({block:'center',behavior:'smooth'}); }catch(e){}
+    }
     if(restored && typeof showToast==='function'){
       showToast('📝 Brouillon restauré ('+restored+' champ(s) — pensez à valider pour l\'enregistrer réellement)','ok');
     }
