@@ -392,6 +392,7 @@ function construireImportFacture(){
   if(!pane||$id('fimp-card'))return;
   var c=document.createElement('div');
   c.className='card';c.id='fimp-card';c.style.marginBottom='14px';
+  var visionKey=(typeof iaGetVisionKey==='function')?iaGetVisionKey():'';
   c.innerHTML='<div class="card-body">'+
     '<div class="fimp-titre">'+ico('receipt')+' Nouvelle facture — choisissez votre méthode</div>'+
     '<div class="fimp-sous">Saisie manuelle, ou import automatique : l\'IA lit le document, remplit le formulaire et prépare les écritures. Vous vérifiez, puis validez.</div>'+
@@ -404,12 +405,39 @@ function construireImportFacture(){
     '<input type="file" id="fimp-pdf" accept="application/pdf" style="display:none" onchange="fimpFichier(event)"/>'+
     '<input type="file" id="fimp-photo" accept="image/*" style="display:none" onchange="fimpFichier(event)"/>'+
     '<input type="file" id="fimp-cam" accept="image/*" capture="environment" style="display:none" onchange="fimpFichier(event)"/>'+
+    '<details style="margin-top:8px;background:var(--bg);border-radius:var(--radius);overflow:hidden">'+
+      '<summary style="cursor:pointer;padding:7px 12px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--text-muted)">'+ico('camera')+' Lecture photo (Google Vision, optionnel)'+(visionKey?' <span style="color:var(--green)">✓ configurée</span>':'')+'</summary>'+
+      '<div style="padding:4px 12px 12px;font-size:11px">'+
+        '<p style="color:var(--text-muted);margin-bottom:6px">Améliore la lecture des photos de facture, et permet d\'utiliser Groq, GitHub Models ou Mistral (gratuits) pour l\'extraction — pas seulement Anthropic ou Gemini. Créez une clé sur console.cloud.google.com (API "Cloud Vision" à activer, nécessite un compte de facturation Google Cloud, palier gratuit mensuel).</p>'+
+        '<div style="display:flex;gap:6px">'+
+          '<input type="password" id="vision-key-input" placeholder="AIza..." value="'+visionKey+'" style="flex:1"/>'+
+          '<button type="button" class="btn btn-sm" onclick="visionSauvegarderCle()">Enregistrer</button>'+
+          (visionKey?'<button type="button" class="btn btn-sm" onclick="visionEffacerCle()">Retirer</button>':'')+
+        '</div>'+
+      '</div>'+
+    '</details>'+
     '<div id="fimp-status"></div>'+
     '<div id="fimp-resume"></div>'+
   '</div>';
   pane.insertBefore(c,pane.firstChild);
 }
 window.$fimp=function(id){var f=$id(id);if(f){f.value='';f.click();}};
+function visionRafraichirCarte(){
+  var card=$id('fimp-card'); if(card)card.remove();
+  construireImportFacture();
+}
+window.visionSauvegarderCle=function(){
+  var v=(($id('vision-key-input')||{}).value||'').trim();
+  if(!v){alert('Collez une clé API Google Vision valide.');return;}
+  iaSetVisionKey(v);
+  if(typeof showToast==='function')showToast('Clé Google Vision enregistrée.');
+  visionRafraichirCarte();
+};
+window.visionEffacerCle=function(){
+  iaSetVisionKey('');
+  if(typeof showToast==='function')showToast('Clé Google Vision retirée.');
+  visionRafraichirCarte();
+};
 window.fimpManuel=function(){
   var f=$id('f-num')||$id('f-client');
   if(f){f.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(function(){f.focus();},350);}
@@ -435,14 +463,6 @@ async function fimpAnalyser(dataUrl,mime){
     fimpStatus(ico('alertTriangle')+' Configurez d\'abord une clé IA dans "Assistant IA" pour utiliser l\'import automatique.','var(--red)');
     return;
   }
-  // Reconnaissance d'image/document : seuls Anthropic et Gemini savent lire
-  // un fichier joint directement (Groq/GitHub Models, tels que configurés
-  // ici, sont des modèles texte-seul côté chat).
-  if(provider!=='anthropic'&&provider!=='gemini'){
-    fimpStatus(ico('alertTriangle')+' L\'import automatique nécessite Anthropic Claude ou Google Gemini comme fournisseur IA (changez-le dans "Assistant IA").','var(--red)');
-    return;
-  }
-  fimpStatus(ico('bot')+' Analyse IA du document — extraction des données comptables…','var(--amber)');
   var b64=dataUrl.split(',')[1];
   var estPDF=(mime||'').indexOf('pdf')>-1;
   var prompt='Tu es un expert-comptable OHADA (Togo). Analyse cette facture (ou reçu) et réponds UNIQUEMENT avec un JSON valide, sans markdown, sans commentaire :\n'+
@@ -451,6 +471,40 @@ async function fimpAnalyser(dataUrl,mime){
 '"montant_ht":0,"taux_tva":18,"montant_tva":0,"montant_ttc":0,'+
 '"mode_paiement":"banque|espece|credit","echeance":"YYYY-MM-DD ou null","confiance":"haute|moyenne|basse"}\n'+
 'Règles : montants en FCFA sans séparateurs ; si le document est une facture reçue d\'un fournisseur → type_document="facture_achat" ; si émise vers un client → "facture_vente" ; mode_paiement="credit" si paiement à échéance ou non précisé.';
+
+  // Si une clé Google Vision est configurée et qu'il s'agit d'une image (pas
+  // un PDF - Vision fait de l'OCR image, pas de la lecture PDF multi-pages
+  // via cet endpoint), on fait d'abord lire le texte brut par Vision, puis
+  // on demande au fournisseur TEXTE configuré de le structurer en JSON.
+  // Ça marche même avec Groq/GitHub Models/Mistral, qui ne peuvent pas lire
+  // une image directement - normalement réservé à Anthropic/Gemini.
+  var visionKey=(typeof iaGetVisionKey==='function')?iaGetVisionKey():'';
+  if(visionKey&&!estPDF){
+    try{
+      fimpStatus(ico('bot')+' Lecture OCR (Google Vision)…','var(--amber)');
+      var texteOCR=await visionOCR(b64,mime);
+      if(!texteOCR.trim())throw new Error('Aucun texte détecté sur l\'image.');
+      fimpStatus(ico('bot')+' Extraction des données comptables…','var(--amber)');
+      var texteJSON=await iaAppelerTexteSeul(prompt+'\n\nTexte extrait du document par OCR :\n'+texteOCR);
+      var parsedV=JSON.parse(texteJSON.replace(/```json|```/g,'').trim());
+      FIMP_DATA=parsedV;
+      fimpRemplir(parsedV);
+      return;
+    }catch(errV){
+      fimpStatus(ico('alertTriangle')+' Lecture Google Vision impossible ('+(errV.message||'erreur')+') — nouvelle tentative en lecture directe…','var(--amber)');
+      // On retombe ci-dessous sur le chemin direct (image envoyée telle
+      // quelle à Anthropic/Gemini), si le fournisseur configuré le permet.
+    }
+  }
+
+  // Reconnaissance d'image/document directe (sans Vision) : seuls Anthropic
+  // et Gemini savent lire un fichier joint directement (Groq/GitHub
+  // Models/Mistral sont des modèles texte-seul côté chat).
+  if(provider!=='anthropic'&&provider!=='gemini'){
+    fimpStatus(ico('alertTriangle')+' L\'import automatique nécessite Anthropic Claude ou Google Gemini comme fournisseur IA (changez-le dans "Assistant IA"), ou configurez une clé Google Vision ci-dessus pour utiliser n\'importe quel fournisseur.','var(--red)');
+    return;
+  }
+  fimpStatus(ico('bot')+' Analyse IA du document — extraction des données comptables…','var(--amber)');
   try{
     var texte;
     if(provider==='anthropic'){

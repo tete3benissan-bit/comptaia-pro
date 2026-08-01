@@ -216,6 +216,13 @@ function iaGetKey(){ try{return localStorage.getItem('comptaia_ia_key')||'';}cat
 function iaSetKey(k){ try{localStorage.setItem('comptaia_ia_key',k);}catch(e){} }
 function iaEffacerKey(){ try{localStorage.removeItem('comptaia_ia_key');}catch(e){} renderChatIA(); }
 
+// Google Vision est une clé À PART : elle ne fait que de la lecture d'image
+// (OCR), pas de la conversation - elle vient en complément d'un fournisseur
+// texte (voir iaAppelerTexteSeul ci-dessous et fimpAnalyser() dans
+// js/17-v21-recherche-import.js), jamais à sa place dans IA_PROVIDERS.
+function iaGetVisionKey(){ try{return localStorage.getItem('comptaia_vision_key')||'';}catch(e){return '';} }
+function iaSetVisionKey(k){ try{localStorage.setItem('comptaia_vision_key',k);}catch(e){} }
+
 function iaChoisirProvider(p){ iaSetProvider(p); renderChatIA(); }
 
 async function iaSauvegarderCle(){
@@ -343,6 +350,71 @@ async function iaAppelerIA(question, contexte){
   IA_COPILOT_HIST.push({role:'user',content:question});
   IA_COPILOT_HIST.push({role:'assistant',content:texte});
   return texte;
+}
+
+// Appel "un coup" (un seul prompt, pas d'historique de conversation, pas de
+// contexte comptable) avec le fournisseur texte actuellement configuré.
+// Sert à extraire des champs structurés à partir du texte brut que Google
+// Vision a lu sur une photo/document - ce qui permet d'utiliser Groq,
+// GitHub Models ou Mistral pour l'import automatique de facture, alors que
+// seuls Anthropic et Gemini savent lire une image directement (voir
+// fimpAnalyser() dans js/17-v21-recherche-import.js).
+async function iaAppelerTexteSeul(prompt){
+  var provider=iaGetProvider();
+  var apiKey=iaGetKey();
+  var messages=[{role:'user',content:prompt}];
+  if(provider==='groq'){
+    var r=await fetch('https://api.groq.com/openai/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+apiKey},body:JSON.stringify({model:IA_PROVIDERS.groq.model,max_tokens:1500,messages:messages})});
+    if(!r.ok) throw await iaErreurHTTP(r);
+    var d=await r.json();
+    return (d.choices && d.choices[0] && d.choices[0].message && d.choices[0].message.content) || '';
+  }
+  if(provider==='github'){
+    var rGH=await fetch('https://models.inference.ai.azure.com/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+apiKey},body:JSON.stringify({model:IA_PROVIDERS.github.model,max_tokens:1500,messages:messages})});
+    if(!rGH.ok) throw await iaErreurHTTP(rGH);
+    var dGH=await rGH.json();
+    return (dGH.choices && dGH.choices[0] && dGH.choices[0].message && dGH.choices[0].message.content) || '';
+  }
+  if(provider==='mistral'){
+    var rM=await fetch('https://api.mistral.ai/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+apiKey},body:JSON.stringify({model:IA_PROVIDERS.mistral.model,max_tokens:1500,messages:messages})});
+    if(!rM.ok) throw await iaErreurHTTP(rM);
+    var dM=await rM.json();
+    return (dM.choices && dM.choices[0] && dM.choices[0].message && dM.choices[0].message.content) || '';
+  }
+  if(provider==='gemini'){
+    var urlG='https://generativelanguage.googleapis.com/v1beta/models/'+IA_PROVIDERS.gemini.model+':generateContent?key='+encodeURIComponent(apiKey);
+    var rG=await fetch(urlG,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{role:'user',parts:[{text:prompt}]}],generationConfig:{maxOutputTokens:1500}})});
+    if(!rG.ok) throw await iaErreurHTTP(rG);
+    var dG=await rG.json();
+    var cand=dG.candidates && dG.candidates[0];
+    return (cand && cand.content && cand.content.parts && cand.content.parts[0] && cand.content.parts[0].text) || '';
+  }
+  // anthropic
+  var rA=await fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+    body:JSON.stringify({model:IA_PROVIDERS.anthropic.model,max_tokens:1500,messages:messages})
+  });
+  if(!rA.ok) throw await iaErreurHTTP(rA);
+  var dA2=await rA.json();
+  return (dA2.content && dA2.content[0] && dA2.content[0].text) || '';
+}
+
+// OCR Google Vision : lit le texte brut d'une image (photo de facture/reçu).
+// Ne comprend pas le document (pas de notion de "montant HT" vs "TTC") -
+// c'est iaAppelerTexteSeul() qui structure ensuite ce texte en JSON.
+async function visionOCR(base64,mime){
+  var key=iaGetVisionKey();
+  var r=await fetch('https://vision.googleapis.com/v1/images:annotate?key='+encodeURIComponent(key),{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({requests:[{image:{content:base64},features:[{type:'DOCUMENT_TEXT_DETECTION'}]}]})
+  });
+  if(!r.ok) throw new Error('HTTP '+r.status);
+  var d=await r.json();
+  var resp=d.responses && d.responses[0];
+  if(resp && resp.error) throw new Error(resp.error.message || 'Erreur Google Vision');
+  return (resp && resp.fullTextAnnotation && resp.fullTextAnnotation.text) || '';
 }
 
 // Traduit une erreur technique (code HTTP, ou aucune réponse du tout) en
