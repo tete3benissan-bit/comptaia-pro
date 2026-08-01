@@ -560,6 +560,42 @@ function renderJournal(){
   else{eq.textContent='Déséquilibré';eq.style.color='var(--red)';}
 }
 
+// ═══ SUGGESTION DE COMPTES (écriture manuelle) ═══
+// Reconnaissance de mots-clés simple (pas d'appel IA - doit rester instantané
+// et fonctionner hors-ligne). Ce n'est qu'une proposition de départ, jamais
+// une vérité comptable : le comptable garde la main pour la corriger avant
+// d'enregistrer (cf. note affichée sous le formulaire).
+var ME_SUGGESTIONS=[
+  {mots:['loyer','location bureau','location magasin'],d:'613',c:'521'},
+  {mots:['eau','electricite','électricité','cte','sonet'],d:'605',c:'521'},
+  {mots:['telephone','téléphone','internet','forfait moov','forfait togocom'],d:'628',c:'521'},
+  {mots:['carburant','essence','gasoil'],d:'6051',c:'571'},
+  {mots:['salaire','paie','paye'],d:'661',c:'422'},
+  {mots:['agios','frais bancaire','commission bancaire'],d:'631',c:'521'},
+  {mots:['assurance'],d:'616',c:'521'},
+  {mots:['publicite','publicité','marketing'],d:'638',c:'521'},
+  {mots:['fourniture de bureau','fournitures de bureau','fourniture bureau'],d:'6041',c:'571'},
+  {mots:['entretien','reparation','réparation'],d:'624',c:'521'},
+  {mots:['transport'],d:'614',c:'571'},
+  {mots:['impot','impôt','taxe','patente'],d:'646',c:'521'},
+  {mots:['amortissement','dotation'],d:'6813',c:'28'},
+  {mots:['emprunt','pret bancaire','prêt bancaire'],d:'521',c:'162'},
+  {mots:['capital','apport associe','apport associé'],d:'521',c:'101'}
+];
+var meLastSuggD='',meLastSuggC='';
+function suggererComptesManuel(){
+  var lib=(nb('me-libelle').value||'').toLowerCase();
+  if(!lib)return;
+  var match=ME_SUGGESTIONS.find(function(s){return s.mots.some(function(m){return lib.includes(m);});});
+  if(!match)return;
+  var cd=nb('me-cptd'),cc=nb('me-cptc');
+  // Ne remplace que les champs encore vides ou laissés tels quels par une
+  // suggestion précédente - jamais une valeur que le comptable a tapée lui-même.
+  if(!cd.value.trim()||cd.value===meLastSuggD)cd.value=match.d;
+  if(!cc.value.trim()||cc.value===meLastSuggC)cc.value=match.c;
+  meLastSuggD=match.d;meLastSuggC=match.c;
+}
+
 // ═══ ÉCRITURE MANUELLE (Journal) ═══
 // Écriture double libre, hors circuit facture - utile pour les
 // régularisations, corrections ou opérations que le module Ventes/Achats ne
@@ -594,6 +630,7 @@ function ajouterEcritureManuelle(){
   });
 
   ['me-num','me-libelle','me-cptd','me-cptc','me-montant'].forEach(id=>nb(id).value='');
+  meLastSuggD='';meLastSuggC='';
   renderJournal();
   sauvegarderAuto();
   showToast('Écriture manuelle enregistrée.');

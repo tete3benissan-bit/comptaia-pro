@@ -436,12 +436,13 @@
         <div class="fgrid fg4" style="padding:4px 14px 14px">
           <div class="fg"><label>Date</label><input type="date" id="me-date"/></div>
           <div class="fg"><label>N° pièce</label><input type="text" id="me-num" placeholder="Ex : OD-001"/></div>
-          <div class="fg sp2"><label>Libellé</label><input type="text" id="me-libelle" placeholder="Ex : Régularisation..."/></div>
+          <div class="fg sp2"><label>Libellé</label><input type="text" id="me-libelle" placeholder="Ex : Régularisation..." oninput="suggererComptesManuel()"/></div>
           <div class="fg"><label>Compte Débit</label><input type="text" id="me-cptd" placeholder="Ex : 6011" style="font-family:'Archivo',sans-serif"/></div>
           <div class="fg"><label>Compte Crédit</label><input type="text" id="me-cptc" placeholder="Ex : 4011" style="font-family:'Archivo',sans-serif"/></div>
           <div class="fg"><label>Montant (FCFA)</label><input type="number" id="me-montant" placeholder="0" min="0"/></div>
           <div class="fg"><label>Statut</label><select id="me-stat"><option value="payee">Payée</option><option value="attente">En attente</option></select></div>
           <div class="fg" style="justify-content:flex-end;flex-direction:row;align-items:flex-end"><button class="btn btn-primary" onclick="ajouterEcritureManuelle()">+ Ajouter l'écriture</button></div>
+          <div style="grid-column:1/-1;font-size:10px;color:var(--text-faint);font-style:italic">Les comptes Débit/Crédit sont suggérés automatiquement à partir du libellé — vérifiez-les avant d'enregistrer.</div>
         </div>
       </details>
       <div class="journal-search">
