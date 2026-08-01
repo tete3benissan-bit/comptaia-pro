@@ -182,6 +182,7 @@ var IA_PROVIDERS={
   groq:{label:'Groq (gratuit)',model:'llama-3.3-70b-versatile',placeholder:'gsk_...',aide:'Créez une clé gratuite sur console.groq.com (inscription par e-mail, aucune carte bancaire).'},
   gemini:{label:'Google Gemini (gratuit)',model:'gemini-3.5-flash',placeholder:'AIza...',aide:'Créez une clé gratuite sur aistudio.google.com/apikey (connexion avec un compte Google, aucune carte bancaire).'},
   github:{label:'GitHub Models (gratuit)',model:'openai/gpt-4.1',placeholder:'github_pat_...',aide:'Créez un token gratuit sur github.com/settings/personal-access-tokens/new avec la permission "Models: Read-only" (aucune carte bancaire).'},
+  mistral:{label:'Mistral (gratuit)',model:'mistral-small-latest',placeholder:'...',aide:'Créez une clé gratuite sur console.mistral.ai (palier "Experiment", aucune carte bancaire).'},
   anthropic:{label:'Anthropic Claude (payant)',model:'claude-sonnet-4-20250514',placeholder:'sk-ant-...',aide:'Créez une clé sur console.anthropic.com (nécessite un moyen de paiement).'}
 };
 
@@ -292,6 +293,18 @@ async function iaAppelerIA(question, contexte){
     var dGH=await rGH.json();
     texte=(dGH.choices && dGH.choices[0] && dGH.choices[0].message && dGH.choices[0].message.content) || 'Réponse vide.';
 
+  } else if(provider==='mistral'){
+    // Mistral expose aussi un format "compatible OpenAI", même structure
+    // que Groq/GitHub Models — seuls l'URL et le modèle changent.
+    var rM=await fetch('https://api.mistral.ai/v1/chat/completions',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+apiKey},
+      body:JSON.stringify({model:IA_PROVIDERS.mistral.model,max_tokens:1500,messages:[{role:'system',content:systemPrompt}].concat(pending)})
+    });
+    if(!rM.ok) throw await iaErreurHTTP(rM);
+    var dM=await rM.json();
+    texte=(dM.choices && dM.choices[0] && dM.choices[0].message && dM.choices[0].message.content) || 'Réponse vide.';
+
   } else if(provider==='gemini'){
     // Format Gemini : la clé va dans l'URL (?key=...), pas dans un en-tête.
     // Les tours de conversation s'appellent "contents", et le rôle de l'IA
@@ -354,7 +367,7 @@ function iaMessageErreur(err, provider){
 
 function iaReponseSansCle(question, contexte){
   return "Aucune clé API n'est configurée, donc je ne peux pas encore rédiger une explication en langage naturel — voici en revanche les données réelles pertinentes, calculées à l'instant à partir de votre comptabilité :\n\n"+contexte+
-    "\n\n(Configurez une clé API — Groq, Gemini, GitHub Models (gratuits) ou Anthropic Claude — dans ce panneau pour obtenir des explications rédigées comme un conseiller, avec recommandations.)";
+    "\n\n(Configurez une clé API — Groq, Gemini, GitHub Models, Mistral (gratuits) ou Anthropic Claude — dans ce panneau pour obtenir des explications rédigées comme un conseiller, avec recommandations.)";
 }
 
 /* ── 5. Interface : rendu du panneau, envoi des messages ── */
