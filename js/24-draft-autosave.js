@@ -16,18 +16,31 @@
 
   function activePane(){ return document.querySelector('.pane.active'); }
 
+  // Les champs de recherche/filtre (j-search, stock-filtre-niveau,
+  // an-filter-mois, um-search, audit-filtre...) suivent tous cette même
+  // convention de nommage dans toute l'app - ce sont des réglages
+  // d'affichage, jamais une saisie à récupérer après un rafraîchissement.
+  // Sans cette exclusion, taper un simple terme de recherche faisait
+  // réapparaître le message "brouillon" indéfiniment, même une fois la
+  // vraie saisie enregistrée. hasContent() applique aussi ce filtre pour
+  // qu'un brouillon enregistré AVANT ce correctif (qui ne contient donc
+  // plus qu'un vieux terme de recherche) se purge tout seul au lieu de
+  // continuer à réapparaître indéfiniment.
+  function isDraftableId(id){ return !/search|filtre|filter/i.test(id); }
+
   function collectFields(pane){
     var data={};
     pane.querySelectorAll('input,select,textarea').forEach(function(el){
       // Jamais un mot de passe dans un brouillon localStorage, même
       // temporairement - et readonly/disabled/file n'ont rien à restaurer.
       if(!el.id||el.type==='password'||el.type==='file'||el.readOnly||el.disabled) return;
+      if(!isDraftableId(el.id)) return;
       data[el.id]=(el.type==='checkbox'||el.type==='radio')?el.checked:el.value;
     });
     return data;
   }
   function hasContent(data){
-    return Object.keys(data).some(function(k){var v=data[k];return v!==''&&v!==false&&v!=null;});
+    return Object.keys(data).some(function(k){var v=data[k];return isDraftableId(k)&&v!==''&&v!==false&&v!=null;});
   }
   function draftKey(pane){ return 'comptaia_draft_'+pane.id; }
 
@@ -52,10 +65,13 @@
     var raw; try{ raw=localStorage.getItem(draftKey(pane)); }catch(e){ return; }
     if(!raw) return;
     var parsed; try{ parsed=JSON.parse(raw); }catch(e){ return; }
-    if(!parsed||!parsed.data) return;
-    if(!parsed.ts||(Date.now()-parsed.ts)>DRAFT_MAX_AGE_MS){ try{localStorage.removeItem(draftKey(pane));}catch(e){} return; }
+    if(!parsed||!parsed.data||!hasContent(parsed.data)||!parsed.ts||(Date.now()-parsed.ts)>DRAFT_MAX_AGE_MS){
+      try{localStorage.removeItem(draftKey(pane));}catch(e){}
+      return;
+    }
     var restored=0;
     Object.keys(parsed.data).forEach(function(id){
+      if(!isDraftableId(id)) return; // purge un vieux brouillon enregistré avant l'exclusion des filtres
       var el=document.getElementById(id); if(!el) return;
       var v=parsed.data[id];
       if(el.type==='checkbox'||el.type==='radio'){ if(v){el.checked=true;restored++;} }
@@ -88,7 +104,15 @@
         var k=localStorage.key(i);
         if(!k||k.indexOf('comptaia_draft_')!==0) continue;
         var parsed; try{ parsed=JSON.parse(localStorage.getItem(k)); }catch(e){ continue; }
-        if(parsed&&parsed.ts&&(Date.now()-parsed.ts)<=DRAFT_MAX_AGE_MS) return k.slice('comptaia_draft_'.length);
+        // Purge au passage tout brouillon expiré ou qui ne contient plus
+        // que des champs de recherche/filtre (cf. isDraftableId) - sinon un
+        // brouillon enregistré avant ce correctif continuait à réapparaître
+        // à chaque rafraîchissement même sans rien de réel à récupérer.
+        if(!parsed||!parsed.data||!hasContent(parsed.data)||!parsed.ts||(Date.now()-parsed.ts)>DRAFT_MAX_AGE_MS){
+          try{ localStorage.removeItem(k); }catch(e){}
+          continue;
+        }
+        return k.slice('comptaia_draft_'.length);
       }
     }catch(e){}
     return null;
