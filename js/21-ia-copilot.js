@@ -410,7 +410,14 @@ async function visionOCR(base64,mime){
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify({requests:[{image:{content:base64},features:[{type:'DOCUMENT_TEXT_DETECTION'}]}]})
   });
-  if(!r.ok) throw new Error('HTTP '+r.status);
+  if(!r.ok){
+    // Google renvoie le vrai motif (clé invalide, API "Cloud Vision" pas
+    // activée, facturation manquante sur le projet...) dans le corps JSON -
+    // jeter juste "HTTP 403" masquait complètement la cause réelle.
+    var msg='HTTP '+r.status;
+    try{ var body=await r.json(); if(body&&body.error&&body.error.message) msg=body.error.message; }catch(e){}
+    throw new Error(msg);
+  }
   var d=await r.json();
   var resp=d.responses && d.responses[0];
   if(resp && resp.error) throw new Error(resp.error.message || 'Erreur Google Vision');

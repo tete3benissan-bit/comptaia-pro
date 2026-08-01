@@ -491,9 +491,19 @@ async function fimpAnalyser(dataUrl,mime){
       fimpRemplir(parsedV);
       return;
     }catch(errV){
-      fimpStatus(ico('alertTriangle')+' Lecture Google Vision impossible ('+(errV.message||'erreur')+') — nouvelle tentative en lecture directe…','var(--amber)');
-      // On retombe ci-dessous sur le chemin direct (image envoyée telle
-      // quelle à Anthropic/Gemini), si le fournisseur configuré le permet.
+      // Ne retomber sur le chemin direct QUE si le fournisseur configuré
+      // peut réellement lire une image lui-même (Anthropic/Gemini) - sinon
+      // on affichait l'erreur Vision une fraction de seconde puis elle
+      // était aussitôt écrasée par le message générique "nécessite
+      // Anthropic/Gemini" plus bas, qui masquait la vraie cause de l'échec
+      // (clé Vision invalide, API Cloud Vision non activée/facturation non
+      // configurée sur le projet Google Cloud, photo illisible...).
+      if(provider==='anthropic'||provider==='gemini'){
+        fimpStatus(ico('alertTriangle')+' Lecture Google Vision impossible ('+(errV.message||'erreur')+') — nouvelle tentative en lecture directe…','var(--amber)');
+      }else{
+        fimpStatus(ico('alertTriangle')+' Lecture Google Vision impossible : '+(errV.message||'erreur inconnue')+'. Vérifiez que l\'API "Cloud Vision" est bien activée et la facturation configurée sur votre projet Google Cloud (console.cloud.google.com), ou que la clé collée est la bonne.','var(--red)');
+        return;
+      }
     }
   }
 
