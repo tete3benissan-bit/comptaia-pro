@@ -562,38 +562,129 @@ function renderJournal(){
 
 // ═══ SUGGESTION DE COMPTES (écriture manuelle) ═══
 // Reconnaissance de mots-clés simple (pas d'appel IA - doit rester instantané
-// et fonctionner hors-ligne). Ce n'est qu'une proposition de départ, jamais
-// une vérité comptable : le comptable garde la main pour la corriger avant
-// d'enregistrer (cf. note affichée sous le formulaire).
+// et fonctionner hors-ligne), organisée en groupes du plan comptable OHADA.
+// Chaque groupe propose 1 à 3 comptes possibles (le mode de règlement -
+// caisse/banque/crédit - change le compte contrepartie) ; le comptable
+// choisit via les puces affichées, ou tape ses propres comptes - jamais
+// bloqué. "Apprentissage" : la dernière paire réellement validée pour un
+// groupe est mémorisée (localStorage) et proposée en premier la prochaine
+// fois, sans jamais appeler de service externe.
 var ME_SUGGESTIONS=[
-  {mots:['loyer','location bureau','location magasin'],d:'613',c:'521'},
-  {mots:['eau','electricite','électricité','cte','sonet'],d:'605',c:'521'},
-  {mots:['telephone','téléphone','internet','forfait moov','forfait togocom'],d:'628',c:'521'},
-  {mots:['carburant','essence','gasoil'],d:'6051',c:'571'},
-  {mots:['salaire','paie','paye'],d:'661',c:'422'},
-  {mots:['agios','frais bancaire','commission bancaire'],d:'631',c:'521'},
-  {mots:['assurance'],d:'616',c:'521'},
-  {mots:['publicite','publicité','marketing'],d:'638',c:'521'},
-  {mots:['fourniture de bureau','fournitures de bureau','fourniture bureau'],d:'6041',c:'571'},
-  {mots:['entretien','reparation','réparation'],d:'624',c:'521'},
-  {mots:['transport'],d:'614',c:'571'},
-  {mots:['impot','impôt','taxe','patente'],d:'646',c:'521'},
-  {mots:['amortissement','dotation'],d:'6813',c:'28'},
-  {mots:['emprunt','pret bancaire','prêt bancaire'],d:'521',c:'162'},
-  {mots:['capital','apport associe','apport associé'],d:'521',c:'101'}
+  {id:'achat-marchandises',mots:['achat de marchandises','achat marchandises','achat de marchandise'],
+    options:[{d:'6011',c:'401',label:'Achat à crédit (fournisseur)'},{d:'6011',c:'571',label:'Achat comptant (caisse)'},{d:'6011',c:'521',label:'Achat comptant (banque)'}]},
+  {id:'achat-matieres',mots:['achat de matieres','achat de matières','matieres premieres','matières premières'],
+    options:[{d:'601',c:'401',label:'Achat de matières premières à crédit'},{d:'601',c:'571',label:'Achat comptant (caisse)'}]},
+  {id:'vente-marchandises',mots:['vente de marchandises','vente marchandises','vente de marchandise'],
+    options:[{d:'4111',c:'7011',label:'Vente à crédit (client)'},{d:'571',c:'7011',label:'Vente comptant (caisse)'},{d:'521',c:'7011',label:'Vente comptant (banque)'}]},
+  {id:'facture-fournisseur',mots:['facture fournisseur',"facture d'achat",'facture achat'],
+    options:[{d:'6011',c:'401',label:'Facture fournisseur — marchandises'},{d:'601',c:'401',label:'Facture fournisseur — matières premières'},{d:'604',c:'401',label:'Facture fournisseur — fournitures'}]},
+  {id:'facture-client',mots:['facture client','facture de vente','facture vente'],
+    options:[{d:'4111',c:'7011',label:'Facture client — vente de marchandises'},{d:'4111',c:'7061',label:'Facture client — prestation de service'}]},
+  {id:'encaissement-client',mots:['encaissement client','reglement client','règlement client','paiement recu client','paiement reçu client'],
+    options:[{d:'571',c:'4111',label:'Encaissement en espèces'},{d:'521',c:'4111',label:'Encaissement en banque'}]},
+  {id:'paiement-fournisseur',mots:['paiement fournisseur','reglement fournisseur','règlement fournisseur'],
+    options:[{d:'401',c:'571',label:'Paiement en espèces'},{d:'401',c:'521',label:'Paiement par banque'}]},
+  {id:'loyer',mots:['loyer','location bureau','location magasin','location'],
+    options:[{d:'613',c:'521',label:'Loyer payé par banque'},{d:'613',c:'571',label:'Loyer payé en espèces'}]},
+  {id:'salaire',mots:['salaire','paie','paye'],
+    options:[{d:'661',c:'422',label:'Salaire à payer (charge constatée)'},{d:'422',c:'521',label:'Paiement du salaire par banque'},{d:'422',c:'571',label:'Paiement du salaire en espèces'}]},
+  {id:'electricite',mots:['electricite','électricité','cte'],
+    options:[{d:'605',c:'521',label:'Électricité payée par banque'},{d:'605',c:'571',label:'Électricité payée en espèces'}]},
+  {id:'eau',mots:['eau','sonet'],
+    options:[{d:'605',c:'521',label:'Eau payée par banque'},{d:'605',c:'571',label:'Eau payée en espèces'}]},
+  {id:'telephone',mots:['telephone','téléphone','internet','forfait moov','forfait togocom'],
+    options:[{d:'628',c:'521',label:'Télécommunications payées par banque'},{d:'628',c:'571',label:'Télécommunications payées en espèces'}]},
+  {id:'banque',mots:['banque'],
+    options:[{d:'631',c:'521',label:'Frais bancaires'},{d:'571',c:'521',label:'Retrait banque vers caisse'},{d:'521',c:'571',label:'Dépôt caisse vers banque'}]},
+  {id:'caisse',mots:['caisse'],
+    options:[{d:'571',c:'521',label:'Retrait banque vers caisse'},{d:'521',c:'571',label:'Dépôt caisse vers banque'}]},
+  {id:'tva',mots:['tva'],
+    options:[{d:'4452',c:'401',label:'TVA récupérable sur achat'},{d:'4111',c:'4431',label:'TVA collectée sur vente'},{d:'4431',c:'521',label:"Reversement TVA à l'État"}]},
+  {id:'carburant',mots:['carburant','essence','gasoil'],
+    options:[{d:'6051',c:'571',label:'Carburant payé en espèces'},{d:'6051',c:'521',label:'Carburant payé par banque'}]},
+  {id:'assurance',mots:['assurance'],
+    options:[{d:'616',c:'521',label:'Assurance payée par banque'},{d:'616',c:'571',label:'Assurance payée en espèces'}]},
+  {id:'publicite',mots:['publicite','publicité','marketing'],
+    options:[{d:'638',c:'521',label:'Publicité payée par banque'},{d:'638',c:'571',label:'Publicité payée en espèces'}]},
+  {id:'fourniture-bureau',mots:['fourniture de bureau','fournitures de bureau','fourniture bureau'],
+    options:[{d:'6041',c:'571',label:'Fournitures de bureau en espèces'},{d:'6041',c:'521',label:'Fournitures de bureau par banque'}]},
+  {id:'entretien',mots:['entretien','reparation','réparation'],
+    options:[{d:'624',c:'521',label:'Entretien/réparation par banque'},{d:'624',c:'571',label:'Entretien/réparation en espèces'}]},
+  {id:'transport',mots:['transport'],
+    options:[{d:'614',c:'571',label:'Transport payé en espèces'},{d:'614',c:'521',label:'Transport payé par banque'}]},
+  {id:'impot',mots:['impot','impôt','taxe','patente'],
+    options:[{d:'646',c:'521',label:'Impôts et taxes payés par banque'},{d:'646',c:'571',label:'Impôts et taxes payés en espèces'}]},
+  {id:'amortissement',mots:['amortissement','dotation'],
+    options:[{d:'6813',c:'28',label:"Dotation aux amortissements"}]},
+  {id:'emprunt',mots:['emprunt','pret bancaire','prêt bancaire'],
+    options:[{d:'521',c:'162',label:"Encaissement de l'emprunt"},{d:'162',c:'521',label:'Remboursement du capital'},{d:'671',c:'521',label:"Paiement des intérêts"}]},
+  {id:'capital',mots:['capital','apport associe','apport associé'],
+    options:[{d:'521',c:'101',label:'Apport en capital par banque'},{d:'571',c:'101',label:'Apport en capital en espèces'}]}
 ];
-var meLastSuggD='',meLastSuggC='';
+var meLastSuggD='',meLastSuggC='',meCurrentGroupId=null;
+
+function meLearnedGet(groupId){
+  try{var m=JSON.parse(localStorage.getItem('comptaia_me_learned')||'{}');return m[groupId]||null;}catch(e){return null;}
+}
+function meLearnedSet(groupId,d,c){
+  if(!groupId)return;
+  try{
+    var m=JSON.parse(localStorage.getItem('comptaia_me_learned')||'{}');
+    m[groupId]={d,c};
+    localStorage.setItem('comptaia_me_learned',JSON.stringify(m));
+  }catch(e){}
+}
+
+function choisirCompteManuel(d,c){
+  nb('me-cptd').value=d;nb('me-cptc').value=c;
+  meLastSuggD=d;meLastSuggC=c;
+}
+
 function suggererComptesManuel(){
   var lib=(nb('me-libelle').value||'').toLowerCase();
-  if(!lib)return;
-  var match=ME_SUGGESTIONS.find(function(s){return s.mots.some(function(m){return lib.includes(m);});});
-  if(!match)return;
-  var cd=nb('me-cptd'),cc=nb('me-cptc');
+  var box=nb('me-suggestions');
+  if(!lib){if(box){box.style.display='none';box.innerHTML='';}meCurrentGroupId=null;return;}
+
+  var groups=ME_SUGGESTIONS.filter(function(g){return g.mots.some(function(m){return lib.includes(m);});});
+  if(!groups.length){if(box){box.style.display='none';box.innerHTML='';}meCurrentGroupId=null;return;}
+
+  // Le groupe dont le mot-clé correspondant est le plus long/spécifique passe en premier
+  // (ex : "achat de marchandises" doit primer sur un simple "achat" générique).
+  groups.sort(function(a,b){
+    var la=Math.max.apply(null,a.mots.filter(function(m){return lib.includes(m);}).map(function(m){return m.length;}));
+    var lb=Math.max.apply(null,b.mots.filter(function(m){return lib.includes(m);}).map(function(m){return m.length;}));
+    return lb-la;
+  });
+  var primary=groups[0];
+  meCurrentGroupId=primary.id;
+
+  var options=primary.options.slice();
+  var learned=meLearnedGet(primary.id);
+  if(learned){
+    options=options.filter(function(o){return!(o.d===learned.d&&o.c===learned.c);});
+    options.unshift({d:learned.d,c:learned.c,label:'Suggestion apprise de vos saisies précédentes'});
+  }
+
+  var cd=nb('me-cptd'),cc=nb('me-cptc'),top=options[0];
   // Ne remplace que les champs encore vides ou laissés tels quels par une
   // suggestion précédente - jamais une valeur que le comptable a tapée lui-même.
-  if(!cd.value.trim()||cd.value===meLastSuggD)cd.value=match.d;
-  if(!cc.value.trim()||cc.value===meLastSuggC)cc.value=match.c;
-  meLastSuggD=match.d;meLastSuggC=match.c;
+  if(!cd.value.trim()||cd.value===meLastSuggD)cd.value=top.d;
+  if(!cc.value.trim()||cc.value===meLastSuggC)cc.value=top.c;
+  meLastSuggD=top.d;meLastSuggC=top.c;
+
+  if(box){
+    var all=[];
+    groups.forEach(function(g){
+      var opts=g.options.slice();
+      var l=meLearnedGet(g.id);
+      if(l){opts=opts.filter(function(o){return!(o.d===l.d&&o.c===l.c);});opts.unshift({d:l.d,c:l.c,label:'Appris — '+g.id});}
+      opts.forEach(function(o){all.push(o);});
+    });
+    box.innerHTML=all.slice(0,6).map(function(o){
+      return '<span class="ia-chip" onclick="choisirCompteManuel(\''+o.d+'\',\''+o.c+'\')">'+o.d+' / '+o.c+' — '+o.label+'</span>';
+    }).join('');
+    box.style.display=all.length?'flex':'none';
+  }
 }
 
 // ═══ ÉCRITURE MANUELLE (Journal) ═══
@@ -629,8 +720,11 @@ function ajouterEcritureManuelle(){
     avoir:false,modeLabel:'DOIT',lettre:'',_modifie:false
   });
 
+  meLearnedSet(meCurrentGroupId,cptD,cptC);
+
   ['me-num','me-libelle','me-cptd','me-cptc','me-montant'].forEach(id=>nb(id).value='');
-  meLastSuggD='';meLastSuggC='';
+  meLastSuggD='';meLastSuggC='';meCurrentGroupId=null;
+  var box=nb('me-suggestions');if(box){box.style.display='none';box.innerHTML='';}
   renderJournal();
   sauvegarderAuto();
   showToast('Écriture manuelle enregistrée.');
