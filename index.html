@@ -499,14 +499,17 @@
         <svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 15 15 9"/><path d="M8 13 5.5 15.5a3 3 0 0 0 4 4.5L12 17"/><path d="M16 11l2.5-2.5a3 3 0 0 0-4-4.5L12 7"/></svg> <strong>Lettrage :</strong> Associez chaque facture à son règlement. Un lettrage A/B/C... indique qu'une facture et son paiement se compensent. Les écritures non lettrées représentent des impayés.
       </div>
       <div class="card">
-        <div class="card-header"><span class="card-title">Factures en attente de lettrage</span></div>
+        <div class="card-header"><span class="card-title">Factures en attente de lettrage</span>
+          <button class="btn btn-sm btn-primary" onclick="lettrerSelection()">Lettrer la sélection</button>
+        </div>
         <div class="table-wrap">
           <table>
-            <thead><tr><th>Lettre</th><th>Date</th><th>N° Facture</th><th>Tiers</th><th>Compte</th><th style="text-align:right">Montant FCFA</th><th>Type</th><th>Action</th></tr></thead>
-            <tbody id="lettrage-body"><tr class="empty-row"><td colspan="8">Aucune écriture</td></tr></tbody>
+            <thead><tr><th></th><th>Lettre</th><th>Date</th><th>N° Facture</th><th>Tiers</th><th>Compte</th><th style="text-align:right">Montant FCFA</th><th>Type</th><th>Action</th></tr></thead>
+            <tbody id="lettrage-body"><tr class="empty-row"><td colspan="9">Aucune écriture</td></tr></tbody>
           </table>
         </div>
       </div>
+      <div style="font-size:10px;color:var(--text-faint);font-style:italic;margin-top:6px">La lettre est modifiable directement dans le tableau (tapez le code de votre choix), ou cochez plusieurs écritures puis "Lettrer la sélection" pour les associer manuellement, sans dépendre du rapprochement automatique par montant/tiers.</div>
     </div>
 
     <!-- ═══ BILAN ═══ -->

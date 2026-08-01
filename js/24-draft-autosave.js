@@ -70,13 +70,46 @@
   document.addEventListener('change', function(){ clearTimeout(saveTimer); saveTimer=setTimeout(saveDraft,DRAFT_DEBOUNCE_MS); });
 
   // Restaure à chaque changement d'écran (patch go(), même schéma que
-  // tous les autres modules de cette app) et une fois au chargement/login.
+  // tous les autres modules de cette app).
   var _oldGo=window.go;
   window.go=function(id,el){
     if(typeof _oldGo==='function') _oldGo(id,el);
     setTimeout(function(){ restoreDraft(activePane()); },50);
   };
-  window.addEventListener('load', function(){ setTimeout(function(){ restoreDraft(activePane()); },1500); });
+
+  // Au chargement/login, l'écran par défaut affiché (Facture) n'est pas
+  // forcément celui où un brouillon existe (l'utilisateur a pu être coupé
+  // en plein milieu de Stock, RH...). Chercher dans TOUS les brouillons
+  // plutôt que de ne regarder que l'écran actif, sinon le brouillon reste
+  // invisible tant qu'on ne retombe pas par hasard sur le bon module.
+  function findPendingDraftPaneId(){
+    try{
+      for(var i=0;i<localStorage.length;i++){
+        var k=localStorage.key(i);
+        if(!k||k.indexOf('comptaia_draft_')!==0) continue;
+        var parsed; try{ parsed=JSON.parse(localStorage.getItem(k)); }catch(e){ continue; }
+        if(parsed&&parsed.ts&&(Date.now()-parsed.ts)<=DRAFT_MAX_AGE_MS) return k.slice('comptaia_draft_'.length);
+      }
+    }catch(e){}
+    return null;
+  }
+
+  window.reprendreBrouillon=function(paneId){
+    var navId=paneId.replace(/^pane-/,'');
+    if(typeof go==='function') go(navId);
+    setTimeout(function(){ restoreDraft(document.getElementById(paneId)); },80);
+  };
+
+  window.addEventListener('load', function(){
+    setTimeout(function(){
+      var paneId=findPendingDraftPaneId();
+      if(paneId && paneId!==(activePane()||{}).id && typeof showToast==='function'){
+        showToast('📝 Une saisie non enregistrée vous attend — <span style="text-decoration:underline;cursor:pointer;font-weight:700" onclick="reprendreBrouillon(\''+paneId+'\')">cliquez ici pour la reprendre</span>','ok');
+      } else {
+        restoreDraft(activePane());
+      }
+    },1500);
+  });
 
   // Un vrai enregistrement rend le brouillon de l'écran courant obsolète.
   var _origSaveForDraft=window.sauvegarderAuto;

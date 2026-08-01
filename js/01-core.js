@@ -840,16 +840,34 @@ function prochainLettre(){return LETTRES[lettreCursor%26]+(lettreCursor>=26?Math
 
 function renderLettrage(){
   var entries=EC.filter(e=>!e.isTVA&&!e.isAvance);
-  if(!entries.length){nb('lettrage-body').innerHTML='<tr class="empty-row"><td colspan="8">Aucune écriture</td></tr>';return;}
+  if(!entries.length){nb('lettrage-body').innerHTML='<tr class="empty-row"><td colspan="9">Aucune écriture</td></tr>';return;}
   var h='';
   entries.forEach((e,i)=>{
     var origIdx=EC.indexOf(e);
-    var lBadge=e.lettre?`<span class="lettre-badge lettre-ok">${e.lettre}</span>`:`<span class="lettre-badge lettre-non">—</span>`;
+    // La lettre est un champ éditable en direct - le rapprochement auto
+    // (bouton Lettrer, qui matche même tiers + même montant) reste une
+    // suggestion pratique, mais le comptable peut toujours taper le code
+    // de son choix ou cocher plusieurs lignes pour les associer lui-même,
+    // même si tiers/montant ne correspondent pas exactement.
+    var lInput=`<input type="text" value="${e.lettre||''}" maxlength="4" style="width:52px;text-align:center;font-weight:700;text-transform:uppercase" onchange="modifierLettreManuelle(${origIdx},this.value)"/>`;
     var tb=e.avoir?'<span class="badge bg-purple">AVOIR</span>':e.type==='vente'?'<span class="badge bg-green">Vente</span>':e.type==='service'?'<span class="badge bg-blue">Service</span>':'<span class="badge bg-red">Achat</span>';
-    var btnL=e.lettre?`<button onclick="delettrer(${origIdx})" style="font-size:10px;padding:2px 7px;border-radius:var(--radius);cursor:pointer;border:2px solid var(--amber-border);background:var(--amber-light);color:var(--amber)">Délettrer</button>`:`<button onclick="lettrer(${origIdx})" style="font-size:10px;padding:2px 7px;border-radius:var(--radius);cursor:pointer;border:2px solid var(--green-border);background:var(--green-light);color:var(--green-dark)">Lettrer</button>`;
-    h+=`<tr><td>${lBadge}</td><td>${e.dateF||e.date}</td><td><strong>${e.num}</strong></td><td>${e.cli}</td><td><span class="acc">${e.cptD}</span>/<span class="acc">${e.cptC}</span></td><td style="text-align:right;font-family:'Archivo',sans-serif;font-weight:600">${fmt(e.ttc)}</td><td>${tb}</td><td>${btnL}</td></tr>`;
+    var btnL=e.lettre?`<button onclick="delettrer(${origIdx})" style="font-size:10px;padding:2px 7px;border-radius:var(--radius);cursor:pointer;border:2px solid var(--amber-border);background:var(--amber-light);color:var(--amber)">Délettrer</button>`:`<button onclick="lettrer(${origIdx})" style="font-size:10px;padding:2px 7px;border-radius:var(--radius);cursor:pointer;border:2px solid var(--green-border);background:var(--green-light);color:var(--green-dark)">Lettrer auto</button>`;
+    h+=`<tr><td><input type="checkbox" class="lt-chk" value="${origIdx}"/></td><td>${lInput}</td><td>${e.dateF||e.date}</td><td><strong>${e.num}</strong></td><td>${e.cli}</td><td><span class="acc">${e.cptD}</span>/<span class="acc">${e.cptC}</span></td><td style="text-align:right;font-family:'Archivo',sans-serif;font-weight:600">${fmt(e.ttc)}</td><td>${tb}</td><td>${btnL}</td></tr>`;
   });
   nb('lettrage-body').innerHTML=h;
+}
+function modifierLettreManuelle(idx,val){
+  var e=EC[idx];if(!e)return;
+  e.lettre=val.trim().toUpperCase();
+  renderLettrage();sauvegarderAuto();
+}
+function lettrerSelection(){
+  var chks=Array.prototype.slice.call(document.querySelectorAll('.lt-chk:checked'));
+  if(chks.length<2){alert('Cochez au moins deux écritures à associer ensemble.');return;}
+  var lettre=prochainLettre();lettreCursor++;
+  chks.forEach(function(c){var e=EC[parseInt(c.value)];if(e)e.lettre=lettre;});
+  ajouterNotif('modif','Lettrage manuel '+lettre,chks.length+' écriture(s) associée(s) manuellement.');
+  renderLettrage();sauvegarderAuto();
 }
 
 function lettrer(idx){
