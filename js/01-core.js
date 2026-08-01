@@ -840,20 +840,46 @@ var lettreCursor=0;
 
 function prochainLettre(){return LETTRES[lettreCursor%26]+(lettreCursor>=26?Math.floor(lettreCursor/26):'');}
 
+// Rapprochement automatique : toute paire d'écritures non lettrées, même
+// tiers + même montant, reçoit sa lettre sans action de l'utilisateur.
+// _lettrageIgnore marque les écritures sur lesquelles le comptable a déjà
+// tranché lui-même (délettrage volontaire, saisie manuelle de la lettre,
+// sélection manuelle) - sans ce garde-fou, la prochaine passe automatique
+// (déclenchée à chaque renderLettrage(), donc à chaque enregistrement)
+// re-lettrerait aussitôt une paire que l'utilisateur venait de délettrer.
+function autoLettrerTout(){
+  var used={};
+  var pool=EC.filter(e=>!e.isTVA&&!e.isAvance&&!e.lettre&&!e._lettrageIgnore);
+  pool.forEach(e=>{
+    var idx=EC.indexOf(e);
+    if(used[idx]||e.lettre)return;
+    var contrepartie=pool.find(c=>{
+      var cIdx=EC.indexOf(c);
+      return c!==e&&!used[cIdx]&&!c.lettre&&c.cli===e.cli&&Math.abs(c.ttc-e.ttc)<1;
+    });
+    if(contrepartie){
+      var lettre=prochainLettre();lettreCursor++;
+      e.lettre=lettre;contrepartie.lettre=lettre;
+      used[idx]=true;used[EC.indexOf(contrepartie)]=true;
+    }
+  });
+}
+
 function renderLettrage(){
+  autoLettrerTout();
   var entries=EC.filter(e=>!e.isTVA&&!e.isAvance);
   if(!entries.length){nb('lettrage-body').innerHTML='<tr class="empty-row"><td colspan="9">Aucune écriture</td></tr>';return;}
   var h='';
   entries.forEach((e,i)=>{
     var origIdx=EC.indexOf(e);
-    // La lettre est un champ éditable en direct - le rapprochement auto
-    // (bouton Lettrer, qui matche même tiers + même montant) reste une
-    // suggestion pratique, mais le comptable peut toujours taper le code
-    // de son choix ou cocher plusieurs lignes pour les associer lui-même,
-    // même si tiers/montant ne correspondent pas exactement.
+    // La lettre est un champ éditable en direct - le rapprochement se fait
+    // automatiquement (autoLettrerTout ci-dessus), mais le comptable garde
+    // toujours la main : taper directement le code de son choix, ou cocher
+    // plusieurs lignes pour les associer lui-même, même si tiers/montant ne
+    // correspondent pas exactement.
     var lInput=`<input type="text" value="${e.lettre||''}" maxlength="4" style="width:52px;text-align:center;font-weight:700;text-transform:uppercase" onchange="modifierLettreManuelle(${origIdx},this.value)"/>`;
     var tb=e.avoir?'<span class="badge bg-purple">AVOIR</span>':e.type==='vente'?'<span class="badge bg-green">Vente</span>':e.type==='service'?'<span class="badge bg-blue">Service</span>':'<span class="badge bg-red">Achat</span>';
-    var btnL=e.lettre?`<button onclick="delettrer(${origIdx})" style="font-size:10px;padding:2px 7px;border-radius:var(--radius);cursor:pointer;border:2px solid var(--amber-border);background:var(--amber-light);color:var(--amber)">Délettrer</button>`:`<button onclick="lettrer(${origIdx})" style="font-size:10px;padding:2px 7px;border-radius:var(--radius);cursor:pointer;border:2px solid var(--green-border);background:var(--green-light);color:var(--green-dark)">Lettrer auto</button>`;
+    var btnL=e.lettre?`<button onclick="delettrer(${origIdx})" style="font-size:10px;padding:2px 7px;border-radius:var(--radius);cursor:pointer;border:2px solid var(--amber-border);background:var(--amber-light);color:var(--amber)">Délettrer</button>`:'';
     h+=`<tr><td><input type="checkbox" class="lt-chk" value="${origIdx}"/></td><td>${lInput}</td><td>${e.dateF||e.date}</td><td><strong>${e.num}</strong></td><td>${e.cli}</td><td><span class="acc">${e.cptD}</span>/<span class="acc">${e.cptC}</span></td><td style="text-align:right;font-family:'Archivo',sans-serif;font-weight:600">${fmt(e.ttc)}</td><td>${tb}</td><td>${btnL}</td></tr>`;
   });
   nb('lettrage-body').innerHTML=h;
@@ -861,34 +887,22 @@ function renderLettrage(){
 function modifierLettreManuelle(idx,val){
   var e=EC[idx];if(!e)return;
   e.lettre=val.trim().toUpperCase();
+  e._lettrageIgnore=true; // décision manuelle - l'auto-lettrage ne doit plus y toucher
   renderLettrage();sauvegarderAuto();
 }
 function lettrerSelection(){
   var chks=Array.prototype.slice.call(document.querySelectorAll('.lt-chk:checked'));
   if(chks.length<2){alert('Cochez au moins deux écritures à associer ensemble.');return;}
   var lettre=prochainLettre();lettreCursor++;
-  chks.forEach(function(c){var e=EC[parseInt(c.value)];if(e)e.lettre=lettre;});
+  chks.forEach(function(c){var e=EC[parseInt(c.value)];if(e){e.lettre=lettre;e._lettrageIgnore=true;}});
   ajouterNotif('modif','Lettrage manuel '+lettre,chks.length+' écriture(s) associée(s) manuellement.');
-  renderLettrage();sauvegarderAuto();
-}
-
-function lettrer(idx){
-  var e=EC[idx];if(!e)return;
-  // Trouver une contrepartie non lettrée
-  var cli=e.cli,montant=e.ttc;
-  var contrepartie=EC.find((c,i)=>i!==idx&&c.cli===cli&&!c.lettre&&!c.isTVA&&!c.isAvance&&Math.abs(c.ttc-montant)<1);
-  var lettre=prochainLettre();
-  lettreCursor++;
-  e.lettre=lettre;
-  if(contrepartie)contrepartie.lettre=lettre;
-  ajouterNotif('modif','Lettrage '+lettre+' — '+e.cli,e.num+(contrepartie?' / '+contrepartie.num:''));
   renderLettrage();sauvegarderAuto();
 }
 
 function delettrer(idx){
   var e=EC[idx];if(!e||!e.lettre)return;
   var l=e.lettre;
-  EC.forEach(ec=>{if(ec.lettre===l)ec.lettre='';});
+  EC.forEach(ec=>{if(ec.lettre===l){ec.lettre='';ec._lettrageIgnore=true;}});
   ajouterNotif('modif','Délettrage '+l,'Toutes les écritures lettrées '+l+' ont été délettrées.');
   renderLettrage();sauvegarderAuto();
 }
