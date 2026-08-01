@@ -511,25 +511,36 @@
 
     <!-- ═══ BILAN ═══ -->
     <div class="pane" id="pane-bilan">
+      <details style="margin-bottom:12px;background:var(--surface);border-radius:var(--radius);overflow:hidden">
+        <summary style="cursor:pointer;padding:9px 14px;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--text-muted)">+ Ajouter / corriger une ligne du bilan</summary>
+        <div class="fgrid fg4" style="padding:4px 14px 14px">
+          <div class="fg"><label>Côté</label><select id="bl-side"><option value="actif">Actif</option><option value="passif">Passif</option></select></div>
+          <div class="fg"><label>N° Compte</label><input type="text" id="bl-cpt" placeholder="Ex : 2181" style="font-family:'Archivo',sans-serif"/></div>
+          <div class="fg sp2"><label>Intitulé</label><input type="text" id="bl-libelle" placeholder="Ex : Matériel de bureau"/></div>
+          <div class="fg"><label>Montant (FCFA)</label><input type="number" id="bl-montant" placeholder="0" min="0"/></div>
+          <div class="fg" style="justify-content:flex-end;flex-direction:row;align-items:flex-end"><button class="btn btn-primary" onclick="ajouterLigneBilan()">+ Ajouter au bilan</button></div>
+        </div>
+      </details>
       <div class="bilan-grid">
         <div class="bilan-actif">
           <div class="bilan-side-label">Actif</div>
           <div class="bilan-table"><table>
-            <thead><tr><th>N° Cpte</th><th>Intitulé</th><th style="text-align:right">Montant</th></tr></thead>
+            <thead><tr><th>N° Cpte</th><th>Intitulé</th><th style="text-align:right">Montant</th><th></th></tr></thead>
             <tbody id="b-actif"></tbody>
-            <tfoot><tr class="tot-row"><td colspan="2">Total Actif</td><td style="text-align:right" id="b-ta">0 FCFA</td></tr></tfoot>
+            <tfoot><tr class="tot-row"><td colspan="2">Total Actif</td><td style="text-align:right" id="b-ta">0 FCFA</td><td></td></tr></tfoot>
           </table></div>
         </div>
         <div class="bilan-passif">
           <div class="bilan-side-label">Passif</div>
           <div class="bilan-table"><table>
-            <thead><tr><th>N° Cpte</th><th>Intitulé</th><th style="text-align:right">Montant</th></tr></thead>
+            <thead><tr><th>N° Cpte</th><th>Intitulé</th><th style="text-align:right">Montant</th><th></th></tr></thead>
             <tbody id="b-passif"></tbody>
-            <tfoot><tr class="tot-row"><td colspan="2">Total Passif</td><td style="text-align:right" id="b-tp">0 FCFA</td></tr></tfoot>
+            <tfoot><tr class="tot-row"><td colspan="2">Total Passif</td><td style="text-align:right" id="b-tp">0 FCFA</td><td></td></tr></tfoot>
           </table></div>
         </div>
       </div>
       <div id="b-eq" style="display:none;margin-top:10px;padding:10px 14px;border-radius:var(--radius);font-size:12px;font-weight:600;text-align:center"></div>
+      <div style="font-size:10px;color:var(--text-faint);font-style:italic;margin-top:6px">Les montants du bilan sont calculés automatiquement à partir du journal, mais chaque ligne reste modifiable directement — un bandeau "corrigé" apparaît, avec possibilité de revenir au calcul automatique.</div>
     </div>
 
     <!-- ═══ COMPTE DE RÉSULTATS ═══ -->

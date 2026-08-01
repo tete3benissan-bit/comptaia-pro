@@ -8,6 +8,7 @@ var SOLDES={caisse:0,banque:0,caisseDefini:false,banqueDefini:false};
 var EXERCICE={annee:2026,debut:'2026-01-01',fin:'2026-12-31'};
 var EXERCICES_ARCHIVES=[];
 var LETTRAGE={}; // { 'A': [idx1,idx2,...], ... }
+var BILAN_OVERRIDES={actif:{},passif:{}}; // corrections manuelles du bilan, par compte
 var currentPage='facture';
 var FACTURE_MODE='doit';
 var GL_MODE='tab';
@@ -52,7 +53,7 @@ window.onload=function(){
 
 // ═══ SAUVEGARDE LOCALE AUTO ═══
 function sauvegarderAuto(){
-  try{localStorage.setItem('comptaia_data',JSON.stringify({EC,REGL,NOTIFS,VIREMENTS,TIERS,STOCKS,GL_EXTRA,SOLDES,EXERCICE,EXERCICES_ARCHIVES,LETTRAGE,SALAIRES,DED_EXTRAS,FACTURE_MODE,NOMS,IMMOS,BUDGETS}));}catch(e){}
+  try{localStorage.setItem('comptaia_data',JSON.stringify({EC,REGL,NOTIFS,VIREMENTS,TIERS,STOCKS,GL_EXTRA,SOLDES,EXERCICE,EXERCICES_ARCHIVES,LETTRAGE,BILAN_OVERRIDES,SALAIRES,DED_EXTRAS,FACTURE_MODE,NOMS,IMMOS,BUDGETS}));}catch(e){}
 }
 function chargerLocalStorage(){
   try{
@@ -70,6 +71,7 @@ function chargerLocalStorage(){
     if(obj.EXERCICE)EXERCICE=obj.EXERCICE;
     if(obj.EXERCICES_ARCHIVES)EXERCICES_ARCHIVES=obj.EXERCICES_ARCHIVES;
     if(obj.LETTRAGE)LETTRAGE=obj.LETTRAGE;
+    if(obj.BILAN_OVERRIDES)BILAN_OVERRIDES=obj.BILAN_OVERRIDES;
     if(obj.SALAIRES)SALAIRES=obj.SALAIRES;
     if(obj.DED_EXTRAS)DED_EXTRAS=obj.DED_EXTRAS;
     if(obj.NOMS)Object.assign(NOMS,obj.NOMS);
@@ -886,12 +888,53 @@ function renderBilan(){
   if(SOLDES.caisseDefini){actif['571']=(actif['571']||0);}
   if(SOLDES.banqueDefini){actif['521']=(actif['521']||0);}
 
-  function buildRows(obj,id){var r='',t=0;Object.keys(obj).forEach(k=>{var v=Math.abs(obj[k]);if(v<1)return;t+=v;r+=`<tr><td><span class="acc">${k}</span></td><td>${NOMS[k]||k}</td><td style="text-align:right;font-family:'Archivo',sans-serif">${fmt(v)}</td></tr>`;});nb(id).innerHTML=r||'<tr class="empty-row"><td colspan="3">—</td></tr>';return t;}
-  var tA=buildRows(actif,'b-actif'),tP=buildRows(passif,'b-passif');
+  // Chaque ligne reste calculée automatiquement par défaut, mais une
+  // correction manuelle (BILAN_OVERRIDES) prend le pas si elle existe -
+  // même logique que Net HT/TTC sur la facture : auto par défaut, jamais
+  // bloquant. Un compte ajouté à la main (sans mouvement dans le journal)
+  // n'existe que via BILAN_OVERRIDES, d'où la fusion des deux listes de clés.
+  function buildRows(obj,id,side){
+    var over=BILAN_OVERRIDES[side]||{};
+    var codes=Object.keys(obj).concat(Object.keys(over).filter(k=>!(k in obj)));
+    var r='',t=0;
+    codes.forEach(k=>{
+      var auto=Math.abs(obj[k]||0);
+      var corrige=Object.prototype.hasOwnProperty.call(over,k);
+      var v=corrige?over[k]:auto;
+      if(v<1&&!corrige)return;
+      t+=v;
+      r+=`<tr><td><span class="acc">${k}</span></td><td>${NOMS[k]||k}</td>`
+        +`<td style="text-align:right"><input type="number" value="${v}" style="width:112px;text-align:right;font-family:'Archivo',sans-serif;padding:4px 6px" onchange="modifierBilanLigne('${side}','${k}',this.value)"/></td>`
+        +`<td>${corrige?`<span style="font-size:9px;padding:1px 6px;background:var(--amber-light);color:var(--amber);border-radius:var(--radius);cursor:pointer;white-space:nowrap" onclick="reinitialiserBilanLigne('${side}','${k}')" title="Revenir au calcul automatique">corrigé ✕</span>`:''}</td></tr>`;
+    });
+    nb(id).innerHTML=r||'<tr class="empty-row"><td colspan="4">—</td></tr>';
+    return t;
+  }
+  var tA=buildRows(actif,'b-actif','actif'),tP=buildRows(passif,'b-passif','passif');
   nb('b-ta').textContent=fmt(tA)+' FCFA';nb('b-tp').textContent=fmt(tP)+' FCFA';
   var eq=nb('b-eq');eq.style.display='block';
   if(Math.abs(tA-tP)<1){eq.style.cssText='display:block;margin-top:10px;padding:9px 14px;border-radius:var(--radius);font-size:12px;font-weight:600;text-align:center;background:var(--green-light);color:var(--green-dark);border:2px solid var(--green-border)';eq.textContent='Bilan équilibré — '+fmt(tA)+' FCFA';}
   else{eq.style.cssText='display:block;margin-top:10px;padding:9px 14px;border-radius:var(--radius);font-size:12px;font-weight:600;text-align:center;background:var(--amber-light);color:var(--amber);border:2px solid var(--amber-border)';eq.textContent='Écart — Actif : '+fmt(tA)+' / Passif : '+fmt(tP)+' FCFA';}
+}
+function modifierBilanLigne(side,cpt,val){
+  BILAN_OVERRIDES[side][cpt]=parseFloat(val)||0;
+  renderBilan();sauvegarderAuto();
+}
+function reinitialiserBilanLigne(side,cpt){
+  delete BILAN_OVERRIDES[side][cpt];
+  renderBilan();sauvegarderAuto();
+}
+function ajouterLigneBilan(){
+  var side=nb('bl-side').value;
+  var cpt=nb('bl-cpt').value.trim().toUpperCase();
+  var lib=nb('bl-libelle').value.trim();
+  var montant=parseFloat(nb('bl-montant').value)||0;
+  if(!cpt||!lib||!montant){alert('Compte, intitulé et montant sont requis.');return;}
+  BILAN_OVERRIDES[side][cpt]=montant;
+  if(!NOMS[cpt])NOMS[cpt]=lib;
+  ['bl-cpt','bl-libelle','bl-montant'].forEach(id=>nb(id).value='');
+  renderBilan();sauvegarderAuto();
+  showToast('Ligne ajoutée au bilan.');
 }
 
 // ═══ COMPTE DE RÉSULTATS ═══
