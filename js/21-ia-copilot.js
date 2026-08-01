@@ -396,7 +396,7 @@ function renderChatIA(){
     wrap.innerHTML=
       '<div class="ia-key-card"><h3>💬 Configurer le Chat IA</h3>'+
       '<p>Le copilote a besoin d\'une clé API pour rédiger ses réponses en langage naturel. Choisissez un fournisseur, créez-y une clé, puis collez-la ici. Elle reste stockée uniquement dans ce navigateur (localStorage) et n\'est jamais envoyée ailleurs qu\'au fournisseur choisi — chaque personne doit utiliser sa propre clé, pas celle de quelqu\'un d\'autre.</p>'+
-      '<div class="fg"><label>Fournisseur</label><div style="display:flex;gap:8px;margin-top:2px">'+
+      '<div class="fg"><label>Fournisseur</label><div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:2px">'+
         Object.keys(IA_PROVIDERS).map(function(p){
           return '<button type="button" class="btn btn-sm'+(p===provider?' btn-primary':'')+'" onclick="iaChoisirProvider(\''+p+'\')">'+IA_PROVIDERS[p].label+'</button>';
         }).join('')+
