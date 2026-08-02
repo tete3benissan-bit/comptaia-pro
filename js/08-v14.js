@@ -327,15 +327,24 @@ function setSecteur(s){
   document.querySelectorAll('.sect-btn').forEach(function(b){b.classList.remove('active-sect');});
   var btn=document.getElementById('sect-'+s);if(btn)btn.classList.add('active-sect');
   // Show/hide secteur-specific fields
-  ['hotel','service','industrie','event'].forEach(function(x){
+  ['hotel','service','industrie','event','btp','sante'].forEach(function(x){
     var el=document.getElementById('sect-'+x+'-fields');
     if(el)el.style.display=(s===x)?'block':'none';
   });
   // Update title
-  var titles={commerce:'Articles — Facture multi-lignes',service:'Lignes de prestation',hotel:'Séjour & services hôteliers',industrie:'Produits finis / Production',event:'Prestations événementielles'};
+  var titles={commerce:'Articles — Facture multi-lignes',service:'Lignes de prestation',hotel:'Séjour & services hôteliers',industrie:'Produits finis / Production',event:'Prestations événementielles',btp:'Chantier / Situation de travaux',sante:'Prestations de santé'};
   var t=document.getElementById('ml-card-title');if(t)t.textContent=titles[s]||titles.commerce;
   // Init lignes vides si vide
   if(!ML_LIGNES.length)ajouterLigneML();
+}
+// Fait correspondre le bouton "Secteur" affiché avec le secteur d'activité
+// choisi à la création de l'entreprise (CURRENT_USER.secteur, Phase 1) - le
+// comptable reste toujours libre de basculer manuellement sur un autre
+// bouton ensuite, ceci ne fait que définir le point de départ.
+var SECTEURS_CONNUS=['commerce','service','hotel','industrie','event','btp','sante'];
+function appliquerSecteurEntreprise(){
+  var s=(typeof CURRENT_USER!=='undefined'&&CURRENT_USER&&CURRENT_USER.secteur)||'';
+  if(SECTEURS_CONNUS.indexOf(s)>-1)setSecteur(s);
 }
 function ajouterLigneML(data){
   var id='ml-'+Date.now()+'-'+Math.random().toString(36).slice(2,6);
@@ -478,6 +487,17 @@ function calcMargeProd(){
   var marge=totalVente-totalCout;
   var el=document.getElementById('ind-marge-display');
   if(el)el.textContent=totalVente>0?'Marge brute estimée : '+marge.toLocaleString('fr-FR')+' FCFA ('+(totalVente>0?Math.round(marge/totalVente*100):0)+'%)':'';
+}
+function calcBTP(){
+  var mo=parseFloat((document.getElementById('btp-main-oeuvre')||{}).value)||0;
+  var mat=parseFloat((document.getElementById('btp-materiaux')||{}).value)||0;
+  var st=parseFloat((document.getElementById('btp-sous-traitance')||{}).value)||0;
+  var pctRetenue=parseFloat((document.getElementById('btp-retenue-pct')||{}).value)||0;
+  var sousTotal=mo+mat+st;
+  var retenue=Math.round(sousTotal*pctRetenue/100);
+  var net=sousTotal-retenue;
+  var el=document.getElementById('btp-total-display');
+  if(el)el.textContent=sousTotal>0?'Situation : '+sousTotal.toLocaleString('fr-FR')+' FCFA — Retenue de garantie ('+pctRetenue+'%) : '+retenue.toLocaleString('fr-FR')+' FCFA — Net à payer : '+net.toLocaleString('fr-FR')+' FCFA':'';
 }
 
 // ── MODULE PRODUCTION ──────────────────────────────────────

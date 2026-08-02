@@ -27,7 +27,10 @@ Deno.serve(async (req) => {
     if (!email || !nom || !role) {
       return json({ error: "email, nom et role sont requis." }, 400);
     }
-    const allowedRoles = ["admin", "exploitant", "comptable", "expert_comptable", "fiscaliste", "rh"];
+    const allowedRoles = [
+      "admin", "directeur", "exploitant", "comptable", "expert_comptable",
+      "fiscaliste", "rh", "caissier", "gestionnaire_stock", "commercial", "auditeur",
+    ];
     if (!allowedRoles.includes(role)) {
       return json({ error: "Rôle invalide." }, 400);
     }

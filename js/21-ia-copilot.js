@@ -23,7 +23,7 @@ var esc=window.esc;
 
 /* ── 1. Moteur d'analyse : lit les vraies données, ne calcule rien qui ne soit pas dans EC/REGL/STOCKS/RH ── */
 
-function iaRole(){ return (window.CURRENT_USER && CURRENT_USER.role) || 'lecture'; }
+function iaRole(){ return (window.CURRENT_USER && CURRENT_USER.role) || ''; }
 
 function iaAnalyserBilan(){
   var actif={}, passif={};

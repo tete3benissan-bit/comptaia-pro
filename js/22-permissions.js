@@ -6,12 +6,17 @@
 // Les clés "hubs" correspondent aux clés internes de SPECS (js/15) :
 // exploitant, compta, fisc, rh. "*" = accès complet (Administrateur).
 var ROLES = {
-  admin:            {label:'Administrateur',     hubs:'*',                 badge:'purple'},
-  exploitant:       {label:'Exploitant',          hubs:['exploitant'],      badge:'green'},
-  comptable:        {label:'Comptable',           hubs:['compta'],          badge:'blue'},
-  expert_comptable: {label:'Expert-comptable',    hubs:['compta','fisc'],   badge:'teal'},
-  fiscaliste:       {label:'Fiscaliste',          hubs:['fisc'],            badge:'amber'},
-  rh:               {label:'Ressources humaines', hubs:['rh'],              badge:'red'}
+  admin:              {label:'Administrateur',     hubs:'*',                 badge:'purple'},
+  directeur:          {label:'Directeur',          hubs:'*',                 badge:'purple'},
+  exploitant:         {label:'Exploitant',          hubs:['exploitant'],      badge:'green'},
+  comptable:          {label:'Comptable',           hubs:['compta'],          badge:'blue'},
+  expert_comptable:   {label:'Expert-comptable',    hubs:['compta','fisc'],   badge:'teal'},
+  fiscaliste:         {label:'Fiscaliste',          hubs:['fisc'],            badge:'amber'},
+  rh:                 {label:'Ressources humaines', hubs:['rh'],              badge:'red'},
+  caissier:           {label:'Caissier',            hubs:['exploitant'],      badge:'green'},
+  gestionnaire_stock: {label:'Gestionnaire de stock',hubs:['exploitant'],     badge:'green'},
+  commercial:         {label:'Commercial',          hubs:['exploitant'],      badge:'green'},
+  auditeur:           {label:'Auditeur',            hubs:['compta','fisc'],   badge:'teal'}
 };
 
 // Outils transverses accessibles à tout utilisateur connecté, quel que soit

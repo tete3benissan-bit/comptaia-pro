@@ -109,6 +109,10 @@ async function onAuthSuccess() {
     Object.assign(NOMS,_profil.noms);
     TVA_P=_profil.tvaPresets;
   }
+  // Phase 3 : le bouton "Secteur" de la facture se cale sur le secteur
+  // choisi à la création de l'entreprise, au lieu de rester sur "Commerce"
+  // par défaut - le comptable peut toujours en choisir un autre à la main.
+  try{ if(typeof appliquerSecteurEntreprise==='function') appliquerSecteurEntreprise(); }catch(e){}
   document.getElementById('auth-overlay').style.display='none';
   var company=CURRENT_USER.company||'Mon Entreprise';
   var logoSub=document.querySelector('.logo-sub');
