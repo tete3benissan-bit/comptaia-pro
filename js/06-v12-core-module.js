@@ -97,6 +97,18 @@ async function authSetPassword(){
 }
 
 async function onAuthSuccess() {
+  // Peuple NOMS/TVA_P depuis le profil du pays de l'entreprise (Phase 2 -
+  // js/00c-pays-profil.js). Object.assign MUTE l'objet NOMS existant (ne le
+  // réassigne jamais) car js/02-immo-bilan-pdf-ia.js y ajoute déjà ses
+  // propres libellés dès le chargement de la page, avant la connexion -
+  // réassigner NOMS effacerait ces ajouts. Doit tourner avant
+  // chargerLocalStorage()/syncAwareLoad() plus bas, qui surcouche ensuite
+  // les libellés personnalisés de l'entreprise par-dessus ceux du profil.
+  if(typeof activeProfile==='function'){
+    var _profil=activeProfile();
+    Object.assign(NOMS,_profil.noms);
+    TVA_P=_profil.tvaPresets;
+  }
   document.getElementById('auth-overlay').style.display='none';
   var company=CURRENT_USER.company||'Mon Entreprise';
   var logoSub=document.querySelector('.logo-sub');

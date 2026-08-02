@@ -15,17 +15,15 @@ var GL_MODE='tab';
 var modalReglIdx=-1,editIdx=-1,editSrc='EC';
 var pendingFacture=null;
 
-var NOMS={
-  '7011':'Ventes de marchandises','7061':'Prestations de services',
-  '4111':'Clients','401':'Fournisseurs','571':'Caisse','521':'Banque',
-  '6011':'Achats de marchandises','3111':'Stock matières',
-  '4431':'TVA facturée sur vente','4452':'TVA récupérable achat',
-  '4454':'TVA récupérable transport','4453':'TVA à l\'importation',
-  '4455':'TVA services ext.','419':'Avances clients','4091':'Avances fourn.',
-  '110':'Report à nouveau créditeur','119':'Report à nouveau débiteur',
-  '12':'Résultat net de l\'exercice','1301':'Résultat — bénéfice','1302':'Résultat — perte'
-};
-var TVA_P={'18v':{t:18,c:'4431'},'18a':{t:18,c:'4452'},'8t':{t:8,c:'4454'},'5i':{t:5,c:'4453'},'10s':{t:10,c:'4455'},'0':{t:0,c:''},'custom':{t:18,c:'4431'}};
+// Base OHADA/Togo peuplée à la connexion depuis PAYS_PROFILE (voir
+// js/00c-pays-profil.js et onAuthSuccess() dans js/06-v12-core-module.js) -
+// NOMS reste déclaré vide ici et rempli par Object.assign (jamais réassigné
+// à un nouvel objet) car d'autres fichiers (js/02-immo-bilan-pdf-ia.js) y
+// ajoutent leurs propres libellés dès le chargement de la page, avant même
+// la connexion ; réassigner NOMS effacerait ces ajouts. TVA_P est en
+// lecture seule partout, donc une simple réaffectation suffit pour lui.
+var NOMS={};
+var TVA_P=null;
 
 function fmt(n){return Math.round(n||0).toLocaleString('fr-FR')}
 function parseMontant(str){return parseFloat(String(str||'').replace(/[^\d-]/g,''))||0}
@@ -204,18 +202,19 @@ function calcStockVal(){
 
 // ═══ COMPTES ═══
 function getComptes(type,pay,avoir){
-  var enc=pay==='banque'?'521':pay==='espece'?'571':'4111';
-  var encp=pay==='banque'?'521':pay==='espece'?'571':'401';
+  var cp=activeProfile().comptes;
+  var enc=pay==='banque'?cp.clientBanque:pay==='espece'?cp.clientCaisse:cp.clientCredit;
+  var encp=pay==='banque'?cp.fournBanque:pay==='espece'?cp.fournCaisse:cp.fournCredit;
   if(avoir){
-    if(type==='vente')return{d:'7011',c:enc};
-    if(type==='service')return{d:'7061',c:enc};
-    if(type==='achat')return{d:encp,c:'6011'};
-    return{d:'7011',c:'4111'};
+    if(type==='vente')return{d:cp.vente,c:enc};
+    if(type==='service')return{d:cp.service,c:enc};
+    if(type==='achat')return{d:encp,c:cp.achat};
+    return{d:cp.vente,c:cp.clientCredit};
   }
-  if(type==='vente')return{d:enc,c:'7011'};
-  if(type==='service')return{d:enc,c:'7061'};
-  if(type==='achat')return{d:'6011',c:encp};
-  return{d:'4111',c:'7011'};
+  if(type==='vente')return{d:enc,c:cp.vente};
+  if(type==='service')return{d:enc,c:cp.service};
+  if(type==='achat')return{d:cp.achat,c:encp};
+  return{d:cp.clientCredit,c:cp.vente};
 }
 
 // ═══ VALIDER FACTURE ═══
@@ -314,8 +313,9 @@ function valider(){
 
   // ── Écriture avance ──
   if(avance>0){
-    var cptAv=type==='achat'?'4091':'419';
-    var cptEnc=pay==='banque'?'521':pay==='espece'?'571':(type==='achat'?'401':'4111');
+    var cpAv=activeProfile().comptes;
+    var cptAv=type==='achat'?cpAv.avanceFournisseur:cpAv.avanceClient;
+    var cptEnc=pay==='banque'?cpAv.clientBanque:pay==='espece'?cpAv.clientCaisse:(type==='achat'?cpAv.fournCredit:cpAv.clientCredit);
     EC.push({
       date,dateF,num:'AVA-'+num,desc:'Avance — '+cli,cli,
       cptD:type==='achat'?cptAv:cptEnc,cptC:type==='achat'?cptEnc:cptAv,
@@ -910,8 +910,8 @@ function delettrer(idx){
 // ═══ BILAN ═══
 function renderBilan(){
   var actif={},passif={};
-  var aList=['571','521','4111','4452','4453','4454','4455','3111','6011'];
-  var pList=['7011','7061','401','4431','110','119','1301','1302','12'];
+  var aList=activeProfile().bilan.actif;
+  var pList=activeProfile().bilan.passif;
   EC.concat(REGL).forEach(e=>{
     if(aList.includes(e.cptD))actif[e.cptD]=(actif[e.cptD]||0)+e.debit;
     if(aList.includes(e.cptC))actif[e.cptC]=(actif[e.cptC]||0)-e.credit;
@@ -973,10 +973,12 @@ function ajouterLigneBilan(){
 
 // ═══ COMPTE DE RÉSULTATS ═══
 function renderResultats(){
+  var rres=activeProfile().resultats;
+  function dansTranche(n,cle){var b=rres[cle];return n>=b[0]&&n<=b[1];}
   var rub={ch60:[],ch61:[],ch63:[],ch66:[],pr70:[],pr71:[],pr74:[],pr76:[]};
   EC.concat(REGL).forEach(e=>{
-    function addC(cpt,mt,lib,date){if(!mt||mt<0)return;var n=parseInt(cpt);if(n>=6000&&n<=6099)rub.ch60.push({cpt,lib,date,mt});else if(n>=6100&&n<=6299)rub.ch61.push({cpt,lib,date,mt});else if(n>=6300&&n<=6599)rub.ch63.push({cpt,lib,date,mt});else if(n>=6600&&n<=6999)rub.ch66.push({cpt,lib,date,mt});}
-    function addP(cpt,mt,lib,date){if(!mt||mt<0)return;var n=parseInt(cpt);if(n>=7000&&n<=7099)rub.pr70.push({cpt,lib,date,mt});else if(n>=7100&&n<=7399)rub.pr71.push({cpt,lib,date,mt});else if(n>=7400&&n<=7599)rub.pr74.push({cpt,lib,date,mt});else if(n>=7600&&n<=7999)rub.pr76.push({cpt,lib,date,mt});}
+    function addC(cpt,mt,lib,date){if(!mt||mt<0)return;var n=parseInt(cpt);if(dansTranche(n,'ch60'))rub.ch60.push({cpt,lib,date,mt});else if(dansTranche(n,'ch61'))rub.ch61.push({cpt,lib,date,mt});else if(dansTranche(n,'ch63'))rub.ch63.push({cpt,lib,date,mt});else if(dansTranche(n,'ch66'))rub.ch66.push({cpt,lib,date,mt});}
+    function addP(cpt,mt,lib,date){if(!mt||mt<0)return;var n=parseInt(cpt);if(dansTranche(n,'pr70'))rub.pr70.push({cpt,lib,date,mt});else if(dansTranche(n,'pr71'))rub.pr71.push({cpt,lib,date,mt});else if(dansTranche(n,'pr74'))rub.pr74.push({cpt,lib,date,mt});else if(dansTranche(n,'pr76'))rub.pr76.push({cpt,lib,date,mt});}
     if(e.cptD&&e.cptD.startsWith('6'))addC(e.cptD,e.debit,e.desc,e.date);
     if(e.cptC&&e.cptC.startsWith('6'))addC(e.cptC,-e.credit,e.desc,e.date);
     if(e.cptC&&e.cptC.startsWith('7'))addP(e.cptC,e.credit,e.desc,e.date);
