@@ -517,7 +517,8 @@ function renderIAConv(){
     return;
   }
   conv.innerHTML=IA_MESSAGES.map(function(m){
-    return '<div class="ia-msg ia-msg-'+(m.role==='user'?'user':'bot')+'">'+esc(m.texte)+(m.meta?'<div class="ia-msg-meta">'+m.meta+'</div>':'')+'</div>';
+    var contenu=m.loading&&typeof loaderHTML==='function'?loaderHTML('Analyse en cours...'):esc(m.texte);
+    return '<div class="ia-msg ia-msg-'+(m.role==='user'?'user':'bot')+'">'+contenu+(m.meta?'<div class="ia-msg-meta">'+m.meta+'</div>':'')+'</div>';
   }).join('');
   conv.scrollTop=conv.scrollHeight;
 }

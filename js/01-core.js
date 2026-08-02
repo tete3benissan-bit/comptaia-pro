@@ -404,6 +404,31 @@ function showToast(msg,type){
     setTimeout(function(){t.remove();},300);
   },5000);
 }
+
+// Loader générique (barres animées, css/01-core.css .loader-wave) - utilisé
+// partout où l'app attend une réponse réseau (connexion, chat IA, import de
+// facture...). boutonChargement()/boutonFinChargement() remplacent
+// temporairement le contenu d'un bouton par le loader et le désactivent,
+// puis restaurent tout tel quel - un seul point d'entrée pour ce motif au
+// lieu de le refaire à la main à chaque écran.
+function loaderHTML(texte){
+  return '<ul class="loader-wave"><li></li><li></li><li></li><li></li><li></li></ul>'+(texte?' '+texte:'');
+}
+function boutonChargement(btn,texte){
+  if(!btn||btn.dataset.loading)return;
+  btn.dataset.loading='1';
+  btn.dataset.htmlOriginal=btn.innerHTML;
+  btn.disabled=true;
+  btn.innerHTML=loaderHTML(texte);
+}
+function boutonFinChargement(btn){
+  if(!btn||!btn.dataset.loading)return;
+  btn.innerHTML=btn.dataset.htmlOriginal;
+  btn.disabled=false;
+  delete btn.dataset.loading;
+  delete btn.dataset.htmlOriginal;
+}
+
 function finaliserFacture(e,ttc,pm,cpts,num,desc,cli,type,avoir){
   nb('ia-ok').style.display='block';
   var pmL=pm==='espece'?'Espèce':pm==='banque'?'Banque':'À crédit';

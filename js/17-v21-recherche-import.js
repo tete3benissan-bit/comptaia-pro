@@ -446,15 +446,16 @@ window.fimpFichier=function(ev){
   var f=ev.target.files&&ev.target.files[0];
   if(!f)return;
   if(f.size>9*1024*1024){fimpStatus(ico('alertTriangle')+' Fichier trop lourd (max 9 Mo). Réduisez la taille ou prenez une photo moins grande.','var(--red)');return;}
-  fimpStatus(ico('clock')+' Lecture du document…','var(--amber)');
+  fimpStatus(ico('clock')+' Lecture du document…','var(--amber)',true);
   var r=new FileReader();
   r.onload=function(e){fimpAnalyser(e.target.result,f.type);};
   r.onerror=function(){fimpStatus(ico('alertTriangle')+' Impossible de lire le fichier.','var(--red)');};
   r.readAsDataURL(f);
 };
-function fimpStatus(msg,coul){
+function fimpStatus(msg,coul,chargement){
   var s=$id('fimp-status');
-  if(s){s.style.display='block';s.innerHTML='<span style="color:'+(coul||'var(--text)')+';font-weight:600">'+msg+'</span>';}
+  var loader=chargement&&typeof loaderHTML==='function'?loaderHTML()+' ':'';
+  if(s){s.style.display='block';s.innerHTML='<span style="color:'+(coul||'var(--text)')+';font-weight:600">'+loader+msg+'</span>';}
 }
 async function fimpAnalyser(dataUrl,mime){
   var provider=(typeof iaGetProvider==='function')?iaGetProvider():'anthropic';
@@ -481,10 +482,10 @@ async function fimpAnalyser(dataUrl,mime){
   var visionKey=(typeof iaGetVisionKey==='function')?iaGetVisionKey():'';
   if(visionKey&&!estPDF){
     try{
-      fimpStatus(ico('bot')+' Lecture OCR (Google Vision)…','var(--amber)');
+      fimpStatus(ico('bot')+' Lecture OCR (Google Vision)…','var(--amber)',true);
       var texteOCR=await visionOCR(b64,mime);
       if(!texteOCR.trim())throw new Error('Aucun texte détecté sur l\'image.');
-      fimpStatus(ico('bot')+' Extraction des données comptables…','var(--amber)');
+      fimpStatus(ico('bot')+' Extraction des données comptables…','var(--amber)',true);
       var texteJSON=await iaAppelerTexteSeul(prompt+'\n\nTexte extrait du document par OCR :\n'+texteOCR);
       var parsedV=JSON.parse(texteJSON.replace(/```json|```/g,'').trim());
       FIMP_DATA=parsedV;
@@ -514,7 +515,7 @@ async function fimpAnalyser(dataUrl,mime){
     fimpStatus(ico('alertTriangle')+' L\'import automatique nécessite Anthropic Claude ou Google Gemini comme fournisseur IA (changez-le dans "Assistant IA"), ou configurez une clé Google Vision ci-dessus pour utiliser n\'importe quel fournisseur.','var(--red)');
     return;
   }
-  fimpStatus(ico('bot')+' Analyse IA du document — extraction des données comptables…','var(--amber)');
+  fimpStatus(ico('bot')+' Analyse IA du document — extraction des données comptables…','var(--amber)',true);
   try{
     var texte;
     if(provider==='anthropic'){

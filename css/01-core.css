@@ -272,3 +272,21 @@ body.fj-sa .sidebar::before,body.fj-sa #hub::before,body.fj-sa #auth-overlay::be
 .toast.toast-fade{animation:toast-out .3s ease forwards}
 @keyframes toast-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 @keyframes toast-out{from{opacity:1}to{opacity:0;transform:translateY(8px)}}
+
+/* ── LOADER (barres animées, inspiré Uiverse/JkHuger) ──
+   Composant compact et générique - inséré via loaderHTML()/boutonChargement()
+   (js/01-core.js) partout où l'app attend une réponse réseau (connexion,
+   chat IA, import de facture...). background:currentColor pour hériter
+   automatiquement de la couleur de texte du contexte où il est inséré
+   (blanc sur un .btn-primary, couleur normale ailleurs) sans variante par
+   thème à maintenir. */
+.loader-wave{display:inline-flex;align-items:center;gap:3px;list-style:none;padding:0;margin:0;height:16px;vertical-align:middle}
+.loader-wave li{width:3px;height:14px;border-radius:10px;background:currentColor;margin:0;padding:0;animation-name:loaderWave1;animation-duration:.3s;animation-iteration-count:infinite;animation-direction:alternate}
+.loader-wave li:nth-child(2){animation-name:loaderWave2;animation-delay:.2s}
+.loader-wave li:nth-child(3){animation-name:loaderWave3;animation-delay:.23s;animation-duration:.4s}
+.loader-wave li:nth-child(4){animation-name:loaderWave4;animation-delay:.1s;animation-duration:.3s}
+.loader-wave li:nth-child(5){animation-delay:.5s}
+@keyframes loaderWave1{from{transform:scaleY(1)}to{transform:scaleY(.5)}}
+@keyframes loaderWave2{from{transform:scaleY(.3)}to{transform:scaleY(.6)}}
+@keyframes loaderWave3{from{transform:scaleY(.6)}to{transform:scaleY(.8)}}
+@keyframes loaderWave4{from{transform:scaleY(.2)}to{transform:scaleY(.5)}}

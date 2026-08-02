@@ -41,6 +41,7 @@ async function authFetchProfile(userId){
 // fail. The Edge Function creates the account already confirmed, so all we
 // do here afterward is sign in normally.
 async function authSetupAdmin() {
+  var btn=document.getElementById('auth-setup-btn');
   var entreprise=(document.getElementById('setup-entreprise').value||'').trim();
   var nom=(document.getElementById('setup-nom').value||'').trim();
   var email=(document.getElementById('setup-user').value||'').trim();
@@ -49,29 +50,40 @@ async function authSetupAdmin() {
   var secteur=(document.getElementById('setup-secteur')||{}).value||'commerce';
   if(!entreprise||!nom||!email||!p){showAErr('Tous les champs sont requis.');return;}
   if(p.length<6){showAErr('Mot de passe trop court (min. 6 caractères).');return;}
-  var res=await supabaseClient.functions.invoke('create-company',{body:{entreprise:entreprise,nom:nom,email:email,password:p,pays:pays,secteur:secteur}});
-  var errMsg=await supabaseFnError(res);
-  if(errMsg){
-    showAErr(errMsg);
-    return;
+  if(typeof boutonChargement==='function')boutonChargement(btn);
+  try{
+    var res=await supabaseClient.functions.invoke('create-company',{body:{entreprise:entreprise,nom:nom,email:email,password:p,pays:pays,secteur:secteur}});
+    var errMsg=await supabaseFnError(res);
+    if(errMsg){
+      showAErr(errMsg);
+      return;
+    }
+    var signIn=await supabaseClient.auth.signInWithPassword({email:email,password:p});
+    if(signIn.error||!signIn.data.user){showAErr('Entreprise créée, mais échec de la connexion automatique. Essayez de vous connecter manuellement.');authShowLogin();return;}
+    CURRENT_USER=await authFetchProfile(signIn.data.user.id);
+    onAuthSuccess();
+  }finally{
+    if(typeof boutonFinChargement==='function')boutonFinChargement(btn);
   }
-  var signIn=await supabaseClient.auth.signInWithPassword({email:email,password:p});
-  if(signIn.error||!signIn.data.user){showAErr('Entreprise créée, mais échec de la connexion automatique. Essayez de vous connecter manuellement.');authShowLogin();return;}
-  CURRENT_USER=await authFetchProfile(signIn.data.user.id);
-  onAuthSuccess();
 }
 
 async function authLogin() {
+  var btn=document.getElementById('auth-login-btn');
   var email=(document.getElementById('auth-user').value||'').trim();
   var p=document.getElementById('auth-pass').value;
   if(!email||!p){showAErr('E-mail et mot de passe requis.');return;}
-  var res=await supabaseClient.auth.signInWithPassword({email:email,password:p});
-  if(res.error||!res.data.user){showAErr('Identifiant ou mot de passe incorrect.');return;}
-  var profile=await authFetchProfile(res.data.user.id);
-  if(!profile){showAErr('Profil introuvable. Contactez votre administrateur.');await supabaseClient.auth.signOut();return;}
-  if(profile.active===false){showAErr('Ce compte a été désactivé. Contactez votre administrateur.');await supabaseClient.auth.signOut();return;}
-  CURRENT_USER=profile;
-  onAuthSuccess();
+  if(typeof boutonChargement==='function')boutonChargement(btn);
+  try{
+    var res=await supabaseClient.auth.signInWithPassword({email:email,password:p});
+    if(res.error||!res.data.user){showAErr('Identifiant ou mot de passe incorrect.');return;}
+    var profile=await authFetchProfile(res.data.user.id);
+    if(!profile){showAErr('Profil introuvable. Contactez votre administrateur.');await supabaseClient.auth.signOut();return;}
+    if(profile.active===false){showAErr('Ce compte a été désactivé. Contactez votre administrateur.');await supabaseClient.auth.signOut();return;}
+    CURRENT_USER=profile;
+    onAuthSuccess();
+  }finally{
+    if(typeof boutonFinChargement==='function')boutonFinChargement(btn);
+  }
 }
 
 async function authForgotPassword(){

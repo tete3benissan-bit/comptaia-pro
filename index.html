@@ -1066,7 +1066,7 @@
       <div class="uiv-auth-title">GEST<span> Africa</span></div>
       <div class="fg"><label>E-mail</label><input type="email" id="auth-user" placeholder="vous@entreprise.tg"/></div>
       <div class="fg"><label>Mot de passe</label><input type="password" id="auth-pass" placeholder="••••••••" onkeydown="if(event.key==='Enter')authLogin()"/></div>
-      <button class="btn btn-primary" onclick="authLogin()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10" width="14" height="10" rx="1.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg> Se connecter</button>
+      <button class="btn btn-primary" id="auth-login-btn" onclick="authLogin()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10" width="14" height="10" rx="1.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg> Se connecter</button>
       <div class="uiv-demo-note">Mot de passe oublié ? <a href="#" onclick="event.preventDefault();authForgotPassword()">Réinitialiser</a>. Compte oublié/désactivé ? Contactez votre administrateur — la création de comptes se fait uniquement depuis "Gestion des utilisateurs".</div>
       <div class="uiv-demo-note" style="text-align:center">Première utilisation ? <a href="#" onclick="event.preventDefault();authShowSetup()">Créer votre entreprise</a></div>
     </div>
@@ -1079,7 +1079,7 @@
       <div class="fg"><label>Votre nom complet</label><input type="text" id="setup-nom" placeholder="Ex. Awa Mensah"/></div>
       <div class="fg"><label>E-mail</label><input type="email" id="setup-user" placeholder="vous@entreprise.tg"/></div>
       <div class="fg"><label>Mot de passe</label><input type="password" id="setup-pass" placeholder="Min. 6 caractères" onkeydown="if(event.key==='Enter')authSetupAdmin()"/></div>
-      <button class="btn btn-primary" onclick="authSetupAdmin()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,13 9,18 20,6"/></svg> Créer l'entreprise</button>
+      <button class="btn btn-primary" id="auth-setup-btn" onclick="authSetupAdmin()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,13 9,18 20,6"/></svg> Créer l'entreprise</button>
       <div class="uiv-demo-note" style="text-align:center">Déjà un compte ? <a href="#" onclick="event.preventDefault();authShowLogin()">Se connecter</a></div>
     </div>
     <div id="auth-setpass-card" class="uiv-auth-card" style="display:none">
