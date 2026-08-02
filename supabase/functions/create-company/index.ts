@@ -14,19 +14,37 @@ const CORS_HEADERS = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
+// Copie serveur de js/00b-pays-secteur.js (Deno ne peut pas importer un
+// fichier du front) - garde la même liste de clés valides des deux côtés.
+// Un pays/secteur non reconnu retombe silencieusement sur le défaut plutôt
+// que de bloquer la création : cette liste est purement indicative pour le
+// moment (aucun moteur comptable ne la lit encore, voir Phase 2 du plan),
+// donc une valeur inattendue ne doit jamais empêcher un utilisateur réel de
+// créer son entreprise.
+const PAYS_VALIDES = ["tg", "ci", "sn", "bj", "bf", "ml", "ne", "cm"];
+const SECTEURS_VALIDES = [
+  "commerce", "service", "btp", "sante", "hotellerie", "restauration",
+  "transport", "agriculture", "elevage", "industrie", "import_export",
+  "pharmacie", "education", "immobilier", "cabinet_comptable",
+  "cabinet_juridique", "ong", "association", "cooperative", "banque",
+  "assurance", "telecom", "artisanat", "autre",
+];
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: CORS_HEADERS });
   }
 
   try {
-    const { entreprise, nom, email, password } = await req.json();
+    const { entreprise, nom, email, password, pays, secteur } = await req.json();
     if (!entreprise || !nom || !email || !password) {
       return json({ error: "Tous les champs sont requis." }, 400);
     }
     if (String(password).length < 6) {
       return json({ error: "Mot de passe trop court (min. 6 caractères)." }, 400);
     }
+    const paysFinal = PAYS_VALIDES.includes(pays) ? pays : "tg";
+    const secteurFinal = SECTEURS_VALIDES.includes(secteur) ? secteur : "commerce";
 
     const supabaseAdmin = createClient(
       Deno.env.get("SUPABASE_URL")!,
@@ -45,7 +63,7 @@ Deno.serve(async (req) => {
 
     const { data: company, error: companyErr } = await supabaseAdmin
       .from("companies")
-      .insert({ name: entreprise, created_by: created.user.id })
+      .insert({ name: entreprise, created_by: created.user.id, pays: paysFinal, secteur: secteurFinal })
       .select()
       .single();
     if (companyErr || !company) {

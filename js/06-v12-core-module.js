@@ -25,10 +25,10 @@ function authShowLogin(){
 // (nom, role, active, company) so js/20-user-management.js and
 // js/22-permissions.js don't need to change how they read it.
 async function authFetchProfile(userId){
-  var res=await supabaseClient.from('profiles').select('id,company_id,nom,email,role,active,companies(name)').eq('id',userId).single();
+  var res=await supabaseClient.from('profiles').select('id,company_id,nom,email,role,active,companies(name,pays,secteur)').eq('id',userId).single();
   if(res.error||!res.data)return null;
   var d=res.data;
-  return {id:d.id,company_id:d.company_id,nom:d.nom,email:d.email,role:d.role,active:d.active,company:(d.companies&&d.companies.name)||''};
+  return {id:d.id,company_id:d.company_id,nom:d.nom,email:d.email,role:d.role,active:d.active,company:(d.companies&&d.companies.name)||'',pays:(d.companies&&d.companies.pays)||'tg',secteur:(d.companies&&d.companies.secteur)||'commerce'};
 }
 
 // The one self-serve path: creating a brand-new company makes you its admin.
@@ -45,9 +45,11 @@ async function authSetupAdmin() {
   var nom=(document.getElementById('setup-nom').value||'').trim();
   var email=(document.getElementById('setup-user').value||'').trim();
   var p=document.getElementById('setup-pass').value;
+  var pays=(document.getElementById('setup-pays')||{}).value||'tg';
+  var secteur=(document.getElementById('setup-secteur')||{}).value||'commerce';
   if(!entreprise||!nom||!email||!p){showAErr('Tous les champs sont requis.');return;}
   if(p.length<6){showAErr('Mot de passe trop court (min. 6 caractères).');return;}
-  var res=await supabaseClient.functions.invoke('create-company',{body:{entreprise:entreprise,nom:nom,email:email,password:p}});
+  var res=await supabaseClient.functions.invoke('create-company',{body:{entreprise:entreprise,nom:nom,email:email,password:p,pays:pays,secteur:secteur}});
   var errMsg=await supabaseFnError(res);
   if(errMsg){
     showAErr(errMsg);
