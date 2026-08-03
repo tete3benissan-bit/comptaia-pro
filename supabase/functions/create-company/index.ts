@@ -21,13 +21,24 @@ const CORS_HEADERS = {
 // moment (aucun moteur comptable ne la lit encore, voir Phase 2 du plan),
 // donc une valeur inattendue ne doit jamais empêcher un utilisateur réel de
 // créer son entreprise.
-const PAYS_VALIDES = ["tg", "ci", "sn", "bj", "bf", "ml", "ne", "cm"];
+const PAYS_VALIDES = [
+  "tg", "ci", "sn", "bj", "bf", "ml", "ne", "cm",
+  "ga", "cf", "cg", "td", "gn", "gw", "gq", "cd", "km",
+];
 const SECTEURS_VALIDES = [
   "commerce", "service", "btp", "sante", "hotellerie", "restauration",
   "transport", "agriculture", "elevage", "industrie", "import_export",
   "pharmacie", "education", "immobilier", "cabinet_comptable",
   "cabinet_juridique", "ong", "association", "cooperative", "banque",
   "assurance", "telecom", "artisanat", "autre",
+];
+// Copie serveur de js/00d-forme-juridique.js - même raison/même motif que
+// PAYS_VALIDES/SECTEURS_VALIDES ci-dessus.
+const FORMES_JURIDIQUES_VALIDES = [
+  "entreprise_individuelle", "entrepreneur_individuel", "sarl", "sarlu",
+  "sa", "sas", "sasu", "snc", "scs", "gie", "cooperative", "association",
+  "ong", "etablissement_public", "societe_civile", "fondation", "filiale",
+  "succursale", "autre",
 ];
 
 Deno.serve(async (req) => {
@@ -36,7 +47,7 @@ Deno.serve(async (req) => {
   }
 
   try {
-    const { entreprise, nom, email, password, pays, secteur } = await req.json();
+    const { entreprise, nom, email, password, pays, secteur, formeJuridique } = await req.json();
     if (!entreprise || !nom || !email || !password) {
       return json({ error: "Tous les champs sont requis." }, 400);
     }
@@ -45,6 +56,7 @@ Deno.serve(async (req) => {
     }
     const paysFinal = PAYS_VALIDES.includes(pays) ? pays : "tg";
     const secteurFinal = SECTEURS_VALIDES.includes(secteur) ? secteur : "commerce";
+    const formeJuridiqueFinale = FORMES_JURIDIQUES_VALIDES.includes(formeJuridique) ? formeJuridique : "sarl";
 
     const supabaseAdmin = createClient(
       Deno.env.get("SUPABASE_URL")!,
@@ -63,7 +75,7 @@ Deno.serve(async (req) => {
 
     const { data: company, error: companyErr } = await supabaseAdmin
       .from("companies")
-      .insert({ name: entreprise, created_by: created.user.id, pays: paysFinal, secteur: secteurFinal })
+      .insert({ name: entreprise, created_by: created.user.id, pays: paysFinal, secteur: secteurFinal, forme_juridique: formeJuridiqueFinale })
       .select()
       .single();
     if (companyErr || !company) {

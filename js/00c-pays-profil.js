@@ -47,7 +47,15 @@ var PAYS_PROFILE={
     resultats:{
       ch60:[6000,6099], ch61:[6100,6299], ch63:[6300,6599], ch66:[6600,6999],
       pr70:[7000,7099], pr71:[7100,7399], pr74:[7400,7599], pr76:[7600,7999]
-    }
+    },
+    // Mentions légales obligatoires (pied de facture) et référence du format
+    // de déclaration TVA - laissées vides tant qu'elles n'ont pas été
+    // sourcées et validées (voir Étape B du plan : recherche fiscale
+    // sourcée, présentée à l'utilisateur avant toute écriture ici). Un
+    // tableau vide/chaîne vide n'affiche aucune suggestion (voir
+    // chargerProfil() dans js/07-v13.js) - jamais un texte inventé.
+    mentionsLegales:[],
+    declarationFormat:''
   }
 };
 

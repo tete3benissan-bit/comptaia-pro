@@ -117,11 +117,21 @@ function construireNav(cle){
   var h='<div class="nav-item nav-retour" onclick="montrerHub()"><span>'+ico('home')+'</span> Accueil — spécialisations</div>';
   h+='<div class="spec-entete"><span class="tb-ic">'+s.ic+'</span> '+s.nom+'</div>';
   var estAdmin=!!(window.CURRENT_USER&&CURRENT_USER.role==='admin');
+  // Filtre secteur (js/00e-secteur-modules.js) - masque les modules
+  // existants sans rapport avec le secteur de l'entreprise. Un groupe dont
+  // plus aucun sous-item n'est pertinent disparaît entièrement (pas
+  // d'accordéon vide) ; sinon seuls ses sous-items pertinents restent.
+  function autoriseSecteur(id){ return !window.permAutoriseParSecteur||permAutoriseParSecteur(id); }
   s.items.filter(function(it){return !it.adminOnly||estAdmin;}).forEach(function(it){
     if(it.grp){
+      var sousItems=it.items.filter(function(si){return autoriseSecteur(si.id);});
+      if(!sousItems.length)return;
       h+='<div class="acc-header" onclick="v19Grp(\''+it.grp+'\')"><span>'+it.ic+'</span> '+it.lb+' <span class="acc-arrow" id="arr-v19-'+it.grp+'" style="margin-left:auto">▸</span></div>';
-      h+='<div class="acc-body" id="body-v19-'+it.grp+'" style="display:none">'+it.items.map(itemHTML).join('')+'</div>';
-    } else h+=itemHTML(it);
+      h+='<div class="acc-body" id="body-v19-'+it.grp+'" style="display:none">'+sousItems.map(itemHTML).join('')+'</div>';
+    } else {
+      if(!autoriseSecteur(it.id))return;
+      h+=itemHTML(it);
+    }
   });
   nav.innerHTML=h;
   majBoutonSpec();

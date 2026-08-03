@@ -69,6 +69,15 @@ function chargerProfil(){
     var el=document.getElementById('p-'+k);
     if(el&&p[k]!==undefined)el.value=p[k];
   });
+  // Suggestion de mentions légales par pays (PAYS_PROFILE, js/00c) - ne
+  // s'applique QUE si le champ est encore vide (jamais sur une valeur déjà
+  // enregistrée ou déjà tapée par l'utilisateur) : un point de départ
+  // modifiable, jamais un texte imposé par l'app.
+  var elMentions=document.getElementById('p-mentions');
+  if(elMentions&&!elMentions.value&&typeof activeProfile==='function'){
+    var suggestions=activeProfile().mentionsLegales||[];
+    if(suggestions.length)elMentions.value=suggestions.join('\n');
+  }
   if(p.logo){
     document.getElementById('p-logo-img').src=p.logo;
     document.getElementById('p-logo-preview').style.display='block';

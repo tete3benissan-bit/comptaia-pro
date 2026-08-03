@@ -13,7 +13,7 @@
 // NOTE: if new css/*.css or js/*.js files are added to the app, add them to
 // PRECACHE_URLS below too, or they simply won't be available offline until
 // the first time they're fetched online (they'll still work fine online).
-const CACHE_NAME = 'gest-africa-shell-v5';
+const CACHE_NAME = 'gest-africa-shell-v6';
 
 const PRECACHE_URLS = [
   './',
@@ -25,10 +25,11 @@ const PRECACHE_URLS = [
   'css/05-v14.css','css/06-v17-liasse-annexes.css','css/07-v18-stock.css','css/08-mobile.css',
   'css/09-v19.css','css/10-v20.css','css/11-v21.css','css/12-pro-theme.css',
   'css/13-v22-rh.css','css/14-uiverse.css','css/15-nav-icons.css','css/16-ia-copilot.css',
-  'js/00-supabase-client.js','js/00b-pays-secteur.js','js/00c-pays-profil.js','js/01-core.js','js/02-immo-bilan-pdf-ia.js','js/03-v10-panes-inject.js',
+  'js/00-supabase-client.js','js/00b-pays-secteur.js','js/00c-pays-profil.js','js/00d-forme-juridique.js','js/01-core.js','js/02-immo-bilan-pdf-ia.js','js/03-v10-panes-inject.js',
   'js/04-v10-functions.js','js/05-v11-forme-juridique-prevision.js','js/06-v12-core-module.js','js/07-v13.js',
   'js/08-v14.js','js/09-correctif-orphan-panes.js','js/10-v15-accordion.js','js/11-v16-devis-paie.js',
   'js/12-v17-tft-liasse-annexes.js','js/13-v18-stock.js','js/14-mobile.js','js/15-v19-specializations.js',
+  'js/00e-secteur-modules.js',
   'js/16-v20-notifications-sa-sarl.js','js/17-v21-recherche-import.js','js/18-v22-rh.js','js/19-nav-icons.js',
   'js/20-user-management.js','js/21-ia-copilot.js','js/22-permissions.js','js/23-supabase-sync.js',
   'js/24-draft-autosave.js',

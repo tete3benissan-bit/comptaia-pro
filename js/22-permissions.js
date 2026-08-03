@@ -63,7 +63,11 @@ function permBloquerSiInterdit(id){
   if(id==='utilisateurs') return !permEstAdmin();
   var hub=window.PANE2SPEC && PANE2SPEC[id];
   if(!hub) return false; // pane hors du système de hubs (ex: notifs) -> pas de restriction
-  return !permPeutAccederHub(hub);
+  if(!permPeutAccederHub(hub)) return true;
+  // Filtre secteur (js/00e-secteur-modules.js) - ET logique avec le rôle,
+  // jamais un remplacement : un module doit passer les deux contrôles.
+  if(window.permAutoriseParSecteur && !permAutoriseParSecteur(id)) return true;
+  return false;
 }
 
 function permAfficherAccesRefuse(){

@@ -9,6 +9,11 @@
 // les autres pays de la liste sont présents pour que le formulaire de
 // création d'entreprise soit déjà prêt, mais leur contenu fiscal réel est un
 // travail futur distinct (recherche juridique par pays, pas juste du code).
+// Les 17 États membres de l'OHADA. Tous partagent le franc CFA (deux zones
+// monétaires distinctes en réalité - UEMOA pour l'Afrique de l'Ouest, CEMAC
+// pour l'Afrique centrale - mais toutes deux appelées FCFA et de parité
+// identique avec l'euro, donc un seul libellé "devise" suffit ici), sauf les
+// Comores qui utilisent le franc comorien (KMF).
 var PAYS_REF={
   tg:{label:'Togo',devise:'FCFA'},
   ci:{label:'Côte d\'Ivoire',devise:'FCFA'},
@@ -17,7 +22,16 @@ var PAYS_REF={
   bf:{label:'Burkina Faso',devise:'FCFA'},
   ml:{label:'Mali',devise:'FCFA'},
   ne:{label:'Niger',devise:'FCFA'},
-  cm:{label:'Cameroun',devise:'FCFA'}
+  cm:{label:'Cameroun',devise:'FCFA'},
+  ga:{label:'Gabon',devise:'FCFA'},
+  cf:{label:'Centrafrique',devise:'FCFA'},
+  cg:{label:'Congo',devise:'FCFA'},
+  td:{label:'Tchad',devise:'FCFA'},
+  gn:{label:'Guinée',devise:'FCFA'},
+  gw:{label:'Guinée-Bissau',devise:'FCFA'},
+  gq:{label:'Guinée équatoriale',devise:'FCFA'},
+  cd:{label:'RDC',devise:'FCFA'},
+  km:{label:'Comores',devise:'KMF'}
 };
 
 var SECTEUR_REF={
