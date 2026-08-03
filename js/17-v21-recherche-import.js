@@ -570,9 +570,26 @@ function fimpRemplir(d){
   var type=d.type_document==='facture_achat'?'achat':'vente';
   set('f-type',type);
   if(d.mode_paiement){var p=$id('f-pay');if(p&&[].some.call(p.options,function(o){return o.value===d.mode_paiement;}))p.value=d.mode_paiement;}
-  /* TVA : sélectionne le préréglage OHADA → compte appliqué automatiquement */
+  /* TVA : sélectionne le préréglage du pays actif (activeProfile) selon le
+     taux extrait - ne suppose plus les clés Togo (18v/18a/...), qui
+     n'existent pas dans les profils des autres pays OHADA. Les clés
+     "vente"/"achat" se terminent toutes par v/a par convention (18v/18a
+     pour le Togo, norm_v/norm_a pour les autres) - on s'en sert pour
+     préférer la bonne clé selon le sens de la facture. */
   var taux=parseFloat(d.taux_tva)||0;
-  var cle=taux===18?(type==='achat'?'18a':'18v'):taux===8?'8t':taux===5?'5i':taux===10?'10s':taux===0?'0':'custom';
+  var presetsTva=(typeof activeProfile==='function')?activeProfile().tvaPresets:{};
+  var suffixVoulu=type==='achat'?'a':'v';
+  var cle='custom';
+  Object.keys(presetsTva).some(function(k){
+    if(k!=='custom'&&presetsTva[k].t===taux&&k.slice(-1)===suffixVoulu){cle=k;return true;}
+    return false;
+  });
+  if(cle==='custom'){
+    Object.keys(presetsTva).some(function(k){
+      if(k!=='custom'&&presetsTva[k].t===taux){cle=k;return true;}
+      return false;
+    });
+  }
   var selT=$id('f-tva-type');
   if(selT){selT.value=cle;try{if(typeof onTvaChange==='function')onTvaChange();}catch(e){}}
   if(cle==='custom'){set('f-tva-taux',taux);set('f-tva-cpt',type==='achat'?'4452':'4431');}

@@ -122,6 +122,10 @@ async function onAuthSuccess() {
     Object.assign(NOMS,_profil.noms);
     TVA_P=_profil.tvaPresets;
   }
+  // Reconstruit le sélecteur "TVA applicable" avec les taux réels du pays
+  // de l'entreprise (au lieu des options Togo codées en dur dans
+  // index.html) - voir remplirTvaTypeOptions() dans js/01-core.js.
+  try{ if(typeof remplirTvaTypeOptions==='function') remplirTvaTypeOptions(); }catch(e){}
   // Phase 3 : le bouton "Secteur" de la facture se cale sur le secteur
   // choisi à la création de l'entreprise, au lieu de rester sur "Commerce"
   // par défaut - le comptable peut toujours en choisir un autre à la main.

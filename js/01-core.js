@@ -171,6 +171,24 @@ function onTvaChange(){
   nb('f-tva-label').textContent='TVA '+p.t+'% (auto)';
   calcM();
 }
+// Reconstruit les options du sélecteur "TVA applicable" à partir du profil
+// pays actif (activeProfile().tvaPresets) au lieu des options statiques
+// codées en dur dans index.html (qui n'affichaient que les taux du Togo) -
+// appelé à la connexion (onAuthSuccess) pour que chaque entreprise voie ses
+// propres taux, avec le bon libellé et le bon pourcentage.
+function remplirTvaTypeOptions(){
+  var sel=nb('f-tva-type');if(!sel)return;
+  var presets=activeProfile().tvaPresets;
+  var valAvant=sel.value;
+  var h=Object.keys(presets).filter(function(k){return k!=='custom';}).map(function(k){
+    var p=presets[k];
+    return '<option value="'+k+'">'+(p.lb||k)+' — '+p.t+'%'+(p.c?' ('+p.c+')':'')+'</option>';
+  }).join('');
+  h+='<option value="custom">Taux personnalisé</option>';
+  sel.innerHTML=h;
+  sel.value=presets[valAvant]?valAvant:(activeProfile().defaultTvaKey||sel.options[0].value);
+  onTvaChange();
+}
 
 // ═══ CALCUL MONTANTS ═══
 function calcM(){
@@ -1678,8 +1696,11 @@ function reinit(){
   nb('f-reste-du').textContent='—';nb('f-reste-du').style.color='var(--text)';
   nb('f-type').value='';nb('f-pay').value='';nb('f-statut').value='payee';
   nb('f-produit-stock').value='';nb('f-unite').value='unite';
-  nb('f-tva-type').value='18v';nb('f-tva-taux').value='18';nb('f-tva-cpt').value='4431';
-  nb('f-tva-label').textContent='TVA 18% (auto)';
+  var profilTva=activeProfile();
+  var defKey=profilTva.defaultTvaKey||Object.keys(profilTva.tvaPresets)[0];
+  var defPreset=profilTva.tvaPresets[defKey];
+  nb('f-tva-type').value=defKey;nb('f-tva-taux').value=defPreset.t;nb('f-tva-cpt').value=defPreset.c;
+  nb('f-tva-label').textContent='TVA '+defPreset.t+'% (auto)';
   nb('f-stock-hint').style.display='none';
   nb('ia-err').style.display='none';nb('ia-ok').style.display='none';nb('ia-tip').style.display='block';
   nb('f-date').value=new Date().toISOString().split('T')[0];
