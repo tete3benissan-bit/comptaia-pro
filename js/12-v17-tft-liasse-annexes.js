@@ -20,8 +20,15 @@ function saveV17(){ try{ localStorage.setItem('v17_engagements',JSON.stringify(E
       if(pane) pane.classList.add('active');
       if(el) el.classList.add('active');
       var pt = document.getElementById('page-title');
-      if(pt) pt.textContent = id==='liasse'?'Liasse fiscale DGI':'Notes annexes SYSCOHADA';
-      if(id==='liasse') genererLiasse();
+      if(pt) pt.textContent = id==='liasse'?'Liasse fiscale annuelle':'Notes annexes SYSCOHADA';
+      if(id==='liasse'){
+        var titrePays=document.getElementById('liasse-titre-pays');
+        if(titrePays){
+          var paysLbl=(typeof PAYS_REF!=='undefined'&&window.CURRENT_USER&&PAYS_REF[CURRENT_USER.pays])?PAYS_REF[CURRENT_USER.pays].label:'Togo';
+          titrePays.lastChild.textContent=' Liasse fiscale annuelle — '+paysLbl;
+        }
+        genererLiasse();
+      }
       if(id==='annexes'){ genererAnnexes(); renderEngagements(); renderEvenements(); }
       return;
     }

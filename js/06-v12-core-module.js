@@ -260,6 +260,13 @@ function jGotoPage(p){J_PAGE=p;renderJournal();}
 
 // ── TVA Déclaration ──────────────────────────────────
 function renderTVA(){
+  // Titre dynamique selon le pays de l'entreprise (figé sur "République
+  // Togolaise" jusqu'ici) - voir js/00b-pays-secteur.js (PAYS_REF).
+  var titrePays=document.getElementById('tva-titre-pays');
+  if(titrePays){
+    var paysLbl=(typeof PAYS_REF!=='undefined'&&window.CURRENT_USER&&PAYS_REF[CURRENT_USER.pays])?PAYS_REF[CURRENT_USER.pays].label:'Togo';
+    titrePays.lastChild.textContent=' Déclaration TVA — '+paysLbl;
+  }
   var fmois=((document.getElementById('tva-mois-filter')||{}).value)||'';
   // Populate month filter
   var sel=document.getElementById('tva-mois-filter');

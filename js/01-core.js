@@ -1411,6 +1411,33 @@ function calcImpot(){
   window._IS_CALCULE = {isTotal, benImposableNet, totalSal, totalDed, ca, chCompta};
 }
 
+// Export PDF de la déclaration IS - même patron que exporterTVAPDF()
+// (js/06-v12-core-module.js). Lit le dernier calcul mis en cache
+// (window._IS_CALCULE, posé par calcImpot() ci-dessus) plutôt que de
+// recalculer, pour rester cohérent avec ce que l'écran affiche.
+function exporterISPDF(){
+  var is=window._IS_CALCULE;
+  if(!is){alert('Cliquez d\'abord sur "Recalculer" pour générer le calcul de l\'IS.');return;}
+  try{
+    var jsPDF_=window.jspdf?window.jspdf.jsPDF:jsPDF;
+    var doc=new jsPDF_({orientation:'portrait',unit:'mm',format:'a4'});
+    var W=210,M=14,y=20;
+    doc.setFillColor(13,31,26);doc.rect(0,0,W,30,'F');
+    doc.setTextColor(255,255,255);doc.setFontSize(16);doc.setFont('helvetica','bold');
+    doc.text('Déclaration IS — GEST Africa',M,14);
+    doc.setFontSize(9);doc.setFont('helvetica','normal');
+    doc.text('Exercice '+EXERCICE.annee+' | '+(document.querySelector('.logo-sub')||{textContent:''}).textContent,M,22);
+    doc.setTextColor(0,0,0);y=42;
+    [['Chiffre d\'affaires brut',fmt(is.ca)+' FCFA'],
+     ['Charges comptables',fmt(is.chCompta)+' FCFA'],
+     ['Bénéfice imposable net',fmt(is.benImposableNet)+' FCFA'],
+     ['IS dû',fmt(is.isTotal)+' FCFA']].forEach(function(r){
+      doc.setFontSize(10);doc.text(r[0],M,y);doc.text(r[1],W-M,y,{align:'right'});y+=8;
+    });
+    doc.save('Declaration_IS_'+EXERCICE.annee+'.pdf');
+  }catch(e){alert('PDF non disponible.');}
+}
+
 // ═══ EXERCICE FISCAL ═══
 function definirExercice(){
   EXERCICE.annee=parseInt(nb('ex-annee').value)||2026;

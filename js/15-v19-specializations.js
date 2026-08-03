@@ -22,6 +22,23 @@ var ITEMS_IA=[
   {id:'fraude',ic:ico('alertOctagon'),lb:"Détection d'anomalies"},
   {id:'benchmarks',ic:ico('dashboard'),lb:'Benchmarks'}
 ];
+// Centralise les déclarations fiscales/administratives et les états
+// financiers, jusqu'ici dispersés entre les hubs Fiscalité et Comptable
+// (voir le plan de la conversation) - même motif plat que ITEMS_IA/
+// ITEMS_TRESO, accessible depuis la barre du bas plutôt qu'une 5e grande
+// carte d'accueil (les 4 cartes Exploitant/Comptable/Fiscalité/RH restent
+// inchangées).
+var ITEMS_DECLARATIONS=[
+  {id:'tva',ic:ico('receipt'),lb:'Déclaration de TVA'},
+  {id:'exercice',ic:ico('landmark'),lb:'Déclaration IS',scroll:'is-auto-kpis',cle:'is'},
+  {id:'retenues-source',ic:ico('percent'),lb:'Retenues à la source'},
+  {id:'declaration-cnss',ic:ico('users'),lb:'Salaires & cotisations sociales'},
+  {id:'liasse',ic:ico('layers'),lb:'Liasse fiscale annuelle'},
+  {id:'bilan',ic:ico('scale'),lb:'Bilan'},
+  {id:'resultats',ic:ico('trendUp'),lb:'Compte de résultat'},
+  {id:'tft',ic:ico('droplet'),lb:'Flux de trésorerie'},
+  {id:'annexes',ic:ico('pencil'),lb:'Notes annexes'}
+];
 var SPECS={
   exploitant:{ic:ico('home'),nom:'Exploitant',desc:'Opérations quotidiennes : ventes, clients, stock, production et entreprise.',
     items:[
@@ -45,28 +62,21 @@ var SPECS={
       {id:'production',ic:ico('factory'),lb:'Production'},
       {id:'profil',ic:ico('building'),lb:'Entreprise'}
     ]},
-  compta:{ic:ico('book'),nom:'Comptable',desc:'Journal, grand livre, balance, bilan, résultat et travaux de clôture.',
+  compta:{ic:ico('book'),nom:'Comptable',desc:'Journal, grand livre, balance et travaux de clôture.',
     items:[
       {id:'journal',ic:ico('book'),lb:'Journal',badge:'nb-journal'},
       {id:'grandlivre',ic:ico('bookOpen'),lb:'Grand livre'},
       {id:'lettrage',ic:ico('link'),lb:'Lettrage'},
       {id:'balance',ic:ico('hash'),lb:'Balance'},
-      {id:'bilan',ic:ico('scale'),lb:'Bilan'},
-      {id:'resultats',ic:ico('trendUp'),lb:'Compte de résultat'},
-      {id:'tft',ic:ico('droplet'),lb:'Flux de trésorerie'},
       {id:'immo',ic:ico('layers'),lb:'Immobilisations'},
       {id:'inventaire',ic:ico('hash'),lb:'Inventaire'},
       {id:'provisions',ic:ico('alertTriangle'),lb:'Provisions'},
       {id:'analytique',ic:ico('dashboard'),lb:'Comptabilité analytique'},
-      {id:'annexes',ic:ico('pencil'),lb:'Notes annexes'},
       {id:'audit',ic:ico('search'),lb:"Piste d'audit"}
     ]},
-  fisc:{ic:ico('landmark'),nom:'Fiscalité',desc:'TVA, IS, liasse fiscale DGI, simulateur et calendrier fiscal togolais.',
+  fisc:{ic:ico('landmark'),nom:'Fiscalité',desc:'Simulateur et calendrier fiscal - les déclarations sont désormais dans l\'onglet Déclarations.',
     items:[
-      {id:'tva',ic:ico('receipt'),lb:'TVA'},
       {id:'exercice',ic:ico('calendar'),lb:'Exercice fiscal'},
-      {id:'exercice',ic:ico('landmark'),lb:'IS',scroll:'is-auto-kpis',cle:'is'},
-      {id:'liasse',ic:ico('layers'),lb:'Liasse fiscale'},
       {id:'simulateur',ic:ico('calc'),lb:'Simulateur fiscal'},
       {id:'calendrier',ic:ico('calendar'),lb:'Calendrier fiscal'}
     ]},
@@ -86,7 +96,8 @@ var SPECS={
       {id:'rh-docs',ic:ico('file'),lb:'Documents RH'}
     ]},
   treso:{ic:ico('wallet'),nom:'Trésorier',desc:'Soldes, banques et suivi.',items:ITEMS_TRESO},
-  ia:{ic:ico('bot'),nom:'IA',desc:'Outils intelligents.',items:ITEMS_IA}
+  ia:{ic:ico('bot'),nom:'IA',desc:'Outils intelligents.',items:ITEMS_IA},
+  declarations:{ic:ico('landmark'),nom:'Déclarations',desc:'Déclarations fiscales et administratives, états financiers.',items:ITEMS_DECLARATIONS}
 };
 var ORDRE_HUB=['exploitant','compta','fisc','rh'];
 var SPEC_ACTUELLE=null;
@@ -96,7 +107,7 @@ var SPEC_ACTUELLE=null;
    cartes visibles ; cette table doit rester complète pour que le contrôle
    d'accès (js/22-permissions.js) sache toujours à quel hub appartient un id. */
 var PANE2SPEC={};
-['compta','fisc','rh','treso','ia','exploitant'].forEach(function(k){
+['compta','fisc','rh','treso','ia','exploitant','declarations'].forEach(function(k){
   (SPECS[k].items||[]).forEach(function(it){
     if(it.grp){it.items.forEach(function(s){if(s.id&&!(s.id in PANE2SPEC))PANE2SPEC[s.id]=k;});}
     else if(it.id&&!(it.id in PANE2SPEC))PANE2SPEC[it.id]=k;
@@ -256,6 +267,7 @@ function construireTaskbar(){
     '<div class="tb-sep"></div>'+
     '<button class="tb-btn" id="tb-ia" onclick="basculerMenuTB(event,\'menu-tb-ia\')"><span class="tb-ic">'+ico('bot')+'</span><span class="tb-lbl">IA</span></button>'+
     '<button class="tb-btn" id="tb-treso" onclick="basculerMenuTB(event,\'menu-tb-treso\')"><span class="tb-ic">'+ico('wallet')+'</span><span class="tb-lbl">Trésorerie</span></button>'+
+    '<button class="tb-btn" id="tb-declarations" onclick="basculerMenuTB(event,\'menu-tb-declarations\')"><span class="tb-ic">'+ico('landmark')+'</span><span class="tb-lbl">Déclarations</span></button>'+
     '<button class="tb-btn" id="tb-chat-ia" onclick="go(\'chat-ia\',this)" title="Chat IA — Copilote intelligent"><span class="tb-ic">'+ico('chat')+'</span><span class="tb-lbl">Chat IA</span></button>'+
     '<button class="tb-btn" id="tb-utilisateurs" onclick="go(\'utilisateurs\',this)" title="Gestion des utilisateurs" style="display:none"><span class="tb-ic">'+ico('shield')+'</span><span class="tb-lbl">Utilisateurs</span></button>'+
     '<div class="tb-spacer"></div>'+
@@ -266,8 +278,9 @@ function construireTaskbar(){
   document.body.appendChild(tb);
   document.body.appendChild(construireMenuTB('menu-tb-ia',ico('bot')+' Outils IA',ITEMS_IA,'ia'));
   document.body.appendChild(construireMenuTB('menu-tb-treso',ico('wallet')+' Trésorerie',ITEMS_TRESO,'treso'));
+  document.body.appendChild(construireMenuTB('menu-tb-declarations',ico('landmark')+' Déclarations',ITEMS_DECLARATIONS,'declarations'));
   document.addEventListener('click',function(e){
-    if(!e.target.closest('.tb-menu')&&!e.target.closest('#tb-ia')&&!e.target.closest('#tb-treso'))fermerMenusTB();
+    if(!e.target.closest('.tb-menu')&&!e.target.closest('#tb-ia')&&!e.target.closest('#tb-treso')&&!e.target.closest('#tb-declarations'))fermerMenusTB();
   });
   document.addEventListener('keydown',function(e){if(e.key==='Escape')fermerMenusTB();});
   majHorloge();setInterval(majHorloge,20000);

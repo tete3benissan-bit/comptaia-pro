@@ -9,18 +9,21 @@ var ROLES = {
   admin:              {label:'Administrateur',     hubs:'*',                 badge:'purple'},
   directeur:          {label:'Directeur',          hubs:'*',                 badge:'purple'},
   exploitant:         {label:'Exploitant',          hubs:['exploitant'],      badge:'green'},
-  comptable:          {label:'Comptable',           hubs:['compta'],          badge:'blue'},
-  expert_comptable:   {label:'Expert-comptable',    hubs:['compta','fisc'],   badge:'teal'},
-  fiscaliste:         {label:'Fiscaliste',          hubs:['fisc'],            badge:'amber'},
+  comptable:          {label:'Comptable',           hubs:['compta','declarations'],          badge:'blue'},
+  expert_comptable:   {label:'Expert-comptable',    hubs:['compta','fisc','declarations'],   badge:'teal'},
+  fiscaliste:         {label:'Fiscaliste',          hubs:['fisc','declarations'],            badge:'amber'},
   rh:                 {label:'Ressources humaines', hubs:['rh'],              badge:'red'},
   caissier:           {label:'Caissier',            hubs:['exploitant'],      badge:'green'},
   gestionnaire_stock: {label:'Gestionnaire de stock',hubs:['exploitant'],     badge:'green'},
   commercial:         {label:'Commercial',          hubs:['exploitant'],      badge:'green'},
-  auditeur:           {label:'Auditeur',            hubs:['compta','fisc'],   badge:'teal'}
+  auditeur:           {label:'Auditeur',            hubs:['compta','fisc','declarations'],   badge:'teal'}
 };
 
 // Outils transverses accessibles à tout utilisateur connecté, quel que soit
 // son rôle — ce ne sont pas des "modules métier" au sens des permissions.
+// 'declarations' n'y figure PAS volontairement : ce sont des données
+// fiscales/financières sensibles (contrairement à treso/ia, des outils
+// transverses), donc gérées comme compta/fisc, par rôle explicite ci-dessus.
 var HUBS_LIBRES = ['treso','ia'];
 
 function permRole(){ return (window.CURRENT_USER && CURRENT_USER.role) || null; }
