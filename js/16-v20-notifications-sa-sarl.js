@@ -41,19 +41,6 @@ function majThemeFJ(fj){
   if(bs)bs.className='fj-btn'+(fj==='sarl'?' fj-sarl':'');
   if(ba)ba.className='fj-btn'+(fj==='sa'?' fj-sa':'');
 }
-function construireFJTopbar(){
-  var tb=document.querySelector('.topbar');
-  if(!tb||document.getElementById('fj-topbar'))return;
-  var d=document.createElement('div');
-  d.id='fj-topbar';
-  d.innerHTML=
-    '<button type="button" class="fj-btn" id="fjtb-sarl" onclick="setFormeJuridique(\'sarl\')" '+
-      'title="SARL — IS 27% + distribution libre aux associés + gérance désignée + capital libre">SARL</button>'+
-    '<button type="button" class="fj-btn" id="fjtb-sa" onclick="setFormeJuridique(\'sa\')" '+
-      'title="SA — IS 27% + IRVM 7% sur dividendes + règles actionnaires">SA</button>';
-  var droite=tb.querySelector('.topbar-right');
-  if(droite)tb.insertBefore(d,droite);else tb.appendChild(d);
-}
 if(typeof window.setFormeJuridique==='function'){
   var _sfj=window.setFormeJuridique;
   window.setFormeJuridique=function(fj){
@@ -75,7 +62,6 @@ function marqueV20(){
 }
 
 /* ── 4. Initialisation ── */
-construireFJTopbar();
 majThemeFJ(fjActuelle());
 purgerNotifs();
 marqueV20();
