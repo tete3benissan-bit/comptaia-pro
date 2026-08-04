@@ -163,6 +163,48 @@ async function authLogout() {
   document.getElementById('auth-overlay').style.display='flex';
   var tu=document.getElementById('topbar-user'); if(tu)tu.innerHTML='';
   var btnLogout=document.getElementById('btn-logout'); if(btnLogout)btnLogout.style.display='none';
+  var pop=document.getElementById('compte-popover'); if(pop)pop.style.display='none';
+}
+
+// Carte "Mon compte" (popover, css/01-core.css .compte-*) - ouverte en
+// cliquant sur le badge nom/rôle de la barre du haut. Donne accès aux
+// infos du compte connecté et au changement de mot de passe, qui
+// n'existait nulle part pour un utilisateur déjà connecté (seul un admin
+// pouvait déclencher un e-mail de réinitialisation depuis "Gestion des
+// utilisateurs", ou l'utilisateur depuis l'écran de connexion avant de
+// s'être authentifié).
+window.toggleComptePopover=function(e){
+  if(e)e.stopPropagation();
+  var pop=document.getElementById('compte-popover');
+  if(!pop||!CURRENT_USER)return;
+  if(pop.style.display==='block'){pop.style.display='none';return;}
+  var nomEl=document.getElementById('compte-nom');
+  var roleEl=document.getElementById('compte-role-entreprise');
+  if(nomEl)nomEl.textContent=CURRENT_USER.nom||CURRENT_USER.email;
+  if(roleEl){
+    var roleLbl=(window.permLabelRole?permLabelRole(CURRENT_USER.role):CURRENT_USER.role);
+    roleEl.textContent=roleLbl+' — '+(CURRENT_USER.company||'Mon Entreprise');
+  }
+  pop.style.display='block';
+  setTimeout(function(){
+    document.addEventListener('click',function fermer(ev){
+      if(!ev.target.closest('#compte-popover')&&!ev.target.closest('#topbar-user')){
+        pop.style.display='none';
+        document.removeEventListener('click',fermer);
+      }
+    },true);
+  },0);
+};
+
+async function changerMonMotDePasse(){
+  var p=prompt('Nouveau mot de passe (min. 6 caractères) :');
+  if(!p)return;
+  if(p.length<6){alert('Mot de passe trop court (min. 6 caractères).');return;}
+  var res=await supabaseClient.auth.updateUser({password:p});
+  if(res.error){alert('Échec : '+res.error.message);return;}
+  var pop=document.getElementById('compte-popover');if(pop)pop.style.display='none';
+  if(typeof showToast==='function')showToast('Mot de passe mis à jour.');
+  else alert('Mot de passe mis à jour.');
 }
 
 // ── Journal tabs + pagination ─────────────────────────

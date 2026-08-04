@@ -174,8 +174,21 @@
         <input type="checkbox" id="theme-switch" onchange="toggleTheme()"/>
         <div class="slider"><div class="circle"></div></div>
       </label>
-      <span id="topbar-user" style="font-size:11px;color:var(--text-muted)"></span>
+      <span id="topbar-user" style="font-size:11px;color:var(--text-muted);cursor:pointer" onclick="toggleComptePopover(event)" title="Mon compte"></span>
       <button class="btn btn-sm" onclick="authLogout()" style="font-size:11px;display:none" id="btn-logout">Déconnecter</button>
+      <!-- Carte "Mon compte" (Uiverse/andrew-demchenk0), ouverte au clic sur le badge utilisateur -->
+      <div id="compte-popover" class="compte-popover" style="display:none">
+        <div class="compte-card">
+          <div class="compte-card__img"></div>
+          <div class="compte-card__avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.5-7 8-7s8 3 8 7"/></svg></div>
+          <div class="compte-card__title" id="compte-nom">—</div>
+          <div class="compte-card__subtitle" id="compte-role-entreprise">—</div>
+          <div style="display:flex;gap:10px;margin-top:15px">
+            <button class="compte-card__btn" onclick="changerMonMotDePasse()">Mot de passe</button>
+            <button class="compte-card__btn compte-card__btn-solid" onclick="authLogout()">Déconnexion</button>
+          </div>
+        </div>
+      </div>
       <button class="btn btn-sm" onclick="exporterJSON()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 4v5h8V4"/><path d="M7.5 13h9v7h-9z"/></svg> Sauvegarder</button>
       <button class="btn btn-sm" onclick="importerJSON()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg> Charger</button>
       <input type="file" id="import-file" accept=".json" style="display:none" onchange="lireJSON(event)"/>

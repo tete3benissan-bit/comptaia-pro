@@ -338,3 +338,29 @@ body.fj-sa .sidebar::before,body.fj-sa #hub::before,body.fj-sa #auth-overlay::be
 @keyframes loaderWave2{from{transform:scaleY(.3)}to{transform:scaleY(.6)}}
 @keyframes loaderWave3{from{transform:scaleY(.6)}to{transform:scaleY(.8)}}
 @keyframes loaderWave4{from{transform:scaleY(.2)}to{transform:scaleY(.5)}}
+
+/* ── CARTE "MON COMPTE" (inspiré Uiverse/andrew-demchenk0) ──
+   Popover ouvert au clic sur le badge utilisateur de la barre du haut
+   (#topbar-user) - montre les infos du compte connecté et donne accès au
+   changement de mot de passe, qui n'existait nulle part pour un
+   utilisateur déjà connecté (seul un admin pouvait forcer un reset par
+   e-mail avant l'invitation). Classes préfixées `compte-` (au lieu des
+   noms génériques .card/.card__img de l'original) pour ne pas entrer en
+   collision avec la classe .card déjà utilisée partout ailleurs dans
+   cette app pour les cartes de contenu. */
+.compte-popover{position:fixed;top:52px;right:16px;z-index:2000}
+.compte-card{
+  --compte-main:var(--text);--compte-sub:var(--text-muted);
+  font-family:'Archivo',sans-serif;position:relative;width:260px;height:320px;
+  display:flex;flex-direction:column;align-items:center;border-radius:20px;
+  background:var(--surface);box-shadow:var(--shadow-lg);overflow:hidden;
+}
+.compte-card__img{height:130px;width:100%;background:linear-gradient(135deg,var(--accent),var(--accent-dark))}
+.compte-card__avatar{position:absolute;width:90px;height:90px;background:var(--surface);border-radius:100%;display:flex;justify-content:center;align-items:center;top:calc(65px - 45px);box-shadow:var(--shadow-sm)}
+.compte-card__avatar svg{width:56px;height:56px;color:var(--accent)}
+.compte-card__title{margin-top:48px;font-weight:700;font-size:15px;color:var(--compte-main);padding:0 14px;text-align:center}
+.compte-card__subtitle{margin-top:6px;font-weight:500;font-size:11.5px;color:var(--compte-sub);padding:0 14px;text-align:center}
+.compte-card__btn{margin-top:14px;padding:7px 14px;border:2px solid var(--compte-main);border-radius:8px;font-weight:700;font-size:10.5px;color:var(--compte-main);background:var(--surface);text-transform:uppercase;cursor:pointer;transition:all .2s;white-space:nowrap}
+.compte-card__btn-solid{background:var(--accent);border-color:var(--accent);color:#fff}
+.compte-card__btn:hover{background:var(--compte-main);color:var(--surface)}
+.compte-card__btn-solid:hover{background:var(--accent-dark);border-color:var(--accent-dark);color:#fff}
