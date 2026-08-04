@@ -423,17 +423,17 @@ function showToast(msg,type){
   },5000);
 }
 
-// Loader générique (12 points en orbite, css/01-core.css .pl - remplace
-// l'ancien à barres) - utilisé partout où l'app attend une réponse réseau
-// (connexion, chat IA, import de facture...). boutonChargement()/
-// boutonFinChargement() remplacent temporairement le contenu d'un bouton
-// par le loader et le désactivent, puis restaurent tout tel quel - un seul
-// point d'entrée pour ce motif au lieu de le refaire à la main à chaque
-// écran. .pl-mini réduit l'échelle pour tenir inline (bouton, ligne de
-// statut) - voir le commentaire de .pl dans css/01-core.css.
+// Loader générique (6 cristaux en orbite 3D, css/01-core.css .crystal-*
+// - remplace le loader "planète" .pl) - utilisé partout où l'app attend
+// une réponse réseau (connexion, chat IA, import de facture...).
+// boutonChargement()/boutonFinChargement() remplacent temporairement le
+// contenu d'un bouton par le loader et le désactivent, puis restaurent
+// tout tel quel - un seul point d'entrée pour ce motif au lieu de le
+// refaire à la main à chaque écran. .crystal-mini réduit l'échelle (voir
+// le commentaire de .crystal-loader dans css/01-core.css).
 function loaderHTML(texte){
-  var dots=new Array(12).fill('<span class="pl__dot"></span>').join('');
-  return '<span class="pl pl-mini">'+dots+(texte?'<span class="pl__text">'+texte+'</span>':'')+'</span>';
+  var crystals=new Array(6).fill('<span class="crystal"></span>').join('');
+  return '<span class="crystal-loader-wrap"><span class="crystal-mini"><span class="crystal-loader">'+crystals+'</span></span>'+(texte?'<span class="crystal-text">'+texte+'</span>':'')+'</span>';
 }
 function boutonChargement(btn,texte){
   if(!btn||btn.dataset.loading)return;

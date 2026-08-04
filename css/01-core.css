@@ -326,6 +326,33 @@ body.fj-sa .sidebar::before,body.fj-sa #hub::before,body.fj-sa #auth-overlay::be
 @keyframes pl-push1{from{animation-timing-function:ease-in;background-color:var(--pl-bg);transform:translate(0,0)}25%{animation-timing-function:ease-out;background-color:var(--pl-primary2);transform:translate(-71%,-71%)}50%,to{background-color:var(--pl-bg);transform:translate(0,0)}}
 @keyframes pl-push2{from{animation-timing-function:ease-in;background-color:var(--pl-bg);clip-path:polygon(0 75%,100% 75%,100% 100%,0 100%)}25%{animation-timing-function:ease-out;background-color:var(--pl-primary1);clip-path:polygon(0 25%,100% 25%,100% 100%,0 100%)}50%,to{background-color:var(--pl-bg);clip-path:polygon(0 75%,100% 75%,100% 100%,0 100%)}}
 
+/* ── LOADER "cristal" (6 cristaux en orbite 3D, inspiré Uiverse/Z4drus) ──
+   Remplace le loader "planète" (.pl) ci-dessus comme loader par défaut de
+   loaderHTML() (voir js/01-core.js) - connexion, chat IA, import de
+   facture. L'original de Z4drus est construit en px fixes (200x200) pour
+   un grand écran de chargement ; .crystal-mini l'encapsule dans une boîte
+   inline réduite et recentre le tout via transform:scale() plutôt que de
+   réécrire toutes les valeurs en dur (technique différente de .pl-mini,
+   qui elle profite des unités em de l'original pour se redimensionner
+   par un simple font-size). .pl/.pl__dot restent définis ci-dessus,
+   inchangés, au cas où un usage futur voudrait revenir à ce style.
+   Couleurs bleu/cyan reprises telles quelles du snippet original. */
+.crystal-loader{position:relative;width:200px;height:200px;perspective:800px}
+.crystal-loader .crystal{position:absolute;top:50%;left:50%;width:60px;height:60px;border-radius:10px;visibility:hidden;transform-origin:center;animation:crystal-spin 4s linear infinite,crystal-emerge 2s ease-in-out infinite alternate,crystal-fadeIn .3s ease-out forwards}
+@keyframes crystal-spin{from{transform:translate(-50%,-50%) rotateX(45deg) rotateZ(0deg)}to{transform:translate(-50%,-50%) rotateX(45deg) rotateZ(360deg)}}
+@keyframes crystal-emerge{0%,100%{opacity:.3}50%{opacity:1}}
+@keyframes crystal-fadeIn{to{visibility:visible}}
+.crystal-loader .crystal:nth-child(1){background:linear-gradient(45deg,#003366,#336699);animation-delay:0s}
+.crystal-loader .crystal:nth-child(2){background:linear-gradient(45deg,#003399,#3366cc);animation-delay:.3s}
+.crystal-loader .crystal:nth-child(3){background:linear-gradient(45deg,#0066cc,#3399ff);animation-delay:.6s}
+.crystal-loader .crystal:nth-child(4){background:linear-gradient(45deg,#0099ff,#66ccff);animation-delay:.9s}
+.crystal-loader .crystal:nth-child(5){background:linear-gradient(45deg,#33ccff,#99ccff);animation-delay:1.2s}
+.crystal-loader .crystal:nth-child(6){background:linear-gradient(45deg,#66ffff,#ccffff);animation-delay:1.5s}
+.crystal-loader-wrap{display:inline-flex;align-items:center;gap:.5em;vertical-align:middle}
+.crystal-mini{position:relative;display:inline-block;width:1.4em;height:1.4em;flex-shrink:0}
+.crystal-mini .crystal-loader{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(.11);transform-origin:center}
+.crystal-text{font-size:.85em;text-transform:uppercase;letter-spacing:.05em}
+
 /* Ancien loader à barres - conservé pour compatibilité mais plus utilisé
    par loaderHTML() (voir js/01-core.js), remplacé par .pl ci-dessus. */
 .loader-wave{display:inline-flex;align-items:center;gap:3px;list-style:none;padding:0;margin:0;height:16px;vertical-align:middle}
@@ -339,28 +366,61 @@ body.fj-sa .sidebar::before,body.fj-sa #hub::before,body.fj-sa #auth-overlay::be
 @keyframes loaderWave3{from{transform:scaleY(.6)}to{transform:scaleY(.8)}}
 @keyframes loaderWave4{from{transform:scaleY(.2)}to{transform:scaleY(.5)}}
 
-/* ── CARTE "MON COMPTE" (inspiré Uiverse/andrew-demchenk0) ──
+/* ── CARTE "MON COMPTE" - glass 3D (inspiré Uiverse/Smit-Prajapati) ──
    Popover ouvert au clic sur le badge utilisateur de la barre du haut
    (#topbar-user) - montre les infos du compte connecté et donne accès au
    changement de mot de passe, qui n'existait nulle part pour un
    utilisateur déjà connecté (seul un admin pouvait forcer un reset par
-   e-mail avant l'invitation). Classes préfixées `compte-` (au lieu des
-   noms génériques .card/.card__img de l'original) pour ne pas entrer en
-   collision avec la classe .card déjà utilisée partout ailleurs dans
-   cette app pour les cartes de contenu. */
+   e-mail avant l'invitation). Classes préfixées `compte-glass-` (au lieu
+   des noms génériques .card/.content/.logo de l'original) pour ne pas
+   entrer en collision avec .card déjà utilisée partout ailleurs dans
+   cette app. Dégradé vert/turquoise et effet de bascule 3D au survol
+   repris tels quels du snippet original ; les "social buttons" et le
+   logo générique de l'original sont remplacés par des actions utiles au
+   contexte (mot de passe / déconnexion) et une icône utilisateur. */
 .compte-popover{position:fixed;top:52px;right:16px;z-index:2000}
-.compte-card{
-  --compte-main:var(--text);--compte-sub:var(--text-muted);
-  font-family:'Archivo',sans-serif;position:relative;width:260px;height:320px;
-  display:flex;flex-direction:column;align-items:center;border-radius:20px;
-  background:var(--surface);box-shadow:var(--shadow-lg);overflow:hidden;
-}
-.compte-card__img{height:130px;width:100%;background:linear-gradient(135deg,var(--accent),var(--accent-dark))}
-.compte-card__avatar{position:absolute;width:90px;height:90px;background:var(--surface);border-radius:100%;display:flex;justify-content:center;align-items:center;top:calc(65px - 45px);box-shadow:var(--shadow-sm)}
-.compte-card__avatar svg{width:56px;height:56px;color:var(--accent)}
-.compte-card__title{margin-top:48px;font-weight:700;font-size:15px;color:var(--compte-main);padding:0 14px;text-align:center}
-.compte-card__subtitle{margin-top:6px;font-weight:500;font-size:11.5px;color:var(--compte-sub);padding:0 14px;text-align:center}
-.compte-card__btn{margin-top:14px;padding:7px 14px;border:2px solid var(--compte-main);border-radius:8px;font-weight:700;font-size:10.5px;color:var(--compte-main);background:var(--surface);text-transform:uppercase;cursor:pointer;transition:all .2s;white-space:nowrap}
-.compte-card__btn-solid{background:var(--accent);border-color:var(--accent);color:#fff}
-.compte-card__btn:hover{background:var(--compte-main);color:var(--surface)}
-.compte-card__btn-solid:hover{background:var(--accent-dark);border-color:var(--accent-dark);color:#fff}
+.compte-glass-parent{width:250px;height:260px}
+.compte-glass-card{width:100%;height:100%;border-radius:36px;background:linear-gradient(135deg,rgb(0,255,214) 0%,rgb(8,226,96) 100%);transition:all .5s ease-in-out;transform-style:preserve-3d;box-shadow:rgba(5,71,17,0) 40px 50px 25px -40px,rgba(5,71,17,.2) 0 25px 25px -5px;position:relative}
+.compte-glass-glass{transform-style:preserve-3d;position:absolute;inset:8px;border-radius:40px;border-top-right-radius:100%;background:linear-gradient(0deg,rgba(255,255,255,.349) 0%,rgba(255,255,255,.815) 100%);transform:translate3d(0,0,25px);border-left:1px solid #fff;border-bottom:1px solid #fff;transition:all .5s ease-in-out}
+.compte-glass-content{padding:70px 26px 0 22px;transform:translate3d(0,0,26px);position:relative}
+.compte-glass-title{display:block;color:#00894d;font-weight:900;font-size:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.compte-glass-text{display:block;color:rgba(0,137,78,.76);font-size:12.5px;margin-top:10px}
+.compte-glass-bottom{padding:0 10px;transform-style:preserve-3d;position:absolute;bottom:16px;left:16px;right:16px;display:flex;align-items:center;justify-content:space-between;transform:translate3d(0,0,26px)}
+.compte-glass-more{display:flex;align-items:center;gap:4px;transition:all .2s ease-in-out;background:none;border:none;cursor:pointer;color:#00c37b;font-weight:800;font-size:11px;text-transform:uppercase;padding:0}
+.compte-glass-more:hover{transform:translate3d(0,0,10px)}
+.compte-glass-more svg{fill:none;stroke:#00c37b;stroke-width:3px;width:13px;height:13px}
+.compte-glass-logout{width:32px;aspect-ratio:1;padding:6px;background:#fff;border-radius:50%;border:none;display:grid;place-content:center;cursor:pointer;box-shadow:rgba(5,71,17,.5) 0 7px 5px -5px;transition:transform .2s ease-in-out .3s,box-shadow .2s ease-in-out .3s}
+.compte-glass-logout svg{width:15px;height:15px;fill:none;stroke:#00894d;stroke-width:2px}
+.compte-glass-logout:hover{background:#000}
+.compte-glass-logout:hover svg{stroke:#fff}
+.compte-glass-badge{position:absolute;right:0;top:0;transform-style:preserve-3d}
+.compte-glass-badge .circle{display:block;position:absolute;aspect-ratio:1;border-radius:50%;top:0;right:0;box-shadow:rgba(100,100,111,.2) -10px 10px 20px 0;backdrop-filter:blur(5px);background:rgba(0,249,203,.2);transition:all .5s ease-in-out}
+.compte-glass-badge .circle1{width:130px;transform:translate3d(0,0,20px);top:6px;right:6px}
+.compte-glass-badge .circle2{width:106px;transform:translate3d(0,0,40px);top:8px;right:8px;backdrop-filter:blur(1px);transition-delay:.4s}
+.compte-glass-badge .circle3{width:70px;transform:translate3d(0,0,60px);top:16px;right:16px;display:grid;place-content:center;transition-delay:.8s}
+.compte-glass-badge .circle3 svg{width:26px;height:26px;stroke:#fff;fill:none;stroke-width:1.6px}
+.compte-glass-parent:hover .compte-glass-card{transform:rotate3d(1,1,0,20deg);box-shadow:rgba(5,71,17,.3) 20px 35px 25px -40px,rgba(5,71,17,.1) 0 25px 30px 0}
+.compte-glass-parent:hover .compte-glass-logout{transform:translate3d(0,0,40px);box-shadow:rgba(5,71,17,.2) -5px 20px 10px 0}
+.compte-glass-parent:hover .compte-glass-badge .circle2{transform:translate3d(0,0,55px)}
+.compte-glass-parent:hover .compte-glass-badge .circle3{transform:translate3d(0,0,80px)}
+
+/* ── INPUT néo-brutaliste (inspiré Uiverse/0xnihilism) ──
+   Appliqué uniquement à la recherche du Journal (#j-search) et aux champs
+   e-mail/mot de passe de l'écran de connexion (#auth-user/#auth-pass) -
+   pas à tous les champs de recherche/filtre de l'app. Classes préfixées
+   `brut-input-` (au lieu de .input__container générique) pour éviter
+   toute collision de nom. Couleurs (gris clair/noir/jaune) reprises telles
+   quelles du snippet original - contraste volontaire avec le thème sombre
+   de l'app plutôt qu'un re-theming, fidèle au style "brutaliste" demandé.
+   Le libellé flottant utilise content:attr(data-label) pour rester
+   dynamique par instance ("Recherche"/"Email"/"Mot de passe") au lieu du
+   ::before{content:"USERNAME"} figé de l'original. */
+.brut-input-wrap{position:relative;background:#f0f0f0;padding:10px 12px;display:flex;align-items:center;gap:8px;border:3px solid #000;transition:box-shadow .25s ease,transform .25s ease;box-shadow:5px 5px 0 #000}
+.brut-input-wrap:hover{box-shadow:7px 7px 0 -2px #e9b50b,7px 7px 0 0 #000;transform:translate(-2px,-2px)}
+.brut-input-wrap::before{content:attr(data-label);position:absolute;top:-11px;left:10px;background:#e9b50b;color:#000;font-weight:800;padding:1px 8px;font-size:9.5px;text-transform:uppercase;letter-spacing:.03em;z-index:2;border:2px solid #000}
+.brut-input-wrap input{flex:1 1 auto;width:0;min-width:60px;outline:none;border:2px solid #000;padding:6px 9px;font-size:13px;background:#fff;color:#000;box-shadow:none;border-radius:0}
+.brut-input-wrap input:hover,.brut-input-wrap input:focus{background:#f0f0f0;box-shadow:3px 3px 0 0 #000}
+.brut-input-wrap input::placeholder{color:#666}
+.brut-input-btn{cursor:pointer;border:2px solid #000;background:#e9b50b;display:flex;align-items:center;justify-content:center;padding:6px;flex-shrink:0;transition:transform .15s ease,box-shadow .15s ease}
+.brut-input-btn:hover{transform:translate(-2px,-2px);box-shadow:3px 3px 0 0 #000}
+.brut-input-btn svg{fill:none;stroke:#000;stroke-width:2.5px;width:14px;height:14px}
