@@ -423,14 +423,17 @@ function showToast(msg,type){
   },5000);
 }
 
-// Loader générique (barres animées, css/01-core.css .loader-wave) - utilisé
-// partout où l'app attend une réponse réseau (connexion, chat IA, import de
-// facture...). boutonChargement()/boutonFinChargement() remplacent
-// temporairement le contenu d'un bouton par le loader et le désactivent,
-// puis restaurent tout tel quel - un seul point d'entrée pour ce motif au
-// lieu de le refaire à la main à chaque écran.
+// Loader générique (12 points en orbite, css/01-core.css .pl - remplace
+// l'ancien à barres) - utilisé partout où l'app attend une réponse réseau
+// (connexion, chat IA, import de facture...). boutonChargement()/
+// boutonFinChargement() remplacent temporairement le contenu d'un bouton
+// par le loader et le désactivent, puis restaurent tout tel quel - un seul
+// point d'entrée pour ce motif au lieu de le refaire à la main à chaque
+// écran. .pl-mini réduit l'échelle pour tenir inline (bouton, ligne de
+// statut) - voir le commentaire de .pl dans css/01-core.css.
 function loaderHTML(texte){
-  return '<ul class="loader-wave"><li></li><li></li><li></li><li></li><li></li></ul>'+(texte?' '+texte:'');
+  var dots=new Array(12).fill('<span class="pl__dot"></span>').join('');
+  return '<span class="pl pl-mini">'+dots+(texte?'<span class="pl__text">'+texte+'</span>':'')+'</span>';
 }
 function boutonChargement(btn,texte){
   if(!btn||btn.dataset.loading)return;
