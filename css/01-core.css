@@ -1,7 +1,20 @@
 /* Core layout & design tokens (root CSS variables, sidebar, main, cards, tables, forms) - extracted from ComptaIA_Pro_original.html lines 12-204 */
-/* Restyled: dark tactile "keycap" theme, adapted from a Uiverse.io embossed 3D button component (by Yaya12085). Variable NAMES kept identical on purpose - every other file in this app references these by name; *-dark variants now mean "bright, legible on a dark tint" rather than literally darker, since they're used as text color on top of the *-light chip backgrounds. --border/--border-strong still resolve to transparent so most borders across the whole app disappear for free via the existing token system. */
+/* Restyled: dark tactile "keycap" theme, adapted from a Uiverse.io embossed 3D button component (by Yaya12085). Variable NAMES kept identical on purpose - every other file in this app references these by name; *-dark variants now mean "bright, legible on a dark tint" rather than literally darker, since they're used as text color on top of the *-light chip backgrounds. */
+/* v2 (identité unifiée "glass-brutalist") : accent recentré sur un cyan-turquoise
+   (pont entre le bleu des cristaux et le vert-turquoise de la carte glass),
+   --accent-grad ajouté pour les surfaces qui veulent le dégradé complet plutôt
+   qu'une teinte unie, --highlight reprend le jaune du composant brutaliste comme
+   second accent (rare, réservé aux focus/accents ponctuels). --border/
+   --border-strong sortent de leur valeur "transparent" d'origine pour donner à
+   toute l'app des arêtes nettes (écho brutaliste) - tout composant qui lit déjà
+   ces tokens (cartes, champs, certains encadrés v10/v11/v14/v18/v22) hérite du
+   changement sans modification locale. --shadow-crisp est la nouvelle ombre
+   portée dure (non estompée), pour les quelques éléments qui veulent citer le
+   brutalisme plus fort que le simple liseré. */
 :root{
-  --accent:#4da6ff;--accent-dark:#2f86e0;--accent-light:rgba(77,166,255,.14);--accent-rgb:77,166,255;
+  --accent:#22d3c4;--accent-dark:#0ea89c;--accent-light:rgba(34,211,196,.14);--accent-rgb:34,211,196;
+  --accent-grad:linear-gradient(135deg,#00d9ff 0%,#08e260 100%);
+  --highlight:#f5c518;--highlight-rgb:245,197,24;
   --main:#000;
   --green:#22c07a;--green-dark:#3ddb92;--green-light:rgba(34,192,122,.14);--green-mid:#22c07a;--green-border:transparent;
   --red:#ff6b5e;--red-light:rgba(255,107,94,.14);--red-border:transparent;
@@ -11,13 +24,14 @@
   --teal:#3ecbbd;--teal-light:rgba(62,203,189,.14);
   --bg:#181b22;--surface:#262b36;--sidebar-bg:#0a0b0e;
   --sidebar-text:#7d8494;--text:#f1f3f7;--text-muted:#aab0c0;--text-faint:#7c8294;
-  --border:transparent;--border-strong:transparent;--border-soft:rgba(255,255,255,.11);
+  --border:rgba(255,255,255,.18);--border-strong:rgba(255,255,255,.34);--border-soft:rgba(255,255,255,.11);
   --radius:15px;--radius-lg:20px;
   --shadow-light:rgba(255,255,255,.06);--shadow-dark:rgba(0,0,0,.55);
   --shadow-sm:4px 4px 8px var(--shadow-dark),-3px -3px 7px var(--shadow-light);
   --shadow-md:6px 6px 14px var(--shadow-dark),-4px -4px 10px var(--shadow-light);
   --shadow-lg:10px 10px 24px var(--shadow-dark),-6px -6px 16px var(--shadow-light);
   --shadow-inset:inset 3px 3px 6px var(--shadow-dark),inset -2px -2px 5px var(--shadow-light);
+  --shadow-crisp:4px 4px 0 rgba(0,0,0,.4);--shadow-crisp-hover:6px 6px 0 rgba(0,0,0,.45);
   --sidebar-shadow-light:rgba(255,255,255,.04);--sidebar-shadow-dark:rgba(0,0,0,.7);
   --sidebar-shadow-sm:3px 3px 6px var(--sidebar-shadow-dark),-2px -2px 5px var(--sidebar-shadow-light);
   --sidebar-shadow-inset:inset 2px 2px 4px var(--sidebar-shadow-dark),inset -2px -2px 4px var(--sidebar-shadow-light);
@@ -28,11 +42,12 @@
    and toggleTheme() in js/01-core.js). Only the base tones are restated here; --shadow-sm/md/lg/inset,
    --sidebar-shadow-sm/inset etc. are all derived from these via var(), so they adapt for free. */
 :root[data-theme="light"]{
-  --accent-light:#dceafc;--green-light:#e3f6ec;--red-light:#fbe9e7;--amber-light:#fdf3e0;--blue-light:#dceafc;--purple-light:#f1e9fb;--teal-light:#e2f6f4;
+  --accent-light:#d8f7f2;--green-light:#e3f6ec;--red-light:#fbe9e7;--amber-light:#fdf3e0;--blue-light:#dceafc;--purple-light:#f1e9fb;--teal-light:#e2f6f4;
   --bg:#e8ecf1;--surface:#e8ecf1;
   --sidebar-text:#8b96a8;--text:#3d4451;--text-muted:#5b6270;--text-faint:#7d8492;
-  --border-soft:#dbe1e8;
+  --border:rgba(20,25,35,.16);--border-strong:rgba(20,25,35,.3);--border-soft:#dbe1e8;
   --shadow-light:#ffffff;--shadow-dark:rgba(163,177,198,.55);
+  --shadow-crisp:4px 4px 0 rgba(20,25,35,.16);--shadow-crisp-hover:6px 6px 0 rgba(20,25,35,.2);
   --sidebar-shadow-light:rgba(255,255,255,.05);--sidebar-shadow-dark:rgba(0,0,0,.45);
   --row-hover:rgba(163,177,198,.08);--topbar-shadow:0 2px 10px rgba(163,177,198,.35);--scrollbar-thumb:rgba(163,177,198,.6);
   --switch-track:#c3cbd6;
@@ -41,7 +56,7 @@
 body{font-family:'Archivo',sans-serif;background:var(--bg);color:var(--text);display:flex;height:100vh;overflow:hidden;font-size:15.5px;font-variant-numeric:tabular-nums}
 
 /* ── SIDEBAR ── */
-.sidebar{position:relative;width:230px;background:var(--sidebar-bg);display:flex;flex-direction:column;flex-shrink:0;height:100vh;overflow-y:auto}
+.sidebar{position:relative;width:230px;background:var(--sidebar-bg);display:flex;flex-direction:column;flex-shrink:0;height:100vh;overflow-y:auto;border-right:1.5px solid var(--border-strong)}
 .logo{padding:20px 20px 14px}
 .logo-name{font-size:18px;font-weight:800;color:#fff;letter-spacing:-.3px}
 .logo-name span{color:var(--accent)}
@@ -51,13 +66,13 @@ body{font-family:'Archivo',sans-serif;background:var(--bg);color:var(--text);dis
 .nav-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:rgba(139,150,168,.7);padding:0 18px 5px}
 .nav-item{display:flex;align-items:center;gap:9px;margin:2px 12px;padding:8px 14px;border-radius:12px;font-size:13.5px;cursor:pointer;color:var(--sidebar-text);transition:all .15s;white-space:nowrap}
 .nav-item:hover{background:rgba(255,255,255,.05);box-shadow:var(--sidebar-shadow-sm);color:#fff}
-.nav-item.active{color:#fff;background:rgba(var(--accent-rgb),.16);box-shadow:var(--sidebar-shadow-inset)}
+.nav-item.active{color:#fff;background:rgba(var(--accent-rgb),.16);box-shadow:var(--sidebar-shadow-inset);border-left:3px solid var(--highlight);padding-left:11px}
 .nav-icon{font-size:13px;flex-shrink:0}
 /* ── ACCORDÉON SIDEBAR v15 ── */
 .acc-group{overflow:hidden}
 .acc-header{display:flex;align-items:center;gap:10px;margin:2px 12px;padding:10px 14px;border-radius:12px;cursor:pointer;color:var(--sidebar-text);font-size:12.5px;font-weight:700;transition:background .15s;user-select:none}
 .acc-header:hover{background:rgba(255,255,255,.05);box-shadow:var(--sidebar-shadow-sm);color:#fff}
-.acc-header.acc-open{background:rgba(var(--accent-rgb),.16);box-shadow:var(--sidebar-shadow-inset);color:#fff}
+.acc-header.acc-open{background:rgba(var(--accent-rgb),.16);box-shadow:var(--sidebar-shadow-inset);color:#fff;border-left:3px solid var(--highlight);padding-left:11px}
 .acc-header-ia{margin-top:8px}
 .acc-icon{font-size:14px;flex-shrink:0}
 .acc-title{flex:1;letter-spacing:.01em}
@@ -77,7 +92,7 @@ body{font-family:'Archivo',sans-serif;background:var(--bg);color:var(--text);dis
 
 /* ── MAIN ── */
 .main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
-.topbar{background:var(--surface);padding:0 20px;height:56px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;gap:10px;box-shadow:var(--topbar-shadow)}
+.topbar{background:var(--surface);padding:0 20px;height:56px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;gap:10px;box-shadow:var(--topbar-shadow);border-bottom:1.5px solid var(--border)}
 .page-title{font-size:14px;font-weight:800;white-space:nowrap}
 .topbar-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 /* Keycap button - embossed 3D press, adapted from the Uiverse.io snippet: gradient
@@ -93,8 +108,8 @@ body{font-family:'Archivo',sans-serif;background:var(--bg);color:var(--text);dis
 .btn:hover::before{transform:translateX(0)}
 .btn:hover{transform:translateY(-1px);box-shadow:0 4px 0 rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.08),inset 0 -2px 4px rgba(0,0,0,.4)}
 .btn:active{transform:translateY(3px);box-shadow:0 0 0 rgba(0,0,0,.45),inset 0 2px 5px rgba(0,0,0,.55)}
-.btn-primary{background-color:var(--accent);color:#fff}
-.btn-primary:hover{background-color:var(--accent-dark)}
+.btn-primary{background-color:var(--accent);background-image:linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,0) 45%),linear-gradient(0deg,rgba(0,0,0,.22),rgba(0,0,0,0) 55%),var(--accent-grad);color:#fff}
+.btn-primary:hover{background-color:var(--accent-dark);filter:brightness(1.06)}
 .btn-danger{background-color:var(--red);color:#fff}
 .btn-sm{padding:6px 12px;font-size:11px}
 .content{flex:1;overflow-y:auto;padding:22px}
@@ -105,7 +120,7 @@ body{font-family:'Archivo',sans-serif;background:var(--bg);color:var(--text);dis
 @keyframes fi{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
 
 /* ── CARDS ── */
-.card{background:var(--surface);border-radius:var(--radius-lg);margin-bottom:14px;box-shadow:var(--shadow-md);transition:box-shadow .2s}
+.card{background-color:var(--surface);background-image:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,0) 35%);border:1.5px solid var(--border);border-radius:var(--radius-lg);margin-bottom:14px;box-shadow:var(--shadow-md);transition:box-shadow .2s}
 .card-header{padding:14px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;border-bottom:1px solid var(--border-soft)}
 .card-title{font-size:13.5px;font-weight:800;letter-spacing:.01em}
 .card-body{padding:20px}
@@ -174,10 +189,10 @@ tr:hover td{background:var(--row-hover)}
 .fg4{grid-template-columns:1fr 1fr 1fr 1fr}
 .sp2{grid-column:span 2}.sp3{grid-column:span 3}.sp4{grid-column:span 4}
 label{font-size:11px;font-weight:800;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em}
-input,select,textarea{padding:9px 12px;font-size:13.5px;font-family:'Archivo',sans-serif;border:none;border-radius:var(--radius);background:var(--surface);color:var(--text);width:100%;transition:box-shadow .15s;box-shadow:var(--shadow-inset)}
-input:focus,select:focus,textarea:focus{outline:none;box-shadow:var(--shadow-inset),0 0 0 3px rgba(var(--accent-rgb),.25)}
-input[readonly]{background:var(--bg);color:var(--text-muted);cursor:default;box-shadow:none}
-input[readonly]:focus{box-shadow:none}
+input,select,textarea{padding:9px 12px;font-size:13.5px;font-family:'Archivo',sans-serif;border:1.5px solid var(--border);border-radius:var(--radius);background:var(--surface);color:var(--text);width:100%;transition:box-shadow .15s,border-color .15s;box-shadow:var(--shadow-inset)}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--highlight);box-shadow:var(--shadow-inset),0 0 0 3px rgba(var(--highlight-rgb),.2)}
+input[readonly]{background:var(--bg);color:var(--text-muted);cursor:default;box-shadow:none;border-color:var(--border-soft)}
+input[readonly]:focus{box-shadow:none;border-color:var(--border-soft)}
 textarea{resize:vertical;min-height:52px}
 
 /* ── ALERTS ── */
@@ -416,11 +431,11 @@ body.fj-sa .sidebar::before,body.fj-sa #hub::before,body.fj-sa #auth-overlay::be
    dynamique par instance ("Recherche"/"Email"/"Mot de passe") au lieu du
    ::before{content:"USERNAME"} figé de l'original. */
 .brut-input-wrap{position:relative;background:#f0f0f0;padding:10px 12px;display:flex;align-items:center;gap:8px;border:3px solid #000;transition:box-shadow .25s ease,transform .25s ease;box-shadow:5px 5px 0 #000}
-.brut-input-wrap:hover{box-shadow:7px 7px 0 -2px #e9b50b,7px 7px 0 0 #000;transform:translate(-2px,-2px)}
-.brut-input-wrap::before{content:attr(data-label);position:absolute;top:-11px;left:10px;background:#e9b50b;color:#000;font-weight:800;padding:1px 8px;font-size:9.5px;text-transform:uppercase;letter-spacing:.03em;z-index:2;border:2px solid #000}
+.brut-input-wrap:hover{box-shadow:7px 7px 0 -2px var(--highlight),7px 7px 0 0 #000;transform:translate(-2px,-2px)}
+.brut-input-wrap::before{content:attr(data-label);position:absolute;top:-11px;left:10px;background:var(--highlight);color:#000;font-weight:800;padding:1px 8px;font-size:9.5px;text-transform:uppercase;letter-spacing:.03em;z-index:2;border:2px solid #000}
 .brut-input-wrap input{flex:1 1 auto;width:0;min-width:60px;outline:none;border:2px solid #000;padding:6px 9px;font-size:13px;background:#fff;color:#000;box-shadow:none;border-radius:0}
 .brut-input-wrap input:hover,.brut-input-wrap input:focus{background:#f0f0f0;box-shadow:3px 3px 0 0 #000}
 .brut-input-wrap input::placeholder{color:#666}
-.brut-input-btn{cursor:pointer;border:2px solid #000;background:#e9b50b;display:flex;align-items:center;justify-content:center;padding:6px;flex-shrink:0;transition:transform .15s ease,box-shadow .15s ease}
+.brut-input-btn{cursor:pointer;border:2px solid #000;background:var(--highlight);display:flex;align-items:center;justify-content:center;padding:6px;flex-shrink:0;transition:transform .15s ease,box-shadow .15s ease}
 .brut-input-btn:hover{transform:translate(-2px,-2px);box-shadow:3px 3px 0 0 #000}
 .brut-input-btn svg{fill:none;stroke:#000;stroke-width:2.5px;width:14px;height:14px}
