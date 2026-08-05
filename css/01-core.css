@@ -59,9 +59,9 @@ body{font-family:'Archivo',sans-serif;background:var(--bg);color:var(--text);dis
 .sidebar{position:relative;width:230px;background:var(--sidebar-bg);display:flex;flex-direction:column;flex-shrink:0;height:100vh;overflow-y:auto;border-right:1.5px solid var(--border-strong)}
 .logo{padding:20px 20px 14px}
 .logo-name{font-size:18px;font-weight:800;color:#fff;letter-spacing:-.3px}
-.logo-name span{color:var(--accent)}
+.logo-name span{background:var(--accent-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 .logo-sub{font-size:10px;color:var(--sidebar-text);margin-top:3px;font-family:'Archivo',sans-serif}
-.ex-badge{display:inline-block;margin-top:6px;padding:2px 9px;background:var(--accent);color:#fff;font-size:10px;border-radius:999px;font-weight:700}
+.ex-badge{display:inline-block;margin-top:6px;padding:2px 9px;background-color:var(--accent);background-image:var(--accent-grad);color:#fff;font-size:10px;border-radius:999px;font-weight:700}
 .nav-section{padding:12px 0 6px}
 .nav-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:rgba(139,150,168,.7);padding:0 18px 5px}
 .nav-item{display:flex;align-items:center;gap:9px;margin:2px 12px;padding:8px 14px;border-radius:12px;font-size:13.5px;cursor:pointer;color:var(--sidebar-text);transition:all .15s;white-space:nowrap}
