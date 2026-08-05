@@ -118,6 +118,40 @@
    tuile compacte comme .hub-carte. */
 :root:not([data-theme="light"]):not([data-theme="dark"]) .hub-carte{transform-style:preserve-3d}
 :root:not([data-theme="light"]):not([data-theme="dark"]) .hub-carte:hover{transform:perspective(800px) rotateX(5deg) rotateY(-5deg) translateY(-3px)}
+/* Chrome (barre latérale/barre du bas/écran d'accueil) : jusqu'ici ce
+   bloc restait TOUJOURS sombre quel que soit le thème principal (déjà le
+   cas avant ce chantier, y compris en thème clair) - à la demande de
+   l'utilisateur, il suit maintenant aussi le brutaliste (fond clair +
+   bordures noires), donc --sidebar-bg est redéfini ici. Toutes les
+   couleurs de texte de ces composants étaient câblées en blanc/pastel
+   clair en supposant un fond toujours sombre ; il faut les rebasculer
+   en sombre pour rester lisibles sur le nouveau fond clair. */
+:root:not([data-theme="light"]):not([data-theme="dark"]){--sidebar-bg:#fff}
+:root:not([data-theme="light"]):not([data-theme="dark"]) .nav-item:hover,
+:root:not([data-theme="light"]):not([data-theme="dark"]) .acc-header:hover{background:rgba(0,0,0,.05)}
+:root:not([data-theme="light"]):not([data-theme="dark"]) .tb-btn:hover{background:rgba(0,0,0,.05)}
+:root:not([data-theme="light"]):not([data-theme="dark"]) .logo-name,
+:root:not([data-theme="light"]):not([data-theme="dark"]) .nav-item,
+:root:not([data-theme="light"]):not([data-theme="dark"]) .nav-item:hover,
+:root:not([data-theme="light"]):not([data-theme="dark"]) .nav-item.active,
+:root:not([data-theme="light"]):not([data-theme="dark"]) .acc-header,
+:root:not([data-theme="light"]):not([data-theme="dark"]) .acc-header:hover,
+:root:not([data-theme="light"]):not([data-theme="dark"]) .acc-header.acc-open,
+:root:not([data-theme="light"]):not([data-theme="dark"]) #spec-nav .nav-item.actif-v19,
+:root:not([data-theme="light"]):not([data-theme="dark"]) .tb-btn,
+:root:not([data-theme="light"]):not([data-theme="dark"]) #tb-clock,
+:root:not([data-theme="light"]):not([data-theme="dark"]) .hub-logo,
+:root:not([data-theme="light"]):not([data-theme="dark"]) .hub-titre,
+:root:not([data-theme="light"]):not([data-theme="dark"]) .hub-carte{color:#0a0a0a}
+:root:not([data-theme="light"]):not([data-theme="dark"]) .hub-societe,
+:root:not([data-theme="light"]):not([data-theme="dark"]) .hub-sous,
+:root:not([data-theme="light"]):not([data-theme="dark"]) .hub-desc,
+:root:not([data-theme="light"]):not([data-theme="dark"]) .hub-note,
+:root:not([data-theme="light"]):not([data-theme="dark"]) .nav-label,
+:root:not([data-theme="light"]):not([data-theme="dark"]) .acc-arrow,
+:root:not([data-theme="light"]):not([data-theme="dark"]) .sidebar-footer{color:#444}
+:root:not([data-theme="light"]):not([data-theme="dark"]) .sidebar-nav{scrollbar-color:rgba(0,0,0,.25) transparent}
+:root:not([data-theme="light"]):not([data-theme="dark"]) .sidebar-nav::-webkit-scrollbar-thumb{background:rgba(0,0,0,.25)}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Archivo',sans-serif;background:var(--bg);color:var(--text);display:flex;height:100vh;overflow:hidden;font-size:15.5px;font-variant-numeric:tabular-nums}
 
