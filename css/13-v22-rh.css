@@ -1,7 +1,7 @@
 /* v22: HR module styles - extracted from ComptaIA_Pro_original.html lines 10972-10996 */
 /* ── RH : composants ── */
-.rh-photo{width:34px;height:34px;object-fit:cover;border-radius:50%;background:var(--border);display:inline-block;vertical-align:middle;font-size:16px;text-align:center;line-height:34px}
-.rh-photo-lg{width:74px;height:74px;border-radius:50%;object-fit:cover;background:var(--border);font-size:32px;text-align:center;line-height:74px}
+.rh-photo{width:34px;height:34px;object-fit:cover;border-radius:50%;background:var(--placeholder-bg);color:var(--text);display:inline-block;vertical-align:middle;font-size:16px;text-align:center;line-height:34px}
+.rh-photo-lg{width:74px;height:74px;border-radius:50%;object-fit:cover;background:var(--placeholder-bg);color:var(--text);font-size:32px;text-align:center;line-height:74px}
 .tagr{display:inline-block;padding:2px 8px;font-size:10px;font-weight:700;border-radius:var(--radius);white-space:nowrap}
 .tagr-ok{background:var(--green-light);color:var(--green-dark)}
 .tagr-warn{background:var(--amber-light);color:var(--amber)}

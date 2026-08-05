@@ -10,7 +10,14 @@
    ces tokens (cartes, champs, certains encadrés v10/v11/v14/v18/v22) hérite du
    changement sans modification locale. --shadow-crisp est la nouvelle ombre
    portée dure (non estompée), pour les quelques éléments qui veulent citer le
-   brutalisme plus fort que le simple liseré. */
+   brutalisme plus fort que le simple liseré. --placeholder-bg est un token
+   séparé pour les quelques ronds/barres de remplissage neutres (avatar
+   sans photo en RH, barre de score) qui réutilisaient --border par
+   commodité tant que celui-ci valait "transparent" - devenu risqué
+   maintenant que --border est une vraie couleur (icône noire sur fond
+   noir en thème brutaliste, par exemple), donc découplé avec sa propre
+   valeur par thème, toujours choisie comme un gris moyen (jamais aussi
+   sombre que --text ni aussi clair que --surface). */
 :root{
   --accent:#22d3c4;--accent-dark:#0ea89c;--accent-light:rgba(34,211,196,.14);--accent-rgb:34,211,196;
   --accent-grad:linear-gradient(135deg,#00d9ff 0%,#08e260 100%);
@@ -25,6 +32,7 @@
   --bg:#181b22;--surface:#262b36;--sidebar-bg:#0a0b0e;
   --sidebar-text:#7d8494;--text:#f1f3f7;--text-muted:#aab0c0;--text-faint:#7c8294;
   --border:rgba(255,255,255,.18);--border-strong:rgba(255,255,255,.34);--border-soft:rgba(255,255,255,.11);--border-w:1.5px;
+  --placeholder-bg:rgba(255,255,255,.12);
   --radius:15px;--radius-lg:20px;
   --shadow-light:rgba(255,255,255,.06);--shadow-dark:rgba(0,0,0,.55);
   --shadow-sm:4px 4px 8px var(--shadow-dark),-3px -3px 7px var(--shadow-light);
@@ -46,6 +54,7 @@
   --bg:#e8ecf1;--surface:#e8ecf1;
   --sidebar-text:#8b96a8;--text:#3d4451;--text-muted:#5b6270;--text-faint:#7d8492;
   --border:rgba(20,25,35,.16);--border-strong:rgba(20,25,35,.3);--border-soft:#dbe1e8;
+  --placeholder-bg:rgba(20,25,35,.14);
   --shadow-light:#ffffff;--shadow-dark:rgba(163,177,198,.55);
   --shadow-crisp:4px 4px 0 rgba(20,25,35,.16);--shadow-crisp-hover:6px 6px 0 rgba(20,25,35,.2);
   --sidebar-shadow-light:rgba(255,255,255,.05);--sidebar-shadow-dark:rgba(0,0,0,.45);
@@ -74,6 +83,7 @@
   --bg:#f0f0f0;--surface:#ffffff;
   --sidebar-text:#8b96a8;--text:#0a0a0a;--text-muted:#333333;--text-faint:#555555;
   --border:#000000;--border-strong:#000000;--border-soft:rgba(0,0,0,.25);--border-w:4px;
+  --placeholder-bg:#d4d4d4;
   --radius:0px;--radius-lg:0px;
   --shadow-sm:4px 4px 0 #000;
   --shadow-md:6px 6px 0 #000;

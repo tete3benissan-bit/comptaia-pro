@@ -18,7 +18,7 @@
 .score-ring{width:120px;height:120px;margin:0 auto}
 .score-card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
 .score-detail{background:var(--bg);border:2px solid var(--border);border-radius:var(--radius);padding:12px;text-align:center;box-shadow:var(--shadow-sm)}
-.score-bar{height:6px;background:var(--border);border-radius:var(--radius);margin-top:6px;overflow:hidden}
+.score-bar{height:6px;background:var(--placeholder-bg);border-radius:var(--radius);margin-top:6px;overflow:hidden}
 .score-bar-fill{height:100%;border-radius:var(--radius);transition:width .6s ease}
 /* OCR */
 .ocr-drop{border:2px dashed var(--border-strong);border-radius:var(--radius);padding:32px;text-align:center;cursor:pointer;transition:all .2s;background:var(--bg)}
