@@ -1,36 +1,64 @@
 /* Core layout & design tokens (root CSS variables, sidebar, main, cards, tables, forms) - extracted from ComptaIA_Pro_original.html lines 12-204 */
 /* Restyled: dark tactile "keycap" theme, adapted from a Uiverse.io embossed 3D button component (by Yaya12085). Variable NAMES kept identical on purpose - every other file in this app references these by name; *-dark variants now mean "bright, legible on a dark tint" rather than literally darker, since they're used as text color on top of the *-light chip backgrounds. */
-/* v2 (identité unifiée "glass-brutalist") : accent recentré sur un cyan-turquoise
-   (pont entre le bleu des cristaux et le vert-turquoise de la carte glass),
-   --accent-grad ajouté pour les surfaces qui veulent le dégradé complet plutôt
-   qu'une teinte unie, --highlight reprend le jaune du composant brutaliste comme
-   second accent (rare, réservé aux focus/accents ponctuels). --border/
-   --border-strong sortent de leur valeur "transparent" d'origine pour donner à
-   toute l'app des arêtes nettes (écho brutaliste) - tout composant qui lit déjà
-   ces tokens (cartes, champs, certains encadrés v10/v11/v14/v18/v22) hérite du
-   changement sans modification locale. --shadow-crisp est la nouvelle ombre
-   portée dure (non estompée), pour les quelques éléments qui veulent citer le
-   brutalisme plus fort que le simple liseré. --placeholder-bg est un token
-   séparé pour les quelques ronds/barres de remplissage neutres (avatar
-   sans photo en RH, barre de score) qui réutilisaient --border par
-   commodité tant que celui-ci valait "transparent" - devenu risqué
-   maintenant que --border est une vraie couleur (icône noire sur fond
-   noir en thème brutaliste, par exemple), donc découplé avec sa propre
-   valeur par thème, toujours choisie comme un gris moyen (jamais aussi
-   sombre que --text ni aussi clair que --surface). */
+/* v3 (le brutaliste devient le thème PAR DÉFAUT) : à la demande explicite de
+   l'utilisateur, le thème "brutaliste" (inspiré du composant Uiverse/
+   0xnihilism) n'est plus une 3e option cachée derrière l'interrupteur - c'est
+   maintenant ce que voit tout le monde à l'ouverture de l'app (aucun attribut
+   data-theme). L'ancien thème sombre "cyan-turquoise" (v2, la 1ère unification
+   des 3 codes) devient un thème nommé explicite [data-theme="dark"], toujours
+   accessible via le même interrupteur (cycle brutaliste → clair → sombre).
+   Chaque thème redéclare intégralement ses tokens variables (accent, bg,
+   surface, text, border, radius, shadow-*) plutôt que de compter sur un
+   héritage partiel du bloc :root - la structure même des ombres change entre
+   brutaliste (ombre dure, formule à 1 couche) et sombre/clair (double ombre
+   neumorphique estompée), donc une formule commune aurait fui d'un thème à
+   l'autre si un seul token composant avait été oublié. Seuls les tokens
+   VRAIMENT constants quel que soit le thème (couleurs sémantiques badges/
+   alertes, --sidebar-bg/--sidebar-text - la "chrome" reste sombre partout,
+   comme avant) restent dans le bloc :root non scopé. */
 :root{
+  --main:#000;
+  --green:#22c07a;--green-dark:#3ddb92;--green-mid:#22c07a;--green-border:transparent;
+  --red:#ff6b5e;--red-border:transparent;
+  --amber:#f0b432;--amber-border:transparent;
+  --blue:#4da6ff;--blue-border:transparent;
+  --purple:#b18aef;--purple-border:transparent;
+  --teal:#3ecbbd;
+  --sidebar-bg:#0a0b0e;--sidebar-text:#7d8494;
+  /* ── Thème brutaliste (PAR DÉFAUT, aucun attribut data-theme) ──
+     Fond clair, texte quasi-noir, bordures noires épaisses (--border-w
+     4px), angles vifs (--radius:0), ombres portées dures. Le jaune du
+     snippet original devient un vert "grand livre" (--accent/--highlight),
+     plus approprié à une appli comptable. */
+  --accent:#1f7a4d;--accent-dark:#155c39;--accent-light:#dcf3e6;--accent-rgb:31,122,77;
+  --accent-grad:linear-gradient(135deg,#2f9d63 0%,#155c39 100%);
+  --highlight:#1f7a4d;--highlight-rgb:31,122,77;
+  --green-light:#e3f6ec;--red-light:#fbe9e7;--amber-light:#fdf3e0;--blue-light:#dceafc;--purple-light:#f1e9fb;--teal-light:#e2f6f4;
+  --bg:#f0f0f0;--surface:#ffffff;
+  --text:#0a0a0a;--text-muted:#333333;--text-faint:#555555;
+  --border:#000000;--border-strong:#000000;--border-soft:rgba(0,0,0,.25);--border-w:4px;
+  --placeholder-bg:#d4d4d4;
+  --radius:0px;--radius-lg:0px;
+  --shadow-sm:4px 4px 0 #000;
+  --shadow-md:6px 6px 0 #000;
+  --shadow-lg:10px 10px 0 #000;
+  --shadow-inset:inset 3px 3px 0 rgba(0,0,0,.2);
+  --shadow-crisp:8px 8px 0 #000;--shadow-crisp-hover:11px 11px 0 #000;
+  --sidebar-shadow-sm:3px 3px 0 #000;
+  --sidebar-shadow-inset:inset 2px 2px 0 rgba(0,0,0,.35);
+  --row-hover:rgba(0,0,0,.06);--topbar-shadow:none;--scrollbar-thumb:rgba(0,0,0,.35);
+  --switch-track:#c3cbd6;
+}
+/* ── Thème "sombre" (l'ancien thème par défaut v2, cyan-turquoise) ──
+   Devenu un thème nommé explicite - cliquer 2 fois sur l'interrupteur
+   pour y revenir. Double-ombre neumorphique douce, coins arrondis. */
+:root[data-theme="dark"]{
   --accent:#22d3c4;--accent-dark:#0ea89c;--accent-light:rgba(34,211,196,.14);--accent-rgb:34,211,196;
   --accent-grad:linear-gradient(135deg,#00d9ff 0%,#08e260 100%);
   --highlight:#f5c518;--highlight-rgb:245,197,24;
-  --main:#000;
-  --green:#22c07a;--green-dark:#3ddb92;--green-light:rgba(34,192,122,.14);--green-mid:#22c07a;--green-border:transparent;
-  --red:#ff6b5e;--red-light:rgba(255,107,94,.14);--red-border:transparent;
-  --amber:#f0b432;--amber-light:rgba(240,180,50,.14);--amber-border:transparent;
-  --blue:#4da6ff;--blue-light:rgba(77,166,255,.14);--blue-border:transparent;
-  --purple:#b18aef;--purple-light:rgba(177,138,239,.14);--purple-border:transparent;
-  --teal:#3ecbbd;--teal-light:rgba(62,203,189,.14);
-  --bg:#181b22;--surface:#262b36;--sidebar-bg:#0a0b0e;
-  --sidebar-text:#7d8494;--text:#f1f3f7;--text-muted:#aab0c0;--text-faint:#7c8294;
+  --green-light:rgba(34,192,122,.14);--red-light:rgba(255,107,94,.14);--amber-light:rgba(240,180,50,.14);--blue-light:rgba(77,166,255,.14);--purple-light:rgba(177,138,239,.14);--teal-light:rgba(62,203,189,.14);
+  --bg:#181b22;--surface:#262b36;
+  --text:#f1f3f7;--text-muted:#aab0c0;--text-faint:#7c8294;
   --border:rgba(255,255,255,.18);--border-strong:rgba(255,255,255,.34);--border-soft:rgba(255,255,255,.11);--border-w:1.5px;
   --placeholder-bg:rgba(255,255,255,.12);
   --radius:15px;--radius-lg:20px;
@@ -46,72 +74,50 @@
   --row-hover:rgba(255,255,255,.04);--topbar-shadow:0 2px 10px rgba(0,0,0,.4);--scrollbar-thumb:rgba(255,255,255,.15);
   --switch-track:#3a3f4b;
 }
-/* Light theme override - toggled via [data-theme="light"] on <html> (see .ui-switch in css/14-uiverse.css
-   and toggleTheme() in js/01-core.js). Only the base tones are restated here; --shadow-sm/md/lg/inset,
-   --sidebar-shadow-sm/inset etc. are all derived from these via var(), so they adapt for free. */
+/* ── Thème "clair" (fond clair mais toujours cyan-turquoise/arrondi -
+   distinct du brutaliste qui est noir/blanc et anguleux) ── */
 :root[data-theme="light"]{
-  --accent-light:#d8f7f2;--green-light:#e3f6ec;--red-light:#fbe9e7;--amber-light:#fdf3e0;--blue-light:#dceafc;--purple-light:#f1e9fb;--teal-light:#e2f6f4;
+  --accent:#22d3c4;--accent-dark:#0ea89c;--accent-light:#d8f7f2;--accent-rgb:34,211,196;
+  --accent-grad:linear-gradient(135deg,#00d9ff 0%,#08e260 100%);
+  --highlight:#f5c518;--highlight-rgb:245,197,24;
+  --green-light:#e3f6ec;--red-light:#fbe9e7;--amber-light:#fdf3e0;--blue-light:#dceafc;--purple-light:#f1e9fb;--teal-light:#e2f6f4;
   --bg:#e8ecf1;--surface:#e8ecf1;
   --sidebar-text:#8b96a8;--text:#3d4451;--text-muted:#5b6270;--text-faint:#7d8492;
-  --border:rgba(20,25,35,.16);--border-strong:rgba(20,25,35,.3);--border-soft:#dbe1e8;
+  --border:rgba(20,25,35,.16);--border-strong:rgba(20,25,35,.3);--border-soft:#dbe1e8;--border-w:1.5px;
   --placeholder-bg:rgba(20,25,35,.14);
+  --radius:15px;--radius-lg:20px;
   --shadow-light:#ffffff;--shadow-dark:rgba(163,177,198,.55);
+  --shadow-sm:4px 4px 8px var(--shadow-dark),-3px -3px 7px var(--shadow-light);
+  --shadow-md:6px 6px 14px var(--shadow-dark),-4px -4px 10px var(--shadow-light);
+  --shadow-lg:10px 10px 24px var(--shadow-dark),-6px -6px 16px var(--shadow-light);
+  --shadow-inset:inset 3px 3px 6px var(--shadow-dark),inset -2px -2px 5px var(--shadow-light);
   --shadow-crisp:4px 4px 0 rgba(20,25,35,.16);--shadow-crisp-hover:6px 6px 0 rgba(20,25,35,.2);
   --sidebar-shadow-light:rgba(255,255,255,.05);--sidebar-shadow-dark:rgba(0,0,0,.45);
+  --sidebar-shadow-sm:3px 3px 6px var(--sidebar-shadow-dark),-2px -2px 5px var(--sidebar-shadow-light);
+  --sidebar-shadow-inset:inset 2px 2px 4px var(--sidebar-shadow-dark),inset -2px -2px 4px var(--sidebar-shadow-light);
   --row-hover:rgba(163,177,198,.08);--topbar-shadow:0 2px 10px rgba(163,177,198,.35);--scrollbar-thumb:rgba(163,177,198,.6);
   --switch-track:#c3cbd6;
 }
-/* Thème "brutaliste" - 3e thème, séparé du sombre/clair (voir cycleTheme()
-   dans js/01-core.js), inspiré du composant Uiverse/0xnihilism collé par
-   l'utilisateur : fond clair, texte quasi-noir, bordures noires épaisses
-   (--border-w passe de 1.5px à 4px, comme le snippet d'origine), ombres
-   portées dures au lieu du double-ombre neumorphique des 2 autres thèmes
-   (--shadow-* redéfinis directement, pas juste leurs composants clair/
-   sombre, car la formule elle-même change de nature). Le jaune du snippet
-   original devient un vert "grand livre" (--accent/--highlight) plus
-   approprié à une appli comptable - ce changement de teinte ne touche que
-   ce thème, les thèmes sombre/clair gardent leur jaune existant. La barre
-   latérale/la barre du bas/l'écran d'accueil restent volontairement sombres
-   ici (--sidebar-bg n'est pas redéfini) : c'était déjà le comportement du
-   thème clair existant (ce "chrome" ne suit pas le thème principal), et ça
-   donne le bloc noir massif typique d'une affiche brutaliste. */
-:root[data-theme="brutalist"]{
-  --accent:#1f7a4d;--accent-dark:#155c39;--accent-light:rgba(31,122,77,.14);--accent-rgb:31,122,77;
-  --accent-grad:linear-gradient(135deg,#2f9d63 0%,#155c39 100%);
-  --highlight:#1f7a4d;--highlight-rgb:31,122,77;
-  --accent-light:#dcf3e6;--green-light:#e3f6ec;--red-light:#fbe9e7;--amber-light:#fdf3e0;--blue-light:#dceafc;--purple-light:#f1e9fb;--teal-light:#e2f6f4;
-  --bg:#f0f0f0;--surface:#ffffff;
-  --sidebar-text:#8b96a8;--text:#0a0a0a;--text-muted:#333333;--text-faint:#555555;
-  --border:#000000;--border-strong:#000000;--border-soft:rgba(0,0,0,.25);--border-w:4px;
-  --placeholder-bg:#d4d4d4;
-  --radius:0px;--radius-lg:0px;
-  --shadow-sm:4px 4px 0 #000;
-  --shadow-md:6px 6px 0 #000;
-  --shadow-lg:10px 10px 0 #000;
-  --shadow-inset:inset 3px 3px 0 rgba(0,0,0,.2);
-  --shadow-crisp:8px 8px 0 #000;--shadow-crisp-hover:11px 11px 0 #000;
-  --sidebar-shadow-sm:3px 3px 0 #000;
-  --sidebar-shadow-inset:inset 2px 2px 0 rgba(0,0,0,.35);
-  --row-hover:rgba(0,0,0,.06);--topbar-shadow:none;--scrollbar-thumb:rgba(0,0,0,.35);
-  --switch-track:#c3cbd6;
-}
-/* Boutons : le style "keycap" embossé des 2 autres thèmes (ombre + dégradé
-   de brillance sur .btn) est remplacé ici par le motif exact du snippet -
-   bordure noire épaisse, ombre portée dure, "pression" au clic. Scoping via
-   [data-theme="brutalist"] pour ne rien changer aux 2 autres thèmes. */
-:root[data-theme="brutalist"] .btn{background-image:none;border:var(--border-w) solid #000;box-shadow:var(--shadow-crisp);transform-style:preserve-3d;perspective:600px;transition:box-shadow .2s ease,transform .2s cubic-bezier(.23,1,.32,1)}
-:root[data-theme="brutalist"] .btn:hover{transform:rotateX(8deg) rotateY(-8deg) translateY(-2px);box-shadow:var(--shadow-crisp-hover)}
-:root[data-theme="brutalist"] .btn:active{transform:translate(4px,4px);box-shadow:none}
-:root[data-theme="brutalist"] .btn-primary{background-color:var(--accent);background-image:var(--accent-grad);color:#fff}
-:root[data-theme="brutalist"] .ui-switch .slider .circle{box-shadow:0 2px 4px rgba(0,0,0,.35),inset 0 0 0 2px #000}
+/* Boutons : le style "keycap" embossé (dégradé de brillance + ombre douce)
+   reste la base non scopée ci-dessous (utilisée par sombre/clair, comme
+   avant) ; le brutaliste (par défaut) l'écrase avec le motif exact du
+   snippet - bordure noire épaisse, ombre portée dure, angles vifs,
+   inclinaison 3D au survol, "pression" au clic. Scopé via une négation
+   plutôt qu'un attribut positif, puisque le brutaliste n'a plus d'attribut
+   data-theme propre (c'est l'état par défaut). */
+:root:not([data-theme="light"]):not([data-theme="dark"]) .btn{background-image:none;border:var(--border-w) solid #000;border-radius:0;box-shadow:var(--shadow-crisp);transform-style:preserve-3d;perspective:600px;transition:box-shadow .2s ease,transform .2s cubic-bezier(.23,1,.32,1)}
+:root:not([data-theme="light"]):not([data-theme="dark"]) .btn:hover{transform:rotateX(8deg) rotateY(-8deg) translateY(-2px);box-shadow:var(--shadow-crisp-hover)}
+:root:not([data-theme="light"]):not([data-theme="dark"]) .btn:active{transform:translate(4px,4px);box-shadow:none}
+:root:not([data-theme="light"]):not([data-theme="dark"]) .btn-primary{background-color:var(--accent);background-image:var(--accent-grad);color:#fff}
+:root:not([data-theme="light"]):not([data-theme="dark"]) .ui-switch .slider .circle{box-shadow:0 2px 4px rgba(0,0,0,.35),inset 0 0 0 2px #000}
 /* Inclinaison 3D au survol (rotateX/rotateY, comme .input__container du
    snippet) étendue aux tuiles de l'écran d'accueil - volontairement PAS
    étendue à .card (panneaux pleins de tableaux/formulaires) : un tilt 3D
    sur un gros panneau de données rendrait le contenu flou/illisible au
    survol, alors que ça reste léger et lisible sur un petit bouton ou une
    tuile compacte comme .hub-carte. */
-:root[data-theme="brutalist"] .hub-carte{transform-style:preserve-3d}
-:root[data-theme="brutalist"] .hub-carte:hover{transform:perspective(800px) rotateX(5deg) rotateY(-5deg) translateY(-3px)}
+:root:not([data-theme="light"]):not([data-theme="dark"]) .hub-carte{transform-style:preserve-3d}
+:root:not([data-theme="light"]):not([data-theme="dark"]) .hub-carte:hover{transform:perspective(800px) rotateX(5deg) rotateY(-5deg) translateY(-3px)}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Archivo',sans-serif;background:var(--bg);color:var(--text);display:flex;height:100vh;overflow:hidden;font-size:15.5px;font-variant-numeric:tabular-nums}
 
@@ -250,8 +256,8 @@ tr:hover td{background:var(--row-hover)}
    pas besoin d'un data-label séparé comme pour les 3 champs .brut-input-*
    convertis à la main). Le label sort du flux (position:absolute) et
    .fg réserve la place au-dessus via padding-top. */
-:root[data-theme="brutalist"] .fg{position:relative;padding-top:14px}
-:root[data-theme="brutalist"] .fg>label{position:absolute;top:-1px;left:6px;z-index:2;background:var(--highlight);color:#000;padding:2px 8px;border:2px solid #000;font-size:9px}
+:root:not([data-theme="light"]):not([data-theme="dark"]) .fg{position:relative;padding-top:14px}
+:root:not([data-theme="light"]):not([data-theme="dark"]) .fg>label{position:absolute;top:-1px;left:6px;z-index:2;background:var(--highlight);color:#000;padding:2px 8px;border:2px solid #000;font-size:9px}
 .fgrid{display:grid;gap:10px}
 .fg2{grid-template-columns:1fr 1fr}
 .fg3{grid-template-columns:1fr 1fr 1fr}
