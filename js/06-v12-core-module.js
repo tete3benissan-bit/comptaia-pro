@@ -197,7 +197,7 @@ window.toggleComptePopover=function(e){
 };
 
 async function changerMonMotDePasse(){
-  var p=prompt('Nouveau mot de passe (min. 6 caractères) :');
+  var p=await modalPrompt('Changer le mot de passe','Nouveau mot de passe (min. 6 caractères)',{type:'password'});
   if(!p)return;
   if(p.length<6){alert('Mot de passe trop court (min. 6 caractères).');return;}
   var res=await supabaseClient.auth.updateUser({password:p});

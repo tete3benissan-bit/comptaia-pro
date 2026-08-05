@@ -442,6 +442,41 @@ function showToast(msg,type){
   },5000);
 }
 
+// Modale de saisie HTML (css/01-core.css .gv-modal-*) - remplace le
+// prompt() natif du navigateur, qui ne peut recevoir AUCUN style (fenêtre
+// dessinée par le navigateur/OS, hors du DOM de la page) et jurait donc
+// avec le thème actif, y compris le brutaliste devenu thème par défaut.
+// Réutilise .fg/label/input/.btn/.btn-primary déjà themés - s'adapte
+// automatiquement aux 3 thèmes sans code supplémentaire. Retourne une
+// Promise (comme window.prompt côté valeur : la chaîne saisie, ou null
+// si annulé/fermé), donc s'utilise avec await à l'endroit d'un prompt().
+function modalPrompt(titre,label,opts){
+  opts=opts||{};
+  return new Promise(function(resolve){
+    var ov=document.createElement('div');
+    ov.className='gv-modal-overlay';
+    ov.innerHTML='<div class="gv-modal-card">'+
+      '<div class="gv-modal-title">'+titre+'</div>'+
+      '<div class="fg"><label>'+label+'</label><input type="'+(opts.type||'text')+'" class="gv-modal-input" placeholder="'+(opts.placeholder||'')+'"/></div>'+
+      '<div class="gv-modal-actions">'+
+        '<button type="button" class="btn" data-act="annuler">Annuler</button>'+
+        '<button type="button" class="btn btn-primary" data-act="ok">OK</button>'+
+      '</div>'+
+    '</div>';
+    document.body.appendChild(ov);
+    var inp=ov.querySelector('.gv-modal-input');
+    setTimeout(function(){inp.focus();},0);
+    function fermer(val){ov.remove();resolve(val);}
+    inp.addEventListener('keydown',function(e){
+      if(e.key==='Enter'){e.preventDefault();fermer(inp.value);}
+      else if(e.key==='Escape')fermer(null);
+    });
+    ov.querySelector('[data-act="ok"]').onclick=function(){fermer(inp.value);};
+    ov.querySelector('[data-act="annuler"]').onclick=function(){fermer(null);};
+    ov.addEventListener('click',function(e){if(e.target===ov)fermer(null);});
+  });
+}
+
 // Loader générique (6 cristaux en orbite 3D, css/01-core.css .crystal-*
 // - remplace le loader "planète" .pl) - utilisé partout où l'app attend
 // une réponse réseau (connexion, chat IA, import de facture...).

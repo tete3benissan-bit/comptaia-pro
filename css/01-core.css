@@ -363,6 +363,15 @@ body.fj-sa .sidebar::before,body.fj-sa #hub::before,body.fj-sa #auth-overlay::be
 @keyframes toast-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 @keyframes toast-out{from{opacity:1}to{opacity:0;transform:translateY(8px)}}
 
+/* ── MODALE DE SAISIE (remplace window.prompt(), voir modalPrompt() dans
+   js/01-core.js) ── Réutilise .fg/label/input/.btn/.btn-primary déjà
+   themés - s'adapte aux 3 thèmes (brutaliste/clair/sombre) sans code
+   supplémentaire ici. */
+.gv-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:5000;display:flex;align-items:center;justify-content:center;padding:20px;animation:toast-in .15s ease}
+.gv-modal-card{background:var(--surface);border:var(--border-w) solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);padding:24px;width:100%;max-width:360px}
+.gv-modal-title{font-size:15px;font-weight:800;margin-bottom:14px;color:var(--text)}
+.gv-modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}
+
 /* ── LOADER "planète" (12 points en orbite, inspiré Uiverse/Nawsome) ──
    Remplace le loader à barres ci-dessous partout où loaderHTML() est
    utilisé (connexion, chat IA, import de facture) - voir js/01-core.js.
