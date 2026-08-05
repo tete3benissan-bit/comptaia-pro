@@ -99,11 +99,19 @@
    de brillance sur .btn) est remplacé ici par le motif exact du snippet -
    bordure noire épaisse, ombre portée dure, "pression" au clic. Scoping via
    [data-theme="brutalist"] pour ne rien changer aux 2 autres thèmes. */
-:root[data-theme="brutalist"] .btn{background-image:none;border:var(--border-w) solid #000;box-shadow:var(--shadow-crisp);transition:box-shadow .15s ease,transform .15s ease}
-:root[data-theme="brutalist"] .btn:hover{transform:translateY(-2px);box-shadow:var(--shadow-crisp-hover)}
+:root[data-theme="brutalist"] .btn{background-image:none;border:var(--border-w) solid #000;box-shadow:var(--shadow-crisp);transform-style:preserve-3d;perspective:600px;transition:box-shadow .2s ease,transform .2s cubic-bezier(.23,1,.32,1)}
+:root[data-theme="brutalist"] .btn:hover{transform:rotateX(8deg) rotateY(-8deg) translateY(-2px);box-shadow:var(--shadow-crisp-hover)}
 :root[data-theme="brutalist"] .btn:active{transform:translate(4px,4px);box-shadow:none}
 :root[data-theme="brutalist"] .btn-primary{background-color:var(--accent);background-image:var(--accent-grad);color:#fff}
 :root[data-theme="brutalist"] .ui-switch .slider .circle{box-shadow:0 2px 4px rgba(0,0,0,.35),inset 0 0 0 2px #000}
+/* Inclinaison 3D au survol (rotateX/rotateY, comme .input__container du
+   snippet) étendue aux tuiles de l'écran d'accueil - volontairement PAS
+   étendue à .card (panneaux pleins de tableaux/formulaires) : un tilt 3D
+   sur un gros panneau de données rendrait le contenu flou/illisible au
+   survol, alors que ça reste léger et lisible sur un petit bouton ou une
+   tuile compacte comme .hub-carte. */
+:root[data-theme="brutalist"] .hub-carte{transform-style:preserve-3d}
+:root[data-theme="brutalist"] .hub-carte:hover{transform:perspective(800px) rotateX(5deg) rotateY(-5deg) translateY(-3px)}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Archivo',sans-serif;background:var(--bg);color:var(--text);display:flex;height:100vh;overflow:hidden;font-size:15.5px;font-variant-numeric:tabular-nums}
 
@@ -235,6 +243,15 @@ tr:hover td{background:var(--row-hover)}
 
 /* ── FORM ── */
 .fg{display:flex;flex-direction:column;gap:4px}
+/* Étiquette flottante façon brutaliste (::before{content:"USERNAME"} du
+   snippet original), étendue à TOUS les champs de l'app en thème
+   brutaliste - sans toucher au HTML : on réutilise le <label> réel déjà
+   présent dans chaque .fg (son texte est déjà le bon libellé par champ,
+   pas besoin d'un data-label séparé comme pour les 3 champs .brut-input-*
+   convertis à la main). Le label sort du flux (position:absolute) et
+   .fg réserve la place au-dessus via padding-top. */
+:root[data-theme="brutalist"] .fg{position:relative;padding-top:14px}
+:root[data-theme="brutalist"] .fg>label{position:absolute;top:-1px;left:6px;z-index:2;background:var(--highlight);color:#000;padding:2px 8px;border:2px solid #000;font-size:9px}
 .fgrid{display:grid;gap:10px}
 .fg2{grid-template-columns:1fr 1fr}
 .fg3{grid-template-columns:1fr 1fr 1fr}
@@ -482,12 +499,12 @@ body.fj-sa .sidebar::before,body.fj-sa #hub::before,body.fj-sa #auth-overlay::be
    Le libellé flottant utilise content:attr(data-label) pour rester
    dynamique par instance ("Recherche"/"Email"/"Mot de passe") au lieu du
    ::before{content:"USERNAME"} figé de l'original. */
-.brut-input-wrap{position:relative;background:#f0f0f0;padding:10px 12px;display:flex;align-items:center;gap:8px;border:3px solid #000;transition:box-shadow .25s ease,transform .25s ease;box-shadow:5px 5px 0 #000}
-.brut-input-wrap:hover{box-shadow:7px 7px 0 -2px var(--highlight),7px 7px 0 0 #000;transform:translate(-2px,-2px)}
-.brut-input-wrap::before{content:attr(data-label);position:absolute;top:-11px;left:10px;background:var(--highlight);color:#000;font-weight:800;padding:1px 8px;font-size:9.5px;text-transform:uppercase;letter-spacing:.03em;z-index:2;border:2px solid #000}
-.brut-input-wrap input{flex:1 1 auto;width:0;min-width:60px;outline:none;border:2px solid #000;padding:6px 9px;font-size:13px;background:#fff;color:#000;box-shadow:none;border-radius:0}
+.brut-input-wrap{position:relative;background:#f0f0f0;padding:10px 12px;display:flex;align-items:center;gap:8px;border:3px solid #000;transition:all .4s cubic-bezier(.23,1,.32,1);transform-style:preserve-3d;perspective:900px;transform:rotateX(6deg) rotateY(-6deg);box-shadow:5px 5px 0 #000}
+.brut-input-wrap:hover{transform:rotateX(3deg) rotateY(-1deg) scale(1.03);box-shadow:9px 9px 0 -2px var(--highlight),9px 9px 0 0 #000}
+.brut-input-wrap::before{content:attr(data-label);position:absolute;top:-11px;left:10px;background:var(--highlight);color:#000;font-weight:800;padding:1px 8px;font-size:9.5px;text-transform:uppercase;letter-spacing:.03em;z-index:4;border:2px solid #000;transform:translateZ(30px)}
+.brut-input-wrap input{flex:1 1 auto;width:0;min-width:60px;outline:none;border:2px solid #000;padding:6px 9px;font-size:13px;background:#fff;color:#000;box-shadow:none;border-radius:0;position:relative;z-index:3;transform:translateZ(14px)}
 .brut-input-wrap input:hover,.brut-input-wrap input:focus{background:#f0f0f0;box-shadow:3px 3px 0 0 #000}
 .brut-input-wrap input::placeholder{color:#666}
-.brut-input-btn{cursor:pointer;border:2px solid #000;background:var(--highlight);display:flex;align-items:center;justify-content:center;padding:6px;flex-shrink:0;transition:transform .15s ease,box-shadow .15s ease}
-.brut-input-btn:hover{transform:translate(-2px,-2px);box-shadow:3px 3px 0 0 #000}
+.brut-input-btn{cursor:pointer;border:2px solid #000;background:var(--highlight);display:flex;align-items:center;justify-content:center;padding:6px;flex-shrink:0;transition:transform .15s ease,box-shadow .15s ease;position:relative;z-index:3;transform:translateZ(14px)}
+.brut-input-btn:hover{transform:translateZ(14px) translate(-2px,-2px);box-shadow:3px 3px 0 0 #000}
 .brut-input-btn svg{fill:none;stroke:#000;stroke-width:2.5px;width:14px;height:14px}
