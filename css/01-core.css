@@ -24,7 +24,7 @@
   --teal:#3ecbbd;--teal-light:rgba(62,203,189,.14);
   --bg:#181b22;--surface:#262b36;--sidebar-bg:#0a0b0e;
   --sidebar-text:#7d8494;--text:#f1f3f7;--text-muted:#aab0c0;--text-faint:#7c8294;
-  --border:rgba(255,255,255,.18);--border-strong:rgba(255,255,255,.34);--border-soft:rgba(255,255,255,.11);
+  --border:rgba(255,255,255,.18);--border-strong:rgba(255,255,255,.34);--border-soft:rgba(255,255,255,.11);--border-w:1.5px;
   --radius:15px;--radius-lg:20px;
   --shadow-light:rgba(255,255,255,.06);--shadow-dark:rgba(0,0,0,.55);
   --shadow-sm:4px 4px 8px var(--shadow-dark),-3px -3px 7px var(--shadow-light);
@@ -52,11 +52,53 @@
   --row-hover:rgba(163,177,198,.08);--topbar-shadow:0 2px 10px rgba(163,177,198,.35);--scrollbar-thumb:rgba(163,177,198,.6);
   --switch-track:#c3cbd6;
 }
+/* Thème "brutaliste" - 3e thème, séparé du sombre/clair (voir cycleTheme()
+   dans js/01-core.js), inspiré du composant Uiverse/0xnihilism collé par
+   l'utilisateur : fond clair, texte quasi-noir, bordures noires épaisses
+   (--border-w passe de 1.5px à 4px, comme le snippet d'origine), ombres
+   portées dures au lieu du double-ombre neumorphique des 2 autres thèmes
+   (--shadow-* redéfinis directement, pas juste leurs composants clair/
+   sombre, car la formule elle-même change de nature). Le jaune du snippet
+   original devient un vert "grand livre" (--accent/--highlight) plus
+   approprié à une appli comptable - ce changement de teinte ne touche que
+   ce thème, les thèmes sombre/clair gardent leur jaune existant. La barre
+   latérale/la barre du bas/l'écran d'accueil restent volontairement sombres
+   ici (--sidebar-bg n'est pas redéfini) : c'était déjà le comportement du
+   thème clair existant (ce "chrome" ne suit pas le thème principal), et ça
+   donne le bloc noir massif typique d'une affiche brutaliste. */
+:root[data-theme="brutalist"]{
+  --accent:#1f7a4d;--accent-dark:#155c39;--accent-light:rgba(31,122,77,.14);--accent-rgb:31,122,77;
+  --accent-grad:linear-gradient(135deg,#2f9d63 0%,#155c39 100%);
+  --highlight:#1f7a4d;--highlight-rgb:31,122,77;
+  --accent-light:#dcf3e6;--green-light:#e3f6ec;--red-light:#fbe9e7;--amber-light:#fdf3e0;--blue-light:#dceafc;--purple-light:#f1e9fb;--teal-light:#e2f6f4;
+  --bg:#f0f0f0;--surface:#ffffff;
+  --sidebar-text:#8b96a8;--text:#0a0a0a;--text-muted:#333333;--text-faint:#555555;
+  --border:#000000;--border-strong:#000000;--border-soft:rgba(0,0,0,.25);--border-w:4px;
+  --radius:0px;--radius-lg:0px;
+  --shadow-sm:4px 4px 0 #000;
+  --shadow-md:6px 6px 0 #000;
+  --shadow-lg:10px 10px 0 #000;
+  --shadow-inset:inset 3px 3px 0 rgba(0,0,0,.2);
+  --shadow-crisp:8px 8px 0 #000;--shadow-crisp-hover:11px 11px 0 #000;
+  --sidebar-shadow-sm:3px 3px 0 #000;
+  --sidebar-shadow-inset:inset 2px 2px 0 rgba(0,0,0,.35);
+  --row-hover:rgba(0,0,0,.06);--topbar-shadow:none;--scrollbar-thumb:rgba(0,0,0,.35);
+  --switch-track:#c3cbd6;
+}
+/* Boutons : le style "keycap" embossé des 2 autres thèmes (ombre + dégradé
+   de brillance sur .btn) est remplacé ici par le motif exact du snippet -
+   bordure noire épaisse, ombre portée dure, "pression" au clic. Scoping via
+   [data-theme="brutalist"] pour ne rien changer aux 2 autres thèmes. */
+:root[data-theme="brutalist"] .btn{background-image:none;border:var(--border-w) solid #000;box-shadow:var(--shadow-crisp);transition:box-shadow .15s ease,transform .15s ease}
+:root[data-theme="brutalist"] .btn:hover{transform:translateY(-2px);box-shadow:var(--shadow-crisp-hover)}
+:root[data-theme="brutalist"] .btn:active{transform:translate(4px,4px);box-shadow:none}
+:root[data-theme="brutalist"] .btn-primary{background-color:var(--accent);background-image:var(--accent-grad);color:#fff}
+:root[data-theme="brutalist"] .ui-switch .slider .circle{box-shadow:0 2px 4px rgba(0,0,0,.35),inset 0 0 0 2px #000}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Archivo',sans-serif;background:var(--bg);color:var(--text);display:flex;height:100vh;overflow:hidden;font-size:15.5px;font-variant-numeric:tabular-nums}
 
 /* ── SIDEBAR ── */
-.sidebar{position:relative;width:230px;background:var(--sidebar-bg);display:flex;flex-direction:column;flex-shrink:0;height:100vh;overflow-y:auto;border-right:1.5px solid var(--border-strong)}
+.sidebar{position:relative;width:230px;background:var(--sidebar-bg);display:flex;flex-direction:column;flex-shrink:0;height:100vh;overflow-y:auto;border-right:var(--border-w) solid var(--border-strong)}
 .logo{padding:20px 20px 14px}
 .logo-name{font-size:18px;font-weight:800;color:#fff;letter-spacing:-.3px}
 .logo-name span{background:var(--accent-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
@@ -92,7 +134,7 @@ body{font-family:'Archivo',sans-serif;background:var(--bg);color:var(--text);dis
 
 /* ── MAIN ── */
 .main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
-.topbar{background:var(--surface);padding:0 20px;height:56px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;gap:10px;box-shadow:var(--topbar-shadow);border-bottom:1.5px solid var(--border)}
+.topbar{background:var(--surface);padding:0 20px;height:56px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;gap:10px;box-shadow:var(--topbar-shadow);border-bottom:var(--border-w) solid var(--border)}
 .page-title{font-size:14px;font-weight:800;white-space:nowrap}
 .topbar-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 /* Keycap button - embossed 3D press, adapted from the Uiverse.io snippet: gradient
@@ -120,7 +162,7 @@ body{font-family:'Archivo',sans-serif;background:var(--bg);color:var(--text);dis
 @keyframes fi{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
 
 /* ── CARDS ── */
-.card{background-color:var(--surface);background-image:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,0) 35%);border:1.5px solid var(--border);border-radius:var(--radius-lg);margin-bottom:14px;box-shadow:var(--shadow-md);transition:box-shadow .2s}
+.card{background-color:var(--surface);background-image:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,0) 35%);border:var(--border-w) solid var(--border);border-radius:var(--radius-lg);margin-bottom:14px;box-shadow:var(--shadow-md);transition:box-shadow .2s}
 .card-header{padding:14px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;border-bottom:1px solid var(--border-soft)}
 .card-title{font-size:13.5px;font-weight:800;letter-spacing:.01em}
 .card-body{padding:20px}
@@ -189,7 +231,7 @@ tr:hover td{background:var(--row-hover)}
 .fg4{grid-template-columns:1fr 1fr 1fr 1fr}
 .sp2{grid-column:span 2}.sp3{grid-column:span 3}.sp4{grid-column:span 4}
 label{font-size:11px;font-weight:800;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em}
-input,select,textarea{padding:9px 12px;font-size:13.5px;font-family:'Archivo',sans-serif;border:1.5px solid var(--border);border-radius:var(--radius);background:var(--surface);color:var(--text);width:100%;transition:box-shadow .15s,border-color .15s;box-shadow:var(--shadow-inset)}
+input,select,textarea{padding:9px 12px;font-size:13.5px;font-family:'Archivo',sans-serif;border:var(--border-w) solid var(--border);border-radius:var(--radius);background:var(--surface);color:var(--text);width:100%;transition:box-shadow .15s,border-color .15s;box-shadow:var(--shadow-inset)}
 input:focus,select:focus,textarea:focus{outline:none;border-color:var(--highlight);box-shadow:var(--shadow-inset),0 0 0 3px rgba(var(--highlight-rgb),.2)}
 input[readonly]{background:var(--bg);color:var(--text-muted);cursor:default;box-shadow:none;border-color:var(--border-soft)}
 input[readonly]:focus{box-shadow:none;border-color:var(--border-soft)}

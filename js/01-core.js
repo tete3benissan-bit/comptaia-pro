@@ -31,12 +31,31 @@ function fmtD(d){if(!d)return'';var p=d.split('-');return p.length===3?p[2]+'/'+
 function nowStr(){var d=new Date();return d.toLocaleDateString('fr-FR')+' à '+d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}
 function nb(id){return document.getElementById(id)}
 
-// ═══ THÈME CLAIR / SOMBRE ═══
-function toggleTheme(){
-  var light=document.documentElement.getAttribute('data-theme')==='light';
-  if(light){document.documentElement.removeAttribute('data-theme');try{localStorage.setItem('comptaia_theme','dark');}catch(e){}}
-  else{document.documentElement.setAttribute('data-theme','light');try{localStorage.setItem('comptaia_theme','light');}catch(e){}}
+// ═══ THÈME SOMBRE / CLAIR / BRUTALISTE ═══
+// Cycle à 3 états sur le même sélecteur (#theme-switch) plutôt qu'un
+// simple bascule binaire, depuis l'ajout du thème "brutaliste" (fond
+// clair, bordures noires épaisses, écho du composant Uiverse/0xnihilism)
+// - "dark" reste l'état par défaut (aucun attribut data-theme, comme
+// avant l'ajout du 3e thème, pour ne rien casser pour les utilisateurs
+// déjà en sombre).
+function applyTheme(theme){
+  if(theme==='dark')document.documentElement.removeAttribute('data-theme');
+  else document.documentElement.setAttribute('data-theme',theme);
+  try{localStorage.setItem('comptaia_theme',theme);}catch(e){}
+  majThemeSwitch();
 }
+function cycleTheme(){
+  var cur=document.documentElement.getAttribute('data-theme')||'dark';
+  applyTheme(cur==='dark'?'light':(cur==='light'?'brutalist':'dark'));
+}
+function majThemeSwitch(){
+  var theme=document.documentElement.getAttribute('data-theme')||'dark';
+  var ts=nb('theme-switch');
+  if(ts)ts.checked=(theme!=='dark');
+  var lbl=ts&&ts.closest('.ui-switch');
+  if(lbl)lbl.title='Thème : '+(theme==='dark'?'Sombre':theme==='light'?'Clair':'Brutaliste')+' — cliquer pour changer';
+}
+window.toggleTheme=cycleTheme;
 
 // ═══ INIT DATE ═══
 window.onload=function(){
@@ -45,8 +64,7 @@ window.onload=function(){
   updateNumAuto();
   chargerLocalStorage();
   verifierRetards();
-  var ts=nb('theme-switch');
-  if(ts)ts.checked=document.documentElement.getAttribute('data-theme')==='light';
+  majThemeSwitch();
 };
 
 // ═══ SAUVEGARDE LOCALE AUTO ═══
