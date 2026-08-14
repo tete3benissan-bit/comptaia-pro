@@ -43,7 +43,7 @@ function majDatalistComptes(){
   if(!dl){dl=document.createElement('datalist');dl.id='dl-comptes';document.body.appendChild(dl);}
   var m=tousLesComptes();
   dl.innerHTML=Object.keys(m).sort().map(function(k){
-    return '<option value="'+k+'">'+k+' — '+m[k].replace(/"/g,'&quot;')+'</option>';
+    return '<option value="'+esc(k)+'">'+esc(k)+' — '+esc(m[k])+'</option>';
   }).join('');
 }
 /* Compte TVA → taux (inverse de TVA_P) */

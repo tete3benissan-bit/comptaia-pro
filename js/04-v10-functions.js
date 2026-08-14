@@ -301,7 +301,7 @@ function renderMultiEntreprise(){
   liste.innerHTML=ENTREPRISES_PORTEFEUILLE.map(function(e,i){
     return`<div class="entreprise-card ${e.actif?'active-co':''}" style="margin:8px;border-radius:var(--radius);padding:10px 12px" onclick="selectEntreprise(${i})">
       <div style="display:flex;justify-content:space-between;align-items:flex-start">
-        <div><div style="font-size:12.5px;font-weight:600">${e.nom}</div><div style="font-size:10px;color:var(--text-muted)">Ex. ${e.annee} · ${e.nbEcritures} écritures</div></div>
+        <div><div style="font-size:12.5px;font-weight:600">${esc(e.nom)}</div><div style="font-size:10px;color:var(--text-muted)">Ex. ${e.annee} · ${e.nbEcritures} écritures</div></div>
         ${e.actif?'<span style="font-size:9px;padding:1px 6px;border-radius:var(--radius);background:var(--green);color:#fff">Actif</span>':''}
       </div>
       <div style="margin-top:6px;display:flex;gap:12px;font-size:10px;color:var(--text-muted)">
@@ -324,7 +324,7 @@ function renderMultiEntreprise(){
       </div>
       <table style="width:100%;font-size:11px">
         <thead><tr><th>Entreprise</th><th style="text-align:right">CA</th><th style="text-align:right">Charges</th><th style="text-align:right">Résultat</th><th style="text-align:right">Part CA</th></tr></thead>
-        <tbody>${ENTREPRISES_PORTEFEUILLE.map(function(e){return`<tr><td style="font-weight:500">${e.nom}</td><td style="text-align:right;font-family:'Archivo',sans-serif">${Math.round(e.ca).toLocaleString('fr-FR')}</td><td style="text-align:right;font-family:'Archivo',sans-serif">${Math.round(e.charges).toLocaleString('fr-FR')}</td><td style="text-align:right;font-family:'Archivo',sans-serif;font-weight:600;color:${e.res>=0?'var(--green)':'var(--red)'}">${Math.round(e.res).toLocaleString('fr-FR')}</td><td style="text-align:right;color:var(--text-muted)">${totCA>0?Math.round(e.ca/totCA*100):'—'}%</td></tr>`;}).join('')}</tbody>
+        <tbody>${ENTREPRISES_PORTEFEUILLE.map(function(e){return`<tr><td style="font-weight:500">${esc(e.nom)}</td><td style="text-align:right;font-family:'Archivo',sans-serif">${Math.round(e.ca).toLocaleString('fr-FR')}</td><td style="text-align:right;font-family:'Archivo',sans-serif">${Math.round(e.charges).toLocaleString('fr-FR')}</td><td style="text-align:right;font-family:'Archivo',sans-serif;font-weight:600;color:${e.res>=0?'var(--green)':'var(--red)'}">${Math.round(e.res).toLocaleString('fr-FR')}</td><td style="text-align:right;color:var(--text-muted)">${totCA>0?Math.round(e.ca/totCA*100):'—'}%</td></tr>`;}).join('')}</tbody>
       </table>`;
   }
 }

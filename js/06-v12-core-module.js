@@ -68,18 +68,52 @@ async function authSetupAdmin() {
   }
 }
 
+// Throttle de connexion - AVERTISSEMENT : c'est une protection côté client
+// (localStorage), donc contournable par quiconque appelle l'API Supabase
+// directement (script, curl) plutôt que de passer par ce formulaire - ce
+// n'est pas une vraie limite de sécurité, seulement un frein contre le
+// mitraillage accidentel/manuel depuis l'app elle-même. La vraie
+// protection pour signInWithPassword() vit côté Supabase (rate limits du
+// projet + éventuel hook "Password Verification Attempt", pas encore
+// activé - voir la discussion sécurité). 5 tentatives / 15 min par e-mail.
+var LOGIN_MAX_TENTATIVES=5, LOGIN_FENETRE_MS=15*60*1000;
+function loginTentativesKey(email){return 'comptaia_login_tries_'+String(email).toLowerCase();}
+function loginMinutesAttente(email){
+  try{
+    var tries=JSON.parse(localStorage.getItem(loginTentativesKey(email))||'[]');
+    var now=Date.now();
+    tries=tries.filter(function(t){return now-t<LOGIN_FENETRE_MS;});
+    localStorage.setItem(loginTentativesKey(email),JSON.stringify(tries));
+    if(tries.length>=LOGIN_MAX_TENTATIVES)return Math.max(1,Math.ceil((LOGIN_FENETRE_MS-(now-tries[0]))/60000));
+  }catch(e){}
+  return 0;
+}
+function loginEnregistrerEchec(email){
+  try{
+    var key=loginTentativesKey(email);
+    var tries=JSON.parse(localStorage.getItem(key)||'[]');
+    tries.push(Date.now());
+    localStorage.setItem(key,JSON.stringify(tries));
+  }catch(e){}
+}
+function loginReinitialiserTentatives(email){
+  try{localStorage.removeItem(loginTentativesKey(email));}catch(e){}
+}
 async function authLogin() {
   var btn=document.getElementById('auth-login-btn');
   var email=(document.getElementById('auth-user').value||'').trim();
   var p=document.getElementById('auth-pass').value;
   if(!email||!p){showAErr('E-mail et mot de passe requis.');return;}
+  var attente=loginMinutesAttente(email);
+  if(attente){showAErr('Trop de tentatives. Réessayez dans '+attente+' min.');return;}
   if(typeof boutonChargement==='function')boutonChargement(btn);
   try{
     var res=await supabaseClient.auth.signInWithPassword({email:email,password:p});
-    if(res.error||!res.data.user){showAErr('Identifiant ou mot de passe incorrect.');return;}
+    if(res.error||!res.data.user){loginEnregistrerEchec(email);showAErr('Identifiant ou mot de passe incorrect.');return;}
     var profile=await authFetchProfile(res.data.user.id);
     if(!profile){showAErr('Profil introuvable. Contactez votre administrateur.');await supabaseClient.auth.signOut();return;}
     if(profile.active===false){showAErr('Ce compte a été désactivé. Contactez votre administrateur.');await supabaseClient.auth.signOut();return;}
+    loginReinitialiserTentatives(email);
     CURRENT_USER=profile;
     onAuthSuccess();
   }finally{
@@ -140,7 +174,7 @@ async function onAuthSuccess() {
   var displayName=CURRENT_USER.nom||CURRENT_USER.email;
   var roleLbl=(window.permLabelRole?permLabelRole(CURRENT_USER.role):CURRENT_USER.role);
   var roleCls=(window.permBadgeClass?permBadgeClass(CURRENT_USER.role):'bg-amber');
-  if(tu)tu.innerHTML=ico('users')+' <strong>'+displayName+'</strong> <span class="badge '+roleCls+'">'+roleLbl+'</span>';
+  if(tu)tu.innerHTML=ico('users')+' <strong>'+esc(displayName)+'</strong> <span class="badge '+roleCls+'">'+roleLbl+'</span>';
   var btnLogout=document.getElementById('btn-logout');
   if(btnLogout)btnLogout.style.display='inline-block';
   // Load data (cloud-aware once js/23-supabase-sync.js has loaded) - awaited

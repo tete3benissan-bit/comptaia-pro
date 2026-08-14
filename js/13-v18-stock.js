@@ -190,6 +190,22 @@ function ouvrirAjoutProduit(){
   if(f) f.style.display=f.style.display==='none'?'block':'none';
 }
 
+// Délégation d'événement (attachée une fois, sur document) pour les
+// boutons Entrée/Sortie/Seuil des cartes stock - voir le commentaire dans
+// renderStockCards() : le nom du produit ne doit jamais être interpolé
+// directement dans un attribut onclick="...('+nom+')...", seulement lu via
+// dataset (jamais exécuté comme du script). document plutôt que
+// #stock-list-container car pane.innerHTML=html détruit et reconstruit ce
+// conteneur à chaque rendu - un listener posé dessus ne survivrait pas.
+document.addEventListener('click', function(e){
+  var btn=e.target.closest('[data-stock-action]');
+  if(!btn) return;
+  var nom=btn.dataset.nom;
+  if(btn.dataset.stockAction==='entree') ouvrirEntreeRapide(nom);
+  else if(btn.dataset.stockAction==='sortie') ouvrirSortieRapide(nom);
+  else if(btn.dataset.stockAction==='seuil') configurerSeuil(nom);
+});
+
 function renderStockCards(noms){
   var html='';
   noms.forEach(function(nom){
@@ -201,17 +217,22 @@ function renderStockCards(noms){
     var methodeBadge=s.methode==='fifo'?'<span class="badge bg-blue" style="font-size:9px">FIFO</span>':'<span class="badge bg-purple" style="font-size:9px">CMUP</span>';
     var valeurStock=Math.round(s.qteActuelle*(s.cmup||0));
 
-    html+='<div class="card" style="margin-bottom:10px" data-stock-nom="'+nom+'" data-stock-niveau="'+(s.qteActuelle===0||pct<=20?'critique':pct<=40?'bas':'ok')+'" data-stock-methode="'+(s.methode||'cmup')+'">'
+    html+='<div class="card" style="margin-bottom:10px" data-stock-nom="'+esc(nom)+'" data-stock-niveau="'+(s.qteActuelle===0||pct<=20?'critique':pct<=40?'bas':'ok')+'" data-stock-methode="'+(s.methode||'cmup')+'">'
       +'<div class="card-header">'
         +'<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;flex:1">'
-          +'<span style="font-size:13px;font-weight:600">'+nom+'</span>'
+          +'<span style="font-size:13px;font-weight:600">'+esc(nom)+'</span>'
           +methodeBadge+statusBadge
-          +(s.categorie?'<span style="font-size:10px;color:var(--text-faint)">'+s.categorie+'</span>':'')
+          +(s.categorie?'<span style="font-size:10px;color:var(--text-faint)">'+esc(s.categorie)+'</span>':'')
         +'</div>'
         +'<div style="display:flex;gap:6px">'
-          +'<button class="btn btn-sm" style="font-size:9px;padding:2px 7px" onclick="ouvrirEntreeRapide(\''+nom+'\')">'+ico('arrowDown')+' Entrée</button>'
-          +'<button class="btn btn-sm" style="font-size:9px;padding:2px 7px" onclick="ouvrirSortieRapide(\''+nom+'\')">'+ico('arrowUp')+' Sortie</button>'
-          +'<button class="btn btn-sm" style="font-size:9px;padding:2px 7px" onclick="configurerSeuil(\''+nom+'\')">'+ico('gear')+' Seuil</button>'
+          // data-nom (jamais nom interpolé dans le JS de l'onclick) : un
+          // nom de produit avec une apostrophe casserait la chaîne JS
+          // même après un échappement HTML, puisque le navigateur décode
+          // les entités de l\'attribut AVANT d\'exécuter le onclick comme
+          // du script - voir le gestionnaire délégué plus bas.
+          +'<button class="btn btn-sm" style="font-size:9px;padding:2px 7px" data-stock-action="entree" data-nom="'+esc(nom)+'">'+ico('arrowDown')+' Entrée</button>'
+          +'<button class="btn btn-sm" style="font-size:9px;padding:2px 7px" data-stock-action="sortie" data-nom="'+esc(nom)+'">'+ico('arrowUp')+' Sortie</button>'
+          +'<button class="btn btn-sm" style="font-size:9px;padding:2px 7px" data-stock-action="seuil" data-nom="'+esc(nom)+'">'+ico('gear')+' Seuil</button>'
         +'</div>'
       +'</div>'
       +'<div class="card-body" style="padding:10px 14px">'
@@ -255,7 +276,7 @@ function renderStockCards(noms){
               return '<tr style="border-bottom:2px solid var(--border)">'
                 +'<td style="padding:4px 8px;font-size:10.5px">'+fmtD(m.date)+'</td>'
                 +'<td style="padding:4px 8px">'+badge+'</td>'
-                +'<td style="padding:4px 8px;font-size:10px;color:var(--text-muted)">'+( m.ref||'—')+'</td>'
+                +'<td style="padding:4px 8px;font-size:10px;color:var(--text-muted)">'+(esc(m.ref)||'—')+'</td>'
                 +'<td style="padding:4px 8px;text-align:right;font-family:\'Archivo\',sans-serif">'+(m.avant||0)+'</td>'
                 +'<td class="mvt-entree" style="padding:4px 8px;text-align:right;font-family:\'Archivo\',sans-serif">'+(m.entree?'+'+m.entree:'')+'</td>'
                 +'<td class="mvt-sortie" style="padding:4px 8px;text-align:right;font-family:\'Archivo\',sans-serif">'+(m.sortie?'-'+m.sortie:'')+'</td>'
@@ -432,11 +453,11 @@ function renderEntreesRecentes(){
     +mvts.slice(0,30).map(function(m){
       return '<tr style="border-bottom:2px solid var(--border)">'
         +'<td style="padding:7px 10px;font-size:11px">'+fmtD(m.date)+'</td>'
-        +'<td style="padding:7px 10px;font-weight:500">'+m.nom+'</td>'
+        +'<td style="padding:7px 10px;font-weight:500">'+esc(m.nom)+'</td>'
         +'<td class="mvt-entree" style="padding:7px 10px;text-align:right;font-family:\'Archivo\',sans-serif">+'+m.entree+' '+m.unite+'</td>'
         +'<td style="padding:7px 10px;text-align:right;font-family:\'Archivo\',sans-serif;color:var(--text-muted)">'+(m.pu||0).toLocaleString('fr-FR')+' FCFA</td>'
         +'<td style="padding:7px 10px;text-align:right;font-family:\'Archivo\',sans-serif;color:var(--green-dark)">'+(m.valApres||0).toLocaleString('fr-FR')+' FCFA</td>'
-        +'<td style="padding:7px 10px;font-size:11px;color:var(--text-muted)">'+( m.ref||'—')+'</td>'
+        +'<td style="padding:7px 10px;font-size:11px;color:var(--text-muted)">'+(esc(m.ref)||'—')+'</td>'
         +'</tr>';
     }).join('')
     +'</tbody></table></div></div>';
@@ -527,11 +548,11 @@ function renderSortiesRecentes(){
     +mvts.slice(0,30).map(function(m){
       return '<tr style="border-bottom:2px solid var(--border)">'
         +'<td style="padding:7px 10px;font-size:11px">'+fmtD(m.date)+'</td>'
-        +'<td style="padding:7px 10px;font-weight:500">'+m.nom+'</td>'
+        +'<td style="padding:7px 10px;font-weight:500">'+esc(m.nom)+'</td>'
         +'<td class="mvt-sortie" style="padding:7px 10px;text-align:right;font-family:\'Archivo\',sans-serif">-'+m.sortie+' '+m.unite+'</td>'
         +'<td style="padding:7px 10px;text-align:right;font-family:\'Archivo\',sans-serif;color:var(--text-muted)">'+(m.pu||0).toLocaleString('fr-FR')+' FCFA</td>'
         +'<td style="padding:7px 10px;text-align:right;font-family:\'Archivo\',sans-serif">'+(m.apres||0)+' '+(m.unite||'')+'</td>'
-        +'<td style="padding:7px 10px;font-size:11px;color:var(--text-muted)">'+( m.ref||'—')+'</td>'
+        +'<td style="padding:7px 10px;font-size:11px;color:var(--text-muted)">'+(esc(m.ref)||'—')+'</td>'
         +'</tr>';
     }).join('')
     +'</tbody></table></div></div>';
@@ -568,9 +589,9 @@ function renderStockAlertes(){
         var valeurStock=Math.round(a.s.qteActuelle*(a.s.cmup||0));
         return '<div class="card '+cls+'" style="padding:12px 14px;border-radius:var(--radius)">'
           +'<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">'
-            +'<div><div style="font-size:13px;font-weight:600">'+icon+' '+a.nom+'</div>'
-            +'<div style="font-size:10px;color:var(--text-muted);margin-top:2px">'+( a.s.categorie||'Stock')+(a.s.methode?(' | '+a.s.methode.toUpperCase()):'')+'</div></div>'
-            +'<button class="btn btn-sm" style="font-size:9px;padding:2px 8px;background:var(--green);color:#fff;border-color:var(--green)" onclick="ouvrirEntreeRapide(\''+a.nom+'\')">+ Entrée</button>'
+            +'<div><div style="font-size:13px;font-weight:600">'+icon+' '+esc(a.nom)+'</div>'
+            +'<div style="font-size:10px;color:var(--text-muted);margin-top:2px">'+(esc(a.s.categorie)||'Stock')+(a.s.methode?(' | '+a.s.methode.toUpperCase()):'')+'</div></div>'
+            +'<button class="btn btn-sm" style="font-size:9px;padding:2px 8px;background:var(--green);color:#fff;border-color:var(--green)" data-stock-action="entree" data-nom="'+esc(a.nom)+'">+ Entrée</button>'
           +'</div>'
           +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:11px">'
             +'<span>Stock actuel : <strong style="font-family:\'Archivo\',sans-serif">'+a.s.qteActuelle+' '+a.s.s.unite+'</strong></span>'
@@ -587,7 +608,7 @@ function renderStockAlertes(){
   if(ok.length){
     html+='<div style="font-size:11px;font-weight:700;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px">'+ico('checkCircle')+' Stocks OK ('+ok.length+')</div>'
       +'<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">'
-      +ok.map(function(a){return '<div class="alerte-ok" style="padding:8px 12px;border-radius:var(--radius);font-size:11.5px;display:flex;justify-content:space-between"><span><strong>'+a.nom+'</strong></span><span style="font-family:\'Archivo\',sans-serif;color:var(--green-dark)">'+a.s.qteActuelle+' '+a.s.s.unite+'</span></div>';}).join('')
+      +ok.map(function(a){return '<div class="alerte-ok" style="padding:8px 12px;border-radius:var(--radius);font-size:11.5px;display:flex;justify-content:space-between"><span><strong>'+esc(a.nom)+'</strong></span><span style="font-family:\'Archivo\',sans-serif;color:var(--green-dark)">'+a.s.qteActuelle+' '+a.s.s.unite+'</span></div>';}).join('')
       +'</div>';
   }
   pane.innerHTML=html;

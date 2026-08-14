@@ -559,8 +559,8 @@ function renderNotifs(){
         <div style="display:flex;align-items:center;gap:7px">
           <span style="font-size:15px">${icon}</span>
           <div>
-            <div style="font-size:12.5px;font-weight:${n.lu?400:600}">${n.titre}</div>
-            <div style="font-size:11px;color:var(--text-muted);margin-top:1px;line-height:1.5">${n.detail}</div>
+            <div style="font-size:12.5px;font-weight:${n.lu?400:600}">${esc(n.titre)}</div>
+            <div style="font-size:11px;color:var(--text-muted);margin-top:1px;line-height:1.5">${esc(n.detail)}</div>
           </div>
         </div>
         <div style="font-size:9px;color:var(--text-faint);white-space:nowrap;flex-shrink:0">${n.heure}${n.lu?'':' ●'}</div>
@@ -592,7 +592,7 @@ function renderTiers(){
     var solde=EC.filter(e=>e.cli===t.nom&&e.stat==='attente'&&!e.isTVA&&!e.isAvance).reduce((a,e)=>a+e.ttc,0);
     var tb=t.type==='client'?'<span class="badge bg-green">Client</span>':t.type==='fournisseur'?'<span class="badge bg-amber">Fourn.</span>':'<span class="badge bg-blue">Les deux</span>';
     var soldeCl=solde>0?`<span style="color:var(--amber);font-weight:600;font-family:'Archivo',sans-serif">${fmt(solde)} FCFA</span>`:'<span style="color:var(--text-faint)">—</span>';
-    return`<tr><td><strong>${t.nom}</strong></td><td>${tb}</td><td>${t.tel||'—'}</td><td>${t.email||'—'}</td><td>${t.adresse||'—'}</td><td>${soldeCl}</td><td><button onclick="supprimerTiers(${i})" style="font-size:10px;padding:2px 7px;border-radius:var(--radius);cursor:pointer;border:2px solid var(--red-border);background:var(--red-light);color:var(--red)">${ico('close')}</button></td></tr>`;
+    return`<tr><td><strong>${esc(t.nom)}</strong></td><td>${tb}</td><td>${esc(t.tel)||'—'}</td><td>${esc(t.email)||'—'}</td><td>${esc(t.adresse)||'—'}</td><td>${soldeCl}</td><td><button onclick="supprimerTiers(${i})" style="font-size:10px;padding:2px 7px;border-radius:var(--radius);cursor:pointer;border:2px solid var(--red-border);background:var(--red-light);color:var(--red)">${ico('close')}</button></td></tr>`;
   }).join('');
 }
 function supprimerTiers(i){if(confirm('Supprimer ce tiers ?')){TIERS.splice(i,1);syncTiersList();renderTiers();sauvegarderAuto();}}
@@ -643,7 +643,7 @@ function renderJournal(){
     h+=`<tr style="${bg}${bl}">
       <td style="white-space:nowrap">${e.dateF||e.date||''}</td>
       <td><strong>${e.num}</strong>${tags}</td>
-      <td style="max-width:160px;white-space:normal;font-size:10.5px">${e.desc}</td>
+      <td style="max-width:160px;white-space:normal;font-size:10.5px">${esc(e.desc)}</td>
       <td><span class="acc">${e.cptD}</span></td>
       <td><span class="acc">${e.cptC}</span></td>
       <td style="font-family:'Archivo',sans-serif;text-align:right">${fmt(e.debit)}</td>
@@ -875,7 +875,7 @@ function renderGL_Tab(c){
     var solde=tD-tC;
     h+=`<div class="card" style="margin-bottom:10px">
       <div class="card-header">
-        <div style="display:flex;align-items:center;gap:8px"><span class="acc" style="font-size:12px;padding:2px 8px">${cpt}</span><span class="card-title">${NOMS[cpt]||'Compte '+cpt}</span></div>
+        <div style="display:flex;align-items:center;gap:8px"><span class="acc" style="font-size:12px;padding:2px 8px">${cpt}</span><span class="card-title">${esc(NOMS[cpt])||'Compte '+cpt}</span></div>
         <div style="display:flex;align-items:center;gap:8px">
           <span style="font-size:11.5px;font-weight:600;color:${solde>=0?'var(--green)':'var(--red)'}">Solde : ${fmt(Math.abs(solde))} FCFA ${solde>=0?'D':'C'}</span>
           <button onclick="renommerCpt('${cpt}')" style="font-size:10px;padding:2px 7px;border-radius:var(--radius);cursor:pointer;border:2px solid var(--border-strong);background:transparent;color:var(--text-muted)">${ico('pencil')}</button>
@@ -900,8 +900,8 @@ function renderGL_T(c){
     var d=c[cpt];
     var tD=d.deb.reduce((a,r)=>a+r.mt,0),tC=d.cred.reduce((a,r)=>a+r.mt,0);
     var s=tD-tC,sc=s>=0?'var(--accent)':'#E24B4A',sd=s>=0?'Débiteur':'Créditeur';
-    var dl=d.deb.map(r=>`<div class="t-line"><span class="t-lib" title="${r.lib}">${r.date} — ${r.lib}</span><span class="t-mt">${fmt(r.mt)}</span></div>`).join('');
-    var cl=d.cred.map(r=>`<div class="t-line"><span class="t-lib" title="${r.lib}">${r.date} — ${r.lib}</span><span class="t-mt">${fmt(r.mt)}</span></div>`).join('');
+    var dl=d.deb.map(r=>`<div class="t-line"><span class="t-lib" title="${esc(r.lib)}">${r.date} — ${esc(r.lib)}</span><span class="t-mt">${fmt(r.mt)}</span></div>`).join('');
+    var cl=d.cred.map(r=>`<div class="t-line"><span class="t-lib" title="${esc(r.lib)}">${r.date} — ${esc(r.lib)}</span><span class="t-mt">${fmt(r.mt)}</span></div>`).join('');
     var mx=Math.max(d.deb.length,d.cred.length);
     for(var i=d.deb.length;i<mx;i++)dl+='<div class="t-line" style="opacity:0">—</div>';
     for(var i=d.cred.length;i<mx;i++)cl+='<div class="t-line" style="opacity:0">—</div>';
@@ -910,7 +910,7 @@ function renderGL_T(c){
     h+=`<div class="t-compte">
       <div class="t-header">
         <span style="background:rgba(255,255,255,.2);padding:1px 7px;border-radius:var(--radius);font-family:'Archivo',sans-serif;font-size:11px">${cpt}</span>
-        <span class="t-nom">${NOMS[cpt]||'Compte '+cpt}</span>
+        <span class="t-nom">${esc(NOMS[cpt])||'Compte '+cpt}</span>
         <span style="font-size:11px;font-weight:600;color:${sc}">${fmt(Math.abs(s))} ${sd}</span>
       </div>
       <div class="t-body">
@@ -1037,7 +1037,7 @@ function renderBilan(){
       var v=corrige?over[k]:auto;
       if(v<1&&!corrige)return;
       t+=v;
-      r+=`<tr><td><span class="acc">${k}</span></td><td>${NOMS[k]||k}</td>`
+      r+=`<tr><td><span class="acc">${k}</span></td><td>${esc(NOMS[k])||k}</td>`
         +`<td style="text-align:right"><input type="number" value="${v}" style="width:112px;text-align:right;font-family:'Archivo',sans-serif;padding:4px 6px" onchange="modifierBilanLigne('${side}','${k}',this.value)"/></td>`
         +`<td>${corrige?`<span style="font-size:9px;padding:1px 6px;background:var(--amber-light);color:var(--amber);border-radius:var(--radius);cursor:pointer;white-space:nowrap" onclick="reinitialiserBilanLigne('${side}','${k}')" title="Revenir au calcul automatique">corrigé ✕</span>`:''}</td></tr>`;
     });
@@ -1088,7 +1088,7 @@ function renderResultats(){
   function buildR(arr,bodyId,sumId){
     var t=sumR(arr);
     var by={};arr.forEach(r=>{if(!by[r.cpt])by[r.cpt]={lib:r.lib,mt:0};by[r.cpt].mt+=r.mt;});
-    nb(bodyId).innerHTML=Object.keys(by).map(cpt=>`<tr><td style="padding:4px 10px"><span class="acc">${cpt}</span></td><td style="padding:4px 10px;font-size:10.5px">${NOMS[cpt]||by[cpt].lib}</td><td style="padding:4px 10px;text-align:right;font-family:'Archivo',sans-serif">${fmt(by[cpt].mt)}</td></tr>`).join('')||'<tr><td colspan="3" style="padding:6px 10px;font-size:10px;color:var(--text-faint)">—</td></tr>';
+    nb(bodyId).innerHTML=Object.keys(by).map(cpt=>`<tr><td style="padding:4px 10px"><span class="acc">${cpt}</span></td><td style="padding:4px 10px;font-size:10.5px">${esc(NOMS[cpt])||esc(by[cpt].lib)}</td><td style="padding:4px 10px;text-align:right;font-family:'Archivo',sans-serif">${fmt(by[cpt].mt)}</td></tr>`).join('')||'<tr><td colspan="3" style="padding:6px 10px;font-size:10px;color:var(--text-faint)">—</td></tr>';
     nb(sumId).textContent=fmt(t)+' FCFA';return t;
   }
   var ch60=buildR(rub.ch60,'cr-60-body','cr-60'),ch61=buildR(rub.ch61,'cr-61-body','cr-61');
@@ -1119,7 +1119,7 @@ function renderBalance(){
     tD+=v.d;tC+=v.cr;tSD+=sd;tSC+=sc;
     var nat=cpt.startsWith('1')||cpt.startsWith('4')?'Bilan':cpt.startsWith('6')||cpt.startsWith('7')?'Gestion':'Divers';
     var nb2=nat==='Bilan'?'bg-blue':nat==='Gestion'?'bg-green':'bg-amber';
-    h+=`<tr><td><span class="acc">${cpt}</span></td><td>${NOMS[cpt]||'Cpt '+cpt}</td><td style="text-align:right;font-family:'Archivo',sans-serif">${fmt(v.d)}</td><td style="text-align:right;font-family:'Archivo',sans-serif">${fmt(v.cr)}</td><td style="text-align:right;font-family:'Archivo',sans-serif;color:var(--blue)">${sd?fmt(sd):''}</td><td style="text-align:right;font-family:'Archivo',sans-serif;color:var(--green)">${sc?fmt(sc):''}</td><td><span class="badge ${nb2}">${nat}</span></td></tr>`;
+    h+=`<tr><td><span class="acc">${cpt}</span></td><td>${esc(NOMS[cpt])||'Cpt '+cpt}</td><td style="text-align:right;font-family:'Archivo',sans-serif">${fmt(v.d)}</td><td style="text-align:right;font-family:'Archivo',sans-serif">${fmt(v.cr)}</td><td style="text-align:right;font-family:'Archivo',sans-serif;color:var(--blue)">${sd?fmt(sd):''}</td><td style="text-align:right;font-family:'Archivo',sans-serif;color:var(--green)">${sc?fmt(sc):''}</td><td><span class="badge ${nb2}">${nat}</span></td></tr>`;
   });
   nb('bal-body').innerHTML=h||'<tr class="empty-row"><td colspan="7">—</td></tr>';
   nb('bal-tfoot').style.display='';
@@ -1178,7 +1178,7 @@ function renderSolde(){
     var bl=isIn?'border-left:3px solid var(--green);':isInit?'border-left:3px solid var(--border);':'border-left:3px solid var(--red);';
     return`<div style="${bl}display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:2px solid var(--border)">
       <span style="font-size:16px">${icon}</span>
-      <div style="flex:1"><div style="font-size:11.5px;font-weight:600">${v.desc}</div><div style="font-size:10px;color:var(--text-muted);margin-top:1px">${v.date} | ${v.ref} | ${v.type||''}</div></div>
+      <div style="flex:1"><div style="font-size:11.5px;font-weight:600">${esc(v.desc)}</div><div style="font-size:10px;color:var(--text-muted);margin-top:1px">${v.date} | ${esc(v.ref)} | ${esc(v.type)||''}</div></div>
       ${cb}
       <div style="font-size:13px;font-weight:700;font-family:'Archivo',sans-serif;color:${col}">${isIn?'+':isInit?'':'−'}${fmt(v.montant)} FCFA</div>
     </div>`;
@@ -1261,7 +1261,7 @@ function renderAnalyse(){
     var nat=cpt.startsWith('7')?'Produit':cpt.startsWith('6')?'Charge':cpt.startsWith('5')?'Trésorerie':cpt.startsWith('4')?'Tiers':'Autre';
     var nc=nat==='Produit'?'bg-green':nat==='Charge'?'bg-red':nat==='Trésorerie'?'bg-amber':'bg-blue';
     if(nat==='Produit')totP+=v.c;if(nat==='Charge')totC+=v.d;
-    hs+=`<tr><td><span class="acc">${cpt}</span></td><td>${NOMS[cpt]||'Cpt '+cpt}</td><td style="text-align:right;font-family:'Archivo',sans-serif">${fmt(v.d)}</td><td style="text-align:right;font-family:'Archivo',sans-serif">${fmt(v.c)}</td><td style="text-align:right;font-family:'Archivo',sans-serif;font-weight:600;color:${s>=0?'var(--blue)':'var(--green)'}">${fmt(Math.abs(s))} ${s>=0?'D':'C'}</td><td><span class="badge ${nc}">${nat}</span></td></tr>`;
+    hs+=`<tr><td><span class="acc">${cpt}</span></td><td>${esc(NOMS[cpt])||'Cpt '+cpt}</td><td style="text-align:right;font-family:'Archivo',sans-serif">${fmt(v.d)}</td><td style="text-align:right;font-family:'Archivo',sans-serif">${fmt(v.c)}</td><td style="text-align:right;font-family:'Archivo',sans-serif;font-weight:600;color:${s>=0?'var(--blue)':'var(--green)'}">${fmt(Math.abs(s))} ${s>=0?'D':'C'}</td><td><span class="badge ${nc}">${nat}</span></td></tr>`;
   });
   nb('an-synth').innerHTML=hs||'<tr class="empty-row"><td colspan="6">—</td></tr>';
   var res=totP-totC;
@@ -1307,7 +1307,7 @@ function renderSalaires(){
     SALAIRES.forEach((s,i)=>{
       h+=`<div style="background:var(--purple-light);border:2px solid var(--purple-border);border-radius:var(--radius);padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px">
         <div>
-          <div style="font-size:11.5px;font-weight:600;color:var(--purple)">${s.poste}</div>
+          <div style="font-size:11.5px;font-weight:600;color:var(--purple)">${esc(s.poste)}</div>
           <div style="font-size:10px;color:var(--text-muted);margin-top:2px">${s.nb} employé(s) × ${fmt(s.mtMensuel)} FCFA/mois × 12</div>
         </div>
         <div style="text-align:right">
@@ -1334,7 +1334,7 @@ function renderDedExtras(){
   if(!DED_EXTRAS.length){nb('ded-extras-liste').innerHTML='';return;}
   nb('ded-extras-liste').innerHTML='<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px">'+
     DED_EXTRAS.map((d,i)=>`<div style="background:var(--teal-light);border:1px solid var(--teal-border,transparent);border-radius:var(--radius);padding:8px 10px;display:flex;align-items:center;justify-content:space-between">
-      <div><div style="font-size:11px;font-weight:600;color:var(--teal)">${d.lib}</div><div style="font-size:12px;font-weight:700;font-family:'Archivo',sans-serif;color:var(--teal)">${fmt(d.mt)} FCFA</div></div>
+      <div><div style="font-size:11px;font-weight:600;color:var(--teal)">${esc(d.lib)}</div><div style="font-size:12px;font-weight:700;font-family:'Archivo',sans-serif;color:var(--teal)">${fmt(d.mt)} FCFA</div></div>
       <button onclick="supprimerDedExtra(${i})" style="font-size:10px;padding:1px 6px;border-radius:var(--radius);cursor:pointer;border:1px solid var(--teal-border,transparent);background:transparent;color:var(--teal)">${ico('close')}</button>
     </div>`).join('')+
   '</div>';
@@ -1674,7 +1674,7 @@ function ouvrirRegl(idx){
   modalReglIdx=idx;
   var today=new Date().toISOString().split('T')[0];
   nb('regl-date').value=today;nb('regl-mt').value=fmt(e.ttc)+' FCFA';
-  nb('regl-info').innerHTML=`Facture <strong>${e.num}</strong> — ${e.cli}<br>Montant : <strong>${fmt(e.ttc)} FCFA</strong>`;
+  nb('regl-info').innerHTML=`Facture <strong>${e.num}</strong> — ${esc(e.cli)}<br>Montant : <strong>${fmt(e.ttc)} FCFA</strong>`;
   updateReglEcr();
   nb('regl-pay').onchange=updateReglEcr;
   nb('modal-regl').style.display='flex';
