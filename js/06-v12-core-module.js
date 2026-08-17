@@ -9,12 +9,27 @@ var CURRENT_USER = null;
 function showAErr(m){var e=document.getElementById('auth-err');e.textContent=m;e.style.display='block';var ok=document.getElementById('auth-ok');if(ok)ok.style.display='none';}
 function showAOk(m){var e=document.getElementById('auth-ok');e.textContent=m;e.style.display='block';var err=document.getElementById('auth-err');if(err)err.style.display='none';}
 
+// Filet de sécurité : #acid-intro (js/26-acid-intro.js) peut rester
+// affiché (display:flex) si son propre minuteur/clic n'a pas eu le temps
+// de le masquer avant qu'on bascule vers un autre écran d'auth (ex.
+// double-clic rapide sur "Créer votre entreprise", ou retour à la
+// connexion depuis le formulaire d'inscription) - #auth-overlay étant en
+// display:flex, un #acid-intro resté visible se retrouve à côté de la
+// carte active au lieu de disparaître, d'où l'écran qui semblait "coupé
+// en 2". On force son masquage à chaque bascule d'écran, quel que soit
+// l'état interne de l'intro.
+function authMasquerIntro(){
+  var intro=document.getElementById('acid-intro');
+  if(intro)intro.style.display='none';
+}
 function authShowSetup(){
+  authMasquerIntro();
   document.getElementById('auth-login-card').style.display='none';
   document.getElementById('auth-setup-card').style.display='flex';
   document.getElementById('auth-setpass-card').style.display='none';
 }
 function authShowLogin(){
+  authMasquerIntro();
   document.getElementById('auth-setup-card').style.display='none';
   document.getElementById('auth-setpass-card').style.display='none';
   document.getElementById('auth-login-card').style.display='flex';
@@ -692,7 +707,7 @@ window.addEventListener('load',async function(){
       if(profile&&profile.active!==false){CURRENT_USER=profile;onAuthSuccess();}
       else{await supabaseClient.auth.signOut();authShowLogin();}
     }else{
-      authShowLogin();
+      if(typeof showAcidIntro==='function')showAcidIntro();else authShowLogin();
     }
   }catch(e){authShowLogin();}
   // Add pagination div to journal
