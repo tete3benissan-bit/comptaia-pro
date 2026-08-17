@@ -1,23 +1,18 @@
 /* Pro theme accent overrides - extracted from ComptaIA_Pro_original.html lines 10943-10965 */
-/* Loads last in cascade - kept in sync with the neumorphic tokens in 01-core.css. */
+/* Nettoyé (identité brutaliste unifiée) : ce fichier charge EN DERNIER dans
+   la cascade, ce qui en faisait un piège silencieux - il datait du thème
+   neumorphique d'origine (sidebar toujours sombre, badges toujours ronds,
+   pas de bordures sur .card/.topbar) et écrasait discrètement plusieurs
+   règles pourtant correctes de 01-core.css depuis que --sidebar-bg suit le
+   thème : .nav-item:hover/.acc-header:hover/.nav-item.active forçaient
+   color:#fff, illisible en thème clair (texte blanc sur fond blanc -
+   c'est le bug "tout disparaît au survol dans la barre latérale") ;
+   .card{border:none} et .topbar{border-bottom:none} supprimaient les
+   bordures brutalistes ; .ex-badge/.nav-badge/#tb-start utilisaient le
+   raccourci `background:var(--accent)` qui réinitialise silencieusement
+   background-image, annulant les dégradés --accent-grad. Ne restent que
+   les règles génériques qui ne sont dupliquées/en conflit nulle part
+   ailleurs. */
 ::selection{background:var(--accent-light)}
 a{color:var(--accent-dark)} a:hover{color:var(--accent)}
 button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.btn{border-radius:var(--radius)}
-.btn-primary{background:var(--accent)}
-.btn-primary:hover{background:var(--accent-dark)}
-.logo{border-bottom:none}
-.logo-name span{color:var(--accent)}
-.ex-badge{background:var(--accent);border-radius:999px;font-weight:700;letter-spacing:.06em}
-.nav-item:hover{background:rgba(255,255,255,.05);color:#fff}
-.nav-item.active{background:rgba(var(--accent-rgb),.16);box-shadow:var(--sidebar-shadow-inset);color:#fff}
-.nav-badge{background:var(--accent);border-radius:999px}
-.acc-header:hover,.acc-header.acc-open{background:rgba(255,255,255,.05);color:#fff}
-.acc-header-ia{border-top:none}
-.acc-header.acc-open .acc-arrow{color:var(--accent)}
-.topbar{border-bottom:none}
-.card{box-shadow:var(--shadow-md);border:none}
-.tb-btn.tb-actif{box-shadow:var(--sidebar-shadow-inset)}
-#tb-start{background:var(--accent)}
-#tb-start:hover{filter:none;background:var(--accent-dark)}
-::-webkit-scrollbar-thumb{border-radius:6px}
