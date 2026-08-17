@@ -1,19 +1,14 @@
 /* Core layout & design tokens (root CSS variables, sidebar, main, cards, tables, forms) - extracted from ComptaIA_Pro_original.html lines 12-204 */
-/* v4 (identité brutaliste unique, 2 variantes claire/sombre) : à la demande
-   de l'utilisateur, l'app n'a plus 3 thèmes dont un "intermédiaire" (clair,
-   arrondi, cyan-turquoise) qui ne partageait pas la même identité visuelle
-   que les 2 autres - il n'y a plus qu'UNE seule direction artistique
-   (bordures noires épaisses, ombres portées dures, angles vifs, inspirée du
-   composant Uiverse/0xnihilism), déclinée en 2 jeux de couleurs opposés :
-   "clair" (défaut, aucun attribut data-theme - fond blanc/texte noir) et
-   "sombre" ([data-theme="dark"] - fond noir/texte blanc, ombres et bordures
-   blanches puisqu'une bordure/ombre noire serait invisible sur fond noir).
-   Toutes les règles structurelles (.btn, .hub-carte, .fg>label, etc., plus
-   loin dans ce fichier) sont désormais permanentes et non scopées par thème
-   - il n'y a plus qu'une famille de composants à maintenir. --sidebar-bg
-   vaut var(--surface) dans les 2 thèmes : la barre latérale/la barre du bas/
-   l'écran d'accueil ne sont plus un "chrome" toujours sombre à part, ils
-   suivent la même inversion complète que le reste de l'app. */
+/* v5 (accent bleu nuit au lieu du vert, contraste sombre adouci) : le vert
+   "grand livre" est retiré (retour arrière explicite de l'utilisateur) au
+   profit d'un bleu marine - toujours une teinte "sérieuse/financière",
+   sans lien avec les autres accents déjà utilisés (cyan des cristaux, vert
+   de la carte glass). Le thème sombre passait aussi pour agressif/fatigant
+   pour les yeux : fond noir pur + bordures/ombres blanches pures à 100% de
+   contraste sur presque chaque élément. Adouci en gris très sombre (au lieu
+   de noir) + bordures gris clair (au lieu de blanc pur) - garde l'esprit
+   brutaliste (bordures épaisses, ombres dures, angles vifs) sans la
+   surcharge rétinienne d'un blanc plein écran sur fond noir plein écran. */
 :root{
   --main:#000;
   --green:#22c07a;--green-dark:#3ddb92;--green-mid:#22c07a;--green-border:transparent;
@@ -22,9 +17,9 @@
   --blue:#4da6ff;--blue-border:transparent;
   --purple:#b18aef;--purple-border:transparent;
   --teal:#3ecbbd;
-  --accent:#1f7a4d;--accent-dark:#155c39;--accent-light:#dcf3e6;--accent-rgb:31,122,77;
-  --accent-grad:linear-gradient(135deg,#2f9d63 0%,#155c39 100%);
-  --highlight:#1f7a4d;--highlight-rgb:31,122,77;
+  --accent:#1f3a7a;--accent-dark:#152a5c;--accent-light:#dde6f5;--accent-rgb:31,58,122;
+  --accent-grad:linear-gradient(135deg,#3b5bb8 0%,#152a5c 100%);
+  --highlight:#1f3a7a;--highlight-rgb:31,58,122;
   --green-light:#e3f6ec;--red-light:#fbe9e7;--amber-light:#fdf3e0;--blue-light:#dceafc;--purple-light:#f1e9fb;--teal-light:#e2f6f4;
   --bg:#f0f0f0;--surface:#ffffff;--sidebar-bg:var(--surface);--sidebar-text:#333333;
   --text:#0a0a0a;--text-muted:#333333;--text-faint:#555555;
@@ -41,27 +36,28 @@
   --row-hover:rgba(0,0,0,.06);--topbar-shadow:none;--scrollbar-thumb:rgba(0,0,0,.35);
   --switch-track:#c3cbd6;
 }
-/* ── Variante sombre : inversion complète (fond/texte/bordures/ombres),
-   même identité structurelle. Vert éclairci pour rester lisible sur fond
-   noir (le vert "grand livre" du thème clair paraîtrait terne). ── */
+/* ── Variante sombre : gris très sombre (pas noir pur) + bordures/ombres
+   gris clair (pas blanc pur) - même structure, contraste adouci pour ne
+   plus fatiguer les yeux. Bleu éclairci pour rester lisible sur fond
+   sombre (le bleu marine du thème clair paraîtrait terne/peu contrasté). ── */
 :root[data-theme="dark"]{
-  --accent:#34c77b;--accent-dark:#1f7a4d;--accent-light:rgba(52,199,123,.16);--accent-rgb:52,199,123;
-  --accent-grad:linear-gradient(135deg,#3fdb8f 0%,#1f7a4d 100%);
-  --highlight:#34c77b;--highlight-rgb:52,199,123;
+  --accent:#6c93e0;--accent-dark:#4a72c4;--accent-light:rgba(108,147,224,.18);--accent-rgb:108,147,224;
+  --accent-grad:linear-gradient(135deg,#8fb0ee 0%,#4a72c4 100%);
+  --highlight:#6c93e0;--highlight-rgb:108,147,224;
   --green-light:rgba(34,192,122,.18);--red-light:rgba(255,107,94,.18);--amber-light:rgba(240,180,50,.18);--blue-light:rgba(77,166,255,.18);--purple-light:rgba(177,138,239,.18);--teal-light:rgba(62,203,189,.18);
-  --bg:#0d0d0d;--surface:#1a1a1a;--sidebar-bg:var(--surface);--sidebar-text:#cccccc;
-  --text:#f0f0f0;--text-muted:#cccccc;--text-faint:#999999;
-  --border:#ffffff;--border-strong:#ffffff;--border-soft:rgba(255,255,255,.25);--border-w:4px;
+  --bg:#17181c;--surface:#212328;--sidebar-bg:var(--surface);--sidebar-text:#c4c6cb;
+  --text:#e8e9eb;--text-muted:#b8bac0;--text-faint:#8a8c92;
+  --border:#d5d7db;--border-strong:#d5d7db;--border-soft:rgba(213,215,219,.25);--border-w:4px;
   --placeholder-bg:#3a3a3a;
   --radius:0px;--radius-lg:0px;
-  --shadow-sm:4px 4px 0 #fff;
-  --shadow-md:6px 6px 0 #fff;
-  --shadow-lg:10px 10px 0 #fff;
-  --shadow-inset:inset 3px 3px 0 rgba(255,255,255,.2);
-  --shadow-crisp:8px 8px 0 #fff;--shadow-crisp-hover:11px 11px 0 #fff;
-  --sidebar-shadow-sm:3px 3px 0 #fff;
-  --sidebar-shadow-inset:inset 2px 2px 0 rgba(255,255,255,.35);
-  --row-hover:rgba(255,255,255,.06);--topbar-shadow:none;--scrollbar-thumb:rgba(255,255,255,.35);
+  --shadow-sm:4px 4px 0 #d5d7db;
+  --shadow-md:6px 6px 0 #d5d7db;
+  --shadow-lg:10px 10px 0 #d5d7db;
+  --shadow-inset:inset 3px 3px 0 rgba(213,215,219,.2);
+  --shadow-crisp:8px 8px 0 #d5d7db;--shadow-crisp-hover:11px 11px 0 #d5d7db;
+  --sidebar-shadow-sm:3px 3px 0 #d5d7db;
+  --sidebar-shadow-inset:inset 2px 2px 0 rgba(213,215,219,.35);
+  --row-hover:rgba(213,215,219,.06);--topbar-shadow:none;--scrollbar-thumb:rgba(213,215,219,.35);
   --switch-track:#555555;
 }
 *{box-sizing:border-box;margin:0;padding:0}
