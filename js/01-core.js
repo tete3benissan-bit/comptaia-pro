@@ -31,30 +31,30 @@ function fmtD(d){if(!d)return'';var p=d.split('-');return p.length===3?p[2]+'/'+
 function nowStr(){var d=new Date();return d.toLocaleDateString('fr-FR')+' à '+d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}
 function nb(id){return document.getElementById(id)}
 
-// ═══ THÈME BRUTALISTE / CLAIR / SOMBRE ═══
-// Cycle à 3 états sur le même sélecteur (#theme-switch). Depuis que
-// l'utilisateur a demandé que le brutaliste (fond clair, bordures noires
-// épaisses, écho du composant Uiverse/0xnihilism) devienne LE thème par
-// défaut plutôt qu'une 3e option cachée, "brutalist" est l'état par
-// défaut (aucun attribut data-theme) - l'ancien thème sombre cyan-
-// turquoise devient l'option explicite "dark", toujours accessible via
-// le même interrupteur.
+// ═══ THÈME CLAIR / SOMBRE (une seule identité brutaliste, 2 couleurs) ═══
+// Il n'y a plus que 2 états sur le même sélecteur (#theme-switch) - le
+// 3e thème "intermédiaire" (clair, arrondi, cyan-turquoise) a été retiré
+// à la demande de l'utilisateur : les 2 variantes restantes partagent
+// désormais la même identité structurelle (bordures épaisses, ombres
+// dures, angles vifs), seule la palette s'inverse. "clair" est l'état
+// par défaut (aucun attribut data-theme) ; "sombre" est explicite
+// ([data-theme="dark"]).
 function applyTheme(theme){
-  if(theme==='brutalist')document.documentElement.removeAttribute('data-theme');
-  else document.documentElement.setAttribute('data-theme',theme);
+  if(theme==='dark')document.documentElement.setAttribute('data-theme','dark');
+  else document.documentElement.removeAttribute('data-theme');
   try{localStorage.setItem('comptaia_theme',theme);}catch(e){}
   majThemeSwitch();
 }
 function cycleTheme(){
-  var cur=document.documentElement.getAttribute('data-theme')||'brutalist';
-  applyTheme(cur==='brutalist'?'light':(cur==='light'?'dark':'brutalist'));
+  var cur=document.documentElement.getAttribute('data-theme')==='dark'?'dark':'light';
+  applyTheme(cur==='dark'?'light':'dark');
 }
 function majThemeSwitch(){
-  var theme=document.documentElement.getAttribute('data-theme')||'brutalist';
+  var theme=document.documentElement.getAttribute('data-theme')==='dark'?'dark':'light';
   var ts=nb('theme-switch');
-  if(ts)ts.checked=(theme!=='brutalist');
+  if(ts)ts.checked=(theme==='dark');
   var lbl=ts&&ts.closest('.ui-switch');
-  if(lbl)lbl.title='Thème : '+(theme==='brutalist'?'Brutaliste':theme==='light'?'Clair':'Sombre')+' — cliquer pour changer';
+  if(lbl)lbl.title='Thème : '+(theme==='dark'?'Sombre':'Clair')+' — cliquer pour changer';
 }
 window.toggleTheme=cycleTheme;
 

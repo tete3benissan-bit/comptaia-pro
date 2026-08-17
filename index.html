@@ -13,7 +13,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="css/01-core.css"/>
 <link rel="manifest" href="manifest.json"/>
-<script>(function(){try{var t=localStorage.getItem('comptaia_theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<script>(function(){try{if(localStorage.getItem('comptaia_theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
 <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js');});}</script>
 </head>
 <body>
@@ -170,7 +170,7 @@
   <div class="topbar">
     <div class="page-title" id="page-title">Facture</div>
     <div class="topbar-right">
-      <label class="ui-switch" title="Thème : cliquer pour changer (brutaliste / clair / sombre)">
+      <label class="ui-switch" title="Thème : cliquer pour changer (clair / sombre)">
         <input type="checkbox" id="theme-switch" onchange="cycleTheme()"/>
         <div class="slider"><div class="circle"></div></div>
       </label>
@@ -483,10 +483,7 @@
         </div>
       </details>
       <div class="journal-search">
-        <div class="brut-input-wrap" data-label="Recherche" style="max-width:230px">
-          <input type="text" id="j-search" placeholder="Rechercher..." oninput="renderJournal()"/>
-          <button type="button" class="brut-input-btn" title="Effacer" onclick="document.getElementById('j-search').value='';renderJournal();"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-        </div>
+        <input type="text" id="j-search" placeholder="Rechercher..." oninput="renderJournal()" style="max-width:200px"/>
         <select id="j-filter-type" onchange="renderJournal()"><option value="">Tous types</option><option value="vente">Vente</option><option value="achat">Achat</option><option value="service">Service</option><option value="avoir">Avoir</option></select>
         <input type="date" id="j-filter-from" onchange="renderJournal()" title="Depuis"/>
         <input type="date" id="j-filter-to" onchange="renderJournal()" title="Jusqu'à"/>
@@ -1112,6 +1109,15 @@
       <div style="font-size:11px;color:var(--text-muted);margin-top:-8px">Choisissez votre mot de passe pour activer votre compte</div>
       <div class="fg"><label>Mot de passe</label><input type="password" id="setpass-pass" placeholder="Min. 6 caractères" onkeydown="if(event.key==='Enter')authSetPassword()"/></div>
       <button class="btn btn-primary" onclick="authSetPassword()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,13 9,18 20,6"/></svg> Activer mon compte</button>
+    </div>
+  </div>
+  <!-- Écran d'intro : animation AcidSquares plein écran, bascule vers la création de compte -->
+  <div id="acid-intro" class="acid-intro-overlay">
+    <div id="acid-intro-canvas" class="acid-intro-canvas"></div>
+    <div class="acid-intro-content">
+      <div class="acid-intro-title">GEST<span>AFRICA</span></div>
+      <div class="acid-intro-tagline">Comptabilité SYSCOHADA nouvelle génération</div>
+      <div class="acid-intro-hint">Cliquez pour continuer</div>
     </div>
   </div>
 </div>
@@ -2155,6 +2161,8 @@
 <script src="js/25-declaration-cnss.js"></script>
 <link rel="stylesheet" href="css/14-uiverse.css"/>
 <link rel="stylesheet" href="css/15-nav-icons.css"/>
+<link rel="stylesheet" href="css/17-acid-intro.css"/>
+<script src="js/26-acid-intro.js"></script>
 
 </body>
 </html>
