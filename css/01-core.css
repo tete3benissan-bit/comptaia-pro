@@ -504,3 +504,25 @@ body.fj-sa .sidebar::before,body.fj-sa #hub::before,body.fj-sa #auth-overlay::be
 input[type="range"]{-webkit-appearance:none;appearance:none;height:6px;background:var(--border-soft);border:none;box-shadow:none;padding:0;cursor:pointer}
 input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:18px;height:18px;border-radius:50%;background:var(--accent);border:2px solid var(--border);cursor:pointer}
 input[type="range"]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--accent);border:2px solid var(--border);cursor:pointer}
+
+/* ── RTL (arabe, js/28-i18n.js définit dir="rtl" sur <html>) ──
+   Portée assumée : la structure générale (barre latérale à droite au
+   lieu de gauche, sens de lecture global) s'inverse correctement -
+   la plupart des composants de l'app sont déjà en display:flex sans
+   flex-direction explicite, donc l'ordre visuel icône/texte s'inverse
+   automatiquement avec dir="rtl" (comportement natif de Flexbox, pas
+   besoin de règles séparées). Ce qui n'est PAS couvert par cette passe :
+   les marges/paddings gauche/droite câblés en dur (margin-left,
+   padding-right...) dans les dizaines de styles inline de l'app - ils
+   ne s'inversent pas automatiquement et resteront visuellement "à
+   l'envers" par endroits jusqu'à un futur passage de polish RTL dédié. */
+html[dir="rtl"] body{flex-direction:row-reverse}
+html[dir="rtl"] .sidebar{border-right:none;border-left:var(--border-w) solid var(--border-strong)}
+html[dir="rtl"] .nav-item.active,
+html[dir="rtl"] .acc-header.acc-open,
+html[dir="rtl"] #spec-nav .nav-item.actif-v19{border-left:none;border-right:3px solid var(--highlight);padding-right:11px;padding-left:14px}
+html[dir="rtl"] #taskbar{flex-direction:row-reverse}
+html[dir="rtl"] .tb-sep{margin:6px 3px}
+html[dir="rtl"] .nav-badge{margin-left:0;margin-right:auto}
+html[dir="rtl"] .hub-fleche{right:auto;left:16px;transform:translateX(6px) scaleX(-1)}
+html[dir="rtl"] .hub-carte:hover .hub-fleche{transform:translateX(0) scaleX(-1)}

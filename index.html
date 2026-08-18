@@ -1090,30 +1090,30 @@
     <div id="auth-ok" class="alert alert-ok" style="max-width:340px;margin-left:auto;margin-right:auto"></div>
     <div id="auth-login-card" class="uiv-auth-card" style="display:flex">
       <div class="uiv-auth-title">GEST<span> Africa</span></div>
-      <div class="brut-input-wrap" data-label="Email" style="margin-bottom:14px"><input type="email" id="auth-user" placeholder="vous@entreprise.tg"/></div>
-      <div class="brut-input-wrap" data-label="Mot de passe" style="margin-bottom:14px"><input type="password" id="auth-pass" placeholder="••••••••" onkeydown="if(event.key==='Enter')authLogin()"/></div>
-      <button class="btn btn-primary" id="auth-login-btn" onclick="authLogin()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10" width="14" height="10" rx="1.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg> Se connecter</button>
-      <div class="uiv-demo-note">Mot de passe oublié ? <a href="#" onclick="event.preventDefault();authForgotPassword()">Réinitialiser</a>. Compte oublié/désactivé ? Contactez votre administrateur — la création de comptes se fait uniquement depuis "Gestion des utilisateurs".</div>
-      <div class="uiv-demo-note" style="text-align:center">Première utilisation ? <a href="#" onclick="event.preventDefault();authShowSetup()">Créer votre entreprise</a></div>
+      <div class="brut-input-wrap" data-label="Email" data-i18n-label="E-mail" style="margin-bottom:14px"><input type="email" id="auth-user" placeholder="vous@entreprise.tg"/></div>
+      <div class="brut-input-wrap" data-label="Mot de passe" data-i18n-label="Mot de passe" style="margin-bottom:14px"><input type="password" id="auth-pass" placeholder="••••••••" onkeydown="if(event.key==='Enter')authLogin()"/></div>
+      <button class="btn btn-primary" id="auth-login-btn" onclick="authLogin()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10" width="14" height="10" rx="1.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg> <span data-i18n="Se connecter">Se connecter</span></button>
+      <div class="uiv-demo-note"><span data-i18n="Mot de passe oublié ?">Mot de passe oublié ?</span> <a href="#" onclick="event.preventDefault();authForgotPassword()" data-i18n="Réinitialiser">Réinitialiser</a>. <span data-i18n="Compte oublié/désactivé ? Contactez votre administrateur — la création de comptes se fait uniquement depuis &quot;Gestion des utilisateurs&quot;.">Compte oublié/désactivé ? Contactez votre administrateur — la création de comptes se fait uniquement depuis "Gestion des utilisateurs".</span></div>
+      <div class="uiv-demo-note" style="text-align:center"><span data-i18n="Première utilisation ?">Première utilisation ?</span> <a href="#" onclick="event.preventDefault();authShowSetup()" data-i18n="Créer votre entreprise">Créer votre entreprise</a></div>
     </div>
     <div id="auth-setup-card" class="uiv-auth-card" style="display:none">
       <div class="uiv-auth-title">GEST<span> Africa</span></div>
-      <div style="font-size:11px;color:var(--text-muted);margin-top:-8px">Créer votre entreprise et votre compte administrateur</div>
-      <div class="fg"><label>Pays</label><select id="setup-pays"></select></div>
-      <div class="fg"><label>Secteur d'activité</label><select id="setup-secteur"></select></div>
-      <div class="fg"><label>Forme juridique</label><select id="setup-forme-juridique"></select></div>
-      <div class="fg"><label>Nom de l'entreprise</label><input type="text" id="setup-entreprise" placeholder="Ex. Mensah SARL"/></div>
-      <div class="fg"><label>Votre nom complet</label><input type="text" id="setup-nom" placeholder="Ex. Awa Mensah"/></div>
-      <div class="fg"><label>E-mail</label><input type="email" id="setup-user" placeholder="vous@entreprise.tg"/></div>
-      <div class="fg"><label>Mot de passe</label><input type="password" id="setup-pass" placeholder="Min. 6 caractères" onkeydown="if(event.key==='Enter')authSetupAdmin()"/></div>
-      <button class="btn btn-primary" id="auth-setup-btn" onclick="authSetupAdmin()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,13 9,18 20,6"/></svg> Créer l'entreprise</button>
-      <div class="uiv-demo-note" style="text-align:center">Déjà un compte ? <a href="#" onclick="event.preventDefault();authShowLogin()">Se connecter</a></div>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:-8px" data-i18n="Créer votre entreprise et votre compte administrateur">Créer votre entreprise et votre compte administrateur</div>
+      <div class="fg"><label data-i18n="Pays">Pays</label><select id="setup-pays"></select></div>
+      <div class="fg"><label data-i18n="Secteur d'activité">Secteur d'activité</label><select id="setup-secteur"></select></div>
+      <div class="fg"><label data-i18n="Forme juridique">Forme juridique</label><select id="setup-forme-juridique"></select></div>
+      <div class="fg"><label data-i18n="Nom de l'entreprise">Nom de l'entreprise</label><input type="text" id="setup-entreprise" placeholder="Ex. Mensah SARL"/></div>
+      <div class="fg"><label data-i18n="Votre nom complet">Votre nom complet</label><input type="text" id="setup-nom" placeholder="Ex. Awa Mensah"/></div>
+      <div class="fg"><label data-i18n="E-mail">E-mail</label><input type="email" id="setup-user" placeholder="vous@entreprise.tg"/></div>
+      <div class="fg"><label data-i18n="Mot de passe">Mot de passe</label><input type="password" id="setup-pass" placeholder="Min. 6 caractères" onkeydown="if(event.key==='Enter')authSetupAdmin()"/></div>
+      <button class="btn btn-primary" id="auth-setup-btn" onclick="authSetupAdmin()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,13 9,18 20,6"/></svg> <span data-i18n="Créer l'entreprise">Créer l'entreprise</span></button>
+      <div class="uiv-demo-note" style="text-align:center"><span data-i18n="Déjà un compte ?">Déjà un compte ?</span> <a href="#" onclick="event.preventDefault();authShowLogin()" data-i18n="Se connecter">Se connecter</a></div>
     </div>
     <div id="auth-setpass-card" class="uiv-auth-card" style="display:none">
       <div class="uiv-auth-title">GEST<span> Africa</span></div>
-      <div style="font-size:11px;color:var(--text-muted);margin-top:-8px">Choisissez votre mot de passe pour activer votre compte</div>
-      <div class="fg"><label>Mot de passe</label><input type="password" id="setpass-pass" placeholder="Min. 6 caractères" onkeydown="if(event.key==='Enter')authSetPassword()"/></div>
-      <button class="btn btn-primary" onclick="authSetPassword()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,13 9,18 20,6"/></svg> Activer mon compte</button>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:-8px" data-i18n="Choisissez votre mot de passe pour activer votre compte">Choisissez votre mot de passe pour activer votre compte</div>
+      <div class="fg"><label data-i18n="Mot de passe">Mot de passe</label><input type="password" id="setpass-pass" placeholder="Min. 6 caractères" onkeydown="if(event.key==='Enter')authSetPassword()"/></div>
+      <button class="btn btn-primary" onclick="authSetPassword()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,13 9,18 20,6"/></svg> <span data-i18n="Activer mon compte">Activer mon compte</span></button>
     </div>
   </div>
   <!-- Écran d'intro : animation AcidSquares plein écran, bascule vers la création de compte -->
@@ -2169,6 +2169,7 @@
 <link rel="stylesheet" href="css/17-acid-intro.css"/>
 <script src="js/26-acid-intro.js"></script>
 <script src="js/27-parametres.js"></script>
+<script src="js/28-i18n.js"></script>
 
 </body>
 </html>

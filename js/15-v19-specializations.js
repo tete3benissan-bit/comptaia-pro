@@ -119,14 +119,14 @@ function itemHTML(it){
   var badge=it.badge?' <span class="badge" data-mirror="'+it.badge+'" style="display:none">0</span>':'';
   var action=it.fn?it.fn+'()':"v19Nav('"+it.id+"',"+(it.scroll?"'"+it.scroll+"'":'null')+",this)";
   var cle=it.cle||it.id||it.fn;
-  return '<div class="nav-item" data-cle="'+cle+'" onclick="'+action+'"><span>'+it.ic+'</span> '+it.lb+badge+'</div>';
+  return '<div class="nav-item" data-cle="'+cle+'" onclick="'+action+'"><span>'+it.ic+'</span> '+t(it.lb)+badge+'</div>';
 }
 function construireNav(cle){
   SPEC_ACTUELLE=cle;
   var s=SPECS[cle], nav=document.getElementById('spec-nav');
   if(!nav||!s)return;
-  var h='<div class="nav-item nav-retour" onclick="montrerHub()"><span>'+ico('home')+'</span> Accueil — spécialisations</div>';
-  h+='<div class="spec-entete"><span class="tb-ic">'+s.ic+'</span> '+s.nom+'</div>';
+  var h='<div class="nav-item nav-retour" onclick="montrerHub()"><span>'+ico('home')+'</span> '+t('Accueil — spécialisations')+'</div>';
+  h+='<div class="spec-entete"><span class="tb-ic">'+s.ic+'</span> '+t(s.nom)+'</div>';
   var estAdmin=!!(window.CURRENT_USER&&CURRENT_USER.role==='admin');
   // Filtre secteur (js/00e-secteur-modules.js) - masque les modules
   // existants sans rapport avec le secteur de l'entreprise. Un groupe dont
@@ -137,7 +137,7 @@ function construireNav(cle){
     if(it.grp){
       var sousItems=it.items.filter(function(si){return autoriseSecteur(si.id);});
       if(!sousItems.length)return;
-      h+='<div class="acc-header" onclick="v19Grp(\''+it.grp+'\')"><span>'+it.ic+'</span> '+it.lb+' <span class="acc-arrow" id="arr-v19-'+it.grp+'" style="margin-left:auto">▸</span></div>';
+      h+='<div class="acc-header" onclick="v19Grp(\''+it.grp+'\')"><span>'+it.ic+'</span> '+t(it.lb)+' <span class="acc-arrow" id="arr-v19-'+it.grp+'" style="margin-left:auto">▸</span></div>';
       h+='<div class="acc-body" id="body-v19-'+it.grp+'" style="display:none">'+sousItems.map(itemHTML).join('')+'</div>';
     } else {
       if(!autoriseSecteur(it.id))return;
@@ -209,15 +209,15 @@ function construireHub(){
     return '<button class="hub-carte" data-hub="'+k+'" onclick="choisirSpec(\''+k+'\')">'+
       '<span class="hub-fleche">'+ico('chevronRight')+'</span>'+
       '<div class="hub-ic">'+s.ic+'</div>'+
-      '<div class="hub-nom">'+s.nom.toUpperCase()+'</div>'+
-      '<div class="hub-desc">'+s.desc+'</div>'+
+      '<div class="hub-nom">'+t(s.nom).toUpperCase()+'</div>'+
+      '<div class="hub-desc">'+t(s.desc)+'</div>'+
       '<div class="hub-nb">'+nbModules(s)+' modules</div>'+
     '</button>';
   }).join('');
   hub.innerHTML='<div class="hub-int">'+
     '<div><div class="hub-logo">GEST<span> Africa</span></div><div class="hub-societe" id="hub-societe">Mon Entreprise SARL — <span id="hub-ex">Ex. 2026</span></div></div>'+
-    '<div class="hub-titre">Choisissez votre espace de travail</div>'+
-    '<div class="hub-sous">Chaque spécialisation regroupe ses modules dans le menu latéral.</div>'+
+    '<div class="hub-titre">'+t('Choisissez votre espace de travail')+'</div>'+
+    '<div class="hub-sous">'+t('Chaque spécialisation regroupe ses modules dans le menu latéral.')+'</div>'+
     '<div class="hub-cartes">'+cartes+'</div>'+
     '<div class="hub-note">💡 <span><strong>IA</strong> et <strong>Trésorerie</strong> restent accessibles à tout moment dans la barre du bas, ainsi que les alertes 🔔.</span></div>'+
   '</div>';
@@ -262,24 +262,24 @@ function construireTaskbar(){
   var tb=document.createElement('div');
   tb.id='taskbar';
   tb.innerHTML=
-    '<button class="tb-btn" id="tb-start" onclick="montrerHub()" title="Accueil — spécialisations"><span class="tb-ic">'+ico('home')+'</span><span class="tb-lbl">Accueil</span></button>'+
+    '<button class="tb-btn" id="tb-start" onclick="montrerHub()" title="'+t('Accueil — spécialisations')+'"><span class="tb-ic">'+ico('home')+'</span><span class="tb-lbl">'+t('Accueil')+'</span></button>'+
     '<button class="tb-btn" id="tb-spec" onclick="retourSpec()"></button>'+
     '<div class="tb-sep"></div>'+
-    '<button class="tb-btn" id="tb-ia" onclick="basculerMenuTB(event,\'menu-tb-ia\')"><span class="tb-ic">'+ico('bot')+'</span><span class="tb-lbl">IA</span></button>'+
-    '<button class="tb-btn" id="tb-treso" onclick="basculerMenuTB(event,\'menu-tb-treso\')"><span class="tb-ic">'+ico('wallet')+'</span><span class="tb-lbl">Trésorerie</span></button>'+
-    '<button class="tb-btn" id="tb-declarations" onclick="basculerMenuTB(event,\'menu-tb-declarations\')"><span class="tb-ic">'+ico('landmark')+'</span><span class="tb-lbl">Déclarations</span></button>'+
-    '<button class="tb-btn" id="tb-chat-ia" onclick="go(\'chat-ia\',this)" title="Chat IA — Copilote intelligent"><span class="tb-ic">'+ico('chat')+'</span><span class="tb-lbl">Chat IA</span></button>'+
-    '<button class="tb-btn" id="tb-utilisateurs" onclick="go(\'utilisateurs\',this)" title="Gestion des utilisateurs" style="display:none"><span class="tb-ic">'+ico('shield')+'</span><span class="tb-lbl">Utilisateurs</span></button>'+
-    '<button class="tb-btn" id="tb-parametres" onclick="go(\'parametres\',this)" title="Paramètres"><span class="tb-ic">'+ico('gear')+'</span><span class="tb-lbl">Paramètres</span></button>'+
+    '<button class="tb-btn" id="tb-ia" onclick="basculerMenuTB(event,\'menu-tb-ia\')"><span class="tb-ic">'+ico('bot')+'</span><span class="tb-lbl">'+t('IA')+'</span></button>'+
+    '<button class="tb-btn" id="tb-treso" onclick="basculerMenuTB(event,\'menu-tb-treso\')"><span class="tb-ic">'+ico('wallet')+'</span><span class="tb-lbl">'+t('Trésorerie')+'</span></button>'+
+    '<button class="tb-btn" id="tb-declarations" onclick="basculerMenuTB(event,\'menu-tb-declarations\')"><span class="tb-ic">'+ico('landmark')+'</span><span class="tb-lbl">'+t('Déclarations')+'</span></button>'+
+    '<button class="tb-btn" id="tb-chat-ia" onclick="go(\'chat-ia\',this)" title="Chat IA — Copilote intelligent"><span class="tb-ic">'+ico('chat')+'</span><span class="tb-lbl">'+t('Chat IA')+'</span></button>'+
+    '<button class="tb-btn" id="tb-utilisateurs" onclick="go(\'utilisateurs\',this)" title="Gestion des utilisateurs" style="display:none"><span class="tb-ic">'+ico('shield')+'</span><span class="tb-lbl">'+t('Utilisateurs')+'</span></button>'+
+    '<button class="tb-btn" id="tb-parametres" onclick="go(\'parametres\',this)" title="Paramètres"><span class="tb-ic">'+ico('gear')+'</span><span class="tb-lbl">'+t('Paramètres')+'</span></button>'+
     '<div class="tb-spacer"></div>'+
     '<div class="tb-tray">'+
       '<button class="tb-btn" onclick="go(\'notifs\')" title="Alertes"><span class="tb-ic">'+ico('bell')+'</span><span class="tb-badge" data-mirror="nb-notifs" style="display:none">0</span></button>'+
       '<div id="tb-clock">--:--</div>'+
     '</div>';
   document.body.appendChild(tb);
-  document.body.appendChild(construireMenuTB('menu-tb-ia',ico('bot')+' Outils IA',ITEMS_IA,'ia'));
-  document.body.appendChild(construireMenuTB('menu-tb-treso',ico('wallet')+' Trésorerie',ITEMS_TRESO,'treso'));
-  document.body.appendChild(construireMenuTB('menu-tb-declarations',ico('landmark')+' Déclarations',ITEMS_DECLARATIONS,'declarations'));
+  document.body.appendChild(construireMenuTB('menu-tb-ia',ico('bot')+' '+t('Outils IA'),ITEMS_IA,'ia'));
+  document.body.appendChild(construireMenuTB('menu-tb-treso',ico('wallet')+' '+t('Trésorerie'),ITEMS_TRESO,'treso'));
+  document.body.appendChild(construireMenuTB('menu-tb-declarations',ico('landmark')+' '+t('Déclarations'),ITEMS_DECLARATIONS,'declarations'));
   document.addEventListener('click',function(e){
     if(!e.target.closest('.tb-menu')&&!e.target.closest('#tb-ia')&&!e.target.closest('#tb-treso')&&!e.target.closest('#tb-declarations'))fermerMenusTB();
   });
@@ -291,7 +291,7 @@ function construireMenuTB(id,titre,items,specCle){
   m.className='tb-menu';m.id=id;
   m.innerHTML='<div class="tb-menu-titre">'+titre+'</div>'+items.map(function(it){
     var action=it.fn?('fermerMenusTB();'+it.fn+'()'):("v19MenuGo('"+it.id+"','"+specCle+"')");
-    return '<button class="tb-menu-item" onclick="'+action+'"><span class="tb-ic">'+it.ic+'</span>'+it.lb+'</button>';
+    return '<button class="tb-menu-item" onclick="'+action+'"><span class="tb-ic">'+it.ic+'</span>'+t(it.lb)+'</button>';
   }).join('');
   return m;
 }

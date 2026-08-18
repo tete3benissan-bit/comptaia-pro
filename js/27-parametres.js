@@ -71,6 +71,10 @@ var SHADOWS={
   }
 };
 
+// Alias défensif de t() (js/28-i18n.js, chargé après ce fichier) - au cas
+// où ce panneau serait rendu avant que ce script ait fini de s'exécuter.
+function tt(s){return (typeof t==='function')?t(s):s;}
+
 function paramGet(key,defVal){try{return localStorage.getItem(key)||defVal;}catch(e){return defVal;}}
 function paramSet(key,val){try{localStorage.setItem(key,val);}catch(e){}}
 
@@ -202,44 +206,54 @@ window.renderParametresPane=function(){
 
   var shadowLabels={fort:'Fort',normal:'Normal',leger:'Léger'};
   var shadowChips=Object.keys(shadowLabels).map(function(k){
-    return '<button type="button" class="'+chip(k===shadowKey)+'" onclick="paramChoisirShadow(\''+k+'\')">'+shadowLabels[k]+'</button>';
+    return '<button type="button" class="'+chip(k===shadowKey)+'" onclick="paramChoisirShadow(\''+k+'\')">'+tt(shadowLabels[k])+'</button>';
   }).join('');
 
+  var langueActuelle=(typeof getLangueActuelle==='function')?getLangueActuelle():'fr';
+  var langueChips=(typeof LANGUES==='object'&&LANGUES)?Object.keys(LANGUES).map(function(code){
+    return '<button type="button" class="'+chip(code===langueActuelle)+'" onclick="definirLangue(\''+code+'\')">'+LANGUES[code].nom+'</button>';
+  }).join(''):'';
+
   box.innerHTML=
+    (langueChips?(
     '<div class="card" style="margin-bottom:14px">'+
-      '<div class="card-header"><span class="card-title">Apparence</span><button class="btn btn-sm" onclick="paramReinitialiser()">Réinitialiser</button></div>'+
+      '<div class="card-header"><span class="card-title">'+tt('Langue')+'</span></div>'+
+      '<div class="card-body"><div class="param-chips">'+langueChips+'</div></div>'+
+    '</div>'):'')+
+    '<div class="card" style="margin-bottom:14px">'+
+      '<div class="card-header"><span class="card-title">'+tt('Apparence')+'</span><button class="btn btn-sm" onclick="paramReinitialiser()">'+tt('Réinitialiser')+'</button></div>'+
       '<div class="card-body">'+
-        '<div class="fg" style="margin-bottom:16px"><label>Luminosité — '+'<span id="param-bright-val">'+bright+'%</span></label>'+
+        '<div class="fg" style="margin-bottom:16px"><label>'+tt('Luminosité')+' — '+'<span id="param-bright-val">'+bright+'%</span></label>'+
           '<input type="range" min="60" max="130" step="5" value="'+bright+'" oninput="paramChangerLuminosite(this.value)"/></div>'+
-        '<label style="display:block;margin-bottom:6px">Couleur d\'accent</label>'+
+        '<label style="display:block;margin-bottom:6px">'+tt("Couleur d'accent")+'</label>'+
         '<div class="param-chips" style="margin-bottom:16px">'+accentChips+'</div>'+
-        '<label style="display:block;margin-bottom:6px">Police</label>'+
+        '<label style="display:block;margin-bottom:6px">'+tt('Police')+'</label>'+
         '<div class="param-chips" style="margin-bottom:16px">'+fontChips+'</div>'+
-        '<label style="display:block;margin-bottom:6px">Intensité des ombres</label>'+
+        '<label style="display:block;margin-bottom:6px">'+tt('Intensité des ombres')+'</label>'+
         '<div class="param-chips">'+shadowChips+'</div>'+
       '</div>'+
     '</div>'+
     '<div class="card" style="margin-bottom:14px">'+
-      '<div class="card-header"><span class="card-title">Compte</span></div>'+
+      '<div class="card-header"><span class="card-title">'+tt('Compte')+'</span></div>'+
       '<div class="card-body">'+
         '<div class="fgrid fg2">'+
-          '<div class="fg"><label>Nom complet</label><input type="text" id="param-nom" value="'+(typeof esc==='function'?esc(CURRENT_USER.nom||''):(CURRENT_USER.nom||''))+'"/></div>'+
-          '<div class="fg"><label>E-mail</label><input type="email" value="'+(typeof esc==='function'?esc(CURRENT_USER.email||''):(CURRENT_USER.email||''))+'" readonly/></div>'+
+          '<div class="fg"><label>'+tt('Nom complet')+'</label><input type="text" id="param-nom" value="'+(typeof esc==='function'?esc(CURRENT_USER.nom||''):(CURRENT_USER.nom||''))+'"/></div>'+
+          '<div class="fg"><label>'+tt('E-mail')+'</label><input type="email" value="'+(typeof esc==='function'?esc(CURRENT_USER.email||''):(CURRENT_USER.email||''))+'" readonly/></div>'+
         '</div>'+
         '<div style="display:flex;gap:8px;margin-top:14px">'+
-          '<button class="btn btn-primary btn-sm" onclick="paramEnregistrerNom()">Enregistrer le nom</button>'+
-          '<button class="btn btn-sm" onclick="changerMonMotDePasse()">Changer le mot de passe</button>'+
+          '<button class="btn btn-primary btn-sm" onclick="paramEnregistrerNom()">'+tt('Enregistrer le nom')+'</button>'+
+          '<button class="btn btn-sm" onclick="changerMonMotDePasse()">'+tt('Changer le mot de passe')+'</button>'+
         '</div>'+
       '</div>'+
     '</div>'+
     '<div class="card">'+
-      '<div class="card-header"><span class="card-title">Votre avis</span></div>'+
+      '<div class="card-header"><span class="card-title">'+tt('Votre avis')+'</span></div>'+
       '<div class="card-body">'+
         '<div style="font-size:20px;letter-spacing:4px;margin-bottom:10px">'+
           [1,2,3,4,5].map(function(n){return '<span class="param-etoile" style="cursor:pointer" onclick="paramChoisirEtoile('+n+')">☆</span>';}).join('')+
         '</div>'+
-        '<div class="fg"><label>Commentaire (facultatif)</label><textarea id="param-avis-texte" rows="3" placeholder="Ce qui vous plaît, ce qui manque..."></textarea></div>'+
-        '<button class="btn btn-primary btn-sm" style="margin-top:10px" onclick="paramEnvoyerNotation()">Envoyer mon avis</button>'+
+        '<div class="fg"><label>'+tt('Commentaire (facultatif)')+'</label><textarea id="param-avis-texte" rows="3" placeholder="Ce qui vous plaît, ce qui manque..."></textarea></div>'+
+        '<button class="btn btn-primary btn-sm" style="margin-top:10px" onclick="paramEnvoyerNotation()">'+tt('Envoyer mon avis')+'</button>'+
       '</div>'+
     '</div>';
 };
