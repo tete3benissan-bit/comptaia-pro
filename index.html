@@ -6,6 +6,16 @@
 <meta name="theme-color" content="var(--sidebar-bg)"/>
 <meta name="mobile-web-app-capable" content="yes"/>
 <title>GEST Africa v12 — OHADA Togo</title>
+<!-- Filet de sécurité t() : js/15-v19-specializations.js appelle
+     construireHub()/construireTaskbar() immédiatement au chargement de la
+     page (avant que js/28-i18n.js, dernier de la liste, ait pu définir la
+     vraie fonction t()) - sans ce filet, ce premier appel plantait avec
+     "t is not defined", ce qui interrompait le script en plein milieu et
+     empêchait la création de la barre latérale/barre du bas pour toute la
+     session (pas juste un raté ponctuel - le bug qui vidait la sidebar).
+     js/28-i18n.js remplace ensuite cette fonction par la vraie version
+     traduisante dès qu'il charge. -->
+<script>window.t=function(s){return s;};</script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script src="js/00-supabase-client.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
