@@ -1,6 +1,6 @@
 /* Mobile/Android responsive optimization styles - extracted from ComptaIA_Pro_original.html lines 9590-9676 */
 /* ── Éléments injectés (cachés sur grand écran) ── */
-#menu-burger{display:none;align-items:center;justify-content:center;width:42px;height:42px;border:2px solid var(--border-strong);border-radius:var(--radius);background:var(--surface);color:var(--text);font-size:20px;cursor:pointer;flex-shrink:0;padding:0;line-height:1;font-family:'Archivo',sans-serif}
+#menu-burger{display:none;align-items:center;justify-content:center;width:42px;height:42px;border:2px solid var(--border-strong);border-radius:var(--radius);background:var(--surface);color:var(--text);font-size:20px;cursor:pointer;flex-shrink:0;padding:0;line-height:1;font-family:var(--font-family)}
 #menu-burger:active{background:var(--green-light);border-color:var(--green)}
 #nav-backdrop{display:none;position:fixed;inset:0;background:rgba(13,31,26,.55);z-index:1400;opacity:0;transition:opacity .25s ease}
 body.nav-open #nav-backdrop{display:block;opacity:1}

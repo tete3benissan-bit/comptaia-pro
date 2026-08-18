@@ -270,6 +270,7 @@ function construireTaskbar(){
     '<button class="tb-btn" id="tb-declarations" onclick="basculerMenuTB(event,\'menu-tb-declarations\')"><span class="tb-ic">'+ico('landmark')+'</span><span class="tb-lbl">Déclarations</span></button>'+
     '<button class="tb-btn" id="tb-chat-ia" onclick="go(\'chat-ia\',this)" title="Chat IA — Copilote intelligent"><span class="tb-ic">'+ico('chat')+'</span><span class="tb-lbl">Chat IA</span></button>'+
     '<button class="tb-btn" id="tb-utilisateurs" onclick="go(\'utilisateurs\',this)" title="Gestion des utilisateurs" style="display:none"><span class="tb-ic">'+ico('shield')+'</span><span class="tb-lbl">Utilisateurs</span></button>'+
+    '<button class="tb-btn" id="tb-parametres" onclick="go(\'parametres\',this)" title="Paramètres"><span class="tb-ic">'+ico('gear')+'</span><span class="tb-lbl">Paramètres</span></button>'+
     '<div class="tb-spacer"></div>'+
     '<div class="tb-tray">'+
       '<button class="tb-btn" onclick="go(\'notifs\')" title="Alertes"><span class="tb-ic">'+ico('bell')+'</span><span class="tb-badge" data-mirror="nb-notifs" style="display:none">0</span></button>'+

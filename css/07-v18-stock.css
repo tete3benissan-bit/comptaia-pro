@@ -2,7 +2,7 @@
 .stock-kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
 .stock-kpi{background:var(--surface);border:2px solid var(--border);border-radius:var(--radius);padding:12px 14px;text-align:center}
 .stock-kpi-label{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);margin-bottom:4px}
-.stock-kpi-val{font-size:20px;font-weight:700;font-family:'Archivo',sans-serif}
+.stock-kpi-val{font-size:20px;font-weight:700;font-family:var(--font-family)}
 .stock-kpi-sub{font-size:10px;color:var(--text-faint);margin-top:2px}
 .stock-bar-wrap{height:6px;background:var(--bg);border-radius:var(--radius);overflow:hidden;border:2px solid var(--border);margin:4px 0}
 .stock-bar{height:100%;border-radius:var(--radius);transition:width .4s}

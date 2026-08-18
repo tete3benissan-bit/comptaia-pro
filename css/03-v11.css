@@ -1,7 +1,7 @@
 /* v11: Forme juridique selector + Prevision IA vocal styles - extracted from ComptaIA_Pro_original.html lines 3489-3517 */
 /* Forme juridique selector */
 .fj-selector{display:flex;gap:0;border:2px solid var(--border-strong);border-radius:var(--radius);overflow:hidden;margin-top:8px}
-.fj-btn{flex:1;padding:7px 6px;text-align:center;cursor:pointer;border:none;font-family:'Archivo',sans-serif;font-size:11px;font-weight:600;transition:all .2s;background:var(--surface);color:var(--text-muted)}
+.fj-btn{flex:1;padding:7px 6px;text-align:center;cursor:pointer;border:none;font-family:var(--font-family);font-size:11px;font-weight:600;transition:all .2s;background:var(--surface);color:var(--text-muted)}
 .fj-btn small{display:block;font-size:9px;font-weight:400;margin-top:1px;opacity:.7}
 .fj-btn.fj-sarl{background:var(--green);color:#fff}
 .fj-btn.fj-sa{background:var(--blue);color:#fff}
@@ -25,4 +25,4 @@
 .kpi-plan{background:var(--sidebar-bg);border-radius:var(--radius);padding:14px 18px;color:#fff;display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}
 .kpi-plan-item{text-align:center}
 .kpi-plan-label{font-size:9px;text-transform:uppercase;letter-spacing:.07em;color:var(--sidebar-text);margin-bottom:3px}
-.kpi-plan-val{font-size:18px;font-weight:700;font-family:'Archivo',sans-serif;color:var(--amber)}
+.kpi-plan-val{font-size:18px;font-weight:700;font-family:var(--font-family);color:var(--amber)}
