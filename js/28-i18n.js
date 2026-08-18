@@ -376,30 +376,31 @@ window.t=function(fr){
   return (dict&&dict[fr])||fr;
 };
 
+// Reconstruire "à chaud" la barre latérale/la barre du bas/l'écran
+// d'accueil (retirer les éléments du DOM puis rappeler construireXxx())
+// s'est montré fragile - après plusieurs changements de langue, la barre
+// latérale et la barre du bas finissaient par disparaître complètement
+// (piégé sur l'écran Paramètres). Un rechargement complet de la page est
+// beaucoup plus robuste : la session Supabase persiste (pas besoin de se
+// reconnecter), et tout se reconstruit une seule fois, proprement, via le
+// chemin normal de démarrage de l'app plutôt qu'une rustine en direct sur
+// un DOM déjà en place. On mémorise qu'il faut revenir sur Paramètres
+// après coup, pour ne pas perdre le fil.
 window.definirLangue=function(code){
   try{localStorage.setItem(LS_LANG,code);}catch(e){}
-  var dir=(LANGUES[code]||LANGUES.fr).dir;
-  document.documentElement.setAttribute('lang',code);
-  document.documentElement.setAttribute('dir',dir);
-  // Reconstruit tout ce qui contient du texte traduit (barre latérale,
-  // barre du bas, écran d'accueil) plutôt que de chercher/remplacer dans
-  // le DOM existant - plus fiable, réutilise les fonctions de rendu déjà
-  // en place.
-  try{if(typeof construireTaskbar==='function'&&!document.getElementById('taskbar-rebuilt-once')){/* no-op: taskbar reconstruite via re-render ci-dessous */}}catch(e){}
+  try{sessionStorage.setItem('comptaia_apres_langue','parametres');}catch(e){}
+  location.reload();
+};
+
+var _oasLangueRetour=window.onAuthSuccess;
+window.onAuthSuccess=function(){
+  if(typeof _oasLangueRetour==='function')_oasLangueRetour();
   try{
-    var oldTb=document.getElementById('taskbar');if(oldTb)oldTb.remove();
-    document.querySelectorAll('.tb-menu').forEach(function(m){m.remove();});
-    if(typeof construireTaskbar==='function')construireTaskbar();
+    if(sessionStorage.getItem('comptaia_apres_langue')==='parametres'){
+      sessionStorage.removeItem('comptaia_apres_langue');
+      setTimeout(function(){if(typeof go==='function')go('parametres',null);},0);
+    }
   }catch(e){}
-  try{
-    var oldHub=document.getElementById('hub');
-    var hubVisible=oldHub&&oldHub.classList.contains('visible');
-    if(oldHub)oldHub.remove();
-    if(typeof construireHub==='function'){construireHub();if(hubVisible){var h=document.getElementById('hub');if(h){h.classList.add('visible');if(typeof majHubInfos==='function')majHubInfos();}}}
-  }catch(e){}
-  try{if(typeof SPEC_ACTUELLE!=='undefined'&&SPEC_ACTUELLE&&typeof construireNav==='function')construireNav(SPEC_ACTUELLE);}catch(e){}
-  appliquerTraductionStatique();
-  if(typeof renderParametresPane==='function')renderParametresPane();
 };
 
 // Traduit les libellés statiques de l'écran de connexion/inscription
