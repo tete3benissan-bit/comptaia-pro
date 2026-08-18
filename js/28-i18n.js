@@ -388,7 +388,15 @@ window.t=function(fr){
 // après coup, pour ne pas perdre le fil.
 window.definirLangue=function(code){
   try{localStorage.setItem(LS_LANG,code);}catch(e){}
-  try{sessionStorage.setItem('comptaia_apres_langue','parametres');}catch(e){}
+  // Mémorise aussi le hub actuel (SPEC_ACTUELLE) : sans ça, après le
+  // rechargement on atterrit sur Paramètres sans jamais être passé par
+  // choisirSpec(), donc #spec-nav n'est jamais rempli et la barre
+  // latérale reste vide - même si le reste (barre du bas, contenu) va
+  // bien. On restaure le hub d'abord, puis on bascule sur Paramètres.
+  try{
+    sessionStorage.setItem('comptaia_apres_langue','parametres');
+    sessionStorage.setItem('comptaia_apres_langue_hub',(typeof SPEC_ACTUELLE!=='undefined'&&SPEC_ACTUELLE)?SPEC_ACTUELLE:'exploitant');
+  }catch(e){}
   location.reload();
 };
 
@@ -397,8 +405,13 @@ window.onAuthSuccess=function(){
   if(typeof _oasLangueRetour==='function')_oasLangueRetour();
   try{
     if(sessionStorage.getItem('comptaia_apres_langue')==='parametres'){
+      var hub=sessionStorage.getItem('comptaia_apres_langue_hub')||'exploitant';
       sessionStorage.removeItem('comptaia_apres_langue');
-      setTimeout(function(){if(typeof go==='function')go('parametres',null);},0);
+      sessionStorage.removeItem('comptaia_apres_langue_hub');
+      setTimeout(function(){
+        if(typeof choisirSpec==='function')choisirSpec(hub);
+        if(typeof go==='function')go('parametres',null);
+      },0);
     }
   }catch(e){}
 };
