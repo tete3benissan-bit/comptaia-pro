@@ -83,7 +83,26 @@ en:{
   // Paramètres
   'Apparence':'Appearance','Luminosité':'Brightness',"Couleur d'accent":'Accent color','Police':'Font','Intensité des ombres':'Shadow intensity',
   'Compte':'Account','Nom complet':'Full name','Enregistrer le nom':'Save name','Changer le mot de passe':'Change password',
-  'Votre avis':'Your feedback','Commentaire (facultatif)':'Comment (optional)','Envoyer mon avis':'Send feedback','Langue':'Language'
+  'Votre avis':'Your feedback','Commentaire (facultatif)':'Comment (optional)','Envoyer mon avis':'Send feedback','Langue':'Language',
+  // Facture / Journal
+  'FACTURE DOIT':'INVOICE','Achat ou vente de marchandises':'Purchase or sale of goods','FACTURE AVOIR':'CREDIT NOTE','Retour de marchandises':'Return of goods',
+  'Articles — Facture multi-lignes':'Items — Multi-line invoice','Ligne':'Line','Désignation':'Description','Qté':'Qty','Unité':'Unit',
+  'P.U. HT (FCFA)':'Unit price excl. tax (FCFA)','TVA %':'VAT %','Total HT':'Total excl. tax','HT':'Excl. tax','TVA':'VAT','TTC':'Incl. tax',
+  'Valider la facture':'Confirm invoice','Nouvelle facture — DOIT':'New invoice — Invoice',
+  'Nouvelle facture — AVOIR (Retour marchandises)':'New invoice — Credit note (goods return)',
+  'N° auto :':'Auto no.:','Réinitialiser':'Reset','Valider':'Confirm','Date':'Date','N° Facture':'Invoice no.','(auto)':'(auto)',
+  'Client / Fournisseur':'Customer / Supplier','Gérer':'Manage','Tapez pour rechercher ou créer...':'Type to search or create...',
+  'Type de transaction':'Transaction type','-- Choisir --':'-- Choose --','Vente de marchandises':'Sale of goods','Prestation de service':'Service provision',
+  'Achat fournisseur':'Supplier purchase','Produit en stock':'Product in stock','-- Aucun --':'-- None --','Boîte':'Box','Carton':'Carton',
+  'Litre':'Liter','Mètre':'Meter','Lot':'Lot','Quantité':'Quantity','TVA applicable':'Applicable VAT',
+  'Saisir une écriture manuelle':'Enter a manual entry','N° pièce':'Reference no.','Libellé':'Label','Compte Débit':'Debit account',
+  'Compte Crédit':'Credit account','Montant (FCFA)':'Amount (FCFA)','Statut':'Status','Payée':'Paid','En attente':'Pending',
+  "Ajouter l'écriture":'Add entry',
+  'Comptes suggérés à partir du libellé (plan OHADA) — cliquez une puce pour choisir une autre option, ou tapez vos propres comptes. Chaque validation affine les prochaines suggestions.':'Accounts suggested from the label (OHADA chart of accounts) — click a chip to pick another option, or type your own accounts. Each confirmation refines the next suggestions.',
+  'Rechercher...':'Search...','Tous types':'All types','Vente':'Sale','Achat':'Purchase','Service':'Service','Avoir':'Credit note',
+  'Depuis':'From',"Jusqu'à":'To','Tous statuts':'All statuses','Effacer filtres':'Clear filters','Journal comptable':'Accounting journal',
+  'Cpt D':'Dr acct','Cpt C':'Cr acct','Débit FCFA':'Debit FCFA','Crédit FCFA':'Credit FCFA','Échéance':'Due date','Action':'Action',
+  'Aucune écriture':'No entries','TOTAL':'TOTAL'
 },
 ar:{
   'Accueil':'الرئيسية','Trésorerie':'الخزينة','Déclarations':'التصريحات','Chat IA':'محادثة الذكاء الاصطناعي','Utilisateurs':'المستخدمون','Paramètres':'الإعدادات',
@@ -123,7 +142,26 @@ ar:{
   'Choisissez votre mot de passe pour activer votre compte':'اختر كلمة المرور لتفعيل حسابك','Activer mon compte':'تفعيل حسابي',
   'Apparence':'المظهر','Luminosité':'السطوع',"Couleur d'accent":'لون التمييز','Police':'الخط','Intensité des ombres':'شدة الظلال',
   'Compte':'الحساب','Nom complet':'الاسم الكامل','Enregistrer le nom':'حفظ الاسم','Changer le mot de passe':'تغيير كلمة المرور',
-  'Votre avis':'رأيك','Commentaire (facultatif)':'تعليق (اختياري)','Envoyer mon avis':'إرسال رأيي','Langue':'اللغة'
+  'Votre avis':'رأيك','Commentaire (facultatif)':'تعليق (اختياري)','Envoyer mon avis':'إرسال رأيي','Langue':'اللغة',
+  // Facture / Journal
+  'FACTURE DOIT':'فاتورة','Achat ou vente de marchandises':'شراء أو بيع بضائع','FACTURE AVOIR':'إشعار دائن','Retour de marchandises':'إرجاع بضائع',
+  'Articles — Facture multi-lignes':'العناصر — فاتورة متعددة الأسطر','Ligne':'سطر','Désignation':'البيان','Qté':'الكمية','Unité':'الوحدة',
+  'P.U. HT (FCFA)':'سعر الوحدة قبل الضريبة (فرنك)','TVA %':'ض.ق.م %','Total HT':'الإجمالي قبل الضريبة','HT':'قبل الضريبة','TVA':'ض.ق.م','TTC':'شامل الضريبة',
+  'Valider la facture':'تأكيد الفاتورة','Nouvelle facture — DOIT':'فاتورة جديدة — فاتورة',
+  'Nouvelle facture — AVOIR (Retour marchandises)':'فاتورة جديدة — إشعار دائن (إرجاع بضائع)',
+  'N° auto :':'الرقم التلقائي:','Réinitialiser':'إعادة تعيين','Valider':'تأكيد','Date':'التاريخ','N° Facture':'رقم الفاتورة','(auto)':'(تلقائي)',
+  'Client / Fournisseur':'العميل / المورد','Gérer':'إدارة','Tapez pour rechercher ou créer...':'اكتب للبحث أو الإنشاء...',
+  'Type de transaction':'نوع المعاملة','-- Choisir --':'-- اختر --','Vente de marchandises':'بيع بضائع','Prestation de service':'تقديم خدمة',
+  'Achat fournisseur':'شراء من مورد','Produit en stock':'منتج في المخزون','-- Aucun --':'-- لا شيء --','Boîte':'علبة','Carton':'كرتون',
+  'Litre':'لتر','Mètre':'متر','Lot':'دفعة','Quantité':'الكمية','TVA applicable':'ضريبة القيمة المضافة المطبقة',
+  'Saisir une écriture manuelle':'إدخال قيد يدوي','N° pièce':'رقم المستند','Libellé':'البيان','Compte Débit':'حساب مدين',
+  'Compte Crédit':'حساب دائن','Montant (FCFA)':'المبلغ (فرنك)','Statut':'الحالة','Payée':'مدفوعة','En attente':'قيد الانتظار',
+  "Ajouter l'écriture":'إضافة القيد',
+  'Comptes suggérés à partir du libellé (plan OHADA) — cliquez une puce pour choisir une autre option, ou tapez vos propres comptes. Chaque validation affine les prochaines suggestions.':'حسابات مقترحة بناءً على البيان (مخطط أوهادا المحاسبي) — انقر على أحد الخيارات لاختيار بديل، أو اكتب حساباتك الخاصة. كل تأكيد يحسّن الاقتراحات التالية.',
+  'Rechercher...':'بحث...','Tous types':'جميع الأنواع','Vente':'بيع','Achat':'شراء','Service':'خدمة','Avoir':'إشعار دائن',
+  'Depuis':'من',"Jusqu'à":'إلى','Tous statuts':'جميع الحالات','Effacer filtres':'مسح المرشحات','Journal comptable':'دفتر اليومية',
+  'Cpt D':'حساب مدين','Cpt C':'حساب دائن','Débit FCFA':'مدين (فرنك)','Crédit FCFA':'دائن (فرنك)','Échéance':'تاريخ الاستحقاق','Action':'إجراء',
+  'Aucune écriture':'لا توجد قيود','TOTAL':'الإجمالي'
 },
 fi:{
   'Accueil':'Etusivu','Trésorerie':'Kassavarat','Déclarations':'Ilmoitukset','Chat IA':'Tekoälychat','Utilisateurs':'Käyttäjät','Paramètres':'Asetukset',
@@ -163,7 +201,26 @@ fi:{
   'Choisissez votre mot de passe pour activer votre compte':'Valitse salasana aktivoidaksesi tilisi','Activer mon compte':'Aktivoi tilini',
   'Apparence':'Ulkoasu','Luminosité':'Kirkkaus',"Couleur d'accent":'Korostusväri','Police':'Fontti','Intensité des ombres':'Varjojen voimakkuus',
   'Compte':'Tili','Nom complet':'Koko nimi','Enregistrer le nom':'Tallenna nimi','Changer le mot de passe':'Vaihda salasana',
-  'Votre avis':'Palautteesi','Commentaire (facultatif)':'Kommentti (valinnainen)','Envoyer mon avis':'Lähetä palaute','Langue':'Kieli'
+  'Votre avis':'Palautteesi','Commentaire (facultatif)':'Kommentti (valinnainen)','Envoyer mon avis':'Lähetä palaute','Langue':'Kieli',
+  // Facture / Journal
+  'FACTURE DOIT':'LASKU','Achat ou vente de marchandises':'Tavaroiden osto tai myynti','FACTURE AVOIR':'HYVITYSLASKU','Retour de marchandises':'Tavaroiden palautus',
+  'Articles — Facture multi-lignes':'Tuotteet — Monirivinen lasku','Ligne':'Rivi','Désignation':'Kuvaus','Qté':'Määrä','Unité':'Yksikkö',
+  'P.U. HT (FCFA)':'Yksikköhinta ilman veroa (FCFA)','TVA %':'ALV %','Total HT':'Yhteensä ilman veroa','HT':'Veroton','TVA':'ALV','TTC':'Verollinen',
+  'Valider la facture':'Vahvista lasku','Nouvelle facture — DOIT':'Uusi lasku — Lasku',
+  'Nouvelle facture — AVOIR (Retour marchandises)':'Uusi lasku — Hyvityslasku (tavaroiden palautus)',
+  'N° auto :':'Automaattinen nro:','Réinitialiser':'Nollaa','Valider':'Vahvista','Date':'Päivämäärä','N° Facture':'Laskun nro','(auto)':'(automaattinen)',
+  'Client / Fournisseur':'Asiakas / Toimittaja','Gérer':'Hallinnoi','Tapez pour rechercher ou créer...':'Kirjoita hakeaksesi tai luodaksesi...',
+  'Type de transaction':'Tapahtumatyyppi','-- Choisir --':'-- Valitse --','Vente de marchandises':'Tavaroiden myynti','Prestation de service':'Palvelun suoritus',
+  'Achat fournisseur':'Toimittajan osto','Produit en stock':'Varastossa oleva tuote','-- Aucun --':'-- Ei mitään --','Boîte':'Laatikko','Carton':'Pahvilaatikko',
+  'Litre':'Litra','Mètre':'Metri','Lot':'Erä','Quantité':'Määrä','TVA applicable':'Sovellettava ALV',
+  'Saisir une écriture manuelle':'Syötä manuaalinen kirjaus','N° pièce':'Tositenro','Libellé':'Selite','Compte Débit':'Debet-tili',
+  'Compte Crédit':'Kredit-tili','Montant (FCFA)':'Summa (FCFA)','Statut':'Tila','Payée':'Maksettu','En attente':'Odottaa',
+  "Ajouter l'écriture":'Lisää kirjaus',
+  'Comptes suggérés à partir du libellé (plan OHADA) — cliquez une puce pour choisir une autre option, ou tapez vos propres comptes. Chaque validation affine les prochaines suggestions.':'Selitteen perusteella ehdotetut tilit (OHADA-tilikartta) — valitse toinen vaihtoehto napauttamalla, tai kirjoita omat tilisi. Jokainen vahvistus tarkentaa seuraavia ehdotuksia.',
+  'Rechercher...':'Hae...','Tous types':'Kaikki tyypit','Vente':'Myynti','Achat':'Osto','Service':'Palvelu','Avoir':'Hyvityslasku',
+  'Depuis':'Alkaen',"Jusqu'à":'Asti','Tous statuts':'Kaikki tilat','Effacer filtres':'Tyhjennä suodattimet','Journal comptable':'Kirjanpidon päiväkirja',
+  'Cpt D':'Debet-tili','Cpt C':'Kredit-tili','Débit FCFA':'Debet FCFA','Crédit FCFA':'Kredit FCFA','Échéance':'Eräpäivä','Action':'Toiminto',
+  'Aucune écriture':'Ei kirjauksia','TOTAL':'YHTEENSÄ'
 },
 de:{
   'Accueil':'Start','Trésorerie':'Liquidität','Déclarations':'Meldungen','Chat IA':'KI-Chat','Utilisateurs':'Benutzer','Paramètres':'Einstellungen',
@@ -203,7 +260,26 @@ de:{
   'Choisissez votre mot de passe pour activer votre compte':'Wählen Sie Ihr Passwort, um Ihr Konto zu aktivieren','Activer mon compte':'Konto aktivieren',
   'Apparence':'Erscheinungsbild','Luminosité':'Helligkeit',"Couleur d'accent":'Akzentfarbe','Police':'Schriftart','Intensité des ombres':'Schattenintensität',
   'Compte':'Konto','Nom complet':'Vollständiger Name','Enregistrer le nom':'Namen speichern','Changer le mot de passe':'Passwort ändern',
-  'Votre avis':'Ihr Feedback','Commentaire (facultatif)':'Kommentar (optional)','Envoyer mon avis':'Feedback senden','Langue':'Sprache'
+  'Votre avis':'Ihr Feedback','Commentaire (facultatif)':'Kommentar (optional)','Envoyer mon avis':'Feedback senden','Langue':'Sprache',
+  // Facture / Journal
+  'FACTURE DOIT':'RECHNUNG','Achat ou vente de marchandises':'Kauf oder Verkauf von Waren','FACTURE AVOIR':'GUTSCHRIFT','Retour de marchandises':'Warenrücksendung',
+  'Articles — Facture multi-lignes':'Artikel — Mehrzeilige Rechnung','Ligne':'Zeile','Désignation':'Bezeichnung','Qté':'Menge','Unité':'Einheit',
+  'P.U. HT (FCFA)':'Einzelpreis netto (FCFA)','TVA %':'MwSt. %','Total HT':'Gesamt netto','HT':'Netto','TVA':'MwSt.','TTC':'Brutto',
+  'Valider la facture':'Rechnung bestätigen','Nouvelle facture — DOIT':'Neue Rechnung — Rechnung',
+  'Nouvelle facture — AVOIR (Retour marchandises)':'Neue Rechnung — Gutschrift (Warenrücksendung)',
+  'N° auto :':'Automatische Nr.:','Réinitialiser':'Zurücksetzen','Valider':'Bestätigen','Date':'Datum','N° Facture':'Rechnungsnr.','(auto)':'(automatisch)',
+  'Client / Fournisseur':'Kunde / Lieferant','Gérer':'Verwalten','Tapez pour rechercher ou créer...':'Tippen, um zu suchen oder zu erstellen...',
+  'Type de transaction':'Transaktionstyp','-- Choisir --':'-- Auswählen --','Vente de marchandises':'Warenverkauf','Prestation de service':'Dienstleistung',
+  'Achat fournisseur':'Lieferanteneinkauf','Produit en stock':'Produkt im Lager','-- Aucun --':'-- Keine --','Boîte':'Schachtel','Carton':'Karton',
+  'Litre':'Liter','Mètre':'Meter','Lot':'Charge','Quantité':'Menge','TVA applicable':'Anwendbare MwSt.',
+  'Saisir une écriture manuelle':'Manuellen Buchungssatz erfassen','N° pièce':'Belegnr.','Libellé':'Bezeichnung','Compte Débit':'Sollkonto',
+  'Compte Crédit':'Habenkonto','Montant (FCFA)':'Betrag (FCFA)','Statut':'Status','Payée':'Bezahlt','En attente':'Ausstehend',
+  "Ajouter l'écriture":'Buchung hinzufügen',
+  'Comptes suggérés à partir du libellé (plan OHADA) — cliquez une puce pour choisir une autre option, ou tapez vos propres comptes. Chaque validation affine les prochaines suggestions.':'Anhand der Bezeichnung vorgeschlagene Konten (OHADA-Kontenplan) — klicken Sie auf einen Chip, um eine andere Option zu wählen, oder geben Sie eigene Konten ein. Jede Bestätigung verfeinert die nächsten Vorschläge.',
+  'Rechercher...':'Suchen...','Tous types':'Alle Typen','Vente':'Verkauf','Achat':'Einkauf','Service':'Dienstleistung','Avoir':'Gutschrift',
+  'Depuis':'Von',"Jusqu'à":'Bis','Tous statuts':'Alle Status','Effacer filtres':'Filter zurücksetzen','Journal comptable':'Buchungsjournal',
+  'Cpt D':'Sollkto.','Cpt C':'Habenkto.','Débit FCFA':'Soll FCFA','Crédit FCFA':'Haben FCFA','Échéance':'Fälligkeit','Action':'Aktion',
+  'Aucune écriture':'Keine Buchungen','TOTAL':'GESAMT'
 },
 es:{
   'Accueil':'Inicio','Trésorerie':'Tesorería','Déclarations':'Declaraciones','Chat IA':'Chat IA','Utilisateurs':'Usuarios','Paramètres':'Configuración',
@@ -243,7 +319,26 @@ es:{
   'Choisissez votre mot de passe pour activer votre compte':'Elige tu contraseña para activar tu cuenta','Activer mon compte':'Activar mi cuenta',
   'Apparence':'Apariencia','Luminosité':'Brillo',"Couleur d'accent":'Color de acento','Police':'Tipografía','Intensité des ombres':'Intensidad de sombras',
   'Compte':'Cuenta','Nom complet':'Nombre completo','Enregistrer le nom':'Guardar nombre','Changer le mot de passe':'Cambiar contraseña',
-  'Votre avis':'Tu opinión','Commentaire (facultatif)':'Comentario (opcional)','Envoyer mon avis':'Enviar opinión','Langue':'Idioma'
+  'Votre avis':'Tu opinión','Commentaire (facultatif)':'Comentario (opcional)','Envoyer mon avis':'Enviar opinión','Langue':'Idioma',
+  // Facture / Journal
+  'FACTURE DOIT':'FACTURA','Achat ou vente de marchandises':'Compra o venta de mercancías','FACTURE AVOIR':'NOTA DE CRÉDITO','Retour de marchandises':'Devolución de mercancías',
+  'Articles — Facture multi-lignes':'Artículos — Factura multilínea','Ligne':'Línea','Désignation':'Descripción','Qté':'Cant.','Unité':'Unidad',
+  'P.U. HT (FCFA)':'Precio unitario sin IVA (FCFA)','TVA %':'IVA %','Total HT':'Total sin IVA','HT':'Sin IVA','TVA':'IVA','TTC':'Con IVA',
+  'Valider la facture':'Confirmar factura','Nouvelle facture — DOIT':'Nueva factura — Factura',
+  'Nouvelle facture — AVOIR (Retour marchandises)':'Nueva factura — Nota de crédito (devolución de mercancías)',
+  'N° auto :':'N.º automático:','Réinitialiser':'Restablecer','Valider':'Confirmar','Date':'Fecha','N° Facture':'N.º de factura','(auto)':'(automático)',
+  'Client / Fournisseur':'Cliente / Proveedor','Gérer':'Gestionar','Tapez pour rechercher ou créer...':'Escriba para buscar o crear...',
+  'Type de transaction':'Tipo de transacción','-- Choisir --':'-- Elegir --','Vente de marchandises':'Venta de mercancías','Prestation de service':'Prestación de servicio',
+  'Achat fournisseur':'Compra a proveedor','Produit en stock':'Producto en inventario','-- Aucun --':'-- Ninguno --','Boîte':'Caja','Carton':'Cartón',
+  'Litre':'Litro','Mètre':'Metro','Lot':'Lote','Quantité':'Cantidad','TVA applicable':'IVA aplicable',
+  'Saisir une écriture manuelle':'Introducir un asiento manual','N° pièce':'N.º de documento','Libellé':'Concepto','Compte Débit':'Cuenta debe',
+  'Compte Crédit':'Cuenta haber','Montant (FCFA)':'Importe (FCFA)','Statut':'Estado','Payée':'Pagada','En attente':'Pendiente',
+  "Ajouter l'écriture":'Añadir asiento',
+  'Comptes suggérés à partir du libellé (plan OHADA) — cliquez une puce pour choisir une autre option, ou tapez vos propres comptes. Chaque validation affine les prochaines suggestions.':'Cuentas sugeridas a partir del concepto (plan contable OHADA) — haga clic en una opción para elegir otra, o escriba sus propias cuentas. Cada confirmación mejora las siguientes sugerencias.',
+  'Rechercher...':'Buscar...','Tous types':'Todos los tipos','Vente':'Venta','Achat':'Compra','Service':'Servicio','Avoir':'Nota de crédito',
+  'Depuis':'Desde',"Jusqu'à":'Hasta','Tous statuts':'Todos los estados','Effacer filtres':'Borrar filtros','Journal comptable':'Diario contable',
+  'Cpt D':'Cta. debe','Cpt C':'Cta. haber','Débit FCFA':'Debe FCFA','Crédit FCFA':'Haber FCFA','Échéance':'Vencimiento','Action':'Acción',
+  'Aucune écriture':'Sin asientos','TOTAL':'TOTAL'
 },
 pt:{
   'Accueil':'Início','Trésorerie':'Tesouraria','Déclarations':'Declarações','Chat IA':'Chat IA','Utilisateurs':'Usuários','Paramètres':'Configurações',
@@ -283,7 +378,26 @@ pt:{
   'Choisissez votre mot de passe pour activer votre compte':'Escolha sua senha para ativar sua conta','Activer mon compte':'Ativar minha conta',
   'Apparence':'Aparência','Luminosité':'Brilho',"Couleur d'accent":'Cor de destaque','Police':'Fonte','Intensité des ombres':'Intensidade das sombras',
   'Compte':'Conta','Nom complet':'Nome completo','Enregistrer le nom':'Salvar nome','Changer le mot de passe':'Alterar senha',
-  'Votre avis':'Sua opinião','Commentaire (facultatif)':'Comentário (opcional)','Envoyer mon avis':'Enviar opinião','Langue':'Idioma'
+  'Votre avis':'Sua opinião','Commentaire (facultatif)':'Comentário (opcional)','Envoyer mon avis':'Enviar opinião','Langue':'Idioma',
+  // Facture / Journal
+  'FACTURE DOIT':'FATURA','Achat ou vente de marchandises':'Compra ou venda de mercadorias','FACTURE AVOIR':'NOTA DE CRÉDITO','Retour de marchandises':'Devolução de mercadorias',
+  'Articles — Facture multi-lignes':'Itens — Fatura multilinha','Ligne':'Linha','Désignation':'Descrição','Qté':'Qtd.','Unité':'Unidade',
+  'P.U. HT (FCFA)':'Preço unitário sem imposto (FCFA)','TVA %':'IVA %','Total HT':'Total sem imposto','HT':'Sem imposto','TVA':'IVA','TTC':'Com imposto',
+  'Valider la facture':'Confirmar fatura','Nouvelle facture — DOIT':'Nova fatura — Fatura',
+  'Nouvelle facture — AVOIR (Retour marchandises)':'Nova fatura — Nota de crédito (devolução de mercadorias)',
+  'N° auto :':'N.º automático:','Réinitialiser':'Redefinir','Valider':'Confirmar','Date':'Data','N° Facture':'N.º da fatura','(auto)':'(automático)',
+  'Client / Fournisseur':'Cliente / Fornecedor','Gérer':'Gerenciar','Tapez pour rechercher ou créer...':'Digite para pesquisar ou criar...',
+  'Type de transaction':'Tipo de transação','-- Choisir --':'-- Escolher --','Vente de marchandises':'Venda de mercadorias','Prestation de service':'Prestação de serviço',
+  'Achat fournisseur':'Compra a fornecedor','Produit en stock':'Produto em estoque','-- Aucun --':'-- Nenhum --','Boîte':'Caixa','Carton':'Caixa de papelão',
+  'Litre':'Litro','Mètre':'Metro','Lot':'Lote','Quantité':'Quantidade','TVA applicable':'IVA aplicável',
+  'Saisir une écriture manuelle':'Inserir um lançamento manual','N° pièce':'N.º do documento','Libellé':'Descrição','Compte Débit':'Conta débito',
+  'Compte Crédit':'Conta crédito','Montant (FCFA)':'Valor (FCFA)','Statut':'Status','Payée':'Paga','En attente':'Pendente',
+  "Ajouter l'écriture":'Adicionar lançamento',
+  'Comptes suggérés à partir du libellé (plan OHADA) — cliquez une puce pour choisir une autre option, ou tapez vos propres comptes. Chaque validation affine les prochaines suggestions.':'Contas sugeridas a partir da descrição (plano de contas OHADA) — clique em uma opção para escolher outra, ou digite suas próprias contas. Cada confirmação refina as próximas sugestões.',
+  'Rechercher...':'Pesquisar...','Tous types':'Todos os tipos','Vente':'Venda','Achat':'Compra','Service':'Serviço','Avoir':'Nota de crédito',
+  'Depuis':'De',"Jusqu'à":'Até','Tous statuts':'Todos os status','Effacer filtres':'Limpar filtros','Journal comptable':'Diário contábil',
+  'Cpt D':'Conta déb.','Cpt C':'Conta créd.','Débit FCFA':'Débito FCFA','Crédit FCFA':'Crédito FCFA','Échéance':'Vencimento','Action':'Ação',
+  'Aucune écriture':'Nenhum lançamento','TOTAL':'TOTAL'
 },
 zh:{
   'Accueil':'首页','Trésorerie':'资金','Déclarations':'申报','Chat IA':'AI 聊天','Utilisateurs':'用户','Paramètres':'设置',
@@ -323,7 +437,26 @@ zh:{
   'Choisissez votre mot de passe pour activer votre compte':'请设置密码以激活您的账号','Activer mon compte':'激活我的账号',
   'Apparence':'外观','Luminosité':'亮度',"Couleur d'accent":'强调色','Police':'字体','Intensité des ombres':'阴影强度',
   'Compte':'账号','Nom complet':'全名','Enregistrer le nom':'保存姓名','Changer le mot de passe':'修改密码',
-  'Votre avis':'您的反馈','Commentaire (facultatif)':'评论（选填）','Envoyer mon avis':'发送反馈','Langue':'语言'
+  'Votre avis':'您的反馈','Commentaire (facultatif)':'评论（选填）','Envoyer mon avis':'发送反馈','Langue':'语言',
+  // Facture / Journal
+  'FACTURE DOIT':'发票','Achat ou vente de marchandises':'商品采购或销售','FACTURE AVOIR':'贷方通知单','Retour de marchandises':'商品退货',
+  'Articles — Facture multi-lignes':'项目 — 多行发票','Ligne':'行','Désignation':'名称','Qté':'数量','Unité':'单位',
+  'P.U. HT (FCFA)':'未税单价（FCFA）','TVA %':'增值税 %','Total HT':'未税总额','HT':'未税','TVA':'增值税','TTC':'含税',
+  'Valider la facture':'确认发票','Nouvelle facture — DOIT':'新发票 — 发票',
+  'Nouvelle facture — AVOIR (Retour marchandises)':'新发票 — 贷方通知单（商品退货）',
+  'N° auto :':'自动编号：','Réinitialiser':'重置','Valider':'确认','Date':'日期','N° Facture':'发票编号','(auto)':'（自动）',
+  'Client / Fournisseur':'客户 / 供应商','Gérer':'管理','Tapez pour rechercher ou créer...':'输入以搜索或创建...',
+  'Type de transaction':'交易类型','-- Choisir --':'-- 选择 --','Vente de marchandises':'商品销售','Prestation de service':'服务提供',
+  'Achat fournisseur':'供应商采购','Produit en stock':'库存产品','-- Aucun --':'-- 无 --','Boîte':'盒','Carton':'箱',
+  'Litre':'升','Mètre':'米','Lot':'批','Quantité':'数量','TVA applicable':'适用增值税',
+  'Saisir une écriture manuelle':'录入手动分录','N° pièce':'凭证编号','Libellé':'摘要','Compte Débit':'借方科目',
+  'Compte Crédit':'贷方科目','Montant (FCFA)':'金额（FCFA）','Statut':'状态','Payée':'已付款','En attente':'待处理',
+  "Ajouter l'écriture":'添加分录',
+  'Comptes suggérés à partir du libellé (plan OHADA) — cliquez une puce pour choisir une autre option, ou tapez vos propres comptes. Chaque validation affine les prochaines suggestions.':'根据摘要建议的科目（OHADA会计科目表）— 点击选项可选择其他建议，或输入您自己的科目。每次确认都会优化后续建议。',
+  'Rechercher...':'搜索...','Tous types':'所有类型','Vente':'销售','Achat':'采购','Service':'服务','Avoir':'贷方通知单',
+  'Depuis':'从',"Jusqu'à":'到','Tous statuts':'所有状态','Effacer filtres':'清除筛选','Journal comptable':'会计日记账',
+  'Cpt D':'借方科目','Cpt C':'贷方科目','Débit FCFA':'借方 FCFA','Crédit FCFA':'贷方 FCFA','Échéance':'到期日','Action':'操作',
+  'Aucune écriture':'无分录','TOTAL':'合计'
 },
 ja:{
   'Accueil':'ホーム','Trésorerie':'資金繰り','Déclarations':'申告','Chat IA':'AIチャット','Utilisateurs':'ユーザー','Paramètres':'設定',
@@ -363,7 +496,26 @@ ja:{
   'Choisissez votre mot de passe pour activer votre compte':'アカウントを有効化するパスワードを設定してください','Activer mon compte':'アカウントを有効化',
   'Apparence':'外観','Luminosité':'明るさ',"Couleur d'accent":'アクセントカラー','Police':'フォント','Intensité des ombres':'影の強さ',
   'Compte':'アカウント','Nom complet':'氏名','Enregistrer le nom':'名前を保存','Changer le mot de passe':'パスワードを変更',
-  'Votre avis':'ご意見','Commentaire (facultatif)':'コメント（任意）','Envoyer mon avis':'意見を送信','Langue':'言語'
+  'Votre avis':'ご意見','Commentaire (facultatif)':'コメント（任意）','Envoyer mon avis':'意見を送信','Langue':'言語',
+  // Facture / Journal
+  'FACTURE DOIT':'請求書','Achat ou vente de marchandises':'商品の仕入または販売','FACTURE AVOIR':'クレジットノート','Retour de marchandises':'商品返品',
+  'Articles — Facture multi-lignes':'品目 — 複数行請求書','Ligne':'行','Désignation':'品名','Qté':'数量','Unité':'単位',
+  'P.U. HT (FCFA)':'税抜単価（FCFA）','TVA %':'付加価値税 %','Total HT':'税抜合計','HT':'税抜','TVA':'付加価値税','TTC':'税込',
+  'Valider la facture':'請求書を確定','Nouvelle facture — DOIT':'新規請求書 — 請求書',
+  'Nouvelle facture — AVOIR (Retour marchandises)':'新規請求書 — クレジットノート（商品返品）',
+  'N° auto :':'自動採番：','Réinitialiser':'リセット','Valider':'確定','Date':'日付','N° Facture':'請求書番号','(auto)':'（自動）',
+  'Client / Fournisseur':'顧客 / 仕入先','Gérer':'管理','Tapez pour rechercher ou créer...':'入力して検索または作成...',
+  'Type de transaction':'取引タイプ','-- Choisir --':'-- 選択 --','Vente de marchandises':'商品販売','Prestation de service':'サービス提供',
+  'Achat fournisseur':'仕入先からの購入','Produit en stock':'在庫商品','-- Aucun --':'-- なし --','Boîte':'箱','Carton':'カートン',
+  'Litre':'リットル','Mètre':'メートル','Lot':'ロット','Quantité':'数量','TVA applicable':'適用される付加価値税',
+  'Saisir une écriture manuelle':'手動仕訳を入力','N° pièce':'証憑番号','Libellé':'摘要','Compte Débit':'借方勘定',
+  'Compte Crédit':'貸方勘定','Montant (FCFA)':'金額（FCFA）','Statut':'ステータス','Payée':'支払済み','En attente':'保留中',
+  "Ajouter l'écriture":'仕訳を追加',
+  'Comptes suggérés à partir du libellé (plan OHADA) — cliquez une puce pour choisir une autre option, ou tapez vos propres comptes. Chaque validation affine les prochaines suggestions.':'摘要に基づいて勘定科目を提案します（OHADA勘定科目表）— チップをクリックすると別の候補を選べます。ご自身の科目を入力することもできます。確定するたびに次の提案が改善されます。',
+  'Rechercher...':'検索...','Tous types':'すべての種類','Vente':'販売','Achat':'仕入','Service':'サービス','Avoir':'クレジットノート',
+  'Depuis':'開始日',"Jusqu'à":'終了日','Tous statuts':'すべてのステータス','Effacer filtres':'フィルターを解除','Journal comptable':'会計仕訳帳',
+  'Cpt D':'借方科目','Cpt C':'貸方科目','Débit FCFA':'借方 FCFA','Crédit FCFA':'貸方 FCFA','Échéance':'支払期日','Action':'操作',
+  'Aucune écriture':'仕訳なし','TOTAL':'合計'
 }
 };
 
@@ -425,6 +577,9 @@ function appliquerTraductionStatique(){
   });
   document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el){
     el.placeholder=t(el.getAttribute('data-i18n-placeholder'));
+  });
+  document.querySelectorAll('[data-i18n-title]').forEach(function(el){
+    el.title=t(el.getAttribute('data-i18n-title'));
   });
   // .brut-input-wrap utilise data-label (lu par ::before{content:attr(
   // data-label)} en CSS, voir css/01-core.css) plutôt qu'un texte visible

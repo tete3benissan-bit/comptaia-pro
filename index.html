@@ -227,26 +227,26 @@
 
       <!-- DOIT / AVOIR toggle -->
       <div class="ftt">
-        <button class="ftt-btn ftt-doit" id="ftt-doit" onclick="setMode('doit')"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><line x1="9.5" y1="12" x2="15" y2="12"/><line x1="9.5" y1="15.5" x2="15" y2="15.5"/></svg> FACTURE DOIT<small>Achat ou vente de marchandises</small></button>
-        <button class="ftt-btn" id="ftt-avoir" onclick="setMode('avoir')"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9a8 8 0 0 1 14-4.5M20 5v5h-5"/><path d="M20 15a8 8 0 0 1-14 4.5M4 19v-5h5"/></svg> FACTURE AVOIR<small>Retour de marchandises</small></button>
+        <button class="ftt-btn ftt-doit" id="ftt-doit" onclick="setMode('doit')"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><line x1="9.5" y1="12" x2="15" y2="12"/><line x1="9.5" y1="15.5" x2="15" y2="15.5"/></svg> <span data-i18n="FACTURE DOIT">FACTURE DOIT</span><small data-i18n="Achat ou vente de marchandises">Achat ou vente de marchandises</small></button>
+        <button class="ftt-btn" id="ftt-avoir" onclick="setMode('avoir')"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9a8 8 0 0 1 14-4.5M20 5v5h-5"/><path d="M20 15a8 8 0 0 1-14 4.5M4 19v-5h5"/></svg> <span data-i18n="FACTURE AVOIR">FACTURE AVOIR</span><small data-i18n="Retour de marchandises">Retour de marchandises</small></button>
       </div>
 
       <!-- LIGNES MULTI-ARTICLES v14 -->
       <div class="card" id="multilignes-card" style="margin-bottom:12px">
         <div class="card-header">
-          <span class="card-title" id="ml-card-title">Articles — Facture multi-lignes</span>
-          <button class="btn btn-sm btn-primary" onclick="ajouterLigneML()" style="font-size:10px">+ Ligne</button>
+          <span class="card-title" id="ml-card-title" data-i18n="Articles — Facture multi-lignes">Articles — Facture multi-lignes</span>
+          <button class="btn btn-sm btn-primary" onclick="ajouterLigneML()" style="font-size:10px">+ <span data-i18n="Ligne">Ligne</span></button>
         </div>
         <div class="card-body" style="padding:0;overflow-x:auto">
           <table style="width:100%;border-collapse:collapse;font-size:11.5px;min-width:680px">
             <thead id="ml-thead">
               <tr style="background:var(--bg)">
-                <th style="padding:6px 8px;text-align:left;border-bottom:2px solid var(--border);font-size:10px;text-transform:uppercase;color:var(--text-muted);min-width:160px">Désignation</th>
-                <th style="padding:6px 8px;text-align:right;border-bottom:2px solid var(--border);font-size:10px;text-transform:uppercase;color:var(--text-muted);width:70px">Qté</th>
-                <th style="padding:6px 8px;border-bottom:2px solid var(--border);font-size:10px;text-transform:uppercase;color:var(--text-muted);width:70px">Unité</th>
-                <th style="padding:6px 8px;text-align:right;border-bottom:2px solid var(--border);font-size:10px;text-transform:uppercase;color:var(--text-muted);width:110px">P.U. HT (FCFA)</th>
-                <th style="padding:6px 8px;text-align:right;border-bottom:2px solid var(--border);font-size:10px;text-transform:uppercase;color:var(--text-muted);width:65px">TVA %</th>
-                <th style="padding:6px 8px;text-align:right;border-bottom:2px solid var(--border);font-size:10px;text-transform:uppercase;color:var(--text-muted);width:110px">Total HT</th>
+                <th style="padding:6px 8px;text-align:left;border-bottom:2px solid var(--border);font-size:10px;text-transform:uppercase;color:var(--text-muted);min-width:160px" data-i18n="Désignation">Désignation</th>
+                <th style="padding:6px 8px;text-align:right;border-bottom:2px solid var(--border);font-size:10px;text-transform:uppercase;color:var(--text-muted);width:70px" data-i18n="Qté">Qté</th>
+                <th style="padding:6px 8px;border-bottom:2px solid var(--border);font-size:10px;text-transform:uppercase;color:var(--text-muted);width:70px" data-i18n="Unité">Unité</th>
+                <th style="padding:6px 8px;text-align:right;border-bottom:2px solid var(--border);font-size:10px;text-transform:uppercase;color:var(--text-muted);width:110px" data-i18n="P.U. HT (FCFA)">P.U. HT (FCFA)</th>
+                <th style="padding:6px 8px;text-align:right;border-bottom:2px solid var(--border);font-size:10px;text-transform:uppercase;color:var(--text-muted);width:65px" data-i18n="TVA %">TVA %</th>
+                <th style="padding:6px 8px;text-align:right;border-bottom:2px solid var(--border);font-size:10px;text-transform:uppercase;color:var(--text-muted);width:110px" data-i18n="Total HT">Total HT</th>
                 <th style="padding:6px 8px;border-bottom:2px solid var(--border);width:30px"></th>
               </tr>
             </thead>
@@ -322,56 +322,56 @@
         </div>
         <!-- Totaux multi-lignes -->
         <div style="padding:8px 14px;background:var(--bg);border-top:2px solid var(--border);display:flex;align-items:center;justify-content:flex-end;gap:20px;flex-wrap:wrap">
-          <span style="font-size:11px;color:var(--text-muted)">HT : <strong id="ml-total-ht" style="font-family:'Archivo',sans-serif">0</strong> FCFA</span>
-          <span style="font-size:11px;color:var(--text-muted)">TVA : <strong id="ml-total-tva" style="font-family:'Archivo',sans-serif;color:var(--teal)">0</strong> FCFA</span>
-          <span style="font-size:11.5px;font-weight:600;color:var(--green-dark)">TTC : <strong id="ml-total-ttc" style="font-family:'Archivo',sans-serif;font-size:13px">0</strong> FCFA</span>
-          <button class="btn btn-primary" onclick="validerMultifacture()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,13 9,18 20,6"/></svg> Valider la facture</button>
+          <span style="font-size:11px;color:var(--text-muted)"><span data-i18n="HT">HT</span> : <strong id="ml-total-ht" style="font-family:'Archivo',sans-serif">0</strong> FCFA</span>
+          <span style="font-size:11px;color:var(--text-muted)"><span data-i18n="TVA">TVA</span> : <strong id="ml-total-tva" style="font-family:'Archivo',sans-serif;color:var(--teal)">0</strong> FCFA</span>
+          <span style="font-size:11.5px;font-weight:600;color:var(--green-dark)"><span data-i18n="TTC">TTC</span> : <strong id="ml-total-ttc" style="font-family:'Archivo',sans-serif;font-size:13px">0</strong> FCFA</span>
+          <button class="btn btn-primary" onclick="validerMultifacture()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,13 9,18 20,6"/></svg> <span data-i18n="Valider la facture">Valider la facture</span></button>
         </div>
       </div>
 
       <div class="card" id="fact-main-card">
         <div class="card-header">
-          <span class="card-title" id="facture-card-title">Nouvelle facture — DOIT</span>
+          <span class="card-title" id="facture-card-title" data-i18n="Nouvelle facture — DOIT">Nouvelle facture — DOIT</span>
           <div style="display:flex;gap:6px;align-items:center">
-            <span style="font-size:11px;color:var(--text-muted)">N° auto :</span>
+            <span style="font-size:11px;color:var(--text-muted)" data-i18n="N° auto :">N° auto :</span>
             <span id="num-auto-preview" style="font-family:'Archivo',sans-serif;font-size:11px;color:var(--green-dark);font-weight:600"></span>
-            <button class="btn btn-sm" onclick="reinit()">Réinitialiser</button>
-            <button class="btn btn-sm btn-primary" onclick="valider()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,13 9,18 20,6"/></svg> Valider</button>
+            <button class="btn btn-sm" onclick="reinit()" data-i18n="Réinitialiser">Réinitialiser</button>
+            <button class="btn btn-sm btn-primary" onclick="valider()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,13 9,18 20,6"/></svg> <span data-i18n="Valider">Valider</span></button>
           </div>
         </div>
         <div class="card-body">
 
           <div class="fgrid fg4" style="margin-bottom:12px">
-            <div class="fg"><label>Date</label><input type="date" id="f-date"/></div>
-            <div class="fg"><label>N° Facture <span style="color:var(--green);font-style:italic">(auto)</span></label><input type="text" id="f-num" placeholder="F2026-001"/></div>
+            <div class="fg"><label data-i18n="Date">Date</label><input type="date" id="f-date"/></div>
+            <div class="fg"><label><span data-i18n="N° Facture">N° Facture</span> <span style="color:var(--green);font-style:italic" data-i18n="(auto)">(auto)</span></label><input type="text" id="f-num" placeholder="F2026-001"/></div>
             <div class="fg sp2">
-              <label>Client / Fournisseur <button onclick="go('tiers',document.querySelectorAll('.nav-item')[1])" style="font-size:10px;padding:1px 6px;border:2px solid var(--border);border-radius:var(--radius);background:var(--bg);cursor:pointer;margin-left:4px">+ Gérer</button></label>
-              <input type="text" id="f-client" list="tiers-list" placeholder="Tapez pour rechercher ou créer..."/>
+              <label><span data-i18n="Client / Fournisseur">Client / Fournisseur</span> <button onclick="go('tiers',document.querySelectorAll('.nav-item')[1])" style="font-size:10px;padding:1px 6px;border:2px solid var(--border);border-radius:var(--radius);background:var(--bg);cursor:pointer;margin-left:4px">+ <span data-i18n="Gérer">Gérer</span></button></label>
+              <input type="text" id="f-client" list="tiers-list" data-i18n-placeholder="Tapez pour rechercher ou créer..." placeholder="Tapez pour rechercher ou créer..."/>
               <datalist id="tiers-list"></datalist>
             </div>
           </div>
 
           <div class="fgrid fg4" style="margin-bottom:12px">
-            <div class="fg sp2"><label>Type de transaction</label>
+            <div class="fg sp2"><label data-i18n="Type de transaction">Type de transaction</label>
               <select id="f-type">
-                <option value="">-- Choisir --</option>
-                <option value="vente">Vente de marchandises</option>
-                <option value="service">Prestation de service</option>
-                <option value="achat">Achat fournisseur</option>
+                <option value="" data-i18n="-- Choisir --">-- Choisir --</option>
+                <option value="vente" data-i18n="Vente de marchandises">Vente de marchandises</option>
+                <option value="service" data-i18n="Prestation de service">Prestation de service</option>
+                <option value="achat" data-i18n="Achat fournisseur">Achat fournisseur</option>
               </select>
             </div>
-            <div class="fg sp2"><label>Désignation</label><input type="text" id="f-desc" placeholder="Description des articles ou services" oninput="onDescInput()"/></div>
+            <div class="fg sp2"><label data-i18n="Désignation">Désignation</label><input type="text" id="f-desc" data-i18n-placeholder="Description des articles ou services" placeholder="Description des articles ou services" oninput="onDescInput()"/></div>
           </div>
 
           <div class="fgrid fg4" style="margin-bottom:4px">
-            <div class="fg sp2"><label>Produit en stock</label><select id="f-produit-stock" onchange="onProduitChange()"><option value="">-- Aucun --</option></select></div>
-            <div class="fg"><label>Unité</label><select id="f-unite"><option value="unite">Unité</option><option value="boite">Boîte</option><option value="carton">Carton</option><option value="kg">Kg</option><option value="litre">Litre</option><option value="metre">Mètre</option><option value="lot">Lot</option></select></div>
-            <div class="fg"><label>Quantité</label><input type="number" id="f-qty" placeholder="0" min="0" oninput="calcM()"/></div>
+            <div class="fg sp2"><label data-i18n="Produit en stock">Produit en stock</label><select id="f-produit-stock" onchange="onProduitChange()"><option value="" data-i18n="-- Aucun --">-- Aucun --</option></select></div>
+            <div class="fg"><label data-i18n="Unité">Unité</label><select id="f-unite"><option value="unite" data-i18n="Unité">Unité</option><option value="boite" data-i18n="Boîte">Boîte</option><option value="carton" data-i18n="Carton">Carton</option><option value="kg">Kg</option><option value="litre" data-i18n="Litre">Litre</option><option value="metre" data-i18n="Mètre">Mètre</option><option value="lot" data-i18n="Lot">Lot</option></select></div>
+            <div class="fg"><label data-i18n="Quantité">Quantité</label><input type="number" id="f-qty" placeholder="0" min="0" oninput="calcM()"/></div>
           </div>
           <div id="f-stock-hint" style="display:none;font-size:10.5px;padding:5px 9px;background:var(--green-light);border-radius:var(--radius);color:var(--green-dark);margin-bottom:8px"></div>
 
           <div class="sep"></div>
-          <div class="section-label">TVA applicable</div>
+          <div class="section-label" data-i18n="TVA applicable">TVA applicable</div>
           <div style="background:var(--green-light);border:2px solid var(--green-border);border-radius:var(--radius);padding:10px 12px;margin-bottom:12px">
             <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
               <select id="f-tva-type" onchange="onTvaChange()" style="max-width:300px;border-color:var(--green-border)">
@@ -478,44 +478,44 @@
     <!-- ═══ JOURNAL ═══ -->
     <div class="pane" id="pane-journal">
       <details style="margin-bottom:12px;background:var(--surface);border-radius:var(--radius);overflow:hidden">
-        <summary style="cursor:pointer;padding:9px 14px;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--text-muted)">+ Saisir une écriture manuelle</summary>
+        <summary style="cursor:pointer;padding:9px 14px;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--text-muted)">+ <span data-i18n="Saisir une écriture manuelle">Saisir une écriture manuelle</span></summary>
         <div class="fgrid fg4" style="padding:4px 14px 14px">
-          <div class="fg"><label>Date</label><input type="date" id="me-date"/></div>
-          <div class="fg"><label>N° pièce</label><input type="text" id="me-num" placeholder="Ex : OD-001"/></div>
-          <div class="fg sp2"><label>Libellé</label><input type="text" id="me-libelle" placeholder="Ex : Régularisation..." oninput="suggererComptesManuel()"/></div>
-          <div class="fg"><label>Compte Débit</label><input type="text" id="me-cptd" placeholder="Ex : 6011" style="font-family:'Archivo',sans-serif"/></div>
-          <div class="fg"><label>Compte Crédit</label><input type="text" id="me-cptc" placeholder="Ex : 4011" style="font-family:'Archivo',sans-serif"/></div>
-          <div class="fg"><label>Montant (FCFA)</label><input type="number" id="me-montant" placeholder="0" min="0"/></div>
-          <div class="fg"><label>Statut</label><select id="me-stat"><option value="payee">Payée</option><option value="attente">En attente</option></select></div>
-          <div class="fg" style="justify-content:flex-end;flex-direction:row;align-items:flex-end"><button class="btn btn-primary" onclick="ajouterEcritureManuelle()">+ Ajouter l'écriture</button></div>
+          <div class="fg"><label data-i18n="Date">Date</label><input type="date" id="me-date"/></div>
+          <div class="fg"><label data-i18n="N° pièce">N° pièce</label><input type="text" id="me-num" placeholder="Ex : OD-001"/></div>
+          <div class="fg sp2"><label data-i18n="Libellé">Libellé</label><input type="text" id="me-libelle" data-i18n-placeholder="Ex : Régularisation..." placeholder="Ex : Régularisation..." oninput="suggererComptesManuel()"/></div>
+          <div class="fg"><label data-i18n="Compte Débit">Compte Débit</label><input type="text" id="me-cptd" placeholder="Ex : 6011" style="font-family:'Archivo',sans-serif"/></div>
+          <div class="fg"><label data-i18n="Compte Crédit">Compte Crédit</label><input type="text" id="me-cptc" placeholder="Ex : 4011" style="font-family:'Archivo',sans-serif"/></div>
+          <div class="fg"><label data-i18n="Montant (FCFA)">Montant (FCFA)</label><input type="number" id="me-montant" placeholder="0" min="0"/></div>
+          <div class="fg"><label data-i18n="Statut">Statut</label><select id="me-stat"><option value="payee" data-i18n="Payée">Payée</option><option value="attente" data-i18n="En attente">En attente</option></select></div>
+          <div class="fg" style="justify-content:flex-end;flex-direction:row;align-items:flex-end"><button class="btn btn-primary" onclick="ajouterEcritureManuelle()">+ <span data-i18n="Ajouter l'écriture">Ajouter l'écriture</span></button></div>
           <div id="me-suggestions" class="ia-suggestions" style="display:none;grid-column:1/-1;padding:0 0 4px"></div>
-          <div style="grid-column:1/-1;font-size:10px;color:var(--text-faint);font-style:italic">Comptes suggérés à partir du libellé (plan OHADA) — cliquez une puce pour choisir une autre option, ou tapez vos propres comptes. Chaque validation affine les prochaines suggestions.</div>
+          <div style="grid-column:1/-1;font-size:10px;color:var(--text-faint);font-style:italic" data-i18n="Comptes suggérés à partir du libellé (plan OHADA) — cliquez une puce pour choisir une autre option, ou tapez vos propres comptes. Chaque validation affine les prochaines suggestions.">Comptes suggérés à partir du libellé (plan OHADA) — cliquez une puce pour choisir une autre option, ou tapez vos propres comptes. Chaque validation affine les prochaines suggestions.</div>
         </div>
       </details>
       <div class="journal-search">
-        <input type="text" id="j-search" placeholder="Rechercher..." oninput="renderJournal()" style="max-width:200px"/>
-        <select id="j-filter-type" onchange="renderJournal()"><option value="">Tous types</option><option value="vente">Vente</option><option value="achat">Achat</option><option value="service">Service</option><option value="avoir">Avoir</option></select>
-        <input type="date" id="j-filter-from" onchange="renderJournal()" title="Depuis"/>
-        <input type="date" id="j-filter-to" onchange="renderJournal()" title="Jusqu'à"/>
-        <select id="j-filter-stat" onchange="renderJournal()"><option value="">Tous statuts</option><option value="payee">Payée</option><option value="attente">En attente</option></select>
-        <button class="btn btn-sm" onclick="clearFilters()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg> Effacer filtres</button>
+        <input type="text" id="j-search" data-i18n-placeholder="Rechercher..." placeholder="Rechercher..." oninput="renderJournal()" style="max-width:200px"/>
+        <select id="j-filter-type" onchange="renderJournal()"><option value="" data-i18n="Tous types">Tous types</option><option value="vente" data-i18n="Vente">Vente</option><option value="achat" data-i18n="Achat">Achat</option><option value="service" data-i18n="Service">Service</option><option value="avoir" data-i18n="Avoir">Avoir</option></select>
+        <input type="date" id="j-filter-from" onchange="renderJournal()" title="Depuis" data-i18n-title="Depuis"/>
+        <input type="date" id="j-filter-to" onchange="renderJournal()" title="Jusqu'à" data-i18n-title="Jusqu'à"/>
+        <select id="j-filter-stat" onchange="renderJournal()"><option value="" data-i18n="Tous statuts">Tous statuts</option><option value="payee" data-i18n="Payée">Payée</option><option value="attente" data-i18n="En attente">En attente</option></select>
+        <button class="btn btn-sm" onclick="clearFilters()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg> <span data-i18n="Effacer filtres">Effacer filtres</span></button>
       </div>
       <div class="card">
         <div class="card-header">
-          <span class="card-title">Journal comptable <span id="j-count" style="font-weight:400;color:var(--text-faint)"></span></span>
+          <span class="card-title"><span data-i18n="Journal comptable">Journal comptable</span> <span id="j-count" style="font-weight:400;color:var(--text-faint)"></span></span>
           <span id="j-equilibre" style="font-size:11px;color:var(--text-faint)">—</span>
         </div>
         <div class="table-wrap">
           <table class="j-table">
             <thead><tr>
-              <th>Date</th><th>N° Facture</th><th>Libellé</th>
-              <th>Cpt D</th><th>Cpt C</th>
-              <th style="text-align:right">Débit FCFA</th><th style="text-align:right">Crédit FCFA</th>
-              <th>TVA</th><th>Échéance</th><th>Statut</th><th>Action</th>
+              <th data-i18n="Date">Date</th><th data-i18n="N° Facture">N° Facture</th><th data-i18n="Libellé">Libellé</th>
+              <th data-i18n="Cpt D">Cpt D</th><th data-i18n="Cpt C">Cpt C</th>
+              <th style="text-align:right" data-i18n="Débit FCFA">Débit FCFA</th><th style="text-align:right" data-i18n="Crédit FCFA">Crédit FCFA</th>
+              <th data-i18n="TVA">TVA</th><th data-i18n="Échéance">Échéance</th><th data-i18n="Statut">Statut</th><th data-i18n="Action">Action</th>
             </tr></thead>
-            <tbody id="j-body"><tr class="empty-row"><td colspan="11">Aucune écriture</td></tr></tbody>
+            <tbody id="j-body"><tr class="empty-row"><td colspan="11" data-i18n="Aucune écriture">Aucune écriture</td></tr></tbody>
             <tfoot><tr class="tot-row" id="j-tfoot" style="display:none">
-              <td colspan="5">TOTAL</td>
+              <td colspan="5" data-i18n="TOTAL">TOTAL</td>
               <td id="j-totd" style="text-align:right"></td><td id="j-totc" style="text-align:right"></td>
               <td colspan="4"></td>
             </tr></tfoot>

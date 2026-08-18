@@ -165,8 +165,8 @@ function go(id,el){
 function setMode(mode){
   FACTURE_MODE=mode;
   var btnD=nb('ftt-doit'),btnA=nb('ftt-avoir');
-  if(mode==='doit'){btnD.className='ftt-btn ftt-doit';btnA.className='ftt-btn';nb('facture-card-title').textContent='Nouvelle facture — DOIT';}
-  else{btnA.className='ftt-btn ftt-avoir';btnD.className='ftt-btn';nb('facture-card-title').textContent='Nouvelle facture — AVOIR (Retour marchandises)';}
+  if(mode==='doit'){btnD.className='ftt-btn ftt-doit';btnA.className='ftt-btn';nb('facture-card-title').textContent=(typeof t==='function'?t('Nouvelle facture — DOIT'):'Nouvelle facture — DOIT');}
+  else{btnA.className='ftt-btn ftt-avoir';btnD.className='ftt-btn';nb('facture-card-title').textContent=(typeof t==='function'?t('Nouvelle facture — AVOIR (Retour marchandises)'):'Nouvelle facture — AVOIR (Retour marchandises)');}
   updateNumAuto();
 }
 
