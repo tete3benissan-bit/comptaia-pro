@@ -950,8 +950,8 @@
 
     <!-- ═══ NOTIFICATIONS ═══ -->
     <div class="pane" id="pane-notifs">
-      <div style="display:flex;justify-content:space-between;margin-bottom:12px"><div></div><button class="btn btn-sm" onclick="toutLu()">Tout marquer lu</button></div>
-      <div id="notifs-list"><div style="text-align:center;color:var(--text-faint);padding:36px;font-style:italic">Aucune notification</div></div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:12px"><div></div><button class="btn btn-sm" onclick="toutLu()" data-i18n="Tout marquer lu">Tout marquer lu</button></div>
+      <div id="notifs-list"><div style="text-align:center;color:var(--text-faint);padding:36px;font-style:italic" data-i18n="Aucune notification">Aucune notification</div></div>
     </div>
 
     <!-- PARAMÈTRES (js/27-parametres.js) -->
@@ -1139,7 +1139,7 @@
 
 <!-- PANE CHAT IA — COPILOTE INTELLIGENT -->
 <div class="pane" id="pane-chat-ia">
-  <div style="font-size:15px;font-weight:600;margin-bottom:14px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="11" rx="2.5"/><path d="M8 15.5v4l4-4"/></svg> Chat IA — Copilote intelligent</div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:14px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="11" rx="2.5"/><path d="M8 15.5v4l4-4"/></svg> <span data-i18n="Chat IA — Copilote intelligent">Chat IA — Copilote intelligent</span></div>
   <div id="ia-copilot-body"></div>
 </div>
 
@@ -1147,50 +1147,50 @@
 <div class="pane" id="pane-acces-refuse">
   <div style="max-width:480px;margin:60px auto 0;text-align:center">
     <div style="font-size:40px;margin-bottom:10px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="5.5" y1="5.5" x2="18.5" y2="18.5"/></svg></div>
-    <div class="alert alert-err" style="display:block;font-size:13px;font-weight:700">Vous n'êtes pas autorisé à accéder à ce module.</div>
-    <div style="font-size:12px;color:var(--text-muted);margin-top:10px">Accès refusé. Contactez votre administrateur si vous pensez que c'est une erreur.</div>
+    <div class="alert alert-err" style="display:block;font-size:13px;font-weight:700" data-i18n="Vous n'êtes pas autorisé à accéder à ce module.">Vous n'êtes pas autorisé à accéder à ce module.</div>
+    <div style="font-size:12px;color:var(--text-muted);margin-top:10px" data-i18n="Accès refusé. Contactez votre administrateur si vous pensez que c'est une erreur.">Accès refusé. Contactez votre administrateur si vous pensez que c'est une erreur.</div>
   </div>
 </div>
 
 <!-- PANE TVA DÉCLARATION -->
 <div class="pane" id="pane-tva">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px">
-    <div><div id="tva-titre-pays" style="font-size:13px;font-weight:600"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18l-2.5-1.5L13 21l-2-1.5L9 21l-3-1.5z"/><line x1="8.5" y1="8" x2="15.5" y2="8"/><line x1="8.5" y1="12" x2="15.5" y2="12"/></svg> Déclaration TVA — République Togolaise</div>
-    <div style="font-size:11px;color:var(--text-muted);margin-top:2px">TVA collectée (4431) − TVA déductible (4452/53/54/55) = Solde à payer</div></div>
+    <div><div id="tva-titre-pays" style="font-size:13px;font-weight:600"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18l-2.5-1.5L13 21l-2-1.5L9 21l-3-1.5z"/><line x1="8.5" y1="8" x2="15.5" y2="8"/><line x1="8.5" y1="12" x2="15.5" y2="12"/></svg> <span data-i18n="Déclaration TVA — République Togolaise">Déclaration TVA — République Togolaise</span></div>
+    <div style="font-size:11px;color:var(--text-muted);margin-top:2px" data-i18n="TVA collectée (4431) − TVA déductible (4452/53/54/55) = Solde à payer">TVA collectée (4431) − TVA déductible (4452/53/54/55) = Solde à payer</div></div>
     <div style="display:flex;gap:8px">
       <select id="tva-mois-filter" onchange="renderTVA()" style="max-width:150px;padding:6px 8px;font-size:12px;border:2px solid var(--border-strong);border-radius:var(--radius)"></select>
-      <button class="btn btn-sm btn-primary" onclick="exporterTVAPDF()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="8" width="14" height="8" rx="1"/><path d="M7 8V4h10v4"/><path d="M7 16v4h10v-4"/></svg> Générer le PDF</button>
-      <button class="btn btn-sm" onclick="envoyerDeclaration('Déclaration de TVA')"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22,2 15,22 11,13 2,9"/></svg> Envoyer</button>
+      <button class="btn btn-sm btn-primary" onclick="exporterTVAPDF()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="8" width="14" height="8" rx="1"/><path d="M7 8V4h10v4"/><path d="M7 16v4h10v-4"/></svg> <span data-i18n="Générer le PDF">Générer le PDF</span></button>
+      <button class="btn btn-sm" onclick="envoyerDeclaration('Déclaration de TVA')"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22,2 15,22 11,13 2,9"/></svg> <span data-i18n="Envoyer">Envoyer</span></button>
     </div>
   </div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
     <div style="background:var(--surface);border:2px solid var(--green-border);border-radius:var(--radius);padding:16px">
-      <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--green-dark);margin-bottom:4px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="6"/><polyline points="6,12 12,6 18,12"/></svg> TVA Collectée (4431)</div>
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--green-dark);margin-bottom:4px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="6"/><polyline points="6,12 12,6 18,12"/></svg> <span data-i18n="TVA Collectée (4431)">TVA Collectée (4431)</span></div>
       <div style="font-size:24px;font-weight:700;font-family:'Archivo',sans-serif;color:var(--green);margin:6px 0" id="tva-collectee">0 FCFA</div>
       <div style="font-size:10.5px;color:var(--text-muted)" id="tva-collectee-nb">0 écriture(s)</div>
     </div>
     <div style="background:var(--surface);border:2px solid var(--blue-border);border-radius:var(--radius);padding:16px">
-      <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="4" x2="12" y2="18"/><polyline points="6,12 12,18 18,12"/></svg> TVA Déductible (4452/53/54/55)</div>
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:4px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="4" x2="12" y2="18"/><polyline points="6,12 12,18 18,12"/></svg> <span data-i18n="TVA Déductible (4452/53/54/55)">TVA Déductible (4452/53/54/55)</span></div>
       <div style="font-size:24px;font-weight:700;font-family:'Archivo',sans-serif;color:var(--blue);margin:6px 0" id="tva-deductible">0 FCFA</div>
       <div style="font-size:10.5px;color:var(--text-muted)" id="tva-deductible-nb">0 écriture(s)</div>
     </div>
   </div>
   <div id="tva-solde-box" style="border-radius:var(--radius);padding:18px 22px;margin-bottom:14px;text-align:center;background:var(--sidebar-bg);border:2px solid var(--green-border)">
-    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(168,164,159,.8);margin-bottom:4px" id="tva-solde-label">SOLDE TVA À PAYER</div>
+    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(168,164,159,.8);margin-bottom:4px" id="tva-solde-label" data-i18n="SOLDE TVA À PAYER">SOLDE TVA À PAYER</div>
     <div style="font-size:36px;font-weight:700;font-family:'Archivo',sans-serif;color:#ffffff" id="tva-solde-mt">0 FCFA</div>
-    <div style="font-size:11px;margin-top:4px;color:rgba(255,255,255,.6)" id="tva-solde-sub">Déclaration mensuelle — DGI avant le 15 du mois suivant</div>
+    <div style="font-size:11px;margin-top:4px;color:rgba(255,255,255,.6)" id="tva-solde-sub" data-i18n="Déclaration mensuelle — DGI avant le 15 du mois suivant">Déclaration mensuelle — DGI avant le 15 du mois suivant</div>
   </div>
   <div class="card" style="margin-bottom:12px">
-    <div class="card-header"><span class="card-title">Détail par compte TVA</span></div>
+    <div class="card-header"><span class="card-title" data-i18n="Détail par compte TVA">Détail par compte TVA</span></div>
     <div class="table-wrap"><table>
-      <thead><tr><th>Compte</th><th>Libellé</th><th>Opérations</th><th style="text-align:right">Base HT</th><th style="text-align:right">TVA</th><th>Sens</th></tr></thead>
-      <tbody id="tva-detail-body"><tr class="empty-row"><td colspan="6">Aucune TVA enregistrée</td></tr></tbody>
+      <thead><tr><th data-i18n="Compte">Compte</th><th data-i18n="Libellé">Libellé</th><th data-i18n="Opérations">Opérations</th><th style="text-align:right" data-i18n="Base HT">Base HT</th><th style="text-align:right" data-i18n="TVA">TVA</th><th data-i18n="Sens">Sens</th></tr></thead>
+      <tbody id="tva-detail-body"><tr class="empty-row"><td colspan="6" data-i18n="Aucune TVA enregistrée">Aucune TVA enregistrée</td></tr></tbody>
     </table></div>
   </div>
   <div class="card">
-    <div class="card-header"><span class="card-title"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 3v2.5M12 18.5V21M4.6 7.3l2.2 1.3M17.2 15.4l2.2 1.3M4.6 16.7l2.2-1.3M17.2 8.6l2.2-1.3M3 12h2.5M18.5 12H21"/></svg> Écriture de régularisation</span><button class="btn btn-sm btn-primary" onclick="genererEcritureTVA()">Générer</button></div>
+    <div class="card-header"><span class="card-title"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 3v2.5M12 18.5V21M4.6 7.3l2.2 1.3M17.2 15.4l2.2 1.3M4.6 16.7l2.2-1.3M17.2 8.6l2.2-1.3M3 12h2.5M18.5 12H21"/></svg> <span data-i18n="Écriture de régularisation">Écriture de régularisation</span></span><button class="btn btn-sm btn-primary" onclick="genererEcritureTVA()" data-i18n="Générer">Générer</button></div>
     <div class="card-body">
-      <div style="background:var(--amber-light);border:2px solid var(--amber-border);border-radius:var(--radius);padding:10px 13px;font-size:11px;color:var(--amber);line-height:1.7"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4 2 20h20z"/><line x1="12" y1="10" x2="12" y2="15"/><circle cx="12" cy="17.7" r="0.9"/></svg> Génère l'écriture : <strong>D 4431 / C 4452 / C 4441 (TVA à décaisser)</strong> — À valider avec votre expert-comptable.</div>
+      <div style="background:var(--amber-light);border:2px solid var(--amber-border);border-radius:var(--radius);padding:10px 13px;font-size:11px;color:var(--amber);line-height:1.7"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4 2 20h20z"/><line x1="12" y1="10" x2="12" y2="15"/><circle cx="12" cy="17.7" r="0.9"/></svg> <span data-i18n="Génère l'écriture :">Génère l'écriture :</span> <strong>D 4431 / C 4452 / C 4441 (TVA à décaisser)</strong> — <span data-i18n="À valider avec votre expert-comptable.">À valider avec votre expert-comptable.</span></div>
       <div id="tva-regul-result" style="margin-top:10px"></div>
     </div>
   </div>
@@ -1199,25 +1199,25 @@
 <!-- PANE RAPPROCHEMENT BANCAIRE -->
 <div class="pane" id="pane-rapprochement">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px">
-    <div><div style="font-size:13px;font-weight:600"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="20" x2="21" y2="20"/><line x1="5" y1="20" x2="5" y2="10"/><line x1="9.5" y1="20" x2="9.5" y2="10"/><line x1="14.5" y1="20" x2="14.5" y2="10"/><line x1="19" y1="20" x2="19" y2="10"/><polygon points="12,3 21,9 3,9"/></svg> Rapprochement bancaire</div>
-    <div style="font-size:11px;color:var(--text-muted);margin-top:2px">Importez un relevé CSV et rapprochez automatiquement avec vos écritures</div></div>
+    <div><div style="font-size:13px;font-weight:600"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="20" x2="21" y2="20"/><line x1="5" y1="20" x2="5" y2="10"/><line x1="9.5" y1="20" x2="9.5" y2="10"/><line x1="14.5" y1="20" x2="14.5" y2="10"/><line x1="19" y1="20" x2="19" y2="10"/><polygon points="12,3 21,9 3,9"/></svg> <span data-i18n="Rapprochement bancaire">Rapprochement bancaire</span></div>
+    <div style="font-size:11px;color:var(--text-muted);margin-top:2px" data-i18n="Importez un relevé CSV et rapprochez automatiquement avec vos écritures">Importez un relevé CSV et rapprochez automatiquement avec vos écritures</div></div>
     <div style="display:flex;gap:8px">
-      <button class="btn btn-sm btn-primary" onclick="document.getElementById('rappr-file').click()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg> Importer CSV</button>
+      <button class="btn btn-sm btn-primary" onclick="document.getElementById('rappr-file').click()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg> <span data-i18n="Importer CSV">Importer CSV</span></button>
       <input type="file" id="rappr-file" accept=".csv,.txt" style="display:none" onchange="importerReleve(event)"/>
-      <button class="btn btn-sm" onclick="rapprAuto()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13,2 4,14 11,14 10,22 20,9 13,9"/></svg> Auto-rapprocher</button>
+      <button class="btn btn-sm" onclick="rapprAuto()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13,2 4,14 11,14 10,22 20,9 13,9"/></svg> <span data-i18n="Auto-rapprocher">Auto-rapprocher</span></button>
     </div>
   </div>
   <div class="kpi-grid kpi-grid-4" style="margin-bottom:14px">
-    <div class="kpi" style="border-top:3px solid var(--blue)"><div class="kpi-label">Lignes relevé</div><div class="kpi-value" id="rappr-nb-releve">0</div><div class="kpi-sub">importées</div></div>
-    <div class="kpi" style="border-top:3px solid var(--green)"><div class="kpi-label">Rapprochées</div><div class="kpi-value kpi-pos" id="rappr-nb-ok">0</div></div>
-    <div class="kpi" style="border-top:3px solid var(--amber)"><div class="kpi-label">Non rapprochées</div><div class="kpi-value" id="rappr-nb-ko">0</div></div>
-    <div class="kpi" style="border-top:3px solid var(--red)"><div class="kpi-label">Écart</div><div class="kpi-value kpi-neg" id="rappr-ecart">0 FCFA</div></div>
+    <div class="kpi" style="border-top:3px solid var(--blue)"><div class="kpi-label" data-i18n="Lignes relevé">Lignes relevé</div><div class="kpi-value" id="rappr-nb-releve">0</div><div class="kpi-sub" data-i18n="importées">importées</div></div>
+    <div class="kpi" style="border-top:3px solid var(--green)"><div class="kpi-label" data-i18n="Rapprochées">Rapprochées</div><div class="kpi-value kpi-pos" id="rappr-nb-ok">0</div></div>
+    <div class="kpi" style="border-top:3px solid var(--amber)"><div class="kpi-label" data-i18n="Non rapprochées">Non rapprochées</div><div class="kpi-value" id="rappr-nb-ko">0</div></div>
+    <div class="kpi" style="border-top:3px solid var(--red)"><div class="kpi-label" data-i18n="Écart">Écart</div><div class="kpi-value kpi-neg" id="rappr-ecart">0 FCFA</div></div>
   </div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-    <div class="card"><div class="card-header"><span class="card-title"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><line x1="9.5" y1="12" x2="15" y2="12"/><line x1="9.5" y1="15.5" x2="15" y2="15.5"/></svg> Relevé bancaire</span><span id="rappr-releve-total" style="font-size:10px;color:var(--text-faint)">—</span></div>
-    <div id="rappr-releve-list" style="max-height:350px;overflow-y:auto"><div style="text-align:center;color:var(--text-faint);padding:28px;font-style:italic">Importez un fichier CSV<br><small>Format : date,libellé,débit,crédit</small></div></div></div>
-    <div class="card"><div class="card-header"><span class="card-title"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4.5A2 2 0 0 1 6 3h12v16H6a2 2 0 0 0-2 2z"/><path d="M4 4.5v16"/></svg> Écritures banque (GEST Africa)</span><span id="rappr-compta-total" style="font-size:10px;color:var(--text-faint)">—</span></div>
-    <div id="rappr-compta-list" style="max-height:350px;overflow-y:auto"><div style="text-align:center;color:var(--text-faint);padding:28px;font-style:italic">Vos écritures banque apparaîtront ici</div></div></div>
+    <div class="card"><div class="card-header"><span class="card-title"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><line x1="9.5" y1="12" x2="15" y2="12"/><line x1="9.5" y1="15.5" x2="15" y2="15.5"/></svg> <span data-i18n="Relevé bancaire">Relevé bancaire</span></span><span id="rappr-releve-total" style="font-size:10px;color:var(--text-faint)">—</span></div>
+    <div id="rappr-releve-list" style="max-height:350px;overflow-y:auto"><div style="text-align:center;color:var(--text-faint);padding:28px;font-style:italic"><span data-i18n="Importez un fichier CSV">Importez un fichier CSV</span><br><small data-i18n="Format : date,libellé,débit,crédit">Format : date,libellé,débit,crédit</small></div></div></div>
+    <div class="card"><div class="card-header"><span class="card-title"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4.5A2 2 0 0 1 6 3h12v16H6a2 2 0 0 0-2 2z"/><path d="M4 4.5v16"/></svg> <span data-i18n="Écritures banque (GEST Africa)">Écritures banque (GEST Africa)</span></span><span id="rappr-compta-total" style="font-size:10px;color:var(--text-faint)">—</span></div>
+    <div id="rappr-compta-list" style="max-height:350px;overflow-y:auto"><div style="text-align:center;color:var(--text-faint);padding:28px;font-style:italic" data-i18n="Vos écritures banque apparaîtront ici">Vos écritures banque apparaîtront ici</div></div></div>
   </div>
 </div>
 
@@ -1282,25 +1282,25 @@
 
 <!-- PANE GESTION DES UTILISATEURS (admin uniquement) -->
 <div class="pane" id="pane-utilisateurs">
-  <div style="font-size:15px;font-weight:600;margin-bottom:14px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4.5 6v6c0 5 3.2 8.2 7.5 9 4.3-.8 7.5-4 7.5-9V6z"/><path d="M9 12l2 2 4-4"/></svg> Gestion des utilisateurs</div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:14px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4.5 6v6c0 5 3.2 8.2 7.5 9 4.3-.8 7.5-4 7.5-9V6z"/><path d="M9 12l2 2 4-4"/></svg> <span data-i18n="Gestion des utilisateurs">Gestion des utilisateurs</span></div>
   <div class="card" id="um-form-card">
-    <div class="card-header"><span class="card-title">Nouvel utilisateur</span></div>
+    <div class="card-header"><span class="card-title" data-i18n="Nouvel utilisateur">Nouvel utilisateur</span></div>
     <div class="card-body">
       <div class="fgrid fg3">
-        <div class="fg"><label>Nom complet</label><input type="text" id="um-nom" placeholder="Ex. Awa Mensah"/></div>
-        <div class="fg"><label>E-mail</label><input type="email" id="um-user" placeholder="ex. amensah@entreprise.tg"/></div>
-        <div class="fg"><label>Rôle</label>
+        <div class="fg"><label data-i18n="Nom complet">Nom complet</label><input type="text" id="um-nom" data-i18n-placeholder="Ex. Awa Mensah" placeholder="Ex. Awa Mensah"/></div>
+        <div class="fg"><label data-i18n="Email">E-mail</label><input type="email" id="um-user" data-i18n-placeholder="ex. amensah@entreprise.tg" placeholder="ex. amensah@entreprise.tg"/></div>
+        <div class="fg"><label data-i18n="Rôle">Rôle</label>
           <select id="um-role"></select>
         </div>
       </div>
-      <div class="uiv-demo-note" style="margin-top:8px">Un e-mail d'invitation sera envoyé pour que la personne choisisse elle-même son mot de passe.</div>
-      <div style="margin-top:10px"><button class="btn btn-primary" onclick="umAjouter()">+ Inviter l'utilisateur</button></div>
+      <div class="uiv-demo-note" style="margin-top:8px" data-i18n="Un e-mail d'invitation sera envoyé pour que la personne choisisse elle-même son mot de passe.">Un e-mail d'invitation sera envoyé pour que la personne choisisse elle-même son mot de passe.</div>
+      <div style="margin-top:10px"><button class="btn btn-primary" onclick="umAjouter()">+ <span data-i18n="Inviter l'utilisateur">Inviter l'utilisateur</span></button></div>
     </div>
   </div>
   <div class="card">
     <div class="card-header">
-      <span class="card-title">Comptes existants</span>
-      <input type="text" id="um-search" placeholder="Filtrer les comptes ci-dessous (pas pour créer un compte)" style="max-width:320px" oninput="umRechercher(this.value)"/>
+      <span class="card-title" data-i18n="Comptes existants">Comptes existants</span>
+      <input type="text" id="um-search" data-i18n-placeholder="Filtrer les comptes ci-dessous (pas pour créer un compte)" placeholder="Filtrer les comptes ci-dessous (pas pour créer un compte)" style="max-width:320px" oninput="umRechercher(this.value)"/>
     </div>
     <div class="card-body" id="um-table-wrap"></div>
   </div>
