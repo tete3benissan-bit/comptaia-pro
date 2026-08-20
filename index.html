@@ -452,24 +452,24 @@
     <!-- ═══ TIERS ═══ -->
     <div class="pane" id="pane-tiers">
       <div class="card">
-        <div class="card-header"><span class="card-title">Ajouter un tiers</span></div>
+        <div class="card-header"><span class="card-title" data-i18n="Ajouter un tiers">Ajouter un tiers</span></div>
         <div class="card-body">
           <div class="fgrid fg4" style="margin-bottom:10px">
-            <div class="fg sp2"><label>Nom / Raison sociale</label><input type="text" id="t-nom" placeholder="Ex : SOGECI SA, Dupont Frères..."/></div>
-            <div class="fg"><label>Type</label><select id="t-type"><option value="client">Client</option><option value="fournisseur">Fournisseur</option><option value="les-deux">Client & Fournisseur</option></select></div>
-            <div class="fg"><label>Téléphone</label><input type="text" id="t-tel" placeholder="+228..."/></div>
-            <div class="fg sp2"><label>Email</label><input type="email" id="t-email" placeholder="contact@..."/></div>
-            <div class="fg sp2"><label>Adresse</label><input type="text" id="t-adresse" placeholder="Ville, Pays..."/></div>
-            <div class="fg" style="justify-content:flex-end;flex-direction:row;align-items:flex-end;grid-column:span 4"><button class="btn btn-primary" onclick="ajouterTiers()">+ Ajouter ce tiers</button></div>
+            <div class="fg sp2"><label data-i18n="Nom / Raison sociale">Nom / Raison sociale</label><input type="text" id="t-nom" data-i18n-placeholder="Ex : SOGECI SA, Dupont Frères..." placeholder="Ex : SOGECI SA, Dupont Frères..."/></div>
+            <div class="fg"><label data-i18n="Type">Type</label><select id="t-type"><option value="client" data-i18n="Client">Client</option><option value="fournisseur" data-i18n="Fournisseur">Fournisseur</option><option value="les-deux" data-i18n="Client & Fournisseur">Client & Fournisseur</option></select></div>
+            <div class="fg"><label data-i18n="Téléphone">Téléphone</label><input type="text" id="t-tel" placeholder="+228..."/></div>
+            <div class="fg sp2"><label data-i18n="Email">Email</label><input type="email" id="t-email" data-i18n-placeholder="contact@..." placeholder="contact@..."/></div>
+            <div class="fg sp2"><label data-i18n="Adresse">Adresse</label><input type="text" id="t-adresse" data-i18n-placeholder="Ville, Pays..." placeholder="Ville, Pays..."/></div>
+            <div class="fg" style="justify-content:flex-end;flex-direction:row;align-items:flex-end;grid-column:span 4"><button class="btn btn-primary" onclick="ajouterTiers()">+ <span data-i18n="Ajouter ce tiers">Ajouter ce tiers</span></button></div>
           </div>
         </div>
       </div>
       <div class="card">
-        <div class="card-header"><span class="card-title">Liste des tiers</span></div>
+        <div class="card-header"><span class="card-title" data-i18n="Liste des tiers">Liste des tiers</span></div>
         <div class="table-wrap">
           <table>
-            <thead><tr><th>Nom</th><th>Type</th><th>Téléphone</th><th>Email</th><th>Adresse</th><th>Solde dû</th><th>Action</th></tr></thead>
-            <tbody id="tiers-body"><tr class="empty-row"><td colspan="7">Aucun tiers — ajoutez des clients/fournisseurs</td></tr></tbody>
+            <thead><tr><th data-i18n="Nom">Nom</th><th data-i18n="Type">Type</th><th data-i18n="Téléphone">Téléphone</th><th data-i18n="Email">Email</th><th data-i18n="Adresse">Adresse</th><th data-i18n="Solde dû">Solde dû</th><th data-i18n="Action">Action</th></tr></thead>
+            <tbody id="tiers-body"><tr class="empty-row"><td colspan="7" data-i18n="Aucun tiers — ajoutez des clients/fournisseurs">Aucun tiers — ajoutez des clients/fournisseurs</td></tr></tbody>
           </table>
         </div>
       </div>
@@ -527,118 +527,118 @@
     <!-- ═══ GRAND LIVRE ═══ -->
     <div class="pane" id="pane-grandlivre">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px">
-        <div style="font-size:12px;color:var(--text-muted)">Mode d'affichage :</div>
+        <div style="font-size:12px;color:var(--text-muted)" data-i18n="Mode d'affichage :">Mode d'affichage :</div>
         <div style="display:flex;gap:8px;align-items:center">
           <div style="display:flex;border:2px solid var(--border-strong);border-radius:var(--radius);overflow:hidden">
-            <button id="gl-btn-tab" onclick="setGLMode('tab')" style="padding:5px 14px;font-size:11.5px;font-weight:600;border:none;cursor:pointer;background:var(--green);color:#fff;font-family:'Archivo',sans-serif">Tableau</button>
-            <button id="gl-btn-t" onclick="setGLMode('t')" style="padding:5px 14px;font-size:11.5px;font-weight:500;border:none;cursor:pointer;background:var(--surface);color:var(--text-muted);font-family:'Archivo',sans-serif">Comptes en T</button>
+            <button id="gl-btn-tab" onclick="setGLMode('tab')" style="padding:5px 14px;font-size:11.5px;font-weight:600;border:none;cursor:pointer;background:var(--green);color:#fff;font-family:'Archivo',sans-serif" data-i18n="Tableau">Tableau</button>
+            <button id="gl-btn-t" onclick="setGLMode('t')" style="padding:5px 14px;font-size:11.5px;font-weight:500;border:none;cursor:pointer;background:var(--surface);color:var(--text-muted);font-family:'Archivo',sans-serif" data-i18n="Comptes en T">Comptes en T</button>
           </div>
-          <button class="btn btn-sm btn-primary" onclick="ouvrirAjoutGL()">+ Nouveau compte</button>
+          <button class="btn btn-sm btn-primary" onclick="ouvrirAjoutGL()">+ <span data-i18n="Nouveau compte">Nouveau compte</span></button>
         </div>
       </div>
-      <div id="gl-body"><div style="text-align:center;color:var(--text-faint);padding:36px;font-style:italic">Le grand livre se génère automatiquement après la saisie des factures</div></div>
+      <div id="gl-body"><div style="text-align:center;color:var(--text-faint);padding:36px;font-style:italic" data-i18n="Le grand livre se génère automatiquement après la saisie des factures">Le grand livre se génère automatiquement après la saisie des factures</div></div>
     </div>
 
     <!-- ═══ LETTRAGE ═══ -->
     <div class="pane" id="pane-lettrage">
       <div style="background:var(--blue-light);border:2px solid var(--blue-border);border-radius:var(--radius);padding:10px 14px;margin-bottom:14px;font-size:11.5px;color:var(--blue)">
-        <svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 15 15 9"/><path d="M8 13 5.5 15.5a3 3 0 0 0 4 4.5L12 17"/><path d="M16 11l2.5-2.5a3 3 0 0 0-4-4.5L12 7"/></svg> <strong>Lettrage :</strong> Associez chaque facture à son règlement. Un lettrage A/B/C... indique qu'une facture et son paiement se compensent. Les écritures non lettrées représentent des impayés.
+        <svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 15 15 9"/><path d="M8 13 5.5 15.5a3 3 0 0 0 4 4.5L12 17"/><path d="M16 11l2.5-2.5a3 3 0 0 0-4-4.5L12 7"/></svg> <strong data-i18n="Lettrage :">Lettrage :</strong> <span data-i18n="Associez chaque facture à son règlement. Un lettrage A/B/C... indique qu'une facture et son paiement se compensent. Les écritures non lettrées représentent des impayés.">Associez chaque facture à son règlement. Un lettrage A/B/C... indique qu'une facture et son paiement se compensent. Les écritures non lettrées représentent des impayés.</span>
       </div>
       <div class="card">
-        <div class="card-header"><span class="card-title">Factures en attente de lettrage</span>
-          <button class="btn btn-sm btn-primary" onclick="lettrerSelection()">Lettrer la sélection</button>
+        <div class="card-header"><span class="card-title" data-i18n="Factures en attente de lettrage">Factures en attente de lettrage</span>
+          <button class="btn btn-sm btn-primary" onclick="lettrerSelection()" data-i18n="Lettrer la sélection">Lettrer la sélection</button>
         </div>
         <div class="table-wrap">
           <table>
-            <thead><tr><th></th><th>Lettre</th><th>Date</th><th>N° Facture</th><th>Tiers</th><th>Compte</th><th style="text-align:right">Montant FCFA</th><th>Type</th><th>Action</th></tr></thead>
-            <tbody id="lettrage-body"><tr class="empty-row"><td colspan="9">Aucune écriture</td></tr></tbody>
+            <thead><tr><th></th><th data-i18n="Lettre">Lettre</th><th data-i18n="Date">Date</th><th data-i18n="N° Facture">N° Facture</th><th data-i18n="Tiers">Tiers</th><th data-i18n="Compte">Compte</th><th style="text-align:right" data-i18n="Montant FCFA">Montant FCFA</th><th data-i18n="Type">Type</th><th data-i18n="Action">Action</th></tr></thead>
+            <tbody id="lettrage-body"><tr class="empty-row"><td colspan="9" data-i18n="Aucune écriture">Aucune écriture</td></tr></tbody>
           </table>
         </div>
       </div>
-      <div style="font-size:10px;color:var(--text-faint);font-style:italic;margin-top:6px">Le lettrage se fait automatiquement (même tiers + même montant). Vous gardez la main : tapez directement une lettre pour la modifier, ou cochez plusieurs écritures puis "Lettrer la sélection" pour les associer vous-même.</div>
+      <div style="font-size:10px;color:var(--text-faint);font-style:italic;margin-top:6px" data-i18n='Le lettrage se fait automatiquement (même tiers + même montant). Vous gardez la main : tapez directement une lettre pour la modifier, ou cochez plusieurs écritures puis "Lettrer la sélection" pour les associer vous-même.'>Le lettrage se fait automatiquement (même tiers + même montant). Vous gardez la main : tapez directement une lettre pour la modifier, ou cochez plusieurs écritures puis "Lettrer la sélection" pour les associer vous-même.</div>
     </div>
 
     <!-- ═══ BILAN ═══ -->
     <div class="pane" id="pane-bilan">
       <div style="display:flex;justify-content:flex-end;gap:8px;margin-bottom:10px">
-        <button class="btn btn-sm btn-primary" onclick="genPDF('bilan')">Générer le PDF</button>
-        <button class="btn btn-sm" onclick="envoyerDeclaration('Bilan')">Envoyer</button>
+        <button class="btn btn-sm btn-primary" onclick="genPDF('bilan')" data-i18n="Générer le PDF">Générer le PDF</button>
+        <button class="btn btn-sm" onclick="envoyerDeclaration('Bilan')" data-i18n="Envoyer">Envoyer</button>
       </div>
       <details style="margin-bottom:12px;background:var(--surface);border-radius:var(--radius);overflow:hidden">
-        <summary style="cursor:pointer;padding:9px 14px;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--text-muted)">+ Ajouter / corriger une ligne du bilan</summary>
+        <summary style="cursor:pointer;padding:9px 14px;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--text-muted)">+ <span data-i18n="Ajouter / corriger une ligne du bilan">Ajouter / corriger une ligne du bilan</span></summary>
         <div class="fgrid fg4" style="padding:4px 14px 14px">
-          <div class="fg"><label>Côté</label><select id="bl-side"><option value="actif">Actif</option><option value="passif">Passif</option></select></div>
-          <div class="fg"><label>N° Compte</label><input type="text" id="bl-cpt" placeholder="Ex : 2181" style="font-family:'Archivo',sans-serif"/></div>
-          <div class="fg sp2"><label>Intitulé</label><input type="text" id="bl-libelle" placeholder="Ex : Matériel de bureau"/></div>
-          <div class="fg"><label>Montant (FCFA)</label><input type="number" id="bl-montant" placeholder="0" min="0"/></div>
-          <div class="fg" style="justify-content:flex-end;flex-direction:row;align-items:flex-end"><button class="btn btn-primary" onclick="ajouterLigneBilan()">+ Ajouter au bilan</button></div>
+          <div class="fg"><label data-i18n="Côté">Côté</label><select id="bl-side"><option value="actif" data-i18n="Actif">Actif</option><option value="passif" data-i18n="Passif">Passif</option></select></div>
+          <div class="fg"><label data-i18n="N° Compte">N° Compte</label><input type="text" id="bl-cpt" placeholder="Ex : 2181" style="font-family:'Archivo',sans-serif"/></div>
+          <div class="fg sp2"><label data-i18n="Intitulé">Intitulé</label><input type="text" id="bl-libelle" data-i18n-placeholder="Ex : Matériel de bureau" placeholder="Ex : Matériel de bureau"/></div>
+          <div class="fg"><label data-i18n="Montant (FCFA)">Montant (FCFA)</label><input type="number" id="bl-montant" placeholder="0" min="0"/></div>
+          <div class="fg" style="justify-content:flex-end;flex-direction:row;align-items:flex-end"><button class="btn btn-primary" onclick="ajouterLigneBilan()">+ <span data-i18n="Ajouter au bilan">Ajouter au bilan</span></button></div>
         </div>
       </details>
       <div class="bilan-grid">
         <div class="bilan-actif">
-          <div class="bilan-side-label">Actif</div>
+          <div class="bilan-side-label" data-i18n="Actif">Actif</div>
           <div class="bilan-table"><table>
-            <thead><tr><th>N° Cpte</th><th>Intitulé</th><th style="text-align:right">Montant</th><th></th></tr></thead>
+            <thead><tr><th data-i18n="N° Cpte">N° Cpte</th><th data-i18n="Intitulé">Intitulé</th><th style="text-align:right" data-i18n="Montant">Montant</th><th></th></tr></thead>
             <tbody id="b-actif"></tbody>
-            <tfoot><tr class="tot-row"><td colspan="2">Total Actif</td><td style="text-align:right" id="b-ta">0 FCFA</td><td></td></tr></tfoot>
+            <tfoot><tr class="tot-row"><td colspan="2" data-i18n="Total Actif">Total Actif</td><td style="text-align:right" id="b-ta">0 FCFA</td><td></td></tr></tfoot>
           </table></div>
         </div>
         <div class="bilan-passif">
-          <div class="bilan-side-label">Passif</div>
+          <div class="bilan-side-label" data-i18n="Passif">Passif</div>
           <div class="bilan-table"><table>
-            <thead><tr><th>N° Cpte</th><th>Intitulé</th><th style="text-align:right">Montant</th><th></th></tr></thead>
+            <thead><tr><th data-i18n="N° Cpte">N° Cpte</th><th data-i18n="Intitulé">Intitulé</th><th style="text-align:right" data-i18n="Montant">Montant</th><th></th></tr></thead>
             <tbody id="b-passif"></tbody>
-            <tfoot><tr class="tot-row"><td colspan="2">Total Passif</td><td style="text-align:right" id="b-tp">0 FCFA</td><td></td></tr></tfoot>
+            <tfoot><tr class="tot-row"><td colspan="2" data-i18n="Total Passif">Total Passif</td><td style="text-align:right" id="b-tp">0 FCFA</td><td></td></tr></tfoot>
           </table></div>
         </div>
       </div>
       <div id="b-eq" style="display:none;margin-top:10px;padding:10px 14px;border-radius:var(--radius);font-size:12px;font-weight:600;text-align:center"></div>
-      <div style="font-size:10px;color:var(--text-faint);font-style:italic;margin-top:6px">Les montants du bilan sont calculés automatiquement à partir du journal, mais chaque ligne reste modifiable directement — un bandeau "corrigé" apparaît, avec possibilité de revenir au calcul automatique.</div>
+      <div style="font-size:10px;color:var(--text-faint);font-style:italic;margin-top:6px" data-i18n='Les montants du bilan sont calculés automatiquement à partir du journal, mais chaque ligne reste modifiable directement — un bandeau "corrigé" apparaît, avec possibilité de revenir au calcul automatique.'>Les montants du bilan sont calculés automatiquement à partir du journal, mais chaque ligne reste modifiable directement — un bandeau "corrigé" apparaît, avec possibilité de revenir au calcul automatique.</div>
     </div>
 
     <!-- ═══ COMPTE DE RÉSULTATS ═══ -->
     <div class="pane" id="pane-resultats">
       <div style="display:flex;justify-content:flex-end;gap:8px;margin-bottom:10px">
-        <button class="btn btn-sm btn-primary" onclick="genPDF('resultats')">Générer le PDF</button>
-        <button class="btn btn-sm" onclick="envoyerDeclaration('Compte de résultat')">Envoyer</button>
+        <button class="btn btn-sm btn-primary" onclick="genPDF('resultats')" data-i18n="Générer le PDF">Générer le PDF</button>
+        <button class="btn btn-sm" onclick="envoyerDeclaration('Compte de résultat')" data-i18n="Envoyer">Envoyer</button>
       </div>
       <div class="kpi-grid kpi-grid-2" style="margin-bottom:14px">
-        <div class="kpi" style="border-top:3px solid var(--red)"><div class="kpi-label">Total charges</div><div class="kpi-value kpi-neg" id="cr-charges">0</div><div class="kpi-sub">FCFA</div></div>
-        <div class="kpi" style="border-top:3px solid var(--green)"><div class="kpi-label">Total produits</div><div class="kpi-value kpi-pos" id="cr-produits">0</div><div class="kpi-sub">FCFA</div></div>
+        <div class="kpi" style="border-top:3px solid var(--red)"><div class="kpi-label" data-i18n="Total charges">Total charges</div><div class="kpi-value kpi-neg" id="cr-charges">0</div><div class="kpi-sub">FCFA</div></div>
+        <div class="kpi" style="border-top:3px solid var(--green)"><div class="kpi-label" data-i18n="Total produits">Total produits</div><div class="kpi-value kpi-pos" id="cr-produits">0</div><div class="kpi-sub">FCFA</div></div>
       </div>
       <div id="cr-banner" style="display:none;margin-bottom:14px;padding:12px 16px;border-radius:var(--radius);font-size:14px;font-weight:700;text-align:center"></div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
         <div>
-          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--red);margin-bottom:6px;padding:5px 10px;background:var(--red-light);border-radius:var(--radius)">Charges (Classe 6)</div>
-          <div class="card" style="margin-bottom:6px"><div class="card-header" style="padding:7px 12px"><span class="card-title" style="font-size:11.5px">60 — Achats</span><span id="cr-60" style="font-size:11.5px;font-weight:600;font-family:'Archivo',sans-serif">0 FCFA</span></div><div style="padding:0"><table><tbody id="cr-60-body"></tbody></table></div></div>
-          <div class="card" style="margin-bottom:6px"><div class="card-header" style="padding:7px 12px"><span class="card-title" style="font-size:11.5px">61/62 — Services extérieurs</span><span id="cr-61" style="font-size:11.5px;font-weight:600;font-family:'Archivo',sans-serif">0 FCFA</span></div><div style="padding:0"><table><tbody id="cr-61-body"></tbody></table></div></div>
-          <div class="card" style="margin-bottom:6px"><div class="card-header" style="padding:7px 12px"><span class="card-title" style="font-size:11.5px">63/64/65 — Personnel & autres</span><span id="cr-63" style="font-size:11.5px;font-weight:600;font-family:'Archivo',sans-serif">0 FCFA</span></div><div style="padding:0"><table><tbody id="cr-63-body"></tbody></table></div></div>
-          <div class="card" style="margin-bottom:6px"><div class="card-header" style="padding:7px 12px"><span class="card-title" style="font-size:11.5px">66/67/68 — Charges fin. & exceptionnelles</span><span id="cr-66" style="font-size:11.5px;font-weight:600;font-family:'Archivo',sans-serif">0 FCFA</span></div><div style="padding:0"><table><tbody id="cr-66-body"></tbody></table></div></div>
-          <div style="background:var(--red-light);border:2px solid var(--red-border);border-radius:var(--radius);padding:9px 12px;display:flex;justify-content:space-between"><span style="font-weight:700;color:var(--red)">TOTAL CHARGES</span><span style="font-weight:700;color:var(--red);font-family:'Archivo',sans-serif" id="cr-tot-ch">0 FCFA</span></div>
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--red);margin-bottom:6px;padding:5px 10px;background:var(--red-light);border-radius:var(--radius)" data-i18n="Charges (Classe 6)">Charges (Classe 6)</div>
+          <div class="card" style="margin-bottom:6px"><div class="card-header" style="padding:7px 12px"><span class="card-title" style="font-size:11.5px" data-i18n="60 — Achats">60 — Achats</span><span id="cr-60" style="font-size:11.5px;font-weight:600;font-family:'Archivo',sans-serif">0 FCFA</span></div><div style="padding:0"><table><tbody id="cr-60-body"></tbody></table></div></div>
+          <div class="card" style="margin-bottom:6px"><div class="card-header" style="padding:7px 12px"><span class="card-title" style="font-size:11.5px" data-i18n="61/62 — Services extérieurs">61/62 — Services extérieurs</span><span id="cr-61" style="font-size:11.5px;font-weight:600;font-family:'Archivo',sans-serif">0 FCFA</span></div><div style="padding:0"><table><tbody id="cr-61-body"></tbody></table></div></div>
+          <div class="card" style="margin-bottom:6px"><div class="card-header" style="padding:7px 12px"><span class="card-title" style="font-size:11.5px" data-i18n="63/64/65 — Personnel & autres">63/64/65 — Personnel & autres</span><span id="cr-63" style="font-size:11.5px;font-weight:600;font-family:'Archivo',sans-serif">0 FCFA</span></div><div style="padding:0"><table><tbody id="cr-63-body"></tbody></table></div></div>
+          <div class="card" style="margin-bottom:6px"><div class="card-header" style="padding:7px 12px"><span class="card-title" style="font-size:11.5px" data-i18n="66/67/68 — Charges fin. & exceptionnelles">66/67/68 — Charges fin. & exceptionnelles</span><span id="cr-66" style="font-size:11.5px;font-weight:600;font-family:'Archivo',sans-serif">0 FCFA</span></div><div style="padding:0"><table><tbody id="cr-66-body"></tbody></table></div></div>
+          <div style="background:var(--red-light);border:2px solid var(--red-border);border-radius:var(--radius);padding:9px 12px;display:flex;justify-content:space-between"><span style="font-weight:700;color:var(--red)" data-i18n="TOTAL CHARGES">TOTAL CHARGES</span><span style="font-weight:700;color:var(--red);font-family:'Archivo',sans-serif" id="cr-tot-ch">0 FCFA</span></div>
         </div>
         <div>
-          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--green-dark);margin-bottom:6px;padding:5px 10px;background:var(--green-light);border-radius:var(--radius)">Produits (Classe 7)</div>
-          <div class="card" style="margin-bottom:6px"><div class="card-header" style="padding:7px 12px"><span class="card-title" style="font-size:11.5px">70 — Ventes</span><span id="cr-70" style="font-size:11.5px;font-weight:600;font-family:'Archivo',sans-serif">0 FCFA</span></div><div style="padding:0"><table><tbody id="cr-70-body"></tbody></table></div></div>
-          <div class="card" style="margin-bottom:6px"><div class="card-header" style="padding:7px 12px"><span class="card-title" style="font-size:11.5px">71/72 — Production stockée</span><span id="cr-71" style="font-size:11.5px;font-weight:600;font-family:'Archivo',sans-serif">0 FCFA</span></div><div style="padding:0"><table><tbody id="cr-71-body"></tbody></table></div></div>
-          <div class="card" style="margin-bottom:6px"><div class="card-header" style="padding:7px 12px"><span class="card-title" style="font-size:11.5px">74/75 — Autres produits</span><span id="cr-74" style="font-size:11.5px;font-weight:600;font-family:'Archivo',sans-serif">0 FCFA</span></div><div style="padding:0"><table><tbody id="cr-74-body"></tbody></table></div></div>
-          <div class="card" style="margin-bottom:6px"><div class="card-header" style="padding:7px 12px"><span class="card-title" style="font-size:11.5px">76/77/78 — Produits fin. & exceptionnels</span><span id="cr-76" style="font-size:11.5px;font-weight:600;font-family:'Archivo',sans-serif">0 FCFA</span></div><div style="padding:0"><table><tbody id="cr-76-body"></tbody></table></div></div>
-          <div style="background:var(--green-light);border:2px solid var(--green-border);border-radius:var(--radius);padding:9px 12px;display:flex;justify-content:space-between"><span style="font-weight:700;color:var(--green-dark)">TOTAL PRODUITS</span><span style="font-weight:700;color:var(--green-dark);font-family:'Archivo',sans-serif" id="cr-tot-pr">0 FCFA</span></div>
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--green-dark);margin-bottom:6px;padding:5px 10px;background:var(--green-light);border-radius:var(--radius)" data-i18n="Produits (Classe 7)">Produits (Classe 7)</div>
+          <div class="card" style="margin-bottom:6px"><div class="card-header" style="padding:7px 12px"><span class="card-title" style="font-size:11.5px" data-i18n="70 — Ventes">70 — Ventes</span><span id="cr-70" style="font-size:11.5px;font-weight:600;font-family:'Archivo',sans-serif">0 FCFA</span></div><div style="padding:0"><table><tbody id="cr-70-body"></tbody></table></div></div>
+          <div class="card" style="margin-bottom:6px"><div class="card-header" style="padding:7px 12px"><span class="card-title" style="font-size:11.5px" data-i18n="71/72 — Production stockée">71/72 — Production stockée</span><span id="cr-71" style="font-size:11.5px;font-weight:600;font-family:'Archivo',sans-serif">0 FCFA</span></div><div style="padding:0"><table><tbody id="cr-71-body"></tbody></table></div></div>
+          <div class="card" style="margin-bottom:6px"><div class="card-header" style="padding:7px 12px"><span class="card-title" style="font-size:11.5px" data-i18n="74/75 — Autres produits">74/75 — Autres produits</span><span id="cr-74" style="font-size:11.5px;font-weight:600;font-family:'Archivo',sans-serif">0 FCFA</span></div><div style="padding:0"><table><tbody id="cr-74-body"></tbody></table></div></div>
+          <div class="card" style="margin-bottom:6px"><div class="card-header" style="padding:7px 12px"><span class="card-title" style="font-size:11.5px" data-i18n="76/77/78 — Produits fin. & exceptionnels">76/77/78 — Produits fin. & exceptionnels</span><span id="cr-76" style="font-size:11.5px;font-weight:600;font-family:'Archivo',sans-serif">0 FCFA</span></div><div style="padding:0"><table><tbody id="cr-76-body"></tbody></table></div></div>
+          <div style="background:var(--green-light);border:2px solid var(--green-border);border-radius:var(--radius);padding:9px 12px;display:flex;justify-content:space-between"><span style="font-weight:700;color:var(--green-dark)" data-i18n="TOTAL PRODUITS">TOTAL PRODUITS</span><span style="font-weight:700;color:var(--green-dark);font-family:'Archivo',sans-serif" id="cr-tot-pr">0 FCFA</span></div>
         </div>
       </div>
       <div style="margin-top:10px;display:grid;grid-template-columns:1fr 1fr;gap:10px">
-        <div style="background:var(--bg);border:2px solid var(--border);border-radius:var(--radius);padding:9px 12px;display:flex;justify-content:space-between"><span style="font-size:11px;color:var(--text-muted)">Marge brute (Produits 70 — Charges 60)</span><span style="font-size:12px;font-weight:600;font-family:'Archivo',sans-serif" id="cr-marge">0 FCFA</span></div>
-        <div style="background:var(--bg);border:2px solid var(--border);border-radius:var(--radius);padding:9px 12px;display:flex;justify-content:space-between"><span style="font-size:11px;color:var(--text-muted)">Résultat d'exploitation</span><span style="font-size:12px;font-weight:600;font-family:'Archivo',sans-serif" id="cr-rex">0 FCFA</span></div>
+        <div style="background:var(--bg);border:2px solid var(--border);border-radius:var(--radius);padding:9px 12px;display:flex;justify-content:space-between"><span style="font-size:11px;color:var(--text-muted)" data-i18n="Marge brute (Produits 70 — Charges 60)">Marge brute (Produits 70 — Charges 60)</span><span style="font-size:12px;font-weight:600;font-family:'Archivo',sans-serif" id="cr-marge">0 FCFA</span></div>
+        <div style="background:var(--bg);border:2px solid var(--border);border-radius:var(--radius);padding:9px 12px;display:flex;justify-content:space-between"><span style="font-size:11px;color:var(--text-muted)" data-i18n="Résultat d'exploitation">Résultat d'exploitation</span><span style="font-size:12px;font-weight:600;font-family:'Archivo',sans-serif" id="cr-rex">0 FCFA</span></div>
       </div>
     </div>
 
     <!-- ═══ BALANCE ═══ -->
     <div class="pane" id="pane-balance">
       <div class="card">
-        <div class="card-header"><span class="card-title">Balance générale des comptes</span><span id="bal-eq" style="font-size:11px;color:var(--text-faint)">—</span></div>
+        <div class="card-header"><span class="card-title" data-i18n="Balance générale des comptes">Balance générale des comptes</span><span id="bal-eq" style="font-size:11px;color:var(--text-faint)">—</span></div>
         <div class="table-wrap"><table>
-          <thead><tr><th>N° Cpt</th><th>Intitulé</th><th style="text-align:right">Débit cumulé</th><th style="text-align:right">Crédit cumulé</th><th style="text-align:right">Solde débiteur</th><th style="text-align:right">Solde créditeur</th><th>Nature</th></tr></thead>
+          <thead><tr><th data-i18n="N° Cpt">N° Cpt</th><th data-i18n="Intitulé">Intitulé</th><th style="text-align:right" data-i18n="Débit cumulé">Débit cumulé</th><th style="text-align:right" data-i18n="Crédit cumulé">Crédit cumulé</th><th style="text-align:right" data-i18n="Solde débiteur">Solde débiteur</th><th style="text-align:right" data-i18n="Solde créditeur">Solde créditeur</th><th data-i18n="Nature">Nature</th></tr></thead>
           <tbody id="bal-body"><tr class="empty-row"><td colspan="7">—</td></tr></tbody>
-          <tfoot><tr class="tot-row" id="bal-tfoot" style="display:none"><td colspan="2">TOTAUX</td><td style="text-align:right" id="bal-td">0</td><td style="text-align:right" id="bal-tc">0</td><td style="text-align:right" id="bal-tsd">0</td><td style="text-align:right" id="bal-tsc">0</td><td></td></tr></tfoot>
+          <tfoot><tr class="tot-row" id="bal-tfoot" style="display:none"><td colspan="2" data-i18n="TOTAUX">TOTAUX</td><td style="text-align:right" id="bal-td">0</td><td style="text-align:right" id="bal-tc">0</td><td style="text-align:right" id="bal-tsd">0</td><td style="text-align:right" id="bal-tsc">0</td><td></td></tr></tfoot>
         </table></div>
       </div>
     </div>
@@ -1233,38 +1233,38 @@
 
 <!-- PANE PROFIL ENTREPRISE -->
 <div class="pane" id="pane-profil">
-  <div style="font-size:15px;font-weight:600;margin-bottom:14px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="1"/><rect x="8" y="6" width="2" height="2"/><rect x="14" y="6" width="2" height="2"/><rect x="8" y="11" width="2" height="2"/><rect x="14" y="11" width="2" height="2"/><rect x="10" y="16" width="4" height="5"/></svg> Profil entreprise</div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:14px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="1"/><rect x="8" y="6" width="2" height="2"/><rect x="14" y="6" width="2" height="2"/><rect x="8" y="11" width="2" height="2"/><rect x="14" y="11" width="2" height="2"/><rect x="10" y="16" width="4" height="5"/></svg> <span data-i18n="Profil entreprise">Profil entreprise</span></div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
     <div class="card">
-      <div class="card-header"><span class="card-title">Identité légale</span></div>
+      <div class="card-header"><span class="card-title" data-i18n="Identité légale">Identité légale</span></div>
       <div class="card-body">
         <div class="fgrid fg2">
-          <div class="fg sp2"><label>Raison sociale</label><input type="text" id="p-nom" placeholder="Ex: SOGECI SARL"/></div>
-          <div class="fg"><label>IFU (Identifiant Fiscal)</label><input type="text" id="p-ifu" placeholder="Ex: 0123456789"/></div>
-          <div class="fg"><label>RCCM</label><input type="text" id="p-rccm" placeholder="Ex: TG-LOM-2020-B-1234"/></div>
-          <div class="fg"><label>N° TVA</label><input type="text" id="p-tva-num" placeholder="Ex: TG00123456"/></div>
-          <div class="fg"><label>Capital social (FCFA)</label><input type="number" id="p-capital" placeholder="0"/></div>
-          <div class="fg"><label>Adresse siège</label><input type="text" id="p-adresse" placeholder="Ex: Avenue du 13 Janvier, Lomé"/></div>
-          <div class="fg"><label>Téléphone</label><input type="text" id="p-tel" placeholder="+228 90 00 00 00"/></div>
-          <div class="fg"><label>Email</label><input type="email" id="p-email" placeholder="contact@entreprise.tg"/></div>
-          <div class="fg sp2"><label>Site web</label><input type="text" id="p-web" placeholder="www.entreprise.tg"/></div>
+          <div class="fg sp2"><label data-i18n="Raison sociale">Raison sociale</label><input type="text" id="p-nom" data-i18n-placeholder="Ex: SOGECI SARL" placeholder="Ex: SOGECI SARL"/></div>
+          <div class="fg"><label data-i18n="IFU (Identifiant Fiscal)">IFU (Identifiant Fiscal)</label><input type="text" id="p-ifu" placeholder="Ex: 0123456789"/></div>
+          <div class="fg"><label data-i18n="RCCM">RCCM</label><input type="text" id="p-rccm" placeholder="Ex: TG-LOM-2020-B-1234"/></div>
+          <div class="fg"><label data-i18n="N° TVA">N° TVA</label><input type="text" id="p-tva-num" placeholder="Ex: TG00123456"/></div>
+          <div class="fg"><label data-i18n="Capital social (FCFA)">Capital social (FCFA)</label><input type="number" id="p-capital" placeholder="0"/></div>
+          <div class="fg"><label data-i18n="Adresse siège">Adresse siège</label><input type="text" id="p-adresse" data-i18n-placeholder="Ex: Avenue du 13 Janvier, Lomé" placeholder="Ex: Avenue du 13 Janvier, Lomé"/></div>
+          <div class="fg"><label data-i18n="Téléphone">Téléphone</label><input type="text" id="p-tel" placeholder="+228 90 00 00 00"/></div>
+          <div class="fg"><label data-i18n="Email">Email</label><input type="email" id="p-email" placeholder="contact@entreprise.tg"/></div>
+          <div class="fg sp2"><label data-i18n="Site web">Site web</label><input type="text" id="p-web" placeholder="www.entreprise.tg"/></div>
         </div>
       </div>
     </div>
     <div class="card">
-      <div class="card-header"><span class="card-title">Coordonnées bancaires & factures</span></div>
+      <div class="card-header"><span class="card-title" data-i18n="Coordonnées bancaires & factures">Coordonnées bancaires & factures</span></div>
       <div class="card-body">
         <div class="fgrid fg2">
-          <div class="fg sp2"><label>Banque domiciliataire</label><input type="text" id="p-banque" placeholder="Ex: Ecobank Togo"/></div>
-          <div class="fg"><label>IBAN / Numéro de compte</label><input type="text" id="p-iban" placeholder="TG0012345678"/></div>
-          <div class="fg"><label>Code SWIFT/BIC</label><input type="text" id="p-swift" placeholder="ECOCGTLG"/></div>
-          <div class="fg sp2"><label>Mobile Money (Flooz/T-Money)</label><input type="text" id="p-mobi" placeholder="+228 90 00 00 00"/></div>
-          <div class="fg sp2"><label>Mentions légales (pied de facture)</label><textarea id="p-mentions" rows="3" style="font-size:11.5px" placeholder="Ex: TVA acquittée à la livraison. Tout retard de paiement entraîne des pénalités de 1,5% par mois."></textarea></div>
-          <div class="fg"><label>Couleur principale factures</label><input type="color" id="p-couleur" value="var(--accent)" style="height:36px;padding:2px 4px"/></div>
-          <div class="fg"><label>Logo (URL ou base64)</label><input type="text" id="p-logo-url" placeholder="Collez l'URL de votre logo"/></div>
+          <div class="fg sp2"><label data-i18n="Banque domiciliataire">Banque domiciliataire</label><input type="text" id="p-banque" data-i18n-placeholder="Ex: Ecobank Togo" placeholder="Ex: Ecobank Togo"/></div>
+          <div class="fg"><label data-i18n="IBAN / Numéro de compte">IBAN / Numéro de compte</label><input type="text" id="p-iban" placeholder="TG0012345678"/></div>
+          <div class="fg"><label data-i18n="Code SWIFT/BIC">Code SWIFT/BIC</label><input type="text" id="p-swift" placeholder="ECOCGTLG"/></div>
+          <div class="fg sp2"><label data-i18n="Mobile Money (Flooz/T-Money)">Mobile Money (Flooz/T-Money)</label><input type="text" id="p-mobi" placeholder="+228 90 00 00 00"/></div>
+          <div class="fg sp2"><label data-i18n="Mentions légales (pied de facture)">Mentions légales (pied de facture)</label><textarea id="p-mentions" rows="3" style="font-size:11.5px" data-i18n-placeholder="Ex: TVA acquittée à la livraison. Tout retard de paiement entraîne des pénalités de 1,5% par mois." placeholder="Ex: TVA acquittée à la livraison. Tout retard de paiement entraîne des pénalités de 1,5% par mois."></textarea></div>
+          <div class="fg"><label data-i18n="Couleur principale factures">Couleur principale factures</label><input type="color" id="p-couleur" value="var(--accent)" style="height:36px;padding:2px 4px"/></div>
+          <div class="fg"><label data-i18n="Logo (URL ou base64)">Logo (URL ou base64)</label><input type="text" id="p-logo-url" data-i18n-placeholder="Collez l'URL de votre logo" placeholder="Collez l'URL de votre logo"/></div>
         </div>
         <div style="margin-top:8px">
-          <label style="font-size:10.5px;color:var(--text-muted)">Ou charger depuis fichier :</label><br>
+          <label style="font-size:10.5px;color:var(--text-muted)" data-i18n="Ou charger depuis fichier :">Ou charger depuis fichier :</label><br>
           <input type="file" id="p-logo-file" accept="image/*" onchange="chargerLogo(this)" style="font-size:11px;margin-top:3px"/>
         </div>
         <div id="p-logo-preview" style="margin-top:8px;display:none">
@@ -1274,10 +1274,10 @@
     </div>
   </div>
   <div style="display:flex;gap:8px;margin-top:12px;justify-content:flex-end">
-    <button class="btn btn-sm" onclick="resetProfil()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9a8 8 0 0 1 14-4.5M20 5v5h-5"/><path d="M20 15a8 8 0 0 1-14 4.5M4 19v-5h5"/></svg> Réinitialiser</button>
-    <button class="btn btn-primary" onclick="sauverProfil()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 4v5h8V4"/><path d="M7.5 13h9v7h-9z"/></svg> Enregistrer le profil</button>
+    <button class="btn btn-sm" onclick="resetProfil()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9a8 8 0 0 1 14-4.5M20 5v5h-5"/><path d="M20 15a8 8 0 0 1-14 4.5M4 19v-5h5"/></svg> <span data-i18n="Réinitialiser">Réinitialiser</span></button>
+    <button class="btn btn-primary" onclick="sauverProfil()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 4v5h8V4"/><path d="M7.5 13h9v7h-9z"/></svg> <span data-i18n="Enregistrer le profil">Enregistrer le profil</span></button>
   </div>
-  <div id="profil-notif" style="display:none;margin-top:8px;padding:8px 12px;background:var(--green-light);border:2px solid var(--green-border);border-radius:var(--radius);font-size:11.5px;color:var(--green-dark)"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="7.5,12.5 10.5,15.5 16.5,9"/></svg> Profil enregistré. Toutes les nouvelles factures incluront ces informations.</div>
+  <div id="profil-notif" style="display:none;margin-top:8px;padding:8px 12px;background:var(--green-light);border:2px solid var(--green-border);border-radius:var(--radius);font-size:11.5px;color:var(--green-dark)"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="7.5,12.5 10.5,15.5 16.5,9"/></svg> <span data-i18n="Profil enregistré. Toutes les nouvelles factures incluront ces informations.">Profil enregistré. Toutes les nouvelles factures incluront ces informations.</span></div>
 </div>
 
 <!-- PANE GESTION DES UTILISATEURS (admin uniquement) -->
