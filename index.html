@@ -1311,10 +1311,10 @@
   <!-- Topbar devis -->
   <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;flex-wrap:wrap;gap:8px">
     <div>
-      <div style="font-size:15px;font-weight:600"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="12" height="17" rx="1.5"/><rect x="9" y="2" width="6" height="3" rx="1"/><line x1="8.5" y1="10" x2="15.5" y2="10"/><line x1="8.5" y1="13.5" x2="15.5" y2="13.5"/></svg> Devis</div>
-      <div style="font-size:11px;color:var(--text-muted)">Créez un devis multi-lignes complet → conversion 1 clic vers Facture ou Bon de commande</div>
+      <div style="font-size:15px;font-weight:600"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="12" height="17" rx="1.5"/><rect x="9" y="2" width="6" height="3" rx="1"/><line x1="8.5" y1="10" x2="15.5" y2="10"/><line x1="8.5" y1="13.5" x2="15.5" y2="13.5"/></svg> <span data-i18n="Devis">Devis</span></div>
+      <div style="font-size:11px;color:var(--text-muted)" data-i18n="Créez un devis multi-lignes complet → conversion 1 clic vers Facture ou Bon de commande">Créez un devis multi-lignes complet → conversion 1 clic vers Facture ou Bon de commande</div>
     </div>
-    <button class="btn btn-primary btn-sm" onclick="ouvrirFormulaireDevis()">+ Nouveau devis</button>
+    <button class="btn btn-primary btn-sm" onclick="ouvrirFormulaireDevis()">+ <span data-i18n="Nouveau devis">Nouveau devis</span></button>
   </div>
 
   <!-- Formulaire devis complet -->
@@ -1322,35 +1322,35 @@
     <!-- En-tête -->
     <div class="card" style="margin-bottom:10px">
       <div class="card-header">
-        <span class="card-title" id="devis-form-title">Nouveau devis</span>
+        <span class="card-title" id="devis-form-title" data-i18n="Nouveau devis">Nouveau devis</span>
         <div style="display:flex;gap:6px">
-          <button class="btn btn-sm" onclick="fermerFormulaireDevis()">Annuler</button>
-          <button class="btn btn-sm" onclick="aperçuDevis()" style="background:var(--blue);color:#fff;border-color:var(--blue)"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></svg> Aperçu PDF</button>
-          <button class="btn btn-primary btn-sm" onclick="sauverDevis()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 4v5h8V4"/><path d="M7.5 13h9v7h-9z"/></svg> Enregistrer</button>
+          <button class="btn btn-sm" onclick="fermerFormulaireDevis()" data-i18n="Annuler">Annuler</button>
+          <button class="btn btn-sm" onclick="aperçuDevis()" style="background:var(--blue);color:#fff;border-color:var(--blue)"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></svg> <span data-i18n="Aperçu PDF">Aperçu PDF</span></button>
+          <button class="btn btn-primary btn-sm" onclick="sauverDevis()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 4v5h8V4"/><path d="M7.5 13h9v7h-9z"/></svg> <span data-i18n="Enregistrer">Enregistrer</span></button>
         </div>
       </div>
       <div class="card-body">
         <div class="fgrid fg4">
           <div class="fg sp2">
-            <label>Client <button onclick="go('tiers',document.querySelector('[onclick*=tiers]'))" style="font-size:9px;padding:1px 5px;border:2px solid var(--border);border-radius:var(--radius);background:var(--bg);cursor:pointer;margin-left:4px">+ Gérer</button></label>
-            <input type="text" id="dv-client" list="dv-clients-list" placeholder="Nom du client"/>
+            <label><span data-i18n="Client">Client</span> <button onclick="go('tiers',document.querySelector('[onclick*=tiers]'))" style="font-size:9px;padding:1px 5px;border:2px solid var(--border);border-radius:var(--radius);background:var(--bg);cursor:pointer;margin-left:4px">+ <span data-i18n="Gérer">Gérer</span></button></label>
+            <input type="text" id="dv-client" list="dv-clients-list" data-i18n-placeholder="Nom du client" placeholder="Nom du client"/>
             <datalist id="dv-clients-list"></datalist>
           </div>
-          <div class="fg"><label>N° Devis (auto)</label><input type="text" id="dv-num" placeholder="DV2026-001" readonly style="font-family:'Archivo',sans-serif;color:var(--green-dark);font-weight:600"/></div>
-          <div class="fg"><label>Date</label><input type="date" id="dv-date"/></div>
-          <div class="fg"><label>Valide jusqu'au</label><input type="date" id="dv-validite"/></div>
-          <div class="fg sp2"><label>Objet du devis</label><input type="text" id="dv-objet" placeholder="Ex: Fourniture et installation de cloisons bureau..."/></div>
-          <div class="fg"><label>Conditions de paiement</label>
+          <div class="fg"><label data-i18n="N° Devis (auto)">N° Devis (auto)</label><input type="text" id="dv-num" placeholder="DV2026-001" readonly style="font-family:'Archivo',sans-serif;color:var(--green-dark);font-weight:600"/></div>
+          <div class="fg"><label data-i18n="Date">Date</label><input type="date" id="dv-date"/></div>
+          <div class="fg"><label data-i18n="Valide jusqu'au">Valide jusqu'au</label><input type="date" id="dv-validite"/></div>
+          <div class="fg sp2"><label data-i18n="Objet du devis">Objet du devis</label><input type="text" id="dv-objet" data-i18n-placeholder="Ex: Fourniture et installation de cloisons bureau..." placeholder="Ex: Fourniture et installation de cloisons bureau..."/></div>
+          <div class="fg"><label data-i18n="Conditions de paiement">Conditions de paiement</label>
             <select id="dv-cond-pay">
-              <option value="comptant">Comptant à la livraison</option>
-              <option value="30j">30 jours net</option>
-              <option value="60j">60 jours net</option>
-              <option value="acompte30">30% acompte + solde livraison</option>
-              <option value="acompte50">50% acompte + 50% livraison</option>
-              <option value="autre">Autre (voir notes)</option>
+              <option value="comptant" data-i18n="Comptant à la livraison">Comptant à la livraison</option>
+              <option value="30j" data-i18n="30 jours net">30 jours net</option>
+              <option value="60j" data-i18n="60 jours net">60 jours net</option>
+              <option value="acompte30" data-i18n="30% acompte + solde livraison">30% acompte + solde livraison</option>
+              <option value="acompte50" data-i18n="50% acompte + 50% livraison">50% acompte + 50% livraison</option>
+              <option value="autre" data-i18n="Autre (voir notes)">Autre (voir notes)</option>
             </select>
           </div>
-          <div class="fg"><label>Délai de livraison</label><input type="text" id="dv-delai" placeholder="Ex: 15 jours ouvrables"/></div>
+          <div class="fg"><label data-i18n="Délai de livraison">Délai de livraison</label><input type="text" id="dv-delai" data-i18n-placeholder="Ex: 15 jours ouvrables" placeholder="Ex: 15 jours ouvrables"/></div>
         </div>
       </div>
     </div>
@@ -1358,20 +1358,20 @@
     <!-- Lignes multi-articles -->
     <div class="card" style="margin-bottom:10px">
       <div class="card-header">
-        <span class="card-title">Articles / Prestations</span>
-        <button class="btn btn-sm btn-primary" onclick="ajouterLigneDV()" style="font-size:10px">+ Ligne</button>
+        <span class="card-title" data-i18n="Articles / Prestations">Articles / Prestations</span>
+        <button class="btn btn-sm btn-primary" onclick="ajouterLigneDV()" style="font-size:10px">+ <span data-i18n="Ligne">Ligne</span></button>
       </div>
       <div style="overflow-x:auto">
         <table style="width:100%;border-collapse:collapse;font-size:11.5px;min-width:700px">
           <thead>
             <tr style="background:var(--bg)">
-              <th style="padding:7px 8px;text-align:left;border-bottom:2px solid var(--border);font-size:10px;text-transform:uppercase;color:var(--text-muted);min-width:180px">Désignation / Description</th>
-              <th style="padding:7px 8px;text-align:right;border-bottom:2px solid var(--border);font-size:10px;text-transform:uppercase;color:var(--text-muted);width:65px">Qté</th>
-              <th style="padding:7px 8px;border-bottom:2px solid var(--border);font-size:10px;text-transform:uppercase;color:var(--text-muted);width:70px">Unité</th>
-              <th style="padding:7px 8px;text-align:right;border-bottom:2px solid var(--border);font-size:10px;text-transform:uppercase;color:var(--text-muted);width:120px">P.U. HT (FCFA)</th>
-              <th style="padding:7px 8px;text-align:right;border-bottom:2px solid var(--border);font-size:10px;text-transform:uppercase;color:var(--text-muted);width:60px">Rem. %</th>
-              <th style="padding:7px 8px;text-align:right;border-bottom:2px solid var(--border);font-size:10px;text-transform:uppercase;color:var(--text-muted);width:65px">TVA %</th>
-              <th style="padding:7px 8px;text-align:right;border-bottom:2px solid var(--border);font-size:10px;text-transform:uppercase;color:var(--text-muted);width:120px">Total HT</th>
+              <th style="padding:7px 8px;text-align:left;border-bottom:2px solid var(--border);font-size:10px;text-transform:uppercase;color:var(--text-muted);min-width:180px" data-i18n="Désignation / Description">Désignation / Description</th>
+              <th style="padding:7px 8px;text-align:right;border-bottom:2px solid var(--border);font-size:10px;text-transform:uppercase;color:var(--text-muted);width:65px" data-i18n="Qté">Qté</th>
+              <th style="padding:7px 8px;border-bottom:2px solid var(--border);font-size:10px;text-transform:uppercase;color:var(--text-muted);width:70px" data-i18n="Unité">Unité</th>
+              <th style="padding:7px 8px;text-align:right;border-bottom:2px solid var(--border);font-size:10px;text-transform:uppercase;color:var(--text-muted);width:120px" data-i18n="P.U. HT (FCFA)">P.U. HT (FCFA)</th>
+              <th style="padding:7px 8px;text-align:right;border-bottom:2px solid var(--border);font-size:10px;text-transform:uppercase;color:var(--text-muted);width:60px" data-i18n="Rem. %">Rem. %</th>
+              <th style="padding:7px 8px;text-align:right;border-bottom:2px solid var(--border);font-size:10px;text-transform:uppercase;color:var(--text-muted);width:65px" data-i18n="TVA %">TVA %</th>
+              <th style="padding:7px 8px;text-align:right;border-bottom:2px solid var(--border);font-size:10px;text-transform:uppercase;color:var(--text-muted);width:120px" data-i18n="Total HT">Total HT</th>
               <th style="padding:7px 8px;border-bottom:2px solid var(--border);width:28px"></th>
             </tr>
           </thead>
@@ -1381,22 +1381,22 @@
       <!-- Récap totaux -->
       <div style="padding:12px 16px;background:var(--bg);border-top:2px solid var(--border)">
         <div style="display:flex;justify-content:flex-end;gap:32px;flex-wrap:wrap;font-size:12px">
-          <span style="color:var(--text-muted)">Total HT brut : <strong id="dv-tot-ht" style="font-family:'Archivo',sans-serif">0</strong> FCFA</span>
-          <span style="color:var(--text-muted)">Remises : <strong id="dv-tot-rem" style="font-family:'Archivo',sans-serif;color:var(--red)">0</strong> FCFA</span>
-          <span style="color:var(--text-muted)">HT net : <strong id="dv-tot-htnet" style="font-family:'Archivo',sans-serif">0</strong> FCFA</span>
-          <span style="color:var(--text-muted)">TVA : <strong id="dv-tot-tva" style="font-family:'Archivo',sans-serif;color:var(--teal)">0</strong> FCFA</span>
-          <span style="font-size:13px;font-weight:700">TTC : <strong id="dv-tot-ttc" style="font-family:'Archivo',sans-serif;color:var(--green-dark)">0</strong> FCFA</span>
+          <span style="color:var(--text-muted)"><span data-i18n="Total HT brut">Total HT brut</span> : <strong id="dv-tot-ht" style="font-family:'Archivo',sans-serif">0</strong> FCFA</span>
+          <span style="color:var(--text-muted)"><span data-i18n="Remises">Remises</span> : <strong id="dv-tot-rem" style="font-family:'Archivo',sans-serif;color:var(--red)">0</strong> FCFA</span>
+          <span style="color:var(--text-muted)"><span data-i18n="HT net">HT net</span> : <strong id="dv-tot-htnet" style="font-family:'Archivo',sans-serif">0</strong> FCFA</span>
+          <span style="color:var(--text-muted)"><span data-i18n="TVA">TVA</span> : <strong id="dv-tot-tva" style="font-family:'Archivo',sans-serif;color:var(--teal)">0</strong> FCFA</span>
+          <span style="font-size:13px;font-weight:700"><span data-i18n="TTC">TTC</span> : <strong id="dv-tot-ttc" style="font-family:'Archivo',sans-serif;color:var(--green-dark)">0</strong> FCFA</span>
         </div>
       </div>
     </div>
 
     <!-- Notes & acompte -->
     <div class="card" style="margin-bottom:10px">
-      <div class="card-header"><span class="card-title">Conditions & remarques</span></div>
+      <div class="card-header"><span class="card-title" data-i18n="Conditions & remarques">Conditions & remarques</span></div>
       <div class="card-body">
         <div class="fgrid fg3">
-          <div class="fg sp2"><label>Notes / Conditions particulières</label><textarea id="dv-notes" rows="2" placeholder="Validité du devis, conditions techniques, garantie, SAV..."></textarea></div>
-          <div class="fg"><label>Acompte demandé (FCFA)</label><input type="number" id="dv-acompte" min="0" placeholder="0" oninput="calcDvAcompte()"/><div id="dv-acompte-pct" style="font-size:10px;color:var(--text-muted);margin-top:3px"></div></div>
+          <div class="fg sp2"><label data-i18n="Notes / Conditions particulières">Notes / Conditions particulières</label><textarea id="dv-notes" rows="2" data-i18n-placeholder="Validité du devis, conditions techniques, garantie, SAV..." placeholder="Validité du devis, conditions techniques, garantie, SAV..."></textarea></div>
+          <div class="fg"><label data-i18n="Acompte demandé (FCFA)">Acompte demandé (FCFA)</label><input type="number" id="dv-acompte" min="0" placeholder="0" oninput="calcDvAcompte()"/><div id="dv-acompte-pct" style="font-size:10px;color:var(--text-muted);margin-top:3px"></div></div>
         </div>
       </div>
     </div>
@@ -1409,27 +1409,27 @@
 <!-- PANE BON DE COMMANDE -->
 <div class="pane" id="pane-bc">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px">
-    <div><div style="font-size:15px;font-weight:600"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.3"/><circle cx="17" cy="20" r="1.3"/><path d="M2.5 4h2.5l2.3 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.6L21 8H6"/></svg> Bons de commande</div><div style="font-size:11px;color:var(--text-muted)">Convertissez un devis accepté en bon de commande, puis en bon de livraison.</div></div>
-    <button class="btn btn-primary btn-sm" onclick="ouvrirFormulaireBC()">+ Nouveau bon de commande</button>
+    <div><div style="font-size:15px;font-weight:600"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.3"/><circle cx="17" cy="20" r="1.3"/><path d="M2.5 4h2.5l2.3 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.6L21 8H6"/></svg> <span data-i18n="Bons de commande">Bons de commande</span></div><div style="font-size:11px;color:var(--text-muted)" data-i18n="Convertissez un devis accepté en bon de commande, puis en bon de livraison.">Convertissez un devis accepté en bon de commande, puis en bon de livraison.</div></div>
+    <button class="btn btn-primary btn-sm" onclick="ouvrirFormulaireBC()">+ <span data-i18n="Nouveau bon de commande">Nouveau bon de commande</span></button>
   </div>
   <div id="bc-form" style="display:none" class="card" style="margin-bottom:14px">
-    <div class="card-header"><span class="card-title">Nouveau bon de commande</span></div>
+    <div class="card-header"><span class="card-title" data-i18n="Nouveau bon de commande">Nouveau bon de commande</span></div>
     <div class="card-body">
       <div class="fgrid fg3">
-        <div class="fg"><label>Client / Fournisseur</label><input type="text" id="bc-tiers" list="bc-tiers-list" placeholder="Nom"/><datalist id="bc-tiers-list"></datalist></div>
-        <div class="fg"><label>Type</label><select id="bc-type"><option value="client">Commande client</option><option value="fournisseur">Commande fournisseur</option></select></div>
-        <div class="fg"><label>Date</label><input type="date" id="bc-date"/></div>
-        <div class="fg"><label>Livraison prévue</label><input type="date" id="bc-livraison"/></div>
-        <div class="fg sp2"><label>Référence devis (optionnel)</label><select id="bc-devis-ref"><option value="">— Sans devis lié —</option></select></div>
-        <div class="fg sp3"><label>Désignation / Objet</label><input type="text" id="bc-objet" placeholder="Description des marchandises ou services"/></div>
-        <div class="fg"><label>Montant HT (FCFA)</label><input type="number" id="bc-ht" min="0" oninput="calcBCTTC()"/></div>
-        <div class="fg"><label>TVA (%)</label><select id="bc-tva" onchange="calcBCTTC()"><option value="18">18%</option><option value="0">Exonéré</option><option value="10">10%</option></select></div>
-        <div class="fg"><label>Montant TTC</label><input type="text" id="bc-ttc" readonly style="font-weight:700;color:var(--green-dark)"/></div>
-        <div class="fg sp3"><label>Conditions</label><textarea id="bc-conds" rows="2"></textarea></div>
+        <div class="fg"><label data-i18n="Client / Fournisseur">Client / Fournisseur</label><input type="text" id="bc-tiers" list="bc-tiers-list" data-i18n-placeholder="Nom" placeholder="Nom"/><datalist id="bc-tiers-list"></datalist></div>
+        <div class="fg"><label data-i18n="Type">Type</label><select id="bc-type"><option value="client" data-i18n="Commande client">Commande client</option><option value="fournisseur" data-i18n="Commande fournisseur">Commande fournisseur</option></select></div>
+        <div class="fg"><label data-i18n="Date">Date</label><input type="date" id="bc-date"/></div>
+        <div class="fg"><label data-i18n="Livraison prévue">Livraison prévue</label><input type="date" id="bc-livraison"/></div>
+        <div class="fg sp2"><label data-i18n="Référence devis (optionnel)">Référence devis (optionnel)</label><select id="bc-devis-ref"><option value="" data-i18n="— Sans devis lié —">— Sans devis lié —</option></select></div>
+        <div class="fg sp3"><label data-i18n="Désignation / Objet">Désignation / Objet</label><input type="text" id="bc-objet" data-i18n-placeholder="Description des marchandises ou services" placeholder="Description des marchandises ou services"/></div>
+        <div class="fg"><label data-i18n="Montant HT (FCFA)">Montant HT (FCFA)</label><input type="number" id="bc-ht" min="0" oninput="calcBCTTC()"/></div>
+        <div class="fg"><label data-i18n="TVA (%)">TVA (%)</label><select id="bc-tva" onchange="calcBCTTC()"><option value="18">18%</option><option value="0" data-i18n="Exonéré">Exonéré</option><option value="10">10%</option></select></div>
+        <div class="fg"><label data-i18n="Montant TTC">Montant TTC</label><input type="text" id="bc-ttc" readonly style="font-weight:700;color:var(--green-dark)"/></div>
+        <div class="fg sp3"><label data-i18n="Conditions">Conditions</label><textarea id="bc-conds" rows="2"></textarea></div>
       </div>
       <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:10px">
-        <button class="btn btn-sm" onclick="document.getElementById('bc-form').style.display='none'">Annuler</button>
-        <button class="btn btn-primary btn-sm" onclick="sauverBC()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 4v5h8V4"/><path d="M7.5 13h9v7h-9z"/></svg> Enregistrer</button>
+        <button class="btn btn-sm" onclick="document.getElementById('bc-form').style.display='none'" data-i18n="Annuler">Annuler</button>
+        <button class="btn btn-primary btn-sm" onclick="sauverBC()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 4v5h8V4"/><path d="M7.5 13h9v7h-9z"/></svg> <span data-i18n="Enregistrer">Enregistrer</span></button>
       </div>
     </div>
   </div>
@@ -1439,25 +1439,25 @@
 <!-- PANE BON DE LIVRAISON -->
 <div class="pane" id="pane-bl">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px">
-    <div><div style="font-size:15px;font-weight:600"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="8" width="11" height="8" rx="1"/><path d="M13.5 11h4l3 3v2h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></svg> Bons de livraison</div><div style="font-size:11px;color:var(--text-muted)">Document légal prouvant la remise de marchandises. Lié à la facture correspondante.</div></div>
-    <button class="btn btn-primary btn-sm" onclick="ouvrirFormulaireBL()">+ Nouveau bon de livraison</button>
+    <div><div style="font-size:15px;font-weight:600"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="8" width="11" height="8" rx="1"/><path d="M13.5 11h4l3 3v2h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></svg> <span data-i18n="Bons de livraison">Bons de livraison</span></div><div style="font-size:11px;color:var(--text-muted)" data-i18n="Document légal prouvant la remise de marchandises. Lié à la facture correspondante.">Document légal prouvant la remise de marchandises. Lié à la facture correspondante.</div></div>
+    <button class="btn btn-primary btn-sm" onclick="ouvrirFormulaireBL()">+ <span data-i18n="Nouveau bon de livraison">Nouveau bon de livraison</span></button>
   </div>
   <div id="bl-form" style="display:none" class="card" style="margin-bottom:14px">
-    <div class="card-header"><span class="card-title">Nouveau bon de livraison</span></div>
+    <div class="card-header"><span class="card-title" data-i18n="Nouveau bon de livraison">Nouveau bon de livraison</span></div>
     <div class="card-body">
       <div class="fgrid fg3">
-        <div class="fg"><label>Client</label><input type="text" id="bl-client" list="bl-clients-list"/><datalist id="bl-clients-list"></datalist></div>
-        <div class="fg"><label>Date livraison</label><input type="date" id="bl-date"/></div>
-        <div class="fg"><label>Référence BC (optionnel)</label><select id="bl-bc-ref"><option value="">— Sans BC lié —</option></select></div>
-        <div class="fg"><label>Référence facture (optionnel)</label><input type="text" id="bl-fact-ref" placeholder="Ex: F2026-012"/></div>
-        <div class="fg"><label>Transporteur</label><input type="text" id="bl-transport" placeholder="Ex: Auto-livraison, CNTB..."/></div>
-        <div class="fg"><label>Livreur (nom)</label><input type="text" id="bl-livreur" placeholder="Nom du livreur"/></div>
-        <div class="fg sp3"><label>Désignation des marchandises</label><textarea id="bl-desc" rows="3" placeholder="Détailler les articles livrés : quantité, référence, description..."></textarea></div>
-        <div class="fg sp3"><label>Adresse de livraison</label><input type="text" id="bl-adresse" placeholder="Adresse complète de livraison"/></div>
+        <div class="fg"><label data-i18n="Client">Client</label><input type="text" id="bl-client" list="bl-clients-list"/><datalist id="bl-clients-list"></datalist></div>
+        <div class="fg"><label data-i18n="Date livraison">Date livraison</label><input type="date" id="bl-date"/></div>
+        <div class="fg"><label data-i18n="Référence BC (optionnel)">Référence BC (optionnel)</label><select id="bl-bc-ref"><option value="" data-i18n="— Sans BC lié —">— Sans BC lié —</option></select></div>
+        <div class="fg"><label data-i18n="Référence facture (optionnel)">Référence facture (optionnel)</label><input type="text" id="bl-fact-ref" placeholder="Ex: F2026-012"/></div>
+        <div class="fg"><label data-i18n="Transporteur">Transporteur</label><input type="text" id="bl-transport" data-i18n-placeholder="Ex: Auto-livraison, CNTB..." placeholder="Ex: Auto-livraison, CNTB..."/></div>
+        <div class="fg"><label data-i18n="Livreur (nom)">Livreur (nom)</label><input type="text" id="bl-livreur" data-i18n-placeholder="Nom du livreur" placeholder="Nom du livreur"/></div>
+        <div class="fg sp3"><label data-i18n="Désignation des marchandises">Désignation des marchandises</label><textarea id="bl-desc" rows="3" data-i18n-placeholder="Détailler les articles livrés : quantité, référence, description..." placeholder="Détailler les articles livrés : quantité, référence, description..."></textarea></div>
+        <div class="fg sp3"><label data-i18n="Adresse de livraison">Adresse de livraison</label><input type="text" id="bl-adresse" data-i18n-placeholder="Adresse complète de livraison" placeholder="Adresse complète de livraison"/></div>
       </div>
       <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:10px">
-        <button class="btn btn-sm" onclick="document.getElementById('bl-form').style.display='none'">Annuler</button>
-        <button class="btn btn-primary btn-sm" onclick="sauverBL()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 4v5h8V4"/><path d="M7.5 13h9v7h-9z"/></svg> Enregistrer</button>
+        <button class="btn btn-sm" onclick="document.getElementById('bl-form').style.display='none'" data-i18n="Annuler">Annuler</button>
+        <button class="btn btn-primary btn-sm" onclick="sauverBL()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 4v5h8V4"/><path d="M7.5 13h9v7h-9z"/></svg> <span data-i18n="Enregistrer">Enregistrer</span></button>
       </div>
     </div>
   </div>
@@ -1467,29 +1467,29 @@
 <!-- PANE FACTURES RÉCURRENTES -->
 <div class="pane" id="pane-recurrentes">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px">
-    <div><div style="font-size:15px;font-weight:600"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9a8 8 0 0 1 14-4.5M20 5v5h-5"/><path d="M20 15a8 8 0 0 1-14 4.5M4 19v-5h5"/></svg> Factures récurrentes</div><div style="font-size:11px;color:var(--text-muted)">Loyers, abonnements, contrats de maintenance — génération automatique.</div></div>
+    <div><div style="font-size:15px;font-weight:600"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9a8 8 0 0 1 14-4.5M20 5v5h-5"/><path d="M20 15a8 8 0 0 1-14 4.5M4 19v-5h5"/></svg> <span data-i18n="Factures récurrentes">Factures récurrentes</span></div><div style="font-size:11px;color:var(--text-muted)" data-i18n="Loyers, abonnements, contrats de maintenance — génération automatique.">Loyers, abonnements, contrats de maintenance — génération automatique.</div></div>
     <div style="display:flex;gap:8px">
-      <button class="btn btn-sm btn-primary" onclick="genererEcheancesRecurrentes()" style="background:var(--amber);border-color:var(--amber)"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13,2 4,14 11,14 10,22 20,9 13,9"/></svg> Générer les échéances dues</button>
-      <button class="btn btn-primary btn-sm" onclick="ouvrirFormulaireRec()">+ Nouvelle règle</button>
+      <button class="btn btn-sm btn-primary" onclick="genererEcheancesRecurrentes()" style="background:var(--amber);border-color:var(--amber)"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13,2 4,14 11,14 10,22 20,9 13,9"/></svg> <span data-i18n="Générer les échéances dues">Générer les échéances dues</span></button>
+      <button class="btn btn-primary btn-sm" onclick="ouvrirFormulaireRec()">+ <span data-i18n="Nouvelle règle">Nouvelle règle</span></button>
     </div>
   </div>
   <div id="rec-form" style="display:none" class="card" style="margin-bottom:14px">
-    <div class="card-header"><span class="card-title">Nouvelle facture récurrente</span></div>
+    <div class="card-header"><span class="card-title" data-i18n="Nouvelle facture récurrente">Nouvelle facture récurrente</span></div>
     <div class="card-body">
       <div class="fgrid fg3">
-        <div class="fg sp2"><label>Libellé</label><input type="text" id="rec-lib" placeholder="Ex: Loyer bureau Lomé, Abonnement internet..."/></div>
-        <div class="fg"><label>Client / Fournisseur</label><input type="text" id="rec-tiers" list="rec-tiers-list"/><datalist id="rec-tiers-list"></datalist></div>
-        <div class="fg"><label>Type</label><select id="rec-type"><option value="charge">Charge (fournisseur)</option><option value="produit">Produit (client)</option></select></div>
-        <div class="fg"><label>Montant HT (FCFA)</label><input type="number" id="rec-ht" min="0" placeholder="0"/></div>
-        <div class="fg"><label>TVA</label><select id="rec-tva"><option value="18">18%</option><option value="0">Exonéré</option></select></div>
-        <div class="fg"><label>Fréquence</label><select id="rec-freq"><option value="mensuel">Mensuelle</option><option value="trimestriel">Trimestrielle</option><option value="semestriel">Semestrielle</option><option value="annuel">Annuelle</option></select></div>
-        <div class="fg"><label>Première échéance</label><input type="date" id="rec-debut"/></div>
-        <div class="fg"><label>Dernière échéance (optionnel)</label><input type="date" id="rec-fin"/></div>
-        <div class="fg"><label>Compte comptable</label><input type="text" id="rec-cpt" placeholder="Ex: 6132" style="font-family:'Archivo',sans-serif"/></div>
+        <div class="fg sp2"><label data-i18n="Libellé">Libellé</label><input type="text" id="rec-lib" data-i18n-placeholder="Ex: Loyer bureau Lomé, Abonnement internet..." placeholder="Ex: Loyer bureau Lomé, Abonnement internet..."/></div>
+        <div class="fg"><label data-i18n="Client / Fournisseur">Client / Fournisseur</label><input type="text" id="rec-tiers" list="rec-tiers-list"/><datalist id="rec-tiers-list"></datalist></div>
+        <div class="fg"><label data-i18n="Type">Type</label><select id="rec-type"><option value="charge" data-i18n="Charge (fournisseur)">Charge (fournisseur)</option><option value="produit" data-i18n="Produit (client)">Produit (client)</option></select></div>
+        <div class="fg"><label data-i18n="Montant HT (FCFA)">Montant HT (FCFA)</label><input type="number" id="rec-ht" min="0" placeholder="0"/></div>
+        <div class="fg"><label data-i18n="TVA">TVA</label><select id="rec-tva"><option value="18">18%</option><option value="0" data-i18n="Exonéré">Exonéré</option></select></div>
+        <div class="fg"><label data-i18n="Fréquence">Fréquence</label><select id="rec-freq"><option value="mensuel" data-i18n="Mensuelle">Mensuelle</option><option value="trimestriel" data-i18n="Trimestrielle">Trimestrielle</option><option value="semestriel" data-i18n="Semestrielle">Semestrielle</option><option value="annuel" data-i18n="Annuelle">Annuelle</option></select></div>
+        <div class="fg"><label data-i18n="Première échéance">Première échéance</label><input type="date" id="rec-debut"/></div>
+        <div class="fg"><label data-i18n="Dernière échéance (optionnel)">Dernière échéance (optionnel)</label><input type="date" id="rec-fin"/></div>
+        <div class="fg"><label data-i18n="Compte comptable">Compte comptable</label><input type="text" id="rec-cpt" placeholder="Ex: 6132" style="font-family:'Archivo',sans-serif"/></div>
       </div>
       <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:10px">
-        <button class="btn btn-sm" onclick="document.getElementById('rec-form').style.display='none'">Annuler</button>
-        <button class="btn btn-primary btn-sm" onclick="sauverRec()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 4v5h8V4"/><path d="M7.5 13h9v7h-9z"/></svg> Enregistrer</button>
+        <button class="btn btn-sm" onclick="document.getElementById('rec-form').style.display='none'" data-i18n="Annuler">Annuler</button>
+        <button class="btn btn-primary btn-sm" onclick="sauverRec()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 4v5h8V4"/><path d="M7.5 13h9v7h-9z"/></svg> <span data-i18n="Enregistrer">Enregistrer</span></button>
       </div>
     </div>
   </div>
