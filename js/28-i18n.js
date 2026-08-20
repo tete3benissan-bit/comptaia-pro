@@ -239,7 +239,21 @@ en:{
   'Scénario à simuler':'Scenario to simulate','Type de décision':'Decision type','Embaucher un salarié':'Hire an employee',
   'Acheter un équipement / véhicule':'Buy equipment / a vehicle','Distribuer des dividendes':'Distribute dividends','Contracter un emprunt':'Take out a loan',
   'Signer un bail commercial':'Sign a commercial lease',"Simuler l'impact fiscal IA":'Simulate tax impact with AI','Résultat de simulation':'Simulation result',
-  'Configurez un scénario et cliquez sur Simuler.':'Configure a scenario and click Simulate.','Analyse IA — Conseil expert':'AI Analysis — Expert advice'
+  'Configurez un scénario et cliquez sur Simuler.':'Configure a scenario and click Simulate.','Analyse IA — Conseil expert':'AI Analysis — Expert advice',
+  // Production / Caisse
+  'Module Production':'Production module',
+  'Nomenclatures produits, ordres de fabrication, coût de revient automatique. Stock matières premières → En-cours (33x) → Produits finis (35x).':'Product bills of materials, manufacturing orders, automatic cost price. Raw materials stock → Work in progress (33x) → Finished goods (35x).',
+  'Nomenclatures produits':'Product bills of materials','Nomenclature':'Bill of materials','Stocks par type OHADA':'Stock by OHADA type',
+  '31x — Matières premières':'31x — Raw materials','33x — En-cours prod.':'33x — Work in progress','35x — Produits finis':'35x — Finished goods',
+  'Nouvelle nomenclature produit':'New product bill of materials','Nom du produit fini':'Finished product name','Unité produite':'Unit produced',
+  'Quantité produite par lot':'Quantity produced per batch',"Coût main d'œuvre/lot (FCFA)":'Labor cost/batch (FCFA)','Matières premières consommées :':'Raw materials consumed:',
+  'Matière première':'Raw material','Sauvegarder':'Save','Lancer un ordre de fabrication':'Start a manufacturing order','Produit à fabriquer':'Product to manufacture',
+  '— Choisir —':'— Choose —','Quantité de lots à produire':'Number of batches to produce','Date de lancement':'Start date','Lancer la production':'Start production',
+  'Caisse / Point de Vente':'Cash register / Point of sale',
+  'Enregistrez les ventes au comptoir. Le Z de caisse journalier génère les écritures comptables en un clic.':'Record over-the-counter sales. The daily register report generates the accounting entries in one click.',
+  'Panier de vente':'Sales cart','Vider':'Clear','Article (tapez ou scan code-barres)...':'Item (type or scan barcode)...','Total TTC':'Total incl. tax',
+  'Espèces':'Cash','Carte/Banque':'Card/Bank','Z de caisse —':'Register report —',"Aucune vente enregistrée aujourd'hui.":'No sales recorded today.',
+  'Clôturer et comptabiliser le Z':'Close and record the register report'
 },
 ar:{
   'Accueil':'الرئيسية','Trésorerie':'الخزينة','Déclarations':'التصريحات','Chat IA':'محادثة الذكاء الاصطناعي','Utilisateurs':'المستخدمون','Paramètres':'الإعدادات',
@@ -435,7 +449,21 @@ ar:{
   'Scénario à simuler':'سيناريو للمحاكاة','Type de décision':'نوع القرار','Embaucher un salarié':'توظيف موظف',
   'Acheter un équipement / véhicule':'شراء معدات / مركبة','Distribuer des dividendes':'توزيع أرباح','Contracter un emprunt':'الحصول على قرض',
   'Signer un bail commercial':'توقيع عقد إيجار تجاري',"Simuler l'impact fiscal IA":'محاكاة الأثر الضريبي بالذكاء الاصطناعي','Résultat de simulation':'نتيجة المحاكاة',
-  'Configurez un scénario et cliquez sur Simuler.':'أعدّ سيناريو ثم اضغط على محاكاة.','Analyse IA — Conseil expert':'تحليل الذكاء الاصطناعي — نصيحة الخبير'
+  'Configurez un scénario et cliquez sur Simuler.':'أعدّ سيناريو ثم اضغط على محاكاة.','Analyse IA — Conseil expert':'تحليل الذكاء الاصطناعي — نصيحة الخبير',
+  // Production / Caisse
+  'Module Production':'وحدة الإنتاج',
+  'Nomenclatures produits, ordres de fabrication, coût de revient automatique. Stock matières premières → En-cours (33x) → Produits finis (35x).':'قوائم المواد للمنتجات، أوامر التصنيع، تكلفة الإنتاج التلقائية. مخزون المواد الأولية ← الإنتاج تحت التشغيل (33x) ← المنتجات التامة (35x).',
+  'Nomenclatures produits':'قوائم مواد المنتجات','Nomenclature':'قائمة المواد','Stocks par type OHADA':'المخزون حسب نوع أوهادا',
+  '31x — Matières premières':'31x — المواد الأولية','33x — En-cours prod.':'33x — الإنتاج تحت التشغيل','35x — Produits finis':'35x — المنتجات التامة',
+  'Nouvelle nomenclature produit':'قائمة مواد جديدة','Nom du produit fini':'اسم المنتج التام','Unité produite':'وحدة الإنتاج',
+  'Quantité produite par lot':'الكمية المنتجة لكل دفعة',"Coût main d'œuvre/lot (FCFA)":'تكلفة اليد العاملة/الدفعة (فرنك)','Matières premières consommées :':'المواد الأولية المستهلكة:',
+  'Matière première':'مادة أولية','Sauvegarder':'حفظ','Lancer un ordre de fabrication':'إطلاق أمر تصنيع','Produit à fabriquer':'المنتج المراد تصنيعه',
+  '— Choisir —':'— اختر —','Quantité de lots à produire':'عدد الدفعات المراد إنتاجها','Date de lancement':'تاريخ الإطلاق','Lancer la production':'بدء الإنتاج',
+  'Caisse / Point de Vente':'الصندوق / نقطة البيع',
+  'Enregistrez les ventes au comptoir. Le Z de caisse journalier génère les écritures comptables en un clic.':'سجّل المبيعات على الطاولة. يقوم تقرير إغلاق الصندوق اليومي بإنشاء القيود المحاسبية بنقرة واحدة.',
+  'Panier de vente':'سلة المبيعات','Vider':'إفراغ','Article (tapez ou scan code-barres)...':'الصنف (اكتب أو امسح الباركود)...','Total TTC':'الإجمالي شامل الضريبة',
+  'Espèces':'نقدًا','Carte/Banque':'بطاقة/بنك','Z de caisse —':'تقرير إغلاق الصندوق —',"Aucune vente enregistrée aujourd'hui.":'لا توجد مبيعات مسجلة اليوم.',
+  'Clôturer et comptabiliser le Z':'إغلاق وتسجيل تقرير الصندوق'
 },
 fi:{
   'Accueil':'Etusivu','Trésorerie':'Kassavarat','Déclarations':'Ilmoitukset','Chat IA':'Tekoälychat','Utilisateurs':'Käyttäjät','Paramètres':'Asetukset',
@@ -631,7 +659,21 @@ fi:{
   'Scénario à simuler':'Simuloitava skenaario','Type de décision':'Päätöksen tyyppi','Embaucher un salarié':'Palkata työntekijä',
   'Acheter un équipement / véhicule':'Ostaa laitteen / ajoneuvon','Distribuer des dividendes':'Jakaa osinkoja','Contracter un emprunt':'Ottaa lainan',
   'Signer un bail commercial':'Allekirjoittaa liikehuoneiston vuokrasopimuksen',"Simuler l'impact fiscal IA":'Simuloi verovaikutus tekoälyllä','Résultat de simulation':'Simulaation tulos',
-  'Configurez un scénario et cliquez sur Simuler.':'Määritä skenaario ja napsauta Simuloi.','Analyse IA — Conseil expert':'Tekoälyanalyysi — Asiantuntijaneuvo'
+  'Configurez un scénario et cliquez sur Simuler.':'Määritä skenaario ja napsauta Simuloi.','Analyse IA — Conseil expert':'Tekoälyanalyysi — Asiantuntijaneuvo',
+  // Production / Caisse
+  'Module Production':'Tuotantomoduuli',
+  'Nomenclatures produits, ordres de fabrication, coût de revient automatique. Stock matières premières → En-cours (33x) → Produits finis (35x).':'Tuotteiden ainesosaluettelot, valmistustilaukset, automaattinen omakustannushinta. Raaka-ainevarasto → Keskeneräinen tuotanto (33x) → Valmiit tuotteet (35x).',
+  'Nomenclatures produits':'Tuotteiden ainesosaluettelot','Nomenclature':'Ainesosaluettelo','Stocks par type OHADA':'Varasto OHADA-tyypeittäin',
+  '31x — Matières premières':'31x — Raaka-aineet','33x — En-cours prod.':'33x — Keskeneräinen tuotanto','35x — Produits finis':'35x — Valmiit tuotteet',
+  'Nouvelle nomenclature produit':'Uusi tuotteen ainesosaluettelo','Nom du produit fini':'Valmiin tuotteen nimi','Unité produite':'Tuotettu yksikkö',
+  'Quantité produite par lot':'Tuotettu määrä erää kohti',"Coût main d'œuvre/lot (FCFA)":'Työkustannus/erä (FCFA)','Matières premières consommées :':'Kulutetut raaka-aineet:',
+  'Matière première':'Raaka-aine','Sauvegarder':'Tallenna','Lancer un ordre de fabrication':'Käynnistä valmistustilaus','Produit à fabriquer':'Valmistettava tuote',
+  '— Choisir —':'— Valitse —','Quantité de lots à produire':'Tuotettavien erien määrä','Date de lancement':'Aloituspäivä','Lancer la production':'Käynnistä tuotanto',
+  'Caisse / Point de Vente':'Kassa / Myyntipiste',
+  'Enregistrez les ventes au comptoir. Le Z de caisse journalier génère les écritures comptables en un clic.':'Kirjaa myyntitiskin myynnit. Päivittäinen kassaraportti luo kirjanpitokirjaukset yhdellä klikkauksella.',
+  'Panier de vente':'Ostoskori','Vider':'Tyhjennä','Article (tapez ou scan code-barres)...':'Tuote (kirjoita tai skannaa viivakoodi)...','Total TTC':'Yhteensä sis. vero',
+  'Espèces':'Käteinen','Carte/Banque':'Kortti/Pankki','Z de caisse —':'Kassaraportti —',"Aucune vente enregistrée aujourd'hui.":'Ei myyntejä tänään.',
+  'Clôturer et comptabiliser le Z':'Sulje ja kirjaa kassaraportti'
 },
 de:{
   'Accueil':'Start','Trésorerie':'Liquidität','Déclarations':'Meldungen','Chat IA':'KI-Chat','Utilisateurs':'Benutzer','Paramètres':'Einstellungen',
@@ -827,7 +869,21 @@ de:{
   'Scénario à simuler':'Zu simulierendes Szenario','Type de décision':'Entscheidungstyp','Embaucher un salarié':'Einen Mitarbeiter einstellen',
   'Acheter un équipement / véhicule':'Eine Ausrüstung / ein Fahrzeug kaufen','Distribuer des dividendes':'Dividenden ausschütten','Contracter un emprunt':'Ein Darlehen aufnehmen',
   'Signer un bail commercial':'Einen Gewerbemietvertrag unterzeichnen',"Simuler l'impact fiscal IA":'Steuerliche Auswirkung mit KI simulieren','Résultat de simulation':'Simulationsergebnis',
-  'Configurez un scénario et cliquez sur Simuler.':'Konfigurieren Sie ein Szenario und klicken Sie auf Simulieren.','Analyse IA — Conseil expert':'KI-Analyse — Expertenrat'
+  'Configurez un scénario et cliquez sur Simuler.':'Konfigurieren Sie ein Szenario und klicken Sie auf Simulieren.','Analyse IA — Conseil expert':'KI-Analyse — Expertenrat',
+  // Production / Caisse
+  'Module Production':'Produktionsmodul',
+  'Nomenclatures produits, ordres de fabrication, coût de revient automatique. Stock matières premières → En-cours (33x) → Produits finis (35x).':'Produktstücklisten, Fertigungsaufträge, automatischer Selbstkostenpreis. Rohstofflager → In Bearbeitung (33x) → Fertigerzeugnisse (35x).',
+  'Nomenclatures produits':'Produktstücklisten','Nomenclature':'Stückliste','Stocks par type OHADA':'Bestand nach OHADA-Art',
+  '31x — Matières premières':'31x — Rohstoffe','33x — En-cours prod.':'33x — Unfertige Erzeugnisse','35x — Produits finis':'35x — Fertigerzeugnisse',
+  'Nouvelle nomenclature produit':'Neue Produktstückliste','Nom du produit fini':'Name des Fertigprodukts','Unité produite':'Produzierte Einheit',
+  'Quantité produite par lot':'Produzierte Menge pro Charge',"Coût main d'œuvre/lot (FCFA)":'Arbeitskosten/Charge (FCFA)','Matières premières consommées :':'Verbrauchte Rohstoffe:',
+  'Matière première':'Rohstoff','Sauvegarder':'Speichern','Lancer un ordre de fabrication':'Fertigungsauftrag starten','Produit à fabriquer':'Herzustellendes Produkt',
+  '— Choisir —':'— Auswählen —','Quantité de lots à produire':'Anzahl zu produzierender Chargen','Date de lancement':'Startdatum','Lancer la production':'Produktion starten',
+  'Caisse / Point de Vente':'Kasse / Verkaufsstelle',
+  'Enregistrez les ventes au comptoir. Le Z de caisse journalier génère les écritures comptables en un clic.':'Erfassen Sie Verkäufe am Schalter. Der tägliche Kassenbericht erstellt die Buchhaltungsbuchungen mit einem Klick.',
+  'Panier de vente':'Verkaufskorb','Vider':'Leeren','Article (tapez ou scan code-barres)...':'Artikel (eingeben oder Barcode scannen)...','Total TTC':'Gesamt brutto',
+  'Espèces':'Bargeld','Carte/Banque':'Karte/Bank','Z de caisse —':'Kassenbericht —',"Aucune vente enregistrée aujourd'hui.":'Heute keine Verkäufe erfasst.',
+  'Clôturer et comptabiliser le Z':'Kassenbericht abschließen und verbuchen'
 },
 es:{
   'Accueil':'Inicio','Trésorerie':'Tesorería','Déclarations':'Declaraciones','Chat IA':'Chat IA','Utilisateurs':'Usuarios','Paramètres':'Configuración',
@@ -1023,7 +1079,21 @@ es:{
   'Scénario à simuler':'Escenario a simular','Type de décision':'Tipo de decisión','Embaucher un salarié':'Contratar a un empleado',
   'Acheter un équipement / véhicule':'Comprar un equipo / vehículo','Distribuer des dividendes':'Distribuir dividendos','Contracter un emprunt':'Contratar un préstamo',
   'Signer un bail commercial':'Firmar un contrato de arrendamiento comercial',"Simuler l'impact fiscal IA":'Simular el impacto fiscal con IA','Résultat de simulation':'Resultado de la simulación',
-  'Configurez un scénario et cliquez sur Simuler.':'Configure un escenario y haga clic en Simular.','Analyse IA — Conseil expert':'Análisis de IA — Consejo experto'
+  'Configurez un scénario et cliquez sur Simuler.':'Configure un escenario y haga clic en Simular.','Analyse IA — Conseil expert':'Análisis de IA — Consejo experto',
+  // Production / Caisse
+  'Module Production':'Módulo de producción',
+  'Nomenclatures produits, ordres de fabrication, coût de revient automatique. Stock matières premières → En-cours (33x) → Produits finis (35x).':'Listas de materiales de productos, órdenes de fabricación, costo de producción automático. Stock de materias primas → En curso (33x) → Productos terminados (35x).',
+  'Nomenclatures produits':'Listas de materiales de productos','Nomenclature':'Lista de materiales','Stocks par type OHADA':'Stock por tipo OHADA',
+  '31x — Matières premières':'31x — Materias primas','33x — En-cours prod.':'33x — Producción en curso','35x — Produits finis':'35x — Productos terminados',
+  'Nouvelle nomenclature produit':'Nueva lista de materiales','Nom du produit fini':'Nombre del producto terminado','Unité produite':'Unidad producida',
+  'Quantité produite par lot':'Cantidad producida por lote',"Coût main d'œuvre/lot (FCFA)":'Costo de mano de obra/lote (FCFA)','Matières premières consommées :':'Materias primas consumidas:',
+  'Matière première':'Materia prima','Sauvegarder':'Guardar','Lancer un ordre de fabrication':'Iniciar una orden de fabricación','Produit à fabriquer':'Producto a fabricar',
+  '— Choisir —':'— Elegir —','Quantité de lots à produire':'Cantidad de lotes a producir','Date de lancement':'Fecha de inicio','Lancer la production':'Iniciar la producción',
+  'Caisse / Point de Vente':'Caja / Punto de venta',
+  'Enregistrez les ventes au comptoir. Le Z de caisse journalier génère les écritures comptables en un clic.':'Registre las ventas en el mostrador. El cierre de caja diario genera los asientos contables con un clic.',
+  'Panier de vente':'Carrito de venta','Vider':'Vaciar','Article (tapez ou scan code-barres)...':'Artículo (escriba o escanee el código de barras)...','Total TTC':'Total con IVA',
+  'Espèces':'Efectivo','Carte/Banque':'Tarjeta/Banco','Z de caisse —':'Cierre de caja —',"Aucune vente enregistrée aujourd'hui.":'Sin ventas registradas hoy.',
+  'Clôturer et comptabiliser le Z':'Cerrar y contabilizar el cierre de caja'
 },
 pt:{
   'Accueil':'Início','Trésorerie':'Tesouraria','Déclarations':'Declarações','Chat IA':'Chat IA','Utilisateurs':'Usuários','Paramètres':'Configurações',
@@ -1219,7 +1289,21 @@ pt:{
   'Scénario à simuler':'Cenário a simular','Type de décision':'Tipo de decisão','Embaucher un salarié':'Contratar um funcionário',
   'Acheter un équipement / véhicule':'Comprar um equipamento / veículo','Distribuer des dividendes':'Distribuir dividendos','Contracter un emprunt':'Contrair um empréstimo',
   'Signer un bail commercial':'Assinar um contrato de locação comercial',"Simuler l'impact fiscal IA":'Simular o impacto fiscal com IA','Résultat de simulation':'Resultado da simulação',
-  'Configurez un scénario et cliquez sur Simuler.':'Configure um cenário e clique em Simular.','Analyse IA — Conseil expert':'Análise de IA — Conselho especializado'
+  'Configurez un scénario et cliquez sur Simuler.':'Configure um cenário e clique em Simular.','Analyse IA — Conseil expert':'Análise de IA — Conselho especializado',
+  // Production / Caisse
+  'Module Production':'Módulo de produção',
+  'Nomenclatures produits, ordres de fabrication, coût de revient automatique. Stock matières premières → En-cours (33x) → Produits finis (35x).':'Listas de materiais de produtos, ordens de fabricação, custo de produção automático. Estoque de matérias-primas → Em processo (33x) → Produtos acabados (35x).',
+  'Nomenclatures produits':'Listas de materiais de produtos','Nomenclature':'Lista de materiais','Stocks par type OHADA':'Estoque por tipo OHADA',
+  '31x — Matières premières':'31x — Matérias-primas','33x — En-cours prod.':'33x — Produção em processo','35x — Produits finis':'35x — Produtos acabados',
+  'Nouvelle nomenclature produit':'Nova lista de materiais','Nom du produit fini':'Nome do produto acabado','Unité produite':'Unidade produzida',
+  'Quantité produite par lot':'Quantidade produzida por lote',"Coût main d'œuvre/lot (FCFA)":'Custo de mão de obra/lote (FCFA)','Matières premières consommées :':'Matérias-primas consumidas:',
+  'Matière première':'Matéria-prima','Sauvegarder':'Salvar','Lancer un ordre de fabrication':'Iniciar uma ordem de fabricação','Produit à fabriquer':'Produto a fabricar',
+  '— Choisir —':'— Escolher —','Quantité de lots à produire':'Quantidade de lotes a produzir','Date de lancement':'Data de início','Lancer la production':'Iniciar a produção',
+  'Caisse / Point de Vente':'Caixa / Ponto de venda',
+  'Enregistrez les ventes au comptoir. Le Z de caisse journalier génère les écritures comptables en un clic.':'Registre as vendas no balcão. O fechamento de caixa diário gera os lançamentos contábeis em um clique.',
+  'Panier de vente':'Carrinho de venda','Vider':'Esvaziar','Article (tapez ou scan code-barres)...':'Item (digite ou escaneie o código de barras)...','Total TTC':'Total com imposto',
+  'Espèces':'Dinheiro','Carte/Banque':'Cartão/Banco','Z de caisse —':'Fechamento de caixa —',"Aucune vente enregistrée aujourd'hui.":'Nenhuma venda registrada hoje.',
+  'Clôturer et comptabiliser le Z':'Fechar e contabilizar o fechamento de caixa'
 },
 zh:{
   'Accueil':'首页','Trésorerie':'资金','Déclarations':'申报','Chat IA':'AI 聊天','Utilisateurs':'用户','Paramètres':'设置',
@@ -1415,7 +1499,21 @@ zh:{
   'Scénario à simuler':'待模拟场景','Type de décision':'决策类型','Embaucher un salarié':'雇用员工',
   'Acheter un équipement / véhicule':'购买设备/车辆','Distribuer des dividendes':'分配股息','Contracter un emprunt':'申请贷款',
   'Signer un bail commercial':'签订商业租约',"Simuler l'impact fiscal IA":'用AI模拟税务影响','Résultat de simulation':'模拟结果',
-  'Configurez un scénario et cliquez sur Simuler.':'配置场景并点击模拟。','Analyse IA — Conseil expert':'AI分析 — 专家建议'
+  'Configurez un scénario et cliquez sur Simuler.':'配置场景并点击模拟。','Analyse IA — Conseil expert':'AI分析 — 专家建议',
+  // Production / Caisse
+  'Module Production':'生产模块',
+  'Nomenclatures produits, ordres de fabrication, coût de revient automatique. Stock matières premières → En-cours (33x) → Produits finis (35x).':'产品物料清单、生产订单、自动成本核算。原材料库存 → 在产品（33x）→ 产成品（35x）。',
+  'Nomenclatures produits':'产品物料清单','Nomenclature':'物料清单','Stocks par type OHADA':'按OHADA类型分类的库存',
+  '31x — Matières premières':'31x — 原材料','33x — En-cours prod.':'33x — 在产品','35x — Produits finis':'35x — 产成品',
+  'Nouvelle nomenclature produit':'新建产品物料清单','Nom du produit fini':'产成品名称','Unité produite':'生产单位',
+  'Quantité produite par lot':'每批生产数量',"Coût main d'œuvre/lot (FCFA)":'每批人工成本（FCFA）','Matières premières consommées :':'消耗的原材料：',
+  'Matière première':'原材料','Sauvegarder':'保存','Lancer un ordre de fabrication':'发起生产订单','Produit à fabriquer':'待生产产品',
+  '— Choisir —':'— 选择 —','Quantité de lots à produire':'待生产批次数量','Date de lancement':'启动日期','Lancer la production':'启动生产',
+  'Caisse / Point de Vente':'收银台/销售点',
+  'Enregistrez les ventes au comptoir. Le Z de caisse journalier génère les écritures comptables en un clic.':'记录柜台销售。每日收银结账单一键生成会计分录。',
+  'Panier de vente':'销售购物车','Vider':'清空','Article (tapez ou scan code-barres)...':'商品（输入或扫描条形码）...','Total TTC':'含税总计',
+  'Espèces':'现金','Carte/Banque':'银行卡','Z de caisse —':'收银结账单 —',"Aucune vente enregistrée aujourd'hui.":'今日暂无销售记录。',
+  'Clôturer et comptabiliser le Z':'结账并记录收银结账单'
 },
 ja:{
   'Accueil':'ホーム','Trésorerie':'資金繰り','Déclarations':'申告','Chat IA':'AIチャット','Utilisateurs':'ユーザー','Paramètres':'設定',
@@ -1611,7 +1709,21 @@ ja:{
   'Scénario à simuler':'シミュレートするシナリオ','Type de décision':'決定の種類','Embaucher un salarié':'従業員を採用する',
   'Acheter un équipement / véhicule':'設備／車両を購入する','Distribuer des dividendes':'配当を分配する','Contracter un emprunt':'借入をする',
   'Signer un bail commercial':'商業賃貸契約を締結する',"Simuler l'impact fiscal IA":'AIで税務影響をシミュレート','Résultat de simulation':'シミュレーション結果',
-  'Configurez un scénario et cliquez sur Simuler.':'シナリオを設定して「シミュレート」をクリックしてください。','Analyse IA — Conseil expert':'AI分析 — 専門家のアドバイス'
+  'Configurez un scénario et cliquez sur Simuler.':'シナリオを設定して「シミュレート」をクリックしてください。','Analyse IA — Conseil expert':'AI分析 — 専門家のアドバイス',
+  // Production / Caisse
+  'Module Production':'生産モジュール',
+  'Nomenclatures produits, ordres de fabrication, coût de revient automatique. Stock matières premières → En-cours (33x) → Produits finis (35x).':'製品部品表、製造指図、自動原価計算。原材料在庫 → 仕掛品（33x）→ 製品（35x）。',
+  'Nomenclatures produits':'製品部品表','Nomenclature':'部品表','Stocks par type OHADA':'OHADA種類別在庫',
+  '31x — Matières premières':'31x — 原材料','33x — En-cours prod.':'33x — 仕掛品','35x — Produits finis':'35x — 製品',
+  'Nouvelle nomenclature produit':'新規製品部品表','Nom du produit fini':'製品名','Unité produite':'生産単位',
+  'Quantité produite par lot':'ロットあたりの生産数量',"Coût main d'œuvre/lot (FCFA)":'ロットあたりの人件費（FCFA）','Matières premières consommées :':'消費した原材料：',
+  'Matière première':'原材料','Sauvegarder':'保存','Lancer un ordre de fabrication':'製造指図を開始','Produit à fabriquer':'製造する製品',
+  '— Choisir —':'— 選択 —','Quantité de lots à produire':'生産するロット数','Date de lancement':'開始日','Lancer la production':'生産を開始',
+  'Caisse / Point de Vente':'レジ／POS',
+  'Enregistrez les ventes au comptoir. Le Z de caisse journalier génère les écritures comptables en un clic.':'カウンター販売を記録します。日次レジ精算で会計仕訳をワンクリックで生成します。',
+  'Panier de vente':'販売カート','Vider':'クリア','Article (tapez ou scan code-barres)...':'商品（入力またはバーコードをスキャン）...','Total TTC':'税込合計',
+  'Espèces':'現金','Carte/Banque':'カード／銀行','Z de caisse —':'レジ精算 —',"Aucune vente enregistrée aujourd'hui.":'本日の販売記録はありません。',
+  'Clôturer et comptabiliser le Z':'レジ精算を締めて記帳'
 }
 };
 

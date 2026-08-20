@@ -1773,53 +1773,53 @@
 
 <!-- PANE PRODUCTION INDUSTRIELLE -->
 <div class="pane" id="pane-production">
-  <div style="font-size:15px;font-weight:600;margin-bottom:4px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20V11l5 3v-3l5 3V8l5 3v9z"/><line x1="3" y1="20" x2="21" y2="20"/></svg> Module Production</div>
-  <div style="font-size:11px;color:var(--text-muted);margin-bottom:14px">Nomenclatures produits, ordres de fabrication, coût de revient automatique. Stock matières premières → En-cours (33x) → Produits finis (35x).</div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:4px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20V11l5 3v-3l5 3V8l5 3v9z"/><line x1="3" y1="20" x2="21" y2="20"/></svg> <span data-i18n="Module Production">Module Production</span></div>
+  <div style="font-size:11px;color:var(--text-muted);margin-bottom:14px" data-i18n="Nomenclatures produits, ordres de fabrication, coût de revient automatique. Stock matières premières → En-cours (33x) → Produits finis (35x).">Nomenclatures produits, ordres de fabrication, coût de revient automatique. Stock matières premières → En-cours (33x) → Produits finis (35x).</div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
     <div class="card">
-      <div class="card-header"><span class="card-title">Nomenclatures produits</span><button class="btn btn-sm btn-primary" onclick="ouvrirFormNomenclature()" style="font-size:10px">+ Nomenclature</button></div>
+      <div class="card-header"><span class="card-title" data-i18n="Nomenclatures produits">Nomenclatures produits</span><button class="btn btn-sm btn-primary" onclick="ouvrirFormNomenclature()" style="font-size:10px">+ <span data-i18n="Nomenclature">Nomenclature</span></button></div>
       <div class="card-body" id="nom-list"></div>
     </div>
     <div class="card">
-      <div class="card-header"><span class="card-title">Stocks par type OHADA</span></div>
+      <div class="card-header"><span class="card-title" data-i18n="Stocks par type OHADA">Stocks par type OHADA</span></div>
       <div class="card-body">
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px" id="prod-stocks-grid">
-          <div style="background:var(--bg);border-radius:var(--radius);padding:10px;text-align:center"><div style="font-size:10px;color:var(--text-muted)">31x — Matières premières</div><div style="font-size:16px;font-weight:700;font-family:'Archivo',sans-serif;color:var(--blue)" id="ps-mp">0 FCFA</div></div>
-          <div style="background:var(--bg);border-radius:var(--radius);padding:10px;text-align:center"><div style="font-size:10px;color:var(--text-muted)">33x — En-cours prod.</div><div style="font-size:16px;font-weight:700;font-family:'Archivo',sans-serif;color:var(--amber)" id="ps-ec">0 FCFA</div></div>
-          <div style="background:var(--bg);border-radius:var(--radius);padding:10px;text-align:center"><div style="font-size:10px;color:var(--text-muted)">35x — Produits finis</div><div style="font-size:16px;font-weight:700;font-family:'Archivo',sans-serif;color:var(--green)" id="ps-pf">0 FCFA</div></div>
+          <div style="background:var(--bg);border-radius:var(--radius);padding:10px;text-align:center"><div style="font-size:10px;color:var(--text-muted)" data-i18n="31x — Matières premières">31x — Matières premières</div><div style="font-size:16px;font-weight:700;font-family:'Archivo',sans-serif;color:var(--blue)" id="ps-mp">0 FCFA</div></div>
+          <div style="background:var(--bg);border-radius:var(--radius);padding:10px;text-align:center"><div style="font-size:10px;color:var(--text-muted)" data-i18n="33x — En-cours prod.">33x — En-cours prod.</div><div style="font-size:16px;font-weight:700;font-family:'Archivo',sans-serif;color:var(--amber)" id="ps-ec">0 FCFA</div></div>
+          <div style="background:var(--bg);border-radius:var(--radius);padding:10px;text-align:center"><div style="font-size:10px;color:var(--text-muted)" data-i18n="35x — Produits finis">35x — Produits finis</div><div style="font-size:16px;font-weight:700;font-family:'Archivo',sans-serif;color:var(--green)" id="ps-pf">0 FCFA</div></div>
         </div>
       </div>
     </div>
   </div>
   <div id="nom-form" style="display:none" class="card" style="margin-bottom:12px">
-    <div class="card-header"><span class="card-title">Nouvelle nomenclature produit</span></div>
+    <div class="card-header"><span class="card-title" data-i18n="Nouvelle nomenclature produit">Nouvelle nomenclature produit</span></div>
     <div class="card-body">
       <div class="fgrid fg3">
-        <div class="fg sp2"><label>Nom du produit fini</label><input type="text" id="nom-produit" placeholder="Ex: Engrais NPK 50kg, Tissu imprimé 10m"/></div>
-        <div class="fg"><label>Unité produite</label><input type="text" id="nom-unite" placeholder="kg, litre, rouleau..."/></div>
-        <div class="fg"><label>Quantité produite par lot</label><input type="number" id="nom-qty" placeholder="1"/></div>
-        <div class="fg sp2"><label>Coût main d'œuvre/lot (FCFA)</label><input type="number" id="nom-mo" placeholder="0"/></div>
+        <div class="fg sp2"><label data-i18n="Nom du produit fini">Nom du produit fini</label><input type="text" id="nom-produit" data-i18n-placeholder="Ex: Engrais NPK 50kg, Tissu imprimé 10m" placeholder="Ex: Engrais NPK 50kg, Tissu imprimé 10m"/></div>
+        <div class="fg"><label data-i18n="Unité produite">Unité produite</label><input type="text" id="nom-unite" data-i18n-placeholder="kg, litre, rouleau..." placeholder="kg, litre, rouleau..."/></div>
+        <div class="fg"><label data-i18n="Quantité produite par lot">Quantité produite par lot</label><input type="number" id="nom-qty" placeholder="1"/></div>
+        <div class="fg sp2"><label data-i18n="Coût main d'œuvre/lot (FCFA)">Coût main d'œuvre/lot (FCFA)</label><input type="number" id="nom-mo" placeholder="0"/></div>
       </div>
-      <div style="font-size:11px;font-weight:600;margin:10px 0 6px;color:var(--text-muted)">Matières premières consommées :</div>
+      <div style="font-size:11px;font-weight:600;margin:10px 0 6px;color:var(--text-muted)" data-i18n="Matières premières consommées :">Matières premières consommées :</div>
       <div id="nom-ingredients-list"></div>
-      <button class="btn btn-sm" onclick="ajouterIngredient()" style="margin-bottom:8px;font-size:10.5px">+ Matière première</button>
+      <button class="btn btn-sm" onclick="ajouterIngredient()" style="margin-bottom:8px;font-size:10.5px">+ <span data-i18n="Matière première">Matière première</span></button>
       <div style="display:flex;gap:8px;justify-content:flex-end">
-        <button class="btn btn-sm" onclick="document.getElementById('nom-form').style.display='none'">Annuler</button>
-        <button class="btn btn-primary btn-sm" onclick="sauverNomenclature()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 4v5h8V4"/><path d="M7.5 13h9v7h-9z"/></svg> Sauvegarder</button>
+        <button class="btn btn-sm" onclick="document.getElementById('nom-form').style.display='none'" data-i18n="Annuler">Annuler</button>
+        <button class="btn btn-primary btn-sm" onclick="sauverNomenclature()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 4v5h8V4"/><path d="M7.5 13h9v7h-9z"/></svg> <span data-i18n="Sauvegarder">Sauvegarder</span></button>
       </div>
     </div>
   </div>
   <div class="card">
-    <div class="card-header"><span class="card-title">Lancer un ordre de fabrication</span></div>
+    <div class="card-header"><span class="card-title" data-i18n="Lancer un ordre de fabrication">Lancer un ordre de fabrication</span></div>
     <div class="card-body">
       <div class="fgrid fg3">
-        <div class="fg"><label>Produit à fabriquer</label><select id="of-produit" onchange="afficherCoutOF()"><option value="">— Choisir —</option></select></div>
-        <div class="fg"><label>Quantité de lots à produire</label><input type="number" id="of-qty" min="1" value="1" oninput="afficherCoutOF()"/></div>
-        <div class="fg"><label>Date de lancement</label><input type="date" id="of-date"/></div>
+        <div class="fg"><label data-i18n="Produit à fabriquer">Produit à fabriquer</label><select id="of-produit" onchange="afficherCoutOF()"><option value="" data-i18n="— Choisir —">— Choisir —</option></select></div>
+        <div class="fg"><label data-i18n="Quantité de lots à produire">Quantité de lots à produire</label><input type="number" id="of-qty" min="1" value="1" oninput="afficherCoutOF()"/></div>
+        <div class="fg"><label data-i18n="Date de lancement">Date de lancement</label><input type="date" id="of-date"/></div>
       </div>
       <div id="of-preview" style="margin-top:8px;padding:8px 12px;background:var(--amber-light);border:2px solid var(--amber-border);border-radius:var(--radius);font-size:11.5px;display:none"></div>
       <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:10px">
-        <button class="btn btn-primary btn-sm" onclick="lancerOrdreFabrication()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 3v2.5M12 18.5V21M4.6 7.3l2.2 1.3M17.2 15.4l2.2 1.3M4.6 16.7l2.2-1.3M17.2 8.6l2.2-1.3M3 12h2.5M18.5 12H21"/></svg> Lancer la production</button>
+        <button class="btn btn-primary btn-sm" onclick="lancerOrdreFabrication()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 3v2.5M12 18.5V21M4.6 7.3l2.2 1.3M17.2 15.4l2.2 1.3M4.6 16.7l2.2-1.3M17.2 8.6l2.2-1.3M3 12h2.5M18.5 12H21"/></svg> <span data-i18n="Lancer la production">Lancer la production</span></button>
       </div>
     </div>
   </div>
@@ -1828,42 +1828,42 @@
 
 <!-- PANE MODULE CAISSE / PDV -->
 <div class="pane" id="pane-caisse">
-  <div style="font-size:15px;font-weight:600;margin-bottom:4px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18l-2.5-1.5L13 21l-2-1.5L9 21l-3-1.5z"/><line x1="8.5" y1="8" x2="15.5" y2="8"/><line x1="8.5" y1="12" x2="15.5" y2="12"/></svg> Caisse / Point de Vente</div>
-  <div style="font-size:11px;color:var(--text-muted);margin-bottom:14px">Enregistrez les ventes au comptoir. Le Z de caisse journalier génère les écritures comptables en un clic.</div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:4px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18l-2.5-1.5L13 21l-2-1.5L9 21l-3-1.5z"/><line x1="8.5" y1="8" x2="15.5" y2="8"/><line x1="8.5" y1="12" x2="15.5" y2="12"/></svg> <span data-i18n="Caisse / Point de Vente">Caisse / Point de Vente</span></div>
+  <div style="font-size:11px;color:var(--text-muted);margin-bottom:14px" data-i18n="Enregistrez les ventes au comptoir. Le Z de caisse journalier génère les écritures comptables en un clic.">Enregistrez les ventes au comptoir. Le Z de caisse journalier génère les écritures comptables en un clic.</div>
   <div style="display:grid;grid-template-columns:2fr 1fr;gap:14px">
     <div class="card">
-      <div class="card-header"><span class="card-title"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.3"/><circle cx="17" cy="20" r="1.3"/><path d="M2.5 4h2.5l2.3 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.6L21 8H6"/></svg> Panier de vente</span><button class="btn btn-sm" onclick="viderPanier()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 7h14"/><path d="M9 7V4.5h6V7"/><path d="M7 7l1 13h8l1-13"/></svg> Vider</button></div>
+      <div class="card-header"><span class="card-title"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.3"/><circle cx="17" cy="20" r="1.3"/><path d="M2.5 4h2.5l2.3 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.6L21 8H6"/></svg> <span data-i18n="Panier de vente">Panier de vente</span></span><button class="btn btn-sm" onclick="viderPanier()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 7h14"/><path d="M9 7V4.5h6V7"/><path d="M7 7l1 13h8l1-13"/></svg> <span data-i18n="Vider">Vider</span></button></div>
       <div class="card-body">
         <div style="display:flex;gap:8px;margin-bottom:10px">
-          <input type="text" id="caisse-search" list="caisse-produits-list" placeholder="Article (tapez ou scan code-barres)..." style="flex:1;font-size:12.5px" oninput="filterCaisseProd()"/>
+          <input type="text" id="caisse-search" list="caisse-produits-list" data-i18n-placeholder="Article (tapez ou scan code-barres)..." placeholder="Article (tapez ou scan code-barres)..." style="flex:1;font-size:12.5px" oninput="filterCaisseProd()"/>
           <datalist id="caisse-produits-list"></datalist>
-          <input type="number" id="caisse-qty" value="1" min="1" style="width:70px" placeholder="Qté"/>
-          <button class="btn btn-primary btn-sm" onclick="ajouterAuPanier()">+ Ajouter</button>
+          <input type="number" id="caisse-qty" value="1" min="1" style="width:70px" data-i18n-placeholder="Qté" placeholder="Qté"/>
+          <button class="btn btn-primary btn-sm" onclick="ajouterAuPanier()">+ <span data-i18n="Ajouter">Ajouter</span></button>
         </div>
         <div id="panier-table" style="min-height:120px"></div>
         <div style="border-top:2px solid var(--border);margin-top:10px;padding-top:10px;display:flex;justify-content:space-between;align-items:center">
           <div>
-            <div style="font-size:11px;color:var(--text-muted)">Total TTC</div>
+            <div style="font-size:11px;color:var(--text-muted)" data-i18n="Total TTC">Total TTC</div>
             <div style="font-size:26px;font-weight:700;font-family:'Archivo',sans-serif;color:var(--green-dark)" id="panier-total">0 FCFA</div>
           </div>
           <div style="display:flex;gap:8px;flex-direction:column">
             <div style="display:flex;gap:6px">
-              <button class="btn btn-sm" onclick="encaisserPanier('espece')" style="background:var(--green);color:#fff;border-color:var(--green)"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.3c0-1.3 1.1-2 2.5-2s2.5.7 2.5 1.8c0 2.6-5 1.5-5 4.1 0 1.1 1.1 1.8 2.5 1.8s2.5-.7 2.5-2"/></svg> Espèces</button>
+              <button class="btn btn-sm" onclick="encaisserPanier('espece')" style="background:var(--green);color:#fff;border-color:var(--green)"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.3c0-1.3 1.1-2 2.5-2s2.5.7 2.5 1.8c0 2.6-5 1.5-5 4.1 0 1.1 1.1 1.8 2.5 1.8s2.5-.7 2.5-2"/></svg> <span data-i18n="Espèces">Espèces</span></button>
               <button class="btn btn-sm" onclick="encaisserPanier('flooz')" style="background:var(--blue);color:#fff;border-color:var(--blue)">Flooz</button>
               <button class="btn btn-sm" onclick="encaisserPanier('tmoney')" style="background:var(--purple);color:#fff;border-color:var(--purple)">T-Money</button>
             </div>
-            <button class="btn btn-sm" onclick="encaisserPanier('banque')" style="background:var(--amber);color:#fff;border-color:var(--amber);width:100%"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/><line x1="6" y1="14.5" x2="10" y2="14.5"/></svg> Carte/Banque</button>
+            <button class="btn btn-sm" onclick="encaisserPanier('banque')" style="background:var(--amber);color:#fff;border-color:var(--amber);width:100%"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/><line x1="6" y1="14.5" x2="10" y2="14.5"/></svg> <span data-i18n="Carte/Banque">Carte/Banque</span></button>
           </div>
         </div>
       </div>
     </div>
     <div class="card">
-      <div class="card-header"><span class="card-title">Z de caisse — <span id="caisse-date-label"></span></span></div>
+      <div class="card-header"><span class="card-title"><span data-i18n="Z de caisse —">Z de caisse —</span> <span id="caisse-date-label"></span></span></div>
       <div class="card-body" id="z-caisse-body">
-        <div style="text-align:center;color:var(--text-faint);font-style:italic;padding:20px">Aucune vente enregistrée aujourd'hui.</div>
+        <div style="text-align:center;color:var(--text-faint);font-style:italic;padding:20px" data-i18n="Aucune vente enregistrée aujourd'hui.">Aucune vente enregistrée aujourd'hui.</div>
       </div>
       <div style="padding:10px 14px;border-top:2px solid var(--border)">
-        <button class="btn btn-primary" onclick="clotureZCaisse()" style="width:100%"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10" width="14" height="10" rx="1.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg> Clôturer et comptabiliser le Z</button>
+        <button class="btn btn-primary" onclick="clotureZCaisse()" style="width:100%"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10" width="14" height="10" rx="1.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg> <span data-i18n="Clôturer et comptabiliser le Z">Clôturer et comptabiliser le Z</span></button>
       </div>
     </div>
   </div>
