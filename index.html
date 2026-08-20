@@ -1882,48 +1882,48 @@
 <div class="pane" id="pane-paie">
   <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;flex-wrap:wrap;gap:8px">
     <div>
-      <div style="font-size:15px;font-weight:600"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M4 20c0-3.5 2.5-6 5-6s5 2.5 5 6"/><circle cx="17" cy="9" r="2.4"/><path d="M15.5 20c.1-2.6 1.4-4.6 3-5.4"/></svg> Gestion de la paie</div>
-      <div style="font-size:11px;color:var(--text-muted)">Dossiers employés complets — Bulletin de paie CNSS + IR Togo, écritures comptables automatiques</div>
+      <div style="font-size:15px;font-weight:600"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M4 20c0-3.5 2.5-6 5-6s5 2.5 5 6"/><circle cx="17" cy="9" r="2.4"/><path d="M15.5 20c.1-2.6 1.4-4.6 3-5.4"/></svg> <span data-i18n="Gestion de la paie">Gestion de la paie</span></div>
+      <div style="font-size:11px;color:var(--text-muted)" data-i18n="Dossiers employés complets — Bulletin de paie CNSS + IR Togo, écritures comptables automatiques">Dossiers employés complets — Bulletin de paie CNSS + IR Togo, écritures comptables automatiques</div>
     </div>
     <div style="display:flex;gap:8px">
-      <button class="btn btn-sm" onclick="genererTouteBulletins()" style="background:var(--amber);color:#fff;border-color:var(--amber)"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13,2 4,14 11,14 10,22 20,9 13,9"/></svg> Générer bulletins du mois</button>
-      <button class="btn btn-primary btn-sm" onclick="ouvrirFormulaireEmploye()">+ Nouvel employé</button>
+      <button class="btn btn-sm" onclick="genererTouteBulletins()" style="background:var(--amber);color:#fff;border-color:var(--amber)"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13,2 4,14 11,14 10,22 20,9 13,9"/></svg> <span data-i18n="Générer bulletins du mois">Générer bulletins du mois</span></button>
+      <button class="btn btn-primary btn-sm" onclick="ouvrirFormulaireEmploye()">+ <span data-i18n="Nouvel employé">Nouvel employé</span></button>
     </div>
   </div>
 
   <!-- Formulaire employé -->
   <div id="paie-employe-form" style="display:none" class="card" style="margin-bottom:12px">
-    <div class="card-header"><span class="card-title" id="paie-form-title">Nouveau dossier employé</span></div>
+    <div class="card-header"><span class="card-title" id="paie-form-title" data-i18n="Nouveau dossier employé">Nouveau dossier employé</span></div>
     <div class="card-body">
       <div class="fgrid fg3">
-        <div class="fg sp2"><label>Nom complet</label><input type="text" id="emp-nom" placeholder="Ex: Koffi Amavi Jean"/></div>
-        <div class="fg"><label>Matricule</label><input type="text" id="emp-matricule" placeholder="EMP-001"/></div>
-        <div class="fg sp2"><label>Poste / Fonction</label><input type="text" id="emp-poste" placeholder="Ex: Comptable, Directeur commercial, Ouvrier..."/></div>
-        <div class="fg"><label>Département</label><input type="text" id="emp-dept" placeholder="Ex: Finance, Production..."/></div>
-        <div class="fg"><label>Date d'embauche</label><input type="date" id="emp-embauche"/></div>
-        <div class="fg"><label>Type de contrat</label>
+        <div class="fg sp2"><label data-i18n="Nom complet">Nom complet</label><input type="text" id="emp-nom" data-i18n-placeholder="Ex: Koffi Amavi Jean" placeholder="Ex: Koffi Amavi Jean"/></div>
+        <div class="fg"><label data-i18n="Matricule">Matricule</label><input type="text" id="emp-matricule" placeholder="EMP-001"/></div>
+        <div class="fg sp2"><label data-i18n="Poste / Fonction">Poste / Fonction</label><input type="text" id="emp-poste" data-i18n-placeholder="Ex: Comptable, Directeur commercial, Ouvrier..." placeholder="Ex: Comptable, Directeur commercial, Ouvrier..."/></div>
+        <div class="fg"><label data-i18n="Département">Département</label><input type="text" id="emp-dept" data-i18n-placeholder="Ex: Finance, Production..." placeholder="Ex: Finance, Production..."/></div>
+        <div class="fg"><label data-i18n="Date d'embauche">Date d'embauche</label><input type="date" id="emp-embauche"/></div>
+        <div class="fg"><label data-i18n="Type de contrat">Type de contrat</label>
           <select id="emp-contrat">
             <option value="cdi">CDI</option>
             <option value="cdd">CDD</option>
-            <option value="stage">Stage</option>
-            <option value="temporaire">Temporaire</option>
+            <option value="stage" data-i18n="Stage">Stage</option>
+            <option value="temporaire" data-i18n="Temporaire">Temporaire</option>
           </select>
         </div>
-        <div class="fg"><label>Salaire de base brut (FCFA/mois)</label><input type="number" id="emp-salaire" min="0" placeholder="0" oninput="previewBulletin()"/></div>
-        <div class="fg"><label>Sursalaire / Prime fixe (FCFA)</label><input type="number" id="emp-sursalaire" min="0" placeholder="0" oninput="previewBulletin()"/></div>
-        <div class="fg"><label>Indemnité transport (FCFA)</label><input type="number" id="emp-transport" min="0" placeholder="0" oninput="previewBulletin()"/></div>
-        <div class="fg"><label>Indemnité logement (FCFA)</label><input type="number" id="emp-logement" min="0" placeholder="0" oninput="previewBulletin()"/></div>
-        <div class="fg"><label>Nombre d'enfants à charge</label><input type="number" id="emp-enfants" min="0" max="10" value="0" oninput="previewBulletin()"/></div>
-        <div class="fg"><label>N° CNSS employé</label><input type="text" id="emp-cnss" placeholder="Ex: TG0012345"/></div>
+        <div class="fg"><label data-i18n="Salaire de base brut (FCFA/mois)">Salaire de base brut (FCFA/mois)</label><input type="number" id="emp-salaire" min="0" placeholder="0" oninput="previewBulletin()"/></div>
+        <div class="fg"><label data-i18n="Sursalaire / Prime fixe (FCFA)">Sursalaire / Prime fixe (FCFA)</label><input type="number" id="emp-sursalaire" min="0" placeholder="0" oninput="previewBulletin()"/></div>
+        <div class="fg"><label data-i18n="Indemnité transport (FCFA)">Indemnité transport (FCFA)</label><input type="number" id="emp-transport" min="0" placeholder="0" oninput="previewBulletin()"/></div>
+        <div class="fg"><label data-i18n="Indemnité logement (FCFA)">Indemnité logement (FCFA)</label><input type="number" id="emp-logement" min="0" placeholder="0" oninput="previewBulletin()"/></div>
+        <div class="fg"><label data-i18n="Nombre d'enfants à charge">Nombre d'enfants à charge</label><input type="number" id="emp-enfants" min="0" max="10" value="0" oninput="previewBulletin()"/></div>
+        <div class="fg"><label data-i18n="N° CNSS employé">N° CNSS employé</label><input type="text" id="emp-cnss" placeholder="Ex: TG0012345"/></div>
       </div>
       <!-- Aperçu bulletin -->
       <div id="paie-preview" style="margin-top:12px;display:none;background:var(--bg);border:2px solid var(--border);border-radius:var(--radius);padding:12px">
-        <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px">Aperçu du bulletin de paie</div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px" data-i18n="Aperçu du bulletin de paie">Aperçu du bulletin de paie</div>
         <div id="paie-preview-content"></div>
       </div>
       <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:10px">
-        <button class="btn btn-sm" onclick="fermerFormulaireEmploye()">Annuler</button>
-        <button class="btn btn-primary btn-sm" onclick="sauverEmploye()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 4v5h8V4"/><path d="M7.5 13h9v7h-9z"/></svg> Enregistrer le dossier</button>
+        <button class="btn btn-sm" onclick="fermerFormulaireEmploye()" data-i18n="Annuler">Annuler</button>
+        <button class="btn btn-primary btn-sm" onclick="sauverEmploye()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 4v5h8V4"/><path d="M7.5 13h9v7h-9z"/></svg> <span data-i18n="Enregistrer le dossier">Enregistrer le dossier</span></button>
       </div>
     </div>
   </div>
@@ -1937,11 +1937,11 @@
   <!-- Bulletin détaillé (modal-like) -->
   <div id="paie-bulletin-detail" style="display:none" class="card" style="margin-top:14px">
     <div class="card-header">
-      <span class="card-title" id="bulletin-titre">Bulletin de paie</span>
+      <span class="card-title" id="bulletin-titre" data-i18n="Bulletin de paie">Bulletin de paie</span>
       <div style="display:flex;gap:6px">
-        <button class="btn btn-sm" onclick="document.getElementById('paie-bulletin-detail').style.display='none'"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg> Fermer</button>
-        <button class="btn btn-sm" onclick="imprimerBulletin()" style="background:var(--blue);color:#fff;border-color:var(--blue)"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="8" width="14" height="8" rx="1"/><path d="M7 8V4h10v4"/><path d="M7 16v4h10v-4"/></svg> Imprimer PDF</button>
-        <button class="btn btn-sm btn-primary" onclick="comptabiliserBulletin()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,13 9,18 20,6"/></svg> Comptabiliser</button>
+        <button class="btn btn-sm" onclick="document.getElementById('paie-bulletin-detail').style.display='none'"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg> <span data-i18n="Fermer">Fermer</span></button>
+        <button class="btn btn-sm" onclick="imprimerBulletin()" style="background:var(--blue);color:#fff;border-color:var(--blue)"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="8" width="14" height="8" rx="1"/><path d="M7 8V4h10v4"/><path d="M7 16v4h10v-4"/></svg> <span data-i18n="Imprimer PDF">Imprimer PDF</span></button>
+        <button class="btn btn-sm btn-primary" onclick="comptabiliserBulletin()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,13 9,18 20,6"/></svg> <span data-i18n="Comptabiliser">Comptabiliser</span></button>
       </div>
     </div>
     <div class="card-body" id="bulletin-body"></div>
@@ -1954,15 +1954,15 @@
 <!-- PANE LIASSE FISCALE DGI -->
 <!-- ══════════════════════════════════════════════════════════ -->
 <div class="pane" id="pane-liasse">
-  <div id="liasse-titre-pays" style="font-size:15px;font-weight:600;margin-bottom:4px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="12" height="17" rx="1.5"/><rect x="9" y="2" width="6" height="3" rx="1"/><line x1="8.5" y1="10" x2="15.5" y2="10"/><line x1="8.5" y1="13.5" x2="15.5" y2="13.5"/></svg> Liasse fiscale annuelle — Togo</div>
-  <div style="font-size:11px;color:var(--text-muted);margin-bottom:12px">
+  <div id="liasse-titre-pays" style="font-size:15px;font-weight:600;margin-bottom:4px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="12" height="17" rx="1.5"/><rect x="9" y="2" width="6" height="3" rx="1"/><line x1="8.5" y1="10" x2="15.5" y2="10"/><line x1="8.5" y1="13.5" x2="15.5" y2="13.5"/></svg> <span data-i18n="Liasse fiscale annuelle — Togo">Liasse fiscale annuelle — Togo</span></div>
+  <div style="font-size:11px;color:var(--text-muted);margin-bottom:12px" data-i18n="Documents fiscaux obligatoires à déposer chaque année. Générés automatiquement depuis vos écritures OHADA.">
     Documents fiscaux obligatoires à déposer chaque année. Générés automatiquement depuis vos écritures OHADA.
   </div>
   <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">
-    <button class="btn btn-sm btn-primary" onclick="genererLiasse()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9a8 8 0 0 1 14-4.5M20 5v5h-5"/><path d="M20 15a8 8 0 0 1-14 4.5M4 19v-5h5"/></svg> Générer la liasse</button>
-    <button class="btn btn-sm" onclick="exporterLiassePDF()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><line x1="9.5" y1="12" x2="15" y2="12"/><line x1="9.5" y1="15.5" x2="15" y2="15.5"/></svg> Générer le PDF</button>
-    <button class="btn btn-sm" onclick="exporterLiasseCSV()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="4" x2="12" y2="18"/><polyline points="6,12 12,18 18,12"/></svg> Export CSV</button>
-    <button class="btn btn-sm" onclick="envoyerDeclaration('Liasse fiscale annuelle')"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22,2 15,22 11,13 2,9"/></svg> Envoyer</button>
+    <button class="btn btn-sm btn-primary" onclick="genererLiasse()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9a8 8 0 0 1 14-4.5M20 5v5h-5"/><path d="M20 15a8 8 0 0 1-14 4.5M4 19v-5h5"/></svg> <span data-i18n="Générer la liasse">Générer la liasse</span></button>
+    <button class="btn btn-sm" onclick="exporterLiassePDF()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><line x1="9.5" y1="12" x2="15" y2="12"/><line x1="9.5" y1="15.5" x2="15" y2="15.5"/></svg> <span data-i18n="Générer le PDF">Générer le PDF</span></button>
+    <button class="btn btn-sm" onclick="exporterLiasseCSV()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="4" x2="12" y2="18"/><polyline points="6,12 12,18 18,12"/></svg> <span data-i18n="Export CSV">Export CSV</span></button>
+    <button class="btn btn-sm" onclick="envoyerDeclaration('Liasse fiscale annuelle')" data-i18n="Envoyer">Envoyer</button>
     <div style="margin-left:auto;font-size:11px;color:var(--text-muted);display:flex;align-items:center;gap:6px">
       <span id="liasse-statut"></span>
     </div>
@@ -1970,15 +1970,15 @@
 
   <!-- Onglets liasse -->
   <div style="display:flex;gap:0;border-bottom:2px solid var(--border);margin-bottom:14px;flex-wrap:wrap">
-    <button class="liasse-tab active-tab" id="ltab-bic" onclick="showLiasseTab('bic')">BIC / Résultat fiscal</button>
-    <button class="liasse-tab" id="ltab-tva" onclick="showLiasseTab('tva-liasse')">TVA annuelle</button>
-    <button class="liasse-tab" id="ltab-salaires" onclick="showLiasseTab('salaires')">Salaires & CNSS</button>
-    <button class="liasse-tab" id="ltab-immo" onclick="showLiasseTab('immo-liasse')">Immobilisations</button>
-    <button class="liasse-tab" id="ltab-recapitulatif" onclick="showLiasseTab('recapitulatif')">Récapitulatif fiscal</button>
+    <button class="liasse-tab active-tab" id="ltab-bic" onclick="showLiasseTab('bic')" data-i18n="BIC / Résultat fiscal">BIC / Résultat fiscal</button>
+    <button class="liasse-tab" id="ltab-tva" onclick="showLiasseTab('tva-liasse')" data-i18n="TVA annuelle">TVA annuelle</button>
+    <button class="liasse-tab" id="ltab-salaires" onclick="showLiasseTab('salaires')" data-i18n="Salaires & CNSS">Salaires & CNSS</button>
+    <button class="liasse-tab" id="ltab-immo" onclick="showLiasseTab('immo-liasse')" data-i18n="Immobilisations">Immobilisations</button>
+    <button class="liasse-tab" id="ltab-recapitulatif" onclick="showLiasseTab('recapitulatif')" data-i18n="Récapitulatif fiscal">Récapitulatif fiscal</button>
   </div>
 
   <div id="liasse-bic" class="liasse-section">
-    <div style="text-align:center;padding:32px;color:var(--text-faint);font-style:italic">Cliquez sur "Générer la liasse" pour calculer.</div>
+    <div style="text-align:center;padding:32px;color:var(--text-faint);font-style:italic" data-i18n='Cliquez sur "Générer la liasse" pour calculer.'>Cliquez sur "Générer la liasse" pour calculer.</div>
   </div>
   <div id="liasse-tva-liasse" class="liasse-section" style="display:none"></div>
   <div id="liasse-salaires" class="liasse-section" style="display:none"></div>
@@ -1990,24 +1990,24 @@
 <!-- PANE ANNEXES COMPTABLES -->
 <!-- ══════════════════════════════════════════════════════════ -->
 <div class="pane" id="pane-annexes">
-  <div style="font-size:15px;font-weight:600;margin-bottom:4px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1-4L16 5l4 4L9 20z"/><line x1="14.5" y1="6.5" x2="18.5" y2="10.5"/></svg> Notes annexes SYSCOHADA</div>
-  <div style="font-size:11px;color:var(--text-muted);margin-bottom:12px">
+  <div style="font-size:15px;font-weight:600;margin-bottom:4px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1-4L16 5l4 4L9 20z"/><line x1="14.5" y1="6.5" x2="18.5" y2="10.5"/></svg> <span data-i18n="Notes annexes SYSCOHADA">Notes annexes SYSCOHADA</span></div>
+  <div style="font-size:11px;color:var(--text-muted);margin-bottom:12px" data-i18n="Document obligatoire accompagnant le bilan et le compte de résultat (SYSCOHADA révisé 2017, Art. 29). Explique les méthodes comptables et détaille les postes significatifs.">
     Document obligatoire accompagnant le bilan et le compte de résultat (SYSCOHADA révisé 2017, Art. 29). Explique les méthodes comptables et détaille les postes significatifs.
   </div>
   <div style="display:flex;gap:8px;margin-bottom:14px">
-    <button class="btn btn-sm btn-primary" onclick="genererAnnexes()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9a8 8 0 0 1 14-4.5M20 5v5h-5"/><path d="M20 15a8 8 0 0 1-14 4.5M4 19v-5h5"/></svg> Générer les annexes</button>
-    <button class="btn btn-sm" onclick="exporterAnnexesPDF()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><line x1="9.5" y1="12" x2="15" y2="12"/><line x1="9.5" y1="15.5" x2="15" y2="15.5"/></svg> Générer le PDF</button>
-    <button class="btn btn-sm" onclick="envoyerDeclaration('Notes annexes')"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22,2 15,22 11,13 2,9"/></svg> Envoyer</button>
+    <button class="btn btn-sm btn-primary" onclick="genererAnnexes()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9a8 8 0 0 1 14-4.5M20 5v5h-5"/><path d="M20 15a8 8 0 0 1-14 4.5M4 19v-5h5"/></svg> <span data-i18n="Générer les annexes">Générer les annexes</span></button>
+    <button class="btn btn-sm" onclick="exporterAnnexesPDF()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><line x1="9.5" y1="12" x2="15" y2="12"/><line x1="9.5" y1="15.5" x2="15" y2="15.5"/></svg> <span data-i18n="Générer le PDF">Générer le PDF</span></button>
+    <button class="btn btn-sm" onclick="envoyerDeclaration('Notes annexes')" data-i18n="Envoyer">Envoyer</button>
   </div>
 
   <!-- Onglets annexes -->
   <div style="display:flex;gap:0;border-bottom:2px solid var(--border);margin-bottom:14px;flex-wrap:wrap">
-    <button class="liasse-tab active-tab" id="atab-methodes" onclick="showAnnexeTab('methodes')">Méthodes comptables</button>
-    <button class="liasse-tab" id="atab-immo" onclick="showAnnexeTab('immo-ann')">Immobilisations</button>
-    <button class="liasse-tab" id="atab-creances" onclick="showAnnexeTab('creances')">Créances & Dettes</button>
-    <button class="liasse-tab" id="atab-capitaux" onclick="showAnnexeTab('capitaux')">Capitaux propres</button>
-    <button class="liasse-tab" id="atab-engagements" onclick="showAnnexeTab('engagements')">Engagements hors bilan</button>
-    <button class="liasse-tab" id="atab-evenements" onclick="showAnnexeTab('evenements')">Événements postérieurs</button>
+    <button class="liasse-tab active-tab" id="atab-methodes" onclick="showAnnexeTab('methodes')" data-i18n="Méthodes comptables">Méthodes comptables</button>
+    <button class="liasse-tab" id="atab-immo" onclick="showAnnexeTab('immo-ann')" data-i18n="Immobilisations">Immobilisations</button>
+    <button class="liasse-tab" id="atab-creances" onclick="showAnnexeTab('creances')" data-i18n="Créances & Dettes">Créances & Dettes</button>
+    <button class="liasse-tab" id="atab-capitaux" onclick="showAnnexeTab('capitaux')" data-i18n="Capitaux propres">Capitaux propres</button>
+    <button class="liasse-tab" id="atab-engagements" onclick="showAnnexeTab('engagements')" data-i18n="Engagements hors bilan">Engagements hors bilan</button>
+    <button class="liasse-tab" id="atab-evenements" onclick="showAnnexeTab('evenements')" data-i18n="Événements postérieurs">Événements postérieurs</button>
   </div>
 
   <div id="annexe-methodes" class="liasse-section"></div>
@@ -2016,19 +2016,19 @@
   <div id="annexe-capitaux" class="liasse-section" style="display:none"></div>
   <div id="annexe-engagements" class="liasse-section" style="display:none">
     <div class="card">
-      <div class="card-header"><span class="card-title">Engagements hors bilan</span><button class="btn btn-sm btn-primary" onclick="ajouterEngagement()" style="font-size:10px">+ Engagement</button></div>
+      <div class="card-header"><span class="card-title" data-i18n="Engagements hors bilan">Engagements hors bilan</span><button class="btn btn-sm btn-primary" onclick="ajouterEngagement()" style="font-size:10px">+ <span data-i18n="Engagement">Engagement</span></button></div>
       <div class="card-body">
         <div id="engagements-form" style="display:none;margin-bottom:12px">
           <div class="fgrid fg3">
-            <div class="fg sp2"><label>Nature de l'engagement</label><input type="text" id="eng-lib" placeholder="Ex: Loyer restant dû sur bail 3/6/9, caution bancaire..."/></div>
-            <div class="fg"><label>Type</label><select id="eng-type"><option value="loyer">Bail / Loyer</option><option value="garantie">Garantie donnée</option><option value="commande">Commande ferme</option><option value="credit-bail">Crédit-bail</option><option value="autre">Autre</option></select></div>
-            <div class="fg"><label>Montant (FCFA)</label><input type="number" id="eng-mt" min="0" placeholder="0"/></div>
-            <div class="fg"><label>Échéance</label><input type="date" id="eng-ech"/></div>
-            <div class="fg sp2"><label>Description</label><input type="text" id="eng-desc" placeholder="Détails de l'engagement..."/></div>
+            <div class="fg sp2"><label data-i18n="Nature de l'engagement">Nature de l'engagement</label><input type="text" id="eng-lib" data-i18n-placeholder="Ex: Loyer restant dû sur bail 3/6/9, caution bancaire..." placeholder="Ex: Loyer restant dû sur bail 3/6/9, caution bancaire..."/></div>
+            <div class="fg"><label data-i18n="Type">Type</label><select id="eng-type"><option value="loyer" data-i18n="Bail / Loyer">Bail / Loyer</option><option value="garantie" data-i18n="Garantie donnée">Garantie donnée</option><option value="commande" data-i18n="Commande ferme">Commande ferme</option><option value="credit-bail" data-i18n="Crédit-bail">Crédit-bail</option><option value="autre" data-i18n="Autre">Autre</option></select></div>
+            <div class="fg"><label data-i18n="Montant (FCFA)">Montant (FCFA)</label><input type="number" id="eng-mt" min="0" placeholder="0"/></div>
+            <div class="fg"><label data-i18n="Échéance">Échéance</label><input type="date" id="eng-ech"/></div>
+            <div class="fg sp2"><label data-i18n="Description">Description</label><input type="text" id="eng-desc" data-i18n-placeholder="Détails de l'engagement..." placeholder="Détails de l'engagement..."/></div>
           </div>
           <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px">
-            <button class="btn btn-sm" onclick="document.getElementById('engagements-form').style.display='none'">Annuler</button>
-            <button class="btn btn-primary btn-sm" onclick="sauverEngagement()">Enregistrer</button>
+            <button class="btn btn-sm" onclick="document.getElementById('engagements-form').style.display='none'" data-i18n="Annuler">Annuler</button>
+            <button class="btn btn-primary btn-sm" onclick="sauverEngagement()" data-i18n="Enregistrer">Enregistrer</button>
           </div>
         </div>
         <div id="engagements-list"></div>
@@ -2037,17 +2037,17 @@
   </div>
   <div id="annexe-evenements" class="liasse-section" style="display:none">
     <div class="card">
-      <div class="card-header"><span class="card-title">Événements postérieurs à la clôture</span><button class="btn btn-sm btn-primary" onclick="ajouterEvenement()" style="font-size:10px">+ Événement</button></div>
+      <div class="card-header"><span class="card-title" data-i18n="Événements postérieurs à la clôture">Événements postérieurs à la clôture</span><button class="btn btn-sm btn-primary" onclick="ajouterEvenement()" style="font-size:10px">+ <span data-i18n="Événement">Événement</span></button></div>
       <div class="card-body">
         <div id="evenements-form" style="display:none;margin-bottom:12px">
           <div class="fgrid fg3">
-            <div class="fg sp2"><label>Description de l'événement</label><input type="text" id="ev-ann-lib" placeholder="Ex: Jugement rendu après clôture, sinistre survenu..."/></div>
-            <div class="fg"><label>Impact financier estimé</label><input type="number" id="ev-ann-mt" placeholder="0"/></div>
-            <div class="fg sp3"><label>Commentaire</label><textarea id="ev-ann-desc" rows="2" placeholder="Impact sur les états financiers, mesures prises..."></textarea></div>
+            <div class="fg sp2"><label data-i18n="Description de l'événement">Description de l'événement</label><input type="text" id="ev-ann-lib" data-i18n-placeholder="Ex: Jugement rendu après clôture, sinistre survenu..." placeholder="Ex: Jugement rendu après clôture, sinistre survenu..."/></div>
+            <div class="fg"><label data-i18n="Impact financier estimé">Impact financier estimé</label><input type="number" id="ev-ann-mt" placeholder="0"/></div>
+            <div class="fg sp3"><label data-i18n="Commentaire">Commentaire</label><textarea id="ev-ann-desc" rows="2" data-i18n-placeholder="Impact sur les états financiers, mesures prises..." placeholder="Impact sur les états financiers, mesures prises..."></textarea></div>
           </div>
           <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px">
-            <button class="btn btn-sm" onclick="document.getElementById('evenements-form').style.display='none'">Annuler</button>
-            <button class="btn btn-primary btn-sm" onclick="sauverEvenement()">Enregistrer</button>
+            <button class="btn btn-sm" onclick="document.getElementById('evenements-form').style.display='none'" data-i18n="Annuler">Annuler</button>
+            <button class="btn btn-primary btn-sm" onclick="sauverEvenement()" data-i18n="Enregistrer">Enregistrer</button>
           </div>
         </div>
         <div id="evenements-list"></div>
@@ -2060,13 +2060,13 @@
 <!-- PANE RETENUES À LA SOURCE (nouveau - onglet Déclarations) -->
 <!-- ══════════════════════════════════════════════════════════════ -->
 <div class="pane" id="pane-retenues-source">
-  <div style="font-size:15px;font-weight:600;margin-bottom:4px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="7" y1="9" x2="17" y2="9"/><line x1="7" y1="13" x2="13" y2="13"/></svg> Retenues à la source</div>
-  <div class="alert alert-info" style="display:block">
+  <div style="font-size:15px;font-weight:600;margin-bottom:4px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="7" y1="9" x2="17" y2="9"/><line x1="7" y1="13" x2="13" y2="13"/></svg> <span data-i18n="Retenues à la source">Retenues à la source</span></div>
+  <div class="alert alert-info" style="display:block" data-i18n="Ce module n'est pas encore actif : le calcul des retenues à la source sur les paiements à des tiers (prestataires, loyers...) dépend de règles propres à chaque pays qui n'ont pas encore été vérifiées. Aucun chiffre n'est affiché ici tant que ces règles n'ont pas été validées, pour éviter un calcul incorrect.">
     Ce module n'est pas encore actif : le calcul des retenues à la source sur les paiements à des tiers (prestataires, loyers...) dépend de règles propres à chaque pays qui n'ont pas encore été vérifiées. Aucun chiffre n'est affiché ici tant que ces règles n'ont pas été validées, pour éviter un calcul incorrect.
   </div>
   <div style="display:flex;gap:8px">
-    <button class="btn btn-sm btn-primary" onclick="moduleAVenir('Retenues à la source')">Générer le PDF</button>
-    <button class="btn btn-sm" onclick="moduleAVenir('Retenues à la source')">Envoyer</button>
+    <button class="btn btn-sm btn-primary" onclick="moduleAVenir('Retenues à la source')" data-i18n="Générer le PDF">Générer le PDF</button>
+    <button class="btn btn-sm" onclick="moduleAVenir('Retenues à la source')" data-i18n="Envoyer">Envoyer</button>
   </div>
 </div>
 
@@ -2076,25 +2076,25 @@
 <div class="pane" id="pane-declaration-cnss">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px">
     <div>
-      <div style="font-size:15px;font-weight:600"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Salaires & cotisations sociales</div>
-      <div style="font-size:11px;color:var(--text-muted)">Agrégé depuis les bulletins déjà générés dans Paie & bulletins - aucune nouvelle règle de calcul</div>
+      <div style="font-size:15px;font-weight:600"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> <span data-i18n="Salaires & cotisations sociales">Salaires & cotisations sociales</span></div>
+      <div style="font-size:11px;color:var(--text-muted)" data-i18n="Agrégé depuis les bulletins déjà générés dans Paie & bulletins - aucune nouvelle règle de calcul">Agrégé depuis les bulletins déjà générés dans Paie & bulletins - aucune nouvelle règle de calcul</div>
     </div>
     <div style="display:flex;gap:8px">
       <select id="cnss-mois-filter" onchange="renderDeclarationCNSS()" style="max-width:150px;padding:6px 8px;font-size:12px;border:2px solid var(--border-strong);border-radius:var(--radius)"></select>
-      <button class="btn btn-sm btn-primary" onclick="exporterCNSSPDF()">Générer le PDF</button>
-      <button class="btn btn-sm" onclick="envoyerDeclaration('Salaires & cotisations sociales')">Envoyer</button>
+      <button class="btn btn-sm btn-primary" onclick="exporterCNSSPDF()" data-i18n="Générer le PDF">Générer le PDF</button>
+      <button class="btn btn-sm" onclick="envoyerDeclaration('Salaires & cotisations sociales')" data-i18n="Envoyer">Envoyer</button>
     </div>
   </div>
   <div class="kpi-grid kpi-grid-3" style="margin-bottom:14px">
-    <div class="kpi" style="border-top:3px solid var(--blue)"><div class="kpi-label">Masse salariale brute</div><div class="kpi-value" id="cnss-brut">0</div><div class="kpi-sub">FCFA</div></div>
-    <div class="kpi" style="border-top:3px solid var(--red)"><div class="kpi-label">Cotisations salariales</div><div class="kpi-value kpi-neg" id="cnss-sal">0</div><div class="kpi-sub">FCFA</div></div>
-    <div class="kpi" style="border-top:3px solid var(--amber)"><div class="kpi-label">Cotisations patronales</div><div class="kpi-value" id="cnss-pat">0</div><div class="kpi-sub">FCFA</div></div>
+    <div class="kpi" style="border-top:3px solid var(--blue)"><div class="kpi-label" data-i18n="Masse salariale brute">Masse salariale brute</div><div class="kpi-value" id="cnss-brut">0</div><div class="kpi-sub">FCFA</div></div>
+    <div class="kpi" style="border-top:3px solid var(--red)"><div class="kpi-label" data-i18n="Cotisations salariales">Cotisations salariales</div><div class="kpi-value kpi-neg" id="cnss-sal">0</div><div class="kpi-sub">FCFA</div></div>
+    <div class="kpi" style="border-top:3px solid var(--amber)"><div class="kpi-label" data-i18n="Cotisations patronales">Cotisations patronales</div><div class="kpi-value" id="cnss-pat">0</div><div class="kpi-sub">FCFA</div></div>
   </div>
   <div class="card">
-    <div class="card-header"><span class="card-title">Détail par bulletin</span></div>
+    <div class="card-header"><span class="card-title" data-i18n="Détail par bulletin">Détail par bulletin</span></div>
     <div class="table-wrap"><table>
-      <thead><tr><th>Date</th><th>Employé</th><th style="text-align:right">Brut</th><th style="text-align:right">Cotis. salariale</th><th style="text-align:right">Cotis. patronale</th></tr></thead>
-      <tbody id="cnss-detail-body"><tr class="empty-row"><td colspan="5">Aucun bulletin trouvé pour cette période</td></tr></tbody>
+      <thead><tr><th data-i18n="Date">Date</th><th data-i18n="Employé">Employé</th><th style="text-align:right" data-i18n="Brut">Brut</th><th style="text-align:right" data-i18n="Cotis. salariale">Cotis. salariale</th><th style="text-align:right" data-i18n="Cotis. patronale">Cotis. patronale</th></tr></thead>
+      <tbody id="cnss-detail-body"><tr class="empty-row"><td colspan="5" data-i18n="Aucun bulletin trouvé pour cette période">Aucun bulletin trouvé pour cette période</td></tr></tbody>
     </table></div>
   </div>
 </div>
