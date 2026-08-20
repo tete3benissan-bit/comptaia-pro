@@ -646,70 +646,70 @@
     <!-- ═══ SOLDE ═══ -->
     <div class="pane" id="pane-solde">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
-        <div style="font-size:13px;font-weight:600">Trésorerie de l'entreprise</div>
-        <button class="btn btn-sm btn-primary" onclick="ouvrirVirement()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9a8 8 0 0 1 14-4.5M20 5v5h-5"/><path d="M20 15a8 8 0 0 1-14 4.5M4 19v-5h5"/></svg> Virement interne</button>
+        <div style="font-size:13px;font-weight:600" data-i18n="Trésorerie de l'entreprise">Trésorerie de l'entreprise</div>
+        <button class="btn btn-sm btn-primary" onclick="ouvrirVirement()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9a8 8 0 0 1 14-4.5M20 5v5h-5"/><path d="M20 15a8 8 0 0 1-14 4.5M4 19v-5h5"/></svg> <span data-i18n="Virement interne">Virement interne</span></button>
       </div>
       <div class="solde-grid">
         <div class="solde-card caisse">
           <div style="font-size:24px;margin-bottom:4px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.3c0-1.3 1.1-2 2.5-2s2.5.7 2.5 1.8c0 2.6-5 1.5-5 4.1 0 1.1 1.1 1.8 2.5 1.8s2.5-.7 2.5-2"/></svg></div>
-          <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--text-muted)">Caisse (571)</div>
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--text-muted)" data-i18n="Caisse (571)">Caisse (571)</div>
           <div class="solde-mt solde-caisse" id="solde-caisse-mt">0 FCFA</div>
           <div style="font-size:10.5px;color:var(--text-muted)" id="solde-caisse-sub">—</div>
           <div style="display:flex;gap:6px;margin-top:10px">
-            <input type="number" id="solde-caisse-input" placeholder="Solde actuel FCFA" min="0" style="font-size:12px"/>
-            <button class="btn btn-sm btn-primary" onclick="setSolde('caisse')">Définir</button>
+            <input type="number" id="solde-caisse-input" data-i18n-placeholder="Solde actuel FCFA" placeholder="Solde actuel FCFA" min="0" style="font-size:12px"/>
+            <button class="btn btn-sm btn-primary" onclick="setSolde('caisse')" data-i18n="Définir">Définir</button>
           </div>
         </div>
         <div class="solde-card banque">
           <div style="font-size:24px;margin-bottom:4px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="20" x2="21" y2="20"/><line x1="5" y1="20" x2="5" y2="10"/><line x1="9.5" y1="20" x2="9.5" y2="10"/><line x1="14.5" y1="20" x2="14.5" y2="10"/><line x1="19" y1="20" x2="19" y2="10"/><polygon points="12,3 21,9 3,9"/></svg></div>
-          <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--text-muted)">Banque (521)</div>
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--text-muted)" data-i18n="Banque (521)">Banque (521)</div>
           <div class="solde-mt solde-banque" id="solde-banque-mt">0 FCFA</div>
           <div style="font-size:10.5px;color:var(--text-muted)" id="solde-banque-sub">—</div>
           <div style="display:flex;gap:6px;margin-top:10px">
-            <input type="number" id="solde-banque-input" placeholder="Solde actuel FCFA" min="0" style="font-size:12px"/>
-            <button class="btn btn-sm" style="background:var(--blue);color:#fff;border-color:var(--blue)" onclick="setSolde('banque')">Définir</button>
+            <input type="number" id="solde-banque-input" data-i18n-placeholder="Solde actuel FCFA" placeholder="Solde actuel FCFA" min="0" style="font-size:12px"/>
+            <button class="btn btn-sm" style="background:var(--blue);color:#fff;border-color:var(--blue)" onclick="setSolde('banque')" data-i18n="Définir">Définir</button>
           </div>
         </div>
       </div>
       <div style="background:var(--sidebar-bg);border-radius:var(--radius);padding:14px 18px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center">
-        <div><div style="font-size:10px;color:rgba(168,164,159,.6);font-weight:700;text-transform:uppercase;letter-spacing:.07em">Trésorerie totale</div><div style="font-size:24px;font-weight:700;color:#fff;font-family:'Archivo',sans-serif" id="solde-total">0 FCFA</div></div>
+        <div><div style="font-size:10px;color:rgba(168,164,159,.6);font-weight:700;text-transform:uppercase;letter-spacing:.07em" data-i18n="Trésorerie totale">Trésorerie totale</div><div style="font-size:24px;font-weight:700;color:#fff;font-family:'Archivo',sans-serif" id="solde-total">0 FCFA</div></div>
         <div style="text-align:right;font-size:11px;color:var(--sidebar-text)">
-          <div>Encaissements auto : <strong id="enc-auto" style="color:#fff">0 FCFA</strong></div>
-          <div style="margin-top:3px">Décaissements auto : <strong id="dec-auto" style="color:#fff">0 FCFA</strong></div>
+          <div><span data-i18n="Encaissements auto :">Encaissements auto :</span> <strong id="enc-auto" style="color:#fff">0 FCFA</strong></div>
+          <div style="margin-top:3px"><span data-i18n="Décaissements auto :">Décaissements auto :</span> <strong id="dec-auto" style="color:#fff">0 FCFA</strong></div>
         </div>
       </div>
       <div class="card">
-        <div class="card-header"><span class="card-title">Mouvements de trésorerie</span><span id="nb-mvt" style="font-size:11px;color:var(--text-faint)">0</span></div>
-        <div id="mvt-list"><div style="text-align:center;color:var(--text-faint);padding:24px;font-style:italic">Aucun mouvement</div></div>
+        <div class="card-header"><span class="card-title" data-i18n="Mouvements de trésorerie">Mouvements de trésorerie</span><span id="nb-mvt" style="font-size:11px;color:var(--text-faint)">0</span></div>
+        <div id="mvt-list"><div style="text-align:center;color:var(--text-faint);padding:24px;font-style:italic" data-i18n="Aucun mouvement">Aucun mouvement</div></div>
       </div>
     </div>
 
     <!-- ═══ ANALYSE ═══ -->
     <div class="pane" id="pane-analyse">
       <div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;align-items:center">
-        <div style="font-size:13px;font-weight:600;flex:1">Analyse comptable</div>
-        <select id="an-filter-mois" onchange="renderAnalyse()" style="max-width:160px"><option value="">Tous les mois</option></select>
-        <select id="an-filter-type" onchange="renderAnalyse()" style="max-width:160px"><option value="">Tous types</option><option value="vente">Vente</option><option value="achat">Achat</option><option value="service">Service</option><option value="avoir">Avoir</option></select>
-        <button class="btn btn-sm" onclick="clearAnalyseFilters()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg> Effacer</button>
+        <div style="font-size:13px;font-weight:600;flex:1" data-i18n="Analyse comptable">Analyse comptable</div>
+        <select id="an-filter-mois" onchange="renderAnalyse()" style="max-width:160px"><option value="" data-i18n="Tous les mois">Tous les mois</option></select>
+        <select id="an-filter-type" onchange="renderAnalyse()" style="max-width:160px"><option value="" data-i18n="Tous types">Tous types</option><option value="vente" data-i18n="Vente">Vente</option><option value="achat" data-i18n="Achat">Achat</option><option value="service" data-i18n="Service">Service</option><option value="avoir" data-i18n="Avoir">Avoir</option></select>
+        <button class="btn btn-sm" onclick="clearAnalyseFilters()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg> <span data-i18n="Effacer">Effacer</span></button>
       </div>
       <div class="kpi-grid kpi-grid-4" style="margin-bottom:16px">
-        <div class="kpi" style="border-top:3px solid var(--green)"><div class="kpi-label">Total Produits</div><div class="kpi-value kpi-pos" id="an-prod">0</div><div class="kpi-sub">FCFA</div></div>
-        <div class="kpi" style="border-top:3px solid var(--red)"><div class="kpi-label">Total Charges</div><div class="kpi-value kpi-neg" id="an-chg">0</div><div class="kpi-sub">FCFA</div></div>
-        <div class="kpi" style="border-top:3px solid var(--blue)"><div class="kpi-label">Résultat net</div><div class="kpi-value" id="an-res">0</div><div class="kpi-sub">FCFA</div></div>
-        <div class="kpi" style="border-top:3px solid var(--amber)"><div class="kpi-label">Nb opérations</div><div class="kpi-value" id="an-nb">0</div><div class="kpi-sub">enregistrées</div></div>
+        <div class="kpi" style="border-top:3px solid var(--green)"><div class="kpi-label" data-i18n="Total Produits">Total Produits</div><div class="kpi-value kpi-pos" id="an-prod">0</div><div class="kpi-sub">FCFA</div></div>
+        <div class="kpi" style="border-top:3px solid var(--red)"><div class="kpi-label" data-i18n="Total Charges">Total Charges</div><div class="kpi-value kpi-neg" id="an-chg">0</div><div class="kpi-sub">FCFA</div></div>
+        <div class="kpi" style="border-top:3px solid var(--blue)"><div class="kpi-label" data-i18n="Résultat net">Résultat net</div><div class="kpi-value" id="an-res">0</div><div class="kpi-sub">FCFA</div></div>
+        <div class="kpi" style="border-top:3px solid var(--amber)"><div class="kpi-label" data-i18n="Nb opérations">Nb opérations</div><div class="kpi-value" id="an-nb">0</div><div class="kpi-sub" data-i18n="enregistrées">enregistrées</div></div>
       </div>
       <div class="card">
-        <div class="card-header"><span class="card-title">Tableau d'analyse — Report automatique des activités</span></div>
+        <div class="card-header"><span class="card-title" data-i18n="Tableau d'analyse — Report automatique des activités">Tableau d'analyse — Report automatique des activités</span></div>
         <div class="table-wrap"><table>
-          <thead><tr><th>Ref</th><th>Date</th><th>N° Fact.</th><th>Libellé</th><th>Type</th><th>N° Cpt D</th><th>N° Cpt C</th><th style="text-align:right">Débit FCFA</th><th style="text-align:right">Crédit FCFA</th><th>TVA%</th></tr></thead>
-          <tbody id="an-body"><tr class="empty-row"><td colspan="10">Aucune activité</td></tr></tbody>
-          <tfoot><tr class="tot-row" id="an-tfoot" style="display:none"><td colspan="7">TOTAUX</td><td id="an-td" style="text-align:right"></td><td id="an-tc" style="text-align:right"></td><td></td></tr></tfoot>
+          <thead><tr><th data-i18n="Ref">Ref</th><th data-i18n="Date">Date</th><th data-i18n="N° Fact.">N° Fact.</th><th data-i18n="Libellé">Libellé</th><th data-i18n="Type">Type</th><th data-i18n="N° Cpt D">N° Cpt D</th><th data-i18n="N° Cpt C">N° Cpt C</th><th style="text-align:right" data-i18n="Débit FCFA">Débit FCFA</th><th style="text-align:right" data-i18n="Crédit FCFA">Crédit FCFA</th><th data-i18n="TVA%">TVA%</th></tr></thead>
+          <tbody id="an-body"><tr class="empty-row"><td colspan="10" data-i18n="Aucune activité">Aucune activité</td></tr></tbody>
+          <tfoot><tr class="tot-row" id="an-tfoot" style="display:none"><td colspan="7" data-i18n="TOTAUX">TOTAUX</td><td id="an-td" style="text-align:right"></td><td id="an-tc" style="text-align:right"></td><td></td></tr></tfoot>
         </table></div>
       </div>
       <div class="card">
-        <div class="card-header"><span class="card-title">Synthèse par compte</span></div>
+        <div class="card-header"><span class="card-title" data-i18n="Synthèse par compte">Synthèse par compte</span></div>
         <div class="table-wrap"><table>
-          <thead><tr><th>N° Cpt</th><th>Intitulé</th><th style="text-align:right">Total Débit</th><th style="text-align:right">Total Crédit</th><th style="text-align:right">Solde net</th><th>Nature</th></tr></thead>
+          <thead><tr><th data-i18n="N° Cpt">N° Cpt</th><th data-i18n="Intitulé">Intitulé</th><th style="text-align:right" data-i18n="Total Débit">Total Débit</th><th style="text-align:right" data-i18n="Total Crédit">Total Crédit</th><th style="text-align:right" data-i18n="Solde net">Solde net</th><th data-i18n="Nature">Nature</th></tr></thead>
           <tbody id="an-synth"><tr class="empty-row"><td colspan="6">—</td></tr></tbody>
         </table></div>
       </div>
@@ -719,42 +719,42 @@
     <div class="pane" id="pane-immo">
       <div class="card" style="margin-bottom:12px">
         <div class="card-header">
-          <span class="card-title">Ajouter une immobilisation</span>
-          <span style="font-size:10px;color:var(--text-muted)">Amortissement linéaire — écritures générées automatiquement</span>
+          <span class="card-title" data-i18n="Ajouter une immobilisation">Ajouter une immobilisation</span>
+          <span style="font-size:10px;color:var(--text-muted)" data-i18n="Amortissement linéaire — écritures générées automatiquement">Amortissement linéaire — écritures générées automatiquement</span>
         </div>
         <div class="card-body">
           <div class="fgrid fg4" style="margin-bottom:10px">
-            <div class="fg sp2"><label>Désignation du bien</label><input type="text" id="im-nom" placeholder="Ex : Véhicule Toyota, Ordinateur portable, Matériel de bureau..."/></div>
-            <div class="fg"><label>Catégorie</label>
+            <div class="fg sp2"><label data-i18n="Désignation du bien">Désignation du bien</label><input type="text" id="im-nom" data-i18n-placeholder="Ex : Véhicule Toyota, Ordinateur portable, Matériel de bureau..." placeholder="Ex : Véhicule Toyota, Ordinateur portable, Matériel de bureau..."/></div>
+            <div class="fg"><label data-i18n="Catégorie">Catégorie</label>
               <select id="im-cat">
-                <option value="21">21 — Immobilisations incorporelles</option>
-                <option value="22">22 — Terrains</option>
-                <option value="23">23 — Bâtiments & constructions</option>
-                <option value="24" selected>24 — Matériel & outillage</option>
-                <option value="245">245 — Matériel de transport</option>
-                <option value="25">25 — Mobilier & aménagements</option>
-                <option value="26">26 — Matériel informatique</option>
+                <option value="21" data-i18n="21 — Immobilisations incorporelles">21 — Immobilisations incorporelles</option>
+                <option value="22" data-i18n="22 — Terrains">22 — Terrains</option>
+                <option value="23" data-i18n="23 — Bâtiments & constructions">23 — Bâtiments & constructions</option>
+                <option value="24" selected data-i18n="24 — Matériel & outillage">24 — Matériel & outillage</option>
+                <option value="245" data-i18n="245 — Matériel de transport">245 — Matériel de transport</option>
+                <option value="25" data-i18n="25 — Mobilier & aménagements">25 — Mobilier & aménagements</option>
+                <option value="26" data-i18n="26 — Matériel informatique">26 — Matériel informatique</option>
               </select>
             </div>
-            <div class="fg"><label>Date d'acquisition</label><input type="date" id="im-date"/></div>
-            <div class="fg"><label>Valeur d'acquisition (FCFA)</label><input type="number" id="im-valeur" placeholder="0" min="0" oninput="calcAmort()"/></div>
-            <div class="fg"><label>Durée d'amortissement (ans)</label><input type="number" id="im-duree" placeholder="5" min="1" max="50" value="5" oninput="calcAmort()"/></div>
-            <div class="fg"><label>Dotation annuelle (auto)</label><input type="text" id="im-dotation" readonly style="font-weight:600;color:var(--green-dark)"/></div>
-            <div class="fg"><label>VNC actuelle (auto)</label><input type="text" id="im-vnc" readonly style="font-weight:600;color:var(--blue)"/></div>
-            <div class="fg" style="justify-content:flex-end;align-items:flex-end"><button class="btn btn-primary" onclick="ajouterImmo()">+ Ajouter</button></div>
+            <div class="fg"><label data-i18n="Date d'acquisition">Date d'acquisition</label><input type="date" id="im-date"/></div>
+            <div class="fg"><label data-i18n="Valeur d'acquisition (FCFA)">Valeur d'acquisition (FCFA)</label><input type="number" id="im-valeur" placeholder="0" min="0" oninput="calcAmort()"/></div>
+            <div class="fg"><label data-i18n="Durée d'amortissement (ans)">Durée d'amortissement (ans)</label><input type="number" id="im-duree" placeholder="5" min="1" max="50" value="5" oninput="calcAmort()"/></div>
+            <div class="fg"><label data-i18n="Dotation annuelle (auto)">Dotation annuelle (auto)</label><input type="text" id="im-dotation" readonly style="font-weight:600;color:var(--green-dark)"/></div>
+            <div class="fg"><label data-i18n="VNC actuelle (auto)">VNC actuelle (auto)</label><input type="text" id="im-vnc" readonly style="font-weight:600;color:var(--blue)"/></div>
+            <div class="fg" style="justify-content:flex-end;align-items:flex-end"><button class="btn btn-primary" onclick="ajouterImmo()">+ <span data-i18n="Ajouter">Ajouter</span></button></div>
           </div>
           <div style="background:var(--blue-light);border:2px solid var(--blue-border);border-radius:var(--radius);padding:8px 12px;font-size:11px;color:var(--blue)">
-            <svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.5 7-11.5A7 7 0 0 0 5 9.5C5 14.5 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.3"/></svg> L'écriture de dotation <strong>D 6813 / C 28xx</strong> sera générée automatiquement dans le journal à chaque fin d'exercice. La valeur nette comptable (VNC) s'affiche dans le bilan.
+            <svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.5 7-11.5A7 7 0 0 0 5 9.5C5 14.5 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.3"/></svg> <span data-i18n="L'écriture de dotation">L'écriture de dotation</span> <strong>D 6813 / C 28xx</strong> <span data-i18n="sera générée automatiquement dans le journal à chaque fin d'exercice. La valeur nette comptable (VNC) s'affiche dans le bilan.">sera générée automatiquement dans le journal à chaque fin d'exercice. La valeur nette comptable (VNC) s'affiche dans le bilan.</span>
           </div>
         </div>
       </div>
       <div class="card">
         <div class="card-header">
-          <span class="card-title">Tableau des immobilisations</span>
-          <button class="btn btn-sm" onclick="genererDotations()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 3v2.5M12 18.5V21M4.6 7.3l2.2 1.3M17.2 15.4l2.2 1.3M4.6 16.7l2.2-1.3M17.2 8.6l2.2-1.3M3 12h2.5M18.5 12H21"/></svg> Générer les dotations de l'exercice</button>
+          <span class="card-title" data-i18n="Tableau des immobilisations">Tableau des immobilisations</span>
+          <button class="btn btn-sm" onclick="genererDotations()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 3v2.5M12 18.5V21M4.6 7.3l2.2 1.3M17.2 15.4l2.2 1.3M4.6 16.7l2.2-1.3M17.2 8.6l2.2-1.3M3 12h2.5M18.5 12H21"/></svg> <span data-i18n="Générer les dotations de l'exercice">Générer les dotations de l'exercice</span></button>
         </div>
         <div id="immo-table-wrap">
-          <div style="text-align:center;color:var(--text-faint);padding:28px;font-style:italic">Aucune immobilisation — ajoutez vos biens ci-dessus</div>
+          <div style="text-align:center;color:var(--text-faint);padding:28px;font-style:italic" data-i18n="Aucune immobilisation — ajoutez vos biens ci-dessus">Aucune immobilisation — ajoutez vos biens ci-dessus</div>
         </div>
       </div>
     </div>
@@ -762,37 +762,37 @@
     <!-- ═══ STOCK ═══ -->
     <div class="pane" id="pane-stock">
       <div class="card" style="margin-bottom:12px">
-        <div class="card-header"><span class="card-title">Ajouter un produit</span></div>
+        <div class="card-header"><span class="card-title" data-i18n="Ajouter un produit">Ajouter un produit</span></div>
         <div class="card-body">
           <div class="fgrid fg4" style="margin-bottom:8px">
-            <div class="fg sp2"><label>Nom</label><input type="text" id="s-nom" placeholder="Ex : Tissu wax..."/></div>
-            <div class="fg"><label>Unité</label><select id="s-unite"><option value="unite">Unité</option><option value="boite">Boîte</option><option value="carton">Carton</option><option value="kg">Kg</option><option value="litre">Litre</option><option value="metre">Mètre</option></select></div>
-            <div class="fg"><label>Méthode</label><select id="s-methode"><option value="cmup">CMUP</option><option value="fifo">FIFO</option></select></div>
-            <div class="fg"><label>Qté initiale</label><input type="number" id="s-qte" placeholder="0" min="0" oninput="calcStockVal()"/></div>
-            <div class="fg"><label>Prix unit. initial</label><input type="number" id="s-pu" placeholder="0" min="0" oninput="calcStockVal()"/></div>
-            <div class="fg"><label>Valeur init. (auto)</label><input type="text" id="s-val" readonly style="font-weight:600;color:var(--green-dark)"/></div>
-            <div class="fg" style="justify-content:flex-end;flex-direction:row;align-items:flex-end;grid-column:span 4"><button class="btn btn-primary" onclick="ajouterProduit()">+ Ajouter</button></div>
+            <div class="fg sp2"><label data-i18n="Nom">Nom</label><input type="text" id="s-nom" data-i18n-placeholder="Ex : Tissu wax..." placeholder="Ex : Tissu wax..."/></div>
+            <div class="fg"><label data-i18n="Unité">Unité</label><select id="s-unite"><option value="unite" data-i18n="Unité">Unité</option><option value="boite" data-i18n="Boîte">Boîte</option><option value="carton" data-i18n="Carton">Carton</option><option value="kg">Kg</option><option value="litre" data-i18n="Litre">Litre</option><option value="metre" data-i18n="Mètre">Mètre</option></select></div>
+            <div class="fg"><label data-i18n="Méthode">Méthode</label><select id="s-methode"><option value="cmup">CMUP</option><option value="fifo">FIFO</option></select></div>
+            <div class="fg"><label data-i18n="Qté initiale">Qté initiale</label><input type="number" id="s-qte" placeholder="0" min="0" oninput="calcStockVal()"/></div>
+            <div class="fg"><label data-i18n="Prix unit. initial">Prix unit. initial</label><input type="number" id="s-pu" placeholder="0" min="0" oninput="calcStockVal()"/></div>
+            <div class="fg"><label data-i18n="Valeur init. (auto)">Valeur init. (auto)</label><input type="text" id="s-val" readonly style="font-weight:600;color:var(--green-dark)"/></div>
+            <div class="fg" style="justify-content:flex-end;flex-direction:row;align-items:flex-end;grid-column:span 4"><button class="btn btn-primary" onclick="ajouterProduit()">+ <span data-i18n="Ajouter">Ajouter</span></button></div>
           </div>
         </div>
       </div>
-      <div id="s-wrap"><div style="text-align:center;color:var(--text-faint);padding:28px;font-style:italic">Aucun produit</div></div>
+      <div id="s-wrap"><div style="text-align:center;color:var(--text-faint);padding:28px;font-style:italic" data-i18n="Aucun produit">Aucun produit</div></div>
     </div>
 
     <!-- ═══ SUIVI ═══ -->
     <div class="pane" id="pane-suivi">
       <div class="kpi-grid kpi-grid-4" style="margin-bottom:16px">
-        <div class="kpi" style="border-top:3px solid var(--green)"><div class="kpi-label">Chiffre d'affaires</div><div class="kpi-value kpi-pos" id="sv-ca">0</div><div class="kpi-sub" id="sv-ca-sub">FCFA</div></div>
-        <div class="kpi" style="border-top:3px solid var(--red)"><div class="kpi-label">Charges</div><div class="kpi-value kpi-neg" id="sv-ch">0</div><div class="kpi-sub" id="sv-ch-sub">FCFA</div></div>
-        <div class="kpi" style="border-top:3px solid var(--blue)"><div class="kpi-label">Résultat net</div><div class="kpi-value" id="sv-res">0</div><div class="kpi-sub">FCFA</div></div>
-        <div class="kpi" style="border-top:3px solid var(--amber)"><div class="kpi-label">Factures totales</div><div class="kpi-value" id="sv-nb">0</div><div class="kpi-sub" id="sv-nb-sub"></div></div>
+        <div class="kpi" style="border-top:3px solid var(--green)"><div class="kpi-label" data-i18n="Chiffre d'affaires">Chiffre d'affaires</div><div class="kpi-value kpi-pos" id="sv-ca">0</div><div class="kpi-sub" id="sv-ca-sub">FCFA</div></div>
+        <div class="kpi" style="border-top:3px solid var(--red)"><div class="kpi-label" data-i18n="Charges">Charges</div><div class="kpi-value kpi-neg" id="sv-ch">0</div><div class="kpi-sub" id="sv-ch-sub">FCFA</div></div>
+        <div class="kpi" style="border-top:3px solid var(--blue)"><div class="kpi-label" data-i18n="Résultat net">Résultat net</div><div class="kpi-value" id="sv-res">0</div><div class="kpi-sub">FCFA</div></div>
+        <div class="kpi" style="border-top:3px solid var(--amber)"><div class="kpi-label" data-i18n="Factures totales">Factures totales</div><div class="kpi-value" id="sv-nb">0</div><div class="kpi-sub" id="sv-nb-sub"></div></div>
       </div>
       <div class="card" style="margin-bottom:12px">
-        <div class="card-header"><span class="card-title">Coûts préétablis vs réels</span></div>
-        <div class="table-wrap"><table><thead><tr><th>Référence</th><th>Désignation</th><th>Coût préétabli</th><th>Coût réel</th><th>Écart</th><th>Résultat</th></tr></thead><tbody id="sv-couts"><tr class="empty-row"><td colspan="6">—</td></tr></tbody></table></div>
+        <div class="card-header"><span class="card-title" data-i18n="Coûts préétablis vs réels">Coûts préétablis vs réels</span></div>
+        <div class="table-wrap"><table><thead><tr><th data-i18n="Référence">Référence</th><th data-i18n="Désignation">Désignation</th><th data-i18n="Coût préétabli">Coût préétabli</th><th data-i18n="Coût réel">Coût réel</th><th data-i18n="Écart">Écart</th><th data-i18n="Résultat">Résultat</th></tr></thead><tbody id="sv-couts"><tr class="empty-row"><td colspan="6">—</td></tr></tbody></table></div>
       </div>
       <div class="card">
-        <div class="card-header"><span class="card-title">Historique des opérations</span></div>
-        <div class="table-wrap"><table><thead><tr><th>Date</th><th>N°</th><th>Désignation</th><th>Type</th><th>HT FCFA</th><th>TTC FCFA</th><th>Statut</th></tr></thead><tbody id="sv-hist"><tr class="empty-row"><td colspan="7">—</td></tr></tbody></table></div>
+        <div class="card-header"><span class="card-title" data-i18n="Historique des opérations">Historique des opérations</span></div>
+        <div class="table-wrap"><table><thead><tr><th data-i18n="Date">Date</th><th data-i18n="N°">N°</th><th data-i18n="Désignation">Désignation</th><th data-i18n="Type">Type</th><th data-i18n="HT FCFA">HT FCFA</th><th data-i18n="TTC FCFA">TTC FCFA</th><th data-i18n="Statut">Statut</th></tr></thead><tbody id="sv-hist"><tr class="empty-row"><td colspan="7">—</td></tr></tbody></table></div>
       </div>
     </div>
 
@@ -801,13 +801,13 @@
 
       <!-- Définir exercice -->
       <div class="card">
-        <div class="card-header"><span class="card-title"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 3v2.5M12 18.5V21M4.6 7.3l2.2 1.3M17.2 15.4l2.2 1.3M4.6 16.7l2.2-1.3M17.2 8.6l2.2-1.3M3 12h2.5M18.5 12H21"/></svg> Exercice fiscal en cours</span></div>
+        <div class="card-header"><span class="card-title"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 3v2.5M12 18.5V21M4.6 7.3l2.2 1.3M17.2 15.4l2.2 1.3M4.6 16.7l2.2-1.3M17.2 8.6l2.2-1.3M3 12h2.5M18.5 12H21"/></svg> <span data-i18n="Exercice fiscal en cours">Exercice fiscal en cours</span></span></div>
         <div class="card-body">
           <div class="fgrid fg4" style="margin-bottom:12px">
-            <div class="fg"><label>Année</label><input type="number" id="ex-annee" value="2026" min="2000" max="2100"/></div>
-            <div class="fg"><label>Date d'ouverture</label><input type="date" id="ex-debut" value="2026-01-01"/></div>
-            <div class="fg"><label>Date de clôture</label><input type="date" id="ex-fin" value="2026-12-31"/></div>
-            <div class="fg" style="justify-content:flex-end;align-items:flex-end"><button class="btn btn-primary" onclick="definirExercice()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,13 9,18 20,6"/></svg> Définir</button></div>
+            <div class="fg"><label data-i18n="Année">Année</label><input type="number" id="ex-annee" value="2026" min="2000" max="2100"/></div>
+            <div class="fg"><label data-i18n="Date d'ouverture">Date d'ouverture</label><input type="date" id="ex-debut" value="2026-01-01"/></div>
+            <div class="fg"><label data-i18n="Date de clôture">Date de clôture</label><input type="date" id="ex-fin" value="2026-12-31"/></div>
+            <div class="fg" style="justify-content:flex-end;align-items:flex-end"><button class="btn btn-primary" onclick="definirExercice()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,13 9,18 20,6"/></svg> <span data-i18n="Définir">Définir</span></button></div>
           </div>
           <div id="ex-status" style="display:none"></div>
         </div>
@@ -817,92 +817,92 @@
       <div class="card" style="border:2px solid var(--amber-border)">
         <div class="card-header" style="background:var(--sidebar-bg)">
           <div>
-            <span class="card-title" style="color:#fff;font-size:14px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="20" x2="21" y2="20"/><line x1="5" y1="20" x2="5" y2="10"/><line x1="9.5" y1="20" x2="9.5" y2="10"/><line x1="14.5" y1="20" x2="14.5" y2="10"/><line x1="19" y1="20" x2="19" y2="10"/><polygon points="12,3 21,9 3,9"/></svg> Calcul de l'Impôt sur les Sociétés (IS) — République Togolaise</span>
-            <div style="font-size:10px;color:var(--sidebar-text);margin-top:2px">Taux IS Togo : <strong style="color:var(--green)">27%</strong> du bénéfice imposable net · Code général des impôts du Togo</div>
+            <span class="card-title" style="color:#fff;font-size:14px"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="20" x2="21" y2="20"/><line x1="5" y1="20" x2="5" y2="10"/><line x1="9.5" y1="20" x2="9.5" y2="10"/><line x1="14.5" y1="20" x2="14.5" y2="10"/><line x1="19" y1="20" x2="19" y2="10"/><polygon points="12,3 21,9 3,9"/></svg> <span data-i18n="Calcul de l'Impôt sur les Sociétés (IS) — République Togolaise">Calcul de l'Impôt sur les Sociétés (IS) — République Togolaise</span></span>
+            <div style="font-size:10px;color:var(--sidebar-text);margin-top:2px"><span data-i18n="Taux IS Togo :">Taux IS Togo :</span> <strong style="color:var(--green)">27%</strong> <span data-i18n="du bénéfice imposable net · Code général des impôts du Togo">du bénéfice imposable net · Code général des impôts du Togo</span></div>
           </div>
           <div style="display:flex;gap:6px">
-            <button class="btn btn-sm" style="background:var(--amber);color:#fff;border-color:var(--amber)" onclick="calcImpot()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9a8 8 0 0 1 14-4.5M20 5v5h-5"/><path d="M20 15a8 8 0 0 1-14 4.5M4 19v-5h5"/></svg> Recalculer</button>
-            <button class="btn btn-sm btn-primary" onclick="exporterISPDF()">Générer le PDF</button>
-            <button class="btn btn-sm" onclick="envoyerDeclaration('Déclaration IS')">Envoyer</button>
+            <button class="btn btn-sm" style="background:var(--amber);color:#fff;border-color:var(--amber)" onclick="calcImpot()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9a8 8 0 0 1 14-4.5M20 5v5h-5"/><path d="M20 15a8 8 0 0 1-14 4.5M4 19v-5h5"/></svg> <span data-i18n="Recalculer">Recalculer</span></button>
+            <button class="btn btn-sm btn-primary" onclick="exporterISPDF()" data-i18n="Générer le PDF">Générer le PDF</button>
+            <button class="btn btn-sm" onclick="envoyerDeclaration('Déclaration IS')" data-i18n="Envoyer">Envoyer</button>
           </div>
         </div>
         <div class="card-body">
 
           <!-- Étape 1 : Résultats auto depuis la comptabilité -->
           <div style="margin-bottom:16px">
-            <div class="section-label" style="color:var(--blue);border-bottom:2px solid var(--blue-border);padding-bottom:6px;margin-bottom:12px">ÉTAPE 1 — Données extraites automatiquement de la comptabilité</div>
+            <div class="section-label" style="color:var(--blue);border-bottom:2px solid var(--blue-border);padding-bottom:6px;margin-bottom:12px" data-i18n="ÉTAPE 1 — Données extraites automatiquement de la comptabilité">ÉTAPE 1 — Données extraites automatiquement de la comptabilité</div>
             <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px" id="is-auto-kpis">
-              <div class="kpi" style="border-top:3px solid var(--green)"><div class="kpi-label">Chiffre d'affaires brut</div><div class="kpi-value kpi-pos" id="is-ca">0</div><div class="kpi-sub">FCFA — Ventes + Services</div></div>
-              <div class="kpi" style="border-top:3px solid var(--red)"><div class="kpi-label">Charges comptables</div><div class="kpi-value kpi-neg" id="is-ch">0</div><div class="kpi-sub">FCFA — Classe 6</div></div>
-              <div class="kpi" style="border-top:3px solid var(--blue)"><div class="kpi-label">Résultat comptable brut</div><div class="kpi-value" id="is-res-brut">0</div><div class="kpi-sub">FCFA — avant déductions</div></div>
+              <div class="kpi" style="border-top:3px solid var(--green)"><div class="kpi-label" data-i18n="Chiffre d'affaires brut">Chiffre d'affaires brut</div><div class="kpi-value kpi-pos" id="is-ca">0</div><div class="kpi-sub" data-i18n="FCFA — Ventes + Services">FCFA — Ventes + Services</div></div>
+              <div class="kpi" style="border-top:3px solid var(--red)"><div class="kpi-label" data-i18n="Charges comptables">Charges comptables</div><div class="kpi-value kpi-neg" id="is-ch">0</div><div class="kpi-sub" data-i18n="FCFA — Classe 6">FCFA — Classe 6</div></div>
+              <div class="kpi" style="border-top:3px solid var(--blue)"><div class="kpi-label" data-i18n="Résultat comptable brut">Résultat comptable brut</div><div class="kpi-value" id="is-res-brut">0</div><div class="kpi-sub" data-i18n="FCFA — avant déductions">FCFA — avant déductions</div></div>
             </div>
           </div>
 
           <!-- Étape 2 : Charges salariales -->
           <div style="margin-bottom:16px">
-            <div class="section-label" style="color:var(--purple);border-bottom:2px solid var(--purple-border);padding-bottom:6px;margin-bottom:12px">ÉTAPE 2 — Charges salariales (déductibles de l'IS)</div>
-            <div style="background:var(--purple-light);border:2px solid var(--purple-border);border-radius:var(--radius);padding:10px 13px;margin-bottom:10px;font-size:11px;color:var(--purple)">
+            <div class="section-label" style="color:var(--purple);border-bottom:2px solid var(--purple-border);padding-bottom:6px;margin-bottom:12px" data-i18n="ÉTAPE 2 — Charges salariales (déductibles de l'IS)">ÉTAPE 2 — Charges salariales (déductibles de l'IS)</div>
+            <div style="background:var(--purple-light);border:2px solid var(--purple-border);border-radius:var(--radius);padding:10px 13px;margin-bottom:10px;font-size:11px;color:var(--purple)" data-i18n="Les salaires bruts versés aux employés sont des charges déductibles du bénéfice imposable. Indiquez le total annuel.">
               Les salaires bruts versés aux employés sont des charges déductibles du bénéfice imposable. Indiquez le total annuel.
             </div>
             <div class="fgrid fg3" id="salaires-liste" style="margin-bottom:8px">
               <!-- Salaires dynamiques injectés ici -->
             </div>
             <div class="fgrid fg4" style="margin-bottom:8px" id="salaire-add-form">
-              <div class="fg sp2"><label>Poste / Département</label><input type="text" id="sal-poste" placeholder="Ex : Direction, Commercial, Production..."/></div>
-              <div class="fg"><label>Nb d'employés</label><input type="number" id="sal-nb" placeholder="1" min="1" value="1"/></div>
-              <div class="fg"><label>Salaire brut mensuel/employé (FCFA)</label><input type="number" id="sal-mt" placeholder="0" min="0" oninput="previewSalaire()"/></div>
-              <div class="fg" style="justify-content:flex-end;align-items:flex-end"><button class="btn btn-primary" onclick="ajouterSalaire()">+ Ajouter</button></div>
+              <div class="fg sp2"><label data-i18n="Poste / Département">Poste / Département</label><input type="text" id="sal-poste" data-i18n-placeholder="Ex : Direction, Commercial, Production..." placeholder="Ex : Direction, Commercial, Production..."/></div>
+              <div class="fg"><label data-i18n="Nb d'employés">Nb d'employés</label><input type="number" id="sal-nb" placeholder="1" min="1" value="1"/></div>
+              <div class="fg"><label data-i18n="Salaire brut mensuel/employé (FCFA)">Salaire brut mensuel/employé (FCFA)</label><input type="number" id="sal-mt" placeholder="0" min="0" oninput="previewSalaire()"/></div>
+              <div class="fg" style="justify-content:flex-end;align-items:flex-end"><button class="btn btn-primary" onclick="ajouterSalaire()">+ <span data-i18n="Ajouter">Ajouter</span></button></div>
             </div>
             <div style="display:flex;justify-content:space-between;align-items:center;background:var(--purple-light);border:2px solid var(--purple-border);border-radius:var(--radius);padding:10px 14px">
-              <span style="font-size:12px;font-weight:600;color:var(--purple)">Total salaires annuels bruts :</span>
+              <span style="font-size:12px;font-weight:600;color:var(--purple)" data-i18n="Total salaires annuels bruts :">Total salaires annuels bruts :</span>
               <span style="font-size:16px;font-weight:700;font-family:'Archivo',sans-serif;color:var(--purple)" id="is-salaires-total">0 FCFA</span>
             </div>
           </div>
 
           <!-- Étape 3 : Autres charges déductibles -->
           <div style="margin-bottom:16px">
-            <div class="section-label" style="color:var(--teal);border-bottom:2px solid var(--teal-light);padding-bottom:6px;margin-bottom:12px">ÉTAPE 3 — Autres dépenses déductibles de l'impôt</div>
-            <div style="background:var(--teal-light);border:1px solid #B2EBF2;border-radius:var(--radius);padding:10px 13px;margin-bottom:10px;font-size:11px;color:var(--teal)">
+            <div class="section-label" style="color:var(--teal);border-bottom:2px solid var(--teal-light);padding-bottom:6px;margin-bottom:12px" data-i18n="ÉTAPE 3 — Autres dépenses déductibles de l'impôt">ÉTAPE 3 — Autres dépenses déductibles de l'impôt</div>
+            <div style="background:var(--teal-light);border:1px solid #B2EBF2;border-radius:var(--radius);padding:10px 13px;margin-bottom:10px;font-size:11px;color:var(--teal)" data-i18n="Saisissez toutes les dépenses déductibles non encore enregistrées en comptabilité : loyer, assurances, amortissements, frais de formation, dons reconnus, etc.">
               Saisissez toutes les dépenses déductibles non encore enregistrées en comptabilité : loyer, assurances, amortissements, frais de formation, dons reconnus, etc.
             </div>
 
             <!-- Dépenses déductibles prédéfinies -->
             <div style="margin-bottom:10px">
-              <div style="font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Dépenses courantes déductibles</div>
+              <div style="font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px" data-i18n="Dépenses courantes déductibles">Dépenses courantes déductibles</div>
               <div class="fgrid fg3" style="gap:8px">
-                <div class="fg"><label>Loyer annuel (FCFA)</label><input type="number" id="ded-loyer" placeholder="0" min="0" oninput="calcImpot()"/></div>
-                <div class="fg"><label>Assurances annuelles (FCFA)</label><input type="number" id="ded-assurance" placeholder="0" min="0" oninput="calcImpot()"/></div>
-                <div class="fg"><label>Amortissements (FCFA)</label><input type="number" id="ded-amort" placeholder="0" min="0" oninput="calcImpot()"/></div>
-                <div class="fg"><label>Frais de formation (FCFA)</label><input type="number" id="ded-formation" placeholder="0" min="0" oninput="calcImpot()"/></div>
-                <div class="fg"><label>Frais bancaires & intérêts (FCFA)</label><input type="number" id="ded-bancaire" placeholder="0" min="0" oninput="calcImpot()"/></div>
-                <div class="fg"><label>Frais de déplacement (FCFA)</label><input type="number" id="ded-deplacement" placeholder="0" min="0" oninput="calcImpot()"/></div>
-                <div class="fg"><label>Publicité & Marketing (FCFA)</label><input type="number" id="ded-pub" placeholder="0" min="0" oninput="calcImpot()"/></div>
-                <div class="fg"><label>Dons & mécénat reconnus (FCFA)</label><input type="number" id="ded-dons" placeholder="0" min="0" oninput="calcImpot()"/></div>
-                <div class="fg"><label>Cotisations professionnelles (FCFA)</label><input type="number" id="ded-cotis" placeholder="0" min="0" oninput="calcImpot()"/></div>
+                <div class="fg"><label data-i18n="Loyer annuel (FCFA)">Loyer annuel (FCFA)</label><input type="number" id="ded-loyer" placeholder="0" min="0" oninput="calcImpot()"/></div>
+                <div class="fg"><label data-i18n="Assurances annuelles (FCFA)">Assurances annuelles (FCFA)</label><input type="number" id="ded-assurance" placeholder="0" min="0" oninput="calcImpot()"/></div>
+                <div class="fg"><label data-i18n="Amortissements (FCFA)">Amortissements (FCFA)</label><input type="number" id="ded-amort" placeholder="0" min="0" oninput="calcImpot()"/></div>
+                <div class="fg"><label data-i18n="Frais de formation (FCFA)">Frais de formation (FCFA)</label><input type="number" id="ded-formation" placeholder="0" min="0" oninput="calcImpot()"/></div>
+                <div class="fg"><label data-i18n="Frais bancaires & intérêts (FCFA)">Frais bancaires & intérêts (FCFA)</label><input type="number" id="ded-bancaire" placeholder="0" min="0" oninput="calcImpot()"/></div>
+                <div class="fg"><label data-i18n="Frais de déplacement (FCFA)">Frais de déplacement (FCFA)</label><input type="number" id="ded-deplacement" placeholder="0" min="0" oninput="calcImpot()"/></div>
+                <div class="fg"><label data-i18n="Publicité & Marketing (FCFA)">Publicité & Marketing (FCFA)</label><input type="number" id="ded-pub" placeholder="0" min="0" oninput="calcImpot()"/></div>
+                <div class="fg"><label data-i18n="Dons & mécénat reconnus (FCFA)">Dons & mécénat reconnus (FCFA)</label><input type="number" id="ded-dons" placeholder="0" min="0" oninput="calcImpot()"/></div>
+                <div class="fg"><label data-i18n="Cotisations professionnelles (FCFA)">Cotisations professionnelles (FCFA)</label><input type="number" id="ded-cotis" placeholder="0" min="0" oninput="calcImpot()"/></div>
               </div>
             </div>
 
             <!-- Dépenses supplémentaires libres -->
             <div id="ded-extras-liste" style="margin-bottom:8px"></div>
             <div class="fgrid fg4" style="margin-bottom:8px">
-              <div class="fg sp2"><label>Libellé dépense supplémentaire</label><input type="text" id="ded-extra-lib" placeholder="Ex : Frais juridiques, entretien matériel..."/></div>
-              <div class="fg"><label>Montant (FCFA)</label><input type="number" id="ded-extra-mt" placeholder="0" min="0"/></div>
-              <div class="fg" style="justify-content:flex-end;align-items:flex-end"><button class="btn btn-sm" style="background:var(--teal);color:#fff;border-color:var(--teal)" onclick="ajouterDedExtra()">+ Ajouter</button></div>
+              <div class="fg sp2"><label data-i18n="Libellé dépense supplémentaire">Libellé dépense supplémentaire</label><input type="text" id="ded-extra-lib" data-i18n-placeholder="Ex : Frais juridiques, entretien matériel..." placeholder="Ex : Frais juridiques, entretien matériel..."/></div>
+              <div class="fg"><label data-i18n="Montant (FCFA)">Montant (FCFA)</label><input type="number" id="ded-extra-mt" placeholder="0" min="0"/></div>
+              <div class="fg" style="justify-content:flex-end;align-items:flex-end"><button class="btn btn-sm" style="background:var(--teal);color:#fff;border-color:var(--teal)" onclick="ajouterDedExtra()">+ <span data-i18n="Ajouter">Ajouter</span></button></div>
             </div>
             <div style="display:flex;justify-content:space-between;align-items:center;background:var(--teal-light);border:1px solid #B2EBF2;border-radius:var(--radius);padding:10px 14px">
-              <span style="font-size:12px;font-weight:600;color:var(--teal)">Total dépenses déductibles supplémentaires :</span>
+              <span style="font-size:12px;font-weight:600;color:var(--teal)" data-i18n="Total dépenses déductibles supplémentaires :">Total dépenses déductibles supplémentaires :</span>
               <span style="font-size:16px;font-weight:700;font-family:'Archivo',sans-serif;color:var(--teal)" id="is-ded-total">0 FCFA</span>
             </div>
           </div>
 
           <!-- Résultat final : Calcul IS -->
           <div id="is-resultat-final" style="display:none">
-            <div class="section-label" style="color:var(--green-dark);border-bottom:2px solid var(--green-border);padding-bottom:6px;margin-bottom:12px">RÉSULTAT FISCAL — Impôt sur les Sociétés à payer</div>
+            <div class="section-label" style="color:var(--green-dark);border-bottom:2px solid var(--green-border);padding-bottom:6px;margin-bottom:12px" data-i18n="RÉSULTAT FISCAL — Impôt sur les Sociétés à payer">RÉSULTAT FISCAL — Impôt sur les Sociétés à payer</div>
 
             <!-- Tableau de calcul détaillé -->
             <div style="background:var(--surface);border:2px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:16px">
               <table>
-                <thead><tr><th style="background:var(--sidebar-bg);color:rgba(168,164,159,.9)">Élément</th><th style="text-align:right;background:var(--sidebar-bg);color:rgba(168,164,159,.9)">Montant (FCFA)</th><th style="text-align:center;background:var(--sidebar-bg);color:rgba(168,164,159,.9)">Effet</th></tr></thead>
+                <thead><tr><th style="background:var(--sidebar-bg);color:rgba(168,164,159,.9)" data-i18n="Élément">Élément</th><th style="text-align:right;background:var(--sidebar-bg);color:rgba(168,164,159,.9)" data-i18n="Montant (FCFA)">Montant (FCFA)</th><th style="text-align:center;background:var(--sidebar-bg);color:rgba(168,164,159,.9)" data-i18n="Effet">Effet</th></tr></thead>
                 <tbody id="is-detail-table"></tbody>
               </table>
             </div>
@@ -916,14 +916,14 @@
 
             <!-- Note légale -->
             <div style="background:var(--bg);border:2px solid var(--border);border-radius:var(--radius);padding:10px 14px;font-size:10.5px;color:var(--text-muted);line-height:1.7">
-              <svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="3" x2="12" y2="20"/><line x1="5" y1="7" x2="19" y2="7"/><path d="M5 7 2 13a3 3 0 0 0 6 0z"/><path d="M19 7l-3 6a3 3 0 0 0 6 0z"/></svg> <strong>Base légale :</strong> Code Général des Impôts de la République Togolaise — Taux IS : 27% du bénéfice imposable net.
-              Les acomptes provisionnels sont versés en 3 fois (avril, juillet, octobre) à raison de 33,33% chacun. Le solde est versé en mars de l'année suivante.
-              <br><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4 2 20h20z"/><line x1="12" y1="10" x2="12" y2="15"/><circle cx="12" cy="17.7" r="0.9"/></svg> Ce calcul est indicatif. Consultez un expert-comptable agréé ou la DGI pour validation officielle.
+              <svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="3" x2="12" y2="20"/><line x1="5" y1="7" x2="19" y2="7"/><path d="M5 7 2 13a3 3 0 0 0 6 0z"/><path d="M19 7l-3 6a3 3 0 0 0 6 0z"/></svg> <strong data-i18n="Base légale :">Base légale :</strong> <span data-i18n="Code Général des Impôts de la République Togolaise — Taux IS : 27% du bénéfice imposable net.">Code Général des Impôts de la République Togolaise — Taux IS : 27% du bénéfice imposable net.</span>
+              <span data-i18n="Les acomptes provisionnels sont versés en 3 fois (avril, juillet, octobre) à raison de 33,33% chacun. Le solde est versé en mars de l'année suivante.">Les acomptes provisionnels sont versés en 3 fois (avril, juillet, octobre) à raison de 33,33% chacun. Le solde est versé en mars de l'année suivante.</span>
+              <br><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4 2 20h20z"/><line x1="12" y1="10" x2="12" y2="15"/><circle cx="12" cy="17.7" r="0.9"/></svg> <span data-i18n="Ce calcul est indicatif. Consultez un expert-comptable agréé ou la DGI pour validation officielle.">Ce calcul est indicatif. Consultez un expert-comptable agréé ou la DGI pour validation officielle.</span>
             </div>
           </div>
 
           <div style="text-align:center;margin-top:14px">
-            <button class="btn btn-primary" style="padding:10px 28px;font-size:13px" onclick="calcImpot()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="20" x2="21" y2="20"/><line x1="5" y1="20" x2="5" y2="10"/><line x1="9.5" y1="20" x2="9.5" y2="10"/><line x1="14.5" y1="20" x2="14.5" y2="10"/><line x1="19" y1="20" x2="19" y2="10"/><polygon points="12,3 21,9 3,9"/></svg> Calculer mon impôt IS</button>
+            <button class="btn btn-primary" style="padding:10px 28px;font-size:13px" onclick="calcImpot()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="20" x2="21" y2="20"/><line x1="5" y1="20" x2="5" y2="10"/><line x1="9.5" y1="20" x2="9.5" y2="10"/><line x1="14.5" y1="20" x2="14.5" y2="10"/><line x1="19" y1="20" x2="19" y2="10"/><polygon points="12,3 21,9 3,9"/></svg> <span data-i18n="Calculer mon impôt IS">Calculer mon impôt IS</span></button>
           </div>
 
         </div>
@@ -931,20 +931,20 @@
 
       <!-- Clôturer l'exercice -->
       <div class="card">
-        <div class="card-header"><span class="card-title"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="1.5"/><line x1="3.5" y1="9.5" x2="20.5" y2="9.5"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/></svg> Clôturer l'exercice</span></div>
+        <div class="card-header"><span class="card-title"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="1.5"/><line x1="3.5" y1="9.5" x2="20.5" y2="9.5"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/></svg> <span data-i18n="Clôturer l'exercice">Clôturer l'exercice</span></span></div>
         <div class="card-body">
           <div style="background:var(--amber-light);border:2px solid var(--amber-border);border-radius:var(--radius);padding:10px 13px;margin-bottom:12px;font-size:11.5px;color:var(--amber)">
-            <svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4 2 20h20z"/><line x1="12" y1="10" x2="12" y2="15"/><circle cx="12" cy="17.7" r="0.9"/></svg> La clôture génère les écritures de fin d'exercice (110/119), comptabilise l'IS dû, archive les données et prépare le nouvel exercice. Une sauvegarde est exportée automatiquement.
+            <svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4 2 20h20z"/><line x1="12" y1="10" x2="12" y2="15"/><circle cx="12" cy="17.7" r="0.9"/></svg> <span data-i18n="La clôture génère les écritures de fin d'exercice (110/119), comptabilise l'IS dû, archive les données et prépare le nouvel exercice. Une sauvegarde est exportée automatiquement.">La clôture génère les écritures de fin d'exercice (110/119), comptabilise l'IS dû, archive les données et prépare le nouvel exercice. Une sauvegarde est exportée automatiquement.</span>
           </div>
-          <div id="ex-resultats-recap" style="margin-bottom:12px;font-size:12px;color:var(--text-muted)">Saisissez des factures pour voir le récapitulatif.</div>
-          <button class="btn btn-danger" onclick="cloturerExercice()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="1.5"/><line x1="3.5" y1="9.5" x2="20.5" y2="9.5"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/></svg> Clôturer l'exercice et passer au suivant</button>
+          <div id="ex-resultats-recap" style="margin-bottom:12px;font-size:12px;color:var(--text-muted)" data-i18n="Saisissez des factures pour voir le récapitulatif.">Saisissez des factures pour voir le récapitulatif.</div>
+          <button class="btn btn-danger" onclick="cloturerExercice()"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="1.5"/><line x1="3.5" y1="9.5" x2="20.5" y2="9.5"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/></svg> <span data-i18n="Clôturer l'exercice et passer au suivant">Clôturer l'exercice et passer au suivant</span></button>
         </div>
       </div>
 
       <!-- Historique -->
       <div class="card">
-        <div class="card-header"><span class="card-title"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg> Historique des exercices clôturés</span></div>
-        <div id="ex-historique"><div style="text-align:center;color:var(--text-faint);padding:22px;font-style:italic">Aucun exercice clôturé</div></div>
+        <div class="card-header"><span class="card-title"><svg class="uiv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg> <span data-i18n="Historique des exercices clôturés">Historique des exercices clôturés</span></span></div>
+        <div id="ex-historique"><div style="text-align:center;color:var(--text-faint);padding:22px;font-style:italic" data-i18n="Aucun exercice clôturé">Aucun exercice clôturé</div></div>
       </div>
     </div>
 

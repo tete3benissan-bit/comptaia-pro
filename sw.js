@@ -13,7 +13,7 @@
 // NOTE: if new css/*.css or js/*.js files are added to the app, add them to
 // PRECACHE_URLS below too, or they simply won't be available offline until
 // the first time they're fetched online (they'll still work fine online).
-const CACHE_NAME = 'gest-africa-shell-v17';
+const CACHE_NAME = 'gest-africa-shell-v18';
 
 const PRECACHE_URLS = [
   './',
